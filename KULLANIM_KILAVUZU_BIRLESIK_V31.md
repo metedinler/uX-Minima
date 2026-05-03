@@ -33,9 +33,10 @@ deneysel sistemdir.
 Full V3.1 sisteminde ana dosyalar şunlardır:
 
 ```text
-uxm31_compiler_fb_full.bas      Native x64 NASM compiler
+uxm31_compiler_fb.bas           Native x64 NASM compiler kaynagi
 uxm31_runtime_fb_full.bas       Native exe için FreeBASIC runtime
 uxm31_full_tool_fb.bas          Interpreter + JSON trace + UIR + optimizer + IDE motoru
+uxm.exe                         Derleyici calistirilabilir dosyasi
 ````
 
 Yardımcı dosyalar:
@@ -86,12 +87,18 @@ Windows .exe
 Örnek:
 
 ```bat
-fbc uxm31_compiler_fb_full.bas -x uxm31_compiler_full.exe
-uxm31_compiler_full.exe tests_full\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
+fbc -lang fb uxm31_compiler_fb.bas -x uxm.exe
+uxm.exe tests_full\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
 nasm -f win64 build\test20.asm -o build\test20.obj
 fbc uxm31_runtime_fb_full.bas build\test20.obj -x build\test20.exe
 build\test20.exe
 ```
+
+Gercek ortam notu:
+
+- Bazi makinelerde FreeBASIC (`fbc`) ile nesne dosyasi (`.obj`) baglama (link) adimi hata verebilir.
+- Bu durumda calisan seviye sunlardir: UXM -> ASM -> OBJ.
+- Uygulama dosyasi (`.exe`) uretimi ortama bagli olabilir.
 
 ---
 
@@ -127,6 +134,17 @@ IDE komutu ile çalıştırmak için örnek `ide_run.json`:
 ```bat
 uxm31_full_tool.exe ide ide_run.json
 ```
+
+VS Code eklentisi dogrulama adimlari:
+
+1. `ide/uxminima-vscode` klasorunu VS Code icinde acin.
+2. `F5` ile Extension Development Host baslatin.
+3. Bir `.uxm` dosyasinda once `UX-MINIMA: Internal Trace` komutunu calistirin.
+4. Ardindan `UX-MINIMA: Build Native` komutunu calistirin.
+5. Olusan ASM ve OBJ dosyalarini dogrulayin.
+
+Not:
+Eklenti, baglama (link) adimi hata verirse ara urunleri (ASM, OBJ) korur.
 
 ---
 
@@ -355,6 +373,12 @@ Yanlış:
 | `(F)`      | Flags word                               |
 | `(*T)`     | Aktif hücredeki değeri adres kabul eder  |
 | `(*(T+N))` | T+N hücresindeki değeri adres kabul eder |
+| `(D@T)`    | Data alaninda, aktif tape hucresinin gosterdigi adres |
+| `(D@T+N)`  | Data alaninda, aktif tape hucre adresi + ofset |
+| `(D@T-N)`  | Data alaninda, aktif tape hucre adresi - ofset |
+| `(D@(T-2)+N)` | Data alaninda, `T-2` hucre degeri + ofset |
+| `(D@(T-1)+N)` | Data alaninda, `T-1` hucre degeri + ofset |
+| `(D@(T)+N)`   | Data alaninda, `T` hucre degeri + ofset |
 
 Örnek:
 
@@ -480,6 +504,14 @@ Stack LIFO, FIFO ise kuyruk mantığıdır. İkisi farklı amaçlar için kullan
 ## 15. Meta Servis Mantığı
 
 Meta servisler `@N` biçiminde çağrılır.
+
+Meta cagri turleri:
+
+```text
+@N   : Kullanici makro varsa makro, yoksa host meta servis
+@!N  : Zorla host meta servis
+@#   : Dinamik meta (aktif hucre degeri)
+```
 
 Genel frame mantığı:
 
@@ -1280,6 +1312,10 @@ T+1 sonuç
 
 10. Native tarafta macro inline, interpreter tarafta macro call-stack mantığı vardır.
 
+11. `@127` yalnizca wild mod islemleri (bellek yerlesimi degisimi) icindir.
+
+12. `D@T` ailesi adresleme normal mod semantiginin parcasidir.
+
 ---
 
 ## 38. Kısa Meta Servis Haritası
@@ -1319,7 +1355,7 @@ Bir program yazarken şu sırayı izle:
 uxm31_full_tool.exe run program.uxm build\program.trace.ndjson
 uxm31_full_tool.exe uir program.uxm build\program.uir.json
 uxm31_full_tool.exe opt program.uxm build\program.opt.json
-uxm31_compiler_full.exe program.uxm build\program.asm build\program.uir.json build\program.opt.json
+uxm.exe program.uxm build\program.asm build\program.uir.json build\program.opt.json
 nasm -f win64 build\program.asm -o build\program.obj
 fbc uxm31_runtime_fb_full.bas build\program.obj -x build\program.exe
 build\program.exe
@@ -1334,89 +1370,3 @@ UX-MINIMA x64 V3.1 Full, küçük görünen ama bellek, pointer, stack, FIFO, da
 Bu dil klasik BASIC veya Python gibi yazılmaz. Bu dilde programcı, doğrudan belleğin üzerinde düşünür. Her hücre bir değişken, her pointer hareketi bir adresleme kararı, her meta servis küçük bir sistem çağrısı, her branch ise işlemci mantığına yakın bir karar noktasıdır.
 
 Bu yüzden UX-MINIMA yalnızca bir ezoterik dil değildir. Aynı zamanda bilgisayar mimarisi, compiler tasarımı, interpreter mantığı, bellek modeli ve düşük seviye programlama eğitimi için kullanılabilecek özel bir deney alanıdır.
-
----
-
-## 41. Guncel Teknik Durum (Ortam Notu)
-
-Bu ortamda FreeBASIC (`fbc`) araci, `.obj` link adiminda makineden makineye degisen hatalar verebilir.
-Bu nedenle EXE uretimi her ortamda garanti degildir.
-
-Buna ragmen asagidaki hat calisir durumdadir:
-
-```text
-UXM -> ASM -> OBJ
-```
-
-Bu durum, hem toolchain hem de IDE entegrasyonunda resmi calisma modeli olarak kabul edilir.
-
----
-
-## 42. VS Code Eklentisi Guncel Calisma Protokolu
-
-Eklenti dogrulama adimlari:
-
-1. `ide/uxminima-vscode` klasorunu VS Code icinde ac.
-2. `F5` ile Extension Development Host baslat.
-3. Bir `.uxm` dosyasinda once `UX-MINIMA: Internal Trace` komutunu calistir.
-4. Ardindan `UX-MINIMA: Build Native` komutunu calistir.
-5. ASM ve OBJ artefaktlarinin olustugunu dogrula.
-
-Not:
-Build akisi link adimi duserse bile islemi tamamen iptal etmeden ara artefaktlari koruyacak sekilde ele alinmistir.
-
----
-
-## 43. Belge Birlesiminden Gelen Onemli Dil Kurallari
-
-Asagidaki kurallar, diger detay belgelerde vurgulanan guncel semantik notlaridir.
-
-1. `D@T` ailesi adresleme normal mod semantiginin parcasi olarak ele alinir:
-
-```text
-(D@T)
-(D@T+N)
-(D@T-N)
-(D@(T-2)+N)
-(D@(T-1)+N)
-(D@(T)+N)
-```
-
-2. `@127` wild mode'a ozeldir; bellek layout degisimi gibi operasyonlarda kullanilir.
-
-3. Meta cagri ayrimi:
-
-```text
-@N   : Kullanici macro varsa macro, yoksa host meta davranisi
-@!N  : Zorla host meta servisi
-@#   : Dinamik meta (aktif hucre degeri)
-```
-
-Bu uc kural, parser/emitter/runtime hizalamasinda temel referans olarak kullanilir.
-
----
-
-## 44. Belgede Var, Kodda Kismi Olan Basliklar
-
-Bu bolum, daginik belgelerden toplanan "hedef var ama ana hatta tamamlanmamis" maddeleri tek yerde tutar:
-
-1. D@T adresleme ailesinin aktif compiler hattinda tam ve tek kaynakli kapanmasi.
-2. `@!N` host force meta semantiginin aktif hatta standartlasmasi.
-3. FP/Decimal kutuphane katmaninin cekirdek compiler/runtime/IDE zincirine tam baglanmasi.
-4. final ve aktif compiler hatlarinin parser-emitter acisindan tek otoriteye inmesi.
-
-Bu maddeler yeni ozellik listesi degil, mevcut hedeflerin stabilizasyon listesidir.
-
----
-
-## 45. Operasyonel Takip Baglantilari
-
-Bu kılavuzun operasyonel takibi su dosyalarla birlikte yapilir:
-
-1. `MASTER_TAKIP_DOKUMANI_V31.md`
-2. `TEKNIK_NOT_VE_EKLENTI_CALISTIRMA.md`
-3. `TASARIM_KATMAN_KOMUT_SISTEM_MATRISI.md`
-4. `BELGEDE_OLUP_KODDA_OLMAYANLAR_RAPORU.md`
-
-Pratik kural:
-Teknik bir karar degistiginde once master takip dosyasi, sonra bu kılavuzun ilgili bolumu guncellenir.

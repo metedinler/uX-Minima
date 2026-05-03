@@ -9,18 +9,18 @@ set ASM=build\%NAME%.asm
 set OBJ=build\%NAME%.obj
 set EXE=build\%NAME%.exe
 if not exist build mkdir build
-if not exist uxm31_compiler.exe (
-echo Compiler bulunamadi. Once build_all.bat calistir.
+if not exist uxm.exe (
+echo Derleyici bulunamadi. Once build_all.bat calistir.
 goto fail
 )
 echo [1/4] UXM -> ASM: %SRC%
-uxm31_compiler.exe "%SRC%" "%ASM%"
+uxm.exe "%SRC%" "%ASM%"
 if errorlevel 1 goto fail
 echo [2/4] ASM -> OBJ
 %NASM% -f win64 "%ASM%" -o "%OBJ%"
 if errorlevel 1 goto fail
 echo [3/4] Runtime + OBJ -> EXE
-%FBC% uxm31_runtime_fb.bas "%OBJ%" -x "%EXE%"
+%FBC% -x "%EXE%" uxm31_runtime_fb.bas "%OBJ%"
 if errorlevel 1 goto fail
 echo [4/4] Calistiriliyor...
 "%EXE%"

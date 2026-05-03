@@ -4,7 +4,7 @@
 
 Bu ortamda fbc, obj link adiminda hata verebiliyor; bu yuzden EXE uretimi her makinede garanti degil.
 Buna ragmen su an derleyici hatti UXM -> ASM -> OBJ seviyesinde calisir durumda.
-Eklenti icinde de bu nedenle build komutu artik link dusse bile isi tamamen iptal etmiyor.
+Eklenti icinde de bu nedenle derleme komutu, baglama adimi dussa bile islemi tamamen iptal etmez ve ara urunleri saklar.
 
 ## Eklentiyi calistirma adimlari
 

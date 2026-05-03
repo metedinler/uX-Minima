@@ -43,6 +43,8 @@ Const ADDR_E As Long=7
 Const ADDR_F As Long=8
 Const ADDR_IND_T As Long=9
 Const ADDR_IND_T_REL As Long=10
+Const ADDR_D_AT_T_REL As Long=11
+Const ADDR_D_AT_TBASE_REL As Long=12
 Const BR_CUR_NZ As Long=1
 Const BR_CUR_Z As Long=2
 Const BR_ALWAYS As Long=3
@@ -70,8 +72,8 @@ Declare Sub ParseMacroDef(ByRef code As String, ByRef p As Long)
 Declare Sub ParsePrintString(ByRef code As String, ByRef p As Long)
 Declare Sub ParseMeta(ByRef code As String, ByRef p As Long, ByVal depth As Long)
 Declare Sub ParseBranch(ByRef code As String, ByRef p As Long)
-Declare Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal addrKind As Long, ByVal addrVal As Long, ByVal txt As String)
-Declare Sub AddMetaInstr(ByVal metaId As Long, ByVal dynamicFlag As Long, ByVal txt As String)
+Declare Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal addrKind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long, ByVal txt As String)
+Declare Sub AddMetaInstr(ByVal metaId As Long, ByVal dynamicFlag As Long, ByVal forceHost As Long, ByVal txt As String)
 Declare Sub AddBranchInstr(ByVal cond As Long, ByVal brDir As Long, ByVal dist As Long, ByVal txt As String)
 Declare Sub AddStringDef(ByVal id As Long, ByVal startCell As Long, ByVal txt As String)
 Declare Sub AddMacroDef(ByVal id As Long, ByVal txt As String)
@@ -84,19 +86,20 @@ Declare Sub EmitStringInitializers()
 Declare Sub EmitInstr(ByVal i As Long)
 Declare Sub EmitFooter()
 Declare Sub EmitLine(ByVal s As String)
-Declare Sub EmitAddrLoad(ByVal addrKind As Long, ByVal addrVal As Long, ByVal regName As String)
-Declare Sub EmitAddrStore(ByVal addrKind As Long, ByVal addrVal As Long, ByVal regName As String)
-Declare Sub EmitAddrPtr(ByVal addrKind As Long, ByVal addrVal As Long, ByVal outReg As String)
+Declare Sub EmitAddrLoad(ByVal addrKind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long, ByVal regName As String)
+Declare Sub EmitAddrStore(ByVal addrKind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long, ByVal regName As String)
+Declare Sub EmitAddrPtr(ByVal addrKind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long, ByVal outReg As String)
 Declare Sub EmitSetFlagsFromRAX()
-Declare Sub EmitMetaCall(ByVal metaId As Long, ByVal dynamicFlag As Long)
+Declare Sub EmitMetaCall(ByVal metaId As Long, ByVal dynamicFlag As Long, ByVal forceHost As Long)
 Declare Sub EmitBranch(ByVal i As Long)
 Declare Sub EmitLoopBegin(ByVal i As Long)
 Declare Sub EmitLoopEnd(ByVal i As Long)
 Declare Sub EmitAsmLabelIfNeeded(ByVal i As Long)
 Declare Function ParseUnsignedLong(ByRef code As String, ByRef p As Long, ByRef ok As Long) As Long
 Declare Function ParseBracedText(ByRef code As String, ByRef p As Long, ByRef ok As Long) As String
-Declare Function ParseAddress(ByRef code As String, ByRef p As Long, ByRef kind As Long, ByRef addrVal As Long) As Long
-Declare Function ParseAddressBody(ByVal body As String, ByRef kind As Long, ByRef addrVal As Long) As Long
+Declare Function ParseAddress(ByRef code As String, ByRef p As Long, ByRef kind As Long, ByRef addrVal As Long, ByRef addrVal2 As Long) As Long
+Declare Function ParseAddressBody(ByVal body As String, ByRef kind As Long, ByRef addrVal As Long, ByRef addrVal2 As Long) As Long
+Declare Function ParseTapeRelInside(ByVal s As String, ByRef baseRel As Long) As Long
 Declare Function FindStringIndex(ByVal id As Long) As Long
 Declare Function FindMacroIndex(ByVal id As Long) As Long
 Declare Function IsDigitChar(ByVal c As String) As Long
@@ -108,7 +111,7 @@ Declare Function Reg8(ByVal regName As String) As String
 Declare Function Reg16(ByVal regName As String) As String
 Declare Function Reg32(ByVal regName As String) As String
 Declare Function TrimAll(ByVal s As String) As String
-Declare Function AddressText(ByVal kind As Long, ByVal addrVal As Long) As String
+Declare Function AddressText(ByVal kind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long) As String
 Declare Function RemoveBOM(ByVal s As String) As String
 Declare Function NewAsmId() As Long
 Declare Function LowerNoSpace(ByVal s As String) As String
@@ -124,9 +127,11 @@ Dim Shared IOp(1 To MAX_INSTR) As Long
 Dim Shared IAmt(1 To MAX_INSTR) As Long
 Dim Shared IAddrKind(1 To MAX_INSTR) As Long
 Dim Shared IAddrVal(1 To MAX_INSTR) As Long
+Dim Shared IAddrVal2(1 To MAX_INSTR) As Long
 Dim Shared IText(1 To MAX_INSTR) As String
 Dim Shared IMetaId(1 To MAX_INSTR) As Long
 Dim Shared IMetaDyn(1 To MAX_INSTR) As Long
+Dim Shared IMetaForce(1 To MAX_INSTR) As Long
 Dim Shared IBrCond(1 To MAX_INSTR) As Long
 Dim Shared IBrDir(1 To MAX_INSTR) As Long
 Dim Shared IBrDist(1 To MAX_INSTR) As Long
@@ -401,6 +406,7 @@ Sub ParseOneInstruction(ByRef code As String, ByRef p As Long, ByVal depth As Lo
     Dim c As String
     Dim kind As Long
     Dim addrVal As Long
+    Dim addrVal2 As Long
     Dim hasAddr As Long
     Dim amt As Long
     Dim ok As Long
@@ -430,6 +436,7 @@ Sub ParseOneInstruction(ByRef code As String, ByRef p As Long, ByVal depth As Lo
     p=p+1
     kind=ADDR_T
     addrVal=0
+    addrVal2=0
     amt=1
     If c="+" Or c="-" Then
         If p<=Len(code) Then
@@ -440,21 +447,21 @@ Sub ParseOneInstruction(ByRef code As String, ByRef p As Long, ByVal depth As Lo
             End If
         End If
     End If
-    hasAddr=ParseAddress(code,p,kind,addrVal)
+    hasAddr=ParseAddress(code,p,kind,addrVal,addrVal2)
     If HadError Then Exit Sub
     Select Case c
         Case ">"
             If hasAddr Then SyntaxError("> adresleme alamaz",startP):Exit Sub
-            AddInstr(OP_RIGHT,amt,ADDR_T,0,Mid(code,startP,p-startP))
+            AddInstr(OP_RIGHT,amt,ADDR_T,0,0,Mid(code,startP,p-startP))
         Case "<"
             If hasAddr Then SyntaxError("< adresleme alamaz",startP):Exit Sub
-            AddInstr(OP_LEFT,amt,ADDR_T,0,Mid(code,startP,p-startP))
+            AddInstr(OP_LEFT,amt,ADDR_T,0,0,Mid(code,startP,p-startP))
         Case "+"
-            AddInstr(OP_INC,amt,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_INC,amt,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "-"
-            AddInstr(OP_DEC,amt,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_DEC,amt,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "0"
-            AddInstr(OP_CLEAR,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_CLEAR,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
             If p<=Len(code) Then
                 If Mid(code,p,1)="+" Or Mid(code,p,1)="-" Then
                     c2=Mid(code,p,1)
@@ -467,9 +474,9 @@ Sub ParseOneInstruction(ByRef code As String, ByRef p As Long, ByVal depth As Lo
                             amt2=ParseUnsignedLong(code,p2,ok2)
                             If ok2=0 Then SyntaxError("0(addr)+kN kisminda sayi bekleniyor",p2):Exit Sub
                             If c2="+" Then
-                                AddInstr(OP_INC,amt2,kind,addrVal,"+k"+LTrim(Str(amt2))+" inherit "+AddressText(kind,addrVal))
+                                AddInstr(OP_INC,amt2,kind,addrVal,addrVal2,"+k"+LTrim(Str(amt2))+" inherit "+AddressText(kind,addrVal,addrVal2))
                             Else
-                                AddInstr(OP_DEC,amt2,kind,addrVal,"-k"+LTrim(Str(amt2))+" inherit "+AddressText(kind,addrVal))
+                                AddInstr(OP_DEC,amt2,kind,addrVal,addrVal2,"-k"+LTrim(Str(amt2))+" inherit "+AddressText(kind,addrVal,addrVal2))
                             End If
                             p=p2
                         End If
@@ -477,39 +484,39 @@ Sub ParseOneInstruction(ByRef code As String, ByRef p As Long, ByVal depth As Lo
                 End If
             End If
         Case "."
-            AddInstr(OP_PUTC,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_PUTC,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case ","
-            AddInstr(OP_GETC,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_GETC,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "["
             If hasAddr Then SyntaxError("[ adresleme alamaz; loop aktif hucreye gore calisir",startP):Exit Sub
-            AddInstr(OP_LOOP_BEG,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_LOOP_BEG,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "]"
             If hasAddr Then SyntaxError("] adresleme alamaz",startP):Exit Sub
-            AddInstr(OP_LOOP_END,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_LOOP_END,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "$"
-            AddInstr(OP_PUSH,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_PUSH,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "%"
-            AddInstr(OP_POP,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_POP,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "?"
-            AddInstr(OP_EQ,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_EQ,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "!"
-            AddInstr(OP_GT,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_GT,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case ";"
-            AddInstr(OP_LT,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_LT,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "&"
-            AddInstr(OP_AND,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_AND,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "|"
-            AddInstr(OP_OR,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_OR,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "^"
-            AddInstr(OP_XOR,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_XOR,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "~"
-            AddInstr(OP_NOT,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_NOT,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "{"
-            AddInstr(OP_SHL,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_SHL,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "}"
-            AddInstr(OP_SHR,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_SHR,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case "e","E"
-            AddInstr(OP_STATUS,0,kind,addrVal,Mid(code,startP,p-startP))
+            AddInstr(OP_STATUS,0,kind,addrVal,addrVal2,Mid(code,startP,p-startP))
         Case Else
             SyntaxError("beklenmeyen komut: "+c,startP)
     End Select
@@ -557,29 +564,37 @@ Sub ParsePrintString(ByRef code As String, ByRef p As Long)
     If ok=0 Then SyntaxError("pN komutunda N bekleniyor",p):Exit Sub
     idx=FindStringIndex(id)
     If idx=0 Then SyntaxError("tanimlanmamis string: p"+LTrim(Str(id)),startP):Exit Sub
-    AddInstr(OP_PRINT_STRING,id,ADDR_T,0,Mid(code,startP,p-startP))
+    AddInstr(OP_PRINT_STRING,id,ADDR_T,0,0,Mid(code,startP,p-startP))
 End Sub
 Sub ParseMeta(ByRef code As String, ByRef p As Long, ByVal depth As Long)
     Dim startP As Long
     Dim ok As Long
     Dim id As Long
     Dim idx As Long
+    Dim forceHost As Long
     startP=p
     p=p+1
+    forceHost=0
+    If p<=Len(code) Then
+        If Mid(code,p,1)="!" Then
+            forceHost=1
+            p=p+1
+        End If
+    End If
     If p>Len(code) Then SyntaxError("@ sonrasi meta id veya # bekleniyor",p):Exit Sub
     If Mid(code,p,1)="#" Then
         p=p+1
-        AddMetaInstr(-1,1,"@#")
+        AddMetaInstr(-1,1,forceHost,"@#")
         Exit Sub
     End If
     id=ParseUnsignedLong(code,p,ok)
     If ok=0 Then SyntaxError("@ sonrasi meta id bekleniyor",p):Exit Sub
     If id<0 Or id>255 Then SyntaxError("meta id 0..255 araliginda olmali",startP):Exit Sub
     idx=FindMacroIndex(id)
-    If idx<>0 Then
+    If idx<>0 And forceHost=0 Then
         ParseProgram(MacroText(idx),depth+1)
     Else
-        AddMetaInstr(id,0,Mid(code,startP,p-startP))
+        AddMetaInstr(id,0,forceHost,Mid(code,startP,p-startP))
     End If
 End Sub
 Sub ParseBranch(ByRef code As String, ByRef p As Long)
@@ -645,22 +660,24 @@ Sub ParseBranch(ByRef code As String, ByRef p As Long)
     If dist<=0 Then SyntaxError("branch mesafesi 1 veya daha buyuk olmali",p):Exit Sub
     AddBranchInstr(cond,brDir,dist,Mid(code,startP,p-startP))
 End Sub
-Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal addrKind As Long, ByVal addrVal As Long, ByVal txt As String)
+Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal addrKind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long, ByVal txt As String)
     If InstrCount>=MAX_INSTR Then SyntaxError("instruction limiti doldu",1):Exit Sub
     InstrCount=InstrCount+1
     IOp(InstrCount)=op
     IAmt(InstrCount)=amount
     IAddrKind(InstrCount)=addrKind
     IAddrVal(InstrCount)=addrVal
+    IAddrVal2(InstrCount)=addrVal2
     IText(InstrCount)=txt
 End Sub
-Sub AddMetaInstr(ByVal metaId As Long, ByVal dynamicFlag As Long, ByVal txt As String)
-    AddInstr(OP_META,0,ADDR_T,0,txt)
+Sub AddMetaInstr(ByVal metaId As Long, ByVal dynamicFlag As Long, ByVal forceHost As Long, ByVal txt As String)
+    AddInstr(OP_META,0,ADDR_T,0,0,txt)
     IMetaId(InstrCount)=metaId
     IMetaDyn(InstrCount)=dynamicFlag
+    IMetaForce(InstrCount)=forceHost
 End Sub
 Sub AddBranchInstr(ByVal cond As Long, ByVal brDir As Long, ByVal dist As Long, ByVal txt As String)
-    AddInstr(OP_BRANCH,0,ADDR_T,0,txt)
+    AddInstr(OP_BRANCH,0,ADDR_T,0,0,txt)
     IBrCond(InstrCount)=cond
     IBrDir(InstrCount)=brDir
     IBrDist(InstrCount)=dist
@@ -775,7 +792,7 @@ Function ParseBracedText(ByRef code As String, ByRef p As Long, ByRef ok As Long
     Loop
     ParseBracedText=r
 End Function
-Function ParseAddress(ByRef code As String, ByRef p As Long, ByRef kind As Long, ByRef addrVal As Long) As Long
+Function ParseAddress(ByRef code As String, ByRef p As Long, ByRef kind As Long, ByRef addrVal As Long, ByRef addrVal2 As Long) As Long
     Dim startP As Long
     Dim body As String
     Dim bal As Long
@@ -800,16 +817,22 @@ Function ParseAddress(ByRef code As String, ByRef p As Long, ByRef kind As Long,
     If p>Len(code) Or Mid(code,p,1)<>")" Then SyntaxError("adresleme parantezi kapanmadi",startP):Exit Function
     body=Mid(code,startP+1,p-startP-1)
     p=p+1
-    If ParseAddressBody(body,kind,addrVal)=0 Then
+    If ParseAddressBody(body,kind,addrVal,addrVal2)=0 Then
         SyntaxError("gecersiz adresleme: ("+body+")",startP)
         Exit Function
     End If
     ParseAddress=1
 End Function
-Function ParseAddressBody(ByVal body As String, ByRef kind As Long, ByRef addrVal As Long) As Long
+Function ParseAddressBody(ByVal body As String, ByRef kind As Long, ByRef addrVal As Long, ByRef addrVal2 As Long) As Long
     Dim b As String
+    Dim posx As Long
+    Dim inner As String
+    Dim rest As String
+    Dim rel As Long
+    Dim off As Long
     b=UCase(TrimAll(body))
     addrVal=0
+    addrVal2=0
     If b="T" Then kind=ADDR_T:ParseAddressBody=1:Exit Function
     If b="SP" Then kind=ADDR_SP:ParseAddressBody=1:Exit Function
     If b="P" Then kind=ADDR_P:ParseAddressBody=1:Exit Function
@@ -821,9 +844,52 @@ Function ParseAddressBody(ByVal body As String, ByRef kind As Long, ByRef addrVa
     If Left(b,2)="T:" Then kind=ADDR_T_ABS:addrVal=Val(Mid(b,3)):ParseAddressBody=1:Exit Function
     If Left(b,2)="D:" Then kind=ADDR_D_ABS:addrVal=Val(Mid(b,3)):ParseAddressBody=1:Exit Function
     If Left(b,2)="S:" Then kind=ADDR_S_ABS:addrVal=Val(Mid(b,3)):ParseAddressBody=1:Exit Function
+    If Left(b,3)="D@T" Then
+        kind=ADDR_D_AT_T_REL
+        addrVal=0
+        If Len(b)>3 Then
+            If Mid(b,4,1)="+" Then addrVal2=Val(Mid(b,5)):ParseAddressBody=1:Exit Function
+            If Mid(b,4,1)="-" Then addrVal2=-Val(Mid(b,5)):ParseAddressBody=1:Exit Function
+            ParseAddressBody=0:Exit Function
+        End If
+        addrVal2=0
+        ParseAddressBody=1
+        Exit Function
+    End If
+    If Left(b,4)="D@(" Then
+        posx=InStr(4,b,")")
+        If posx=0 Then ParseAddressBody=0:Exit Function
+        inner=Mid(b,4,posx-4)
+        rest=Mid(b,posx+1)
+        If ParseTapeRelInside(inner,rel)=0 Then ParseAddressBody=0:Exit Function
+        off=0
+        If rest<>"" Then
+            If Left(rest,1)="+" Then
+                off=Val(Mid(rest,2))
+            ElseIf Left(rest,1)="-" Then
+                off=-Val(Mid(rest,2))
+            Else
+                ParseAddressBody=0
+                Exit Function
+            End If
+        End If
+        kind=ADDR_D_AT_TBASE_REL
+        addrVal=rel
+        addrVal2=off
+        ParseAddressBody=1
+        Exit Function
+    End If
     If Left(b,4)="*(T+" And Right(b,1)=")" Then kind=ADDR_IND_T_REL:addrVal=Val(Mid(b,5,Len(b)-5)):ParseAddressBody=1:Exit Function
     If Left(b,4)="*(T-" And Right(b,1)=")" Then kind=ADDR_IND_T_REL:addrVal=-Val(Mid(b,5,Len(b)-5)):ParseAddressBody=1:Exit Function
     ParseAddressBody=0
+End Function
+Function ParseTapeRelInside(ByVal s As String, ByRef baseRel As Long) As Long
+    s=UCase(TrimAll(s))
+    baseRel=0
+    If s="T" Then baseRel=0:ParseTapeRelInside=1:Exit Function
+    If Left(s,2)="T+" Then baseRel=Val(Mid(s,3)):ParseTapeRelInside=1:Exit Function
+    If Left(s,2)="T-" Then baseRel=-Val(Mid(s,3)):ParseTapeRelInside=1:Exit Function
+    ParseTapeRelInside=0
 End Function
 Sub SyntaxError(ByVal msg As String, ByVal p As Long)
     HadError=1
@@ -928,7 +994,7 @@ Function Reg32(ByVal regName As String) As String
         Case Else:Reg32="eax"
     End Select
 End Function
-Function AddressText(ByVal kind As Long, ByVal addrVal As Long) As String
+Function AddressText(ByVal kind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long) As String
     Select Case kind
         Case ADDR_T
             AddressText="(T)"
@@ -938,6 +1004,20 @@ Function AddressText(ByVal kind As Long, ByVal addrVal As Long) As String
             AddressText="(T:"+LTrim(Str(addrVal))+")"
         Case ADDR_D_ABS
             AddressText="(D:"+LTrim(Str(addrVal))+")"
+        Case ADDR_D_AT_T_REL
+            If addrVal2=0 Then
+                AddressText="(D@T)"
+            ElseIf addrVal2>0 Then
+                AddressText="(D@T+"+LTrim(Str(addrVal2))+")"
+            Else
+                AddressText="(D@T"+LTrim(Str(addrVal2))+")"
+            End If
+        Case ADDR_D_AT_TBASE_REL
+            If addrVal2>=0 Then
+                AddressText="(D@(T"+IIf(addrVal>=0,"+","")+LTrim(Str(addrVal))+")+"+LTrim(Str(addrVal2))+")"
+            Else
+                AddressText="(D@(T"+IIf(addrVal>=0,"+","")+LTrim(Str(addrVal))+")"+LTrim(Str(addrVal2))+")"
+            End If
         Case ADDR_S_ABS
             AddressText="(S:"+LTrim(Str(addrVal))+")"
         Case ADDR_SP
@@ -1128,36 +1208,36 @@ Sub EmitInstr(ByVal i As Long)
             If BoundsOn Then EmitLine("    cmp rbx, TAPE_CELLS"):EmitLine("    jae __ux_err_ptr")
         Case OP_INC
             EmitLine("    ; "+IText(i))
-            EmitAddrLoad(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrLoad(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitLine("    add rax, "+LTrim(Str(IAmt(i))))
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_DEC
             EmitLine("    ; "+IText(i))
-            EmitAddrLoad(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrLoad(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitLine("    sub rax, "+LTrim(Str(IAmt(i))))
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_CLEAR
             EmitLine("    ; "+IText(i))
             EmitLine("    xor rax, rax")
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_PUTC
             EmitLine("    ; "+IText(i))
-            EmitAddrLoad(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrLoad(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitLine("    mov ecx, eax")
             EmitLine("    call ux_putc")
         Case OP_GETC
             EmitLine("    ; "+IText(i))
             EmitLine("    call ux_getc")
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_PUSH
             EmitLine("    ; "+IText(i))
             EmitLine("    cmp r14, STACK_CELLS")
             EmitLine("    jae __ux_err_stack_over")
-            EmitAddrLoad(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrLoad(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             Select Case CellBits
                 Case 8
                     EmitLine("    mov byte [r13 + r14], al")
@@ -1180,7 +1260,7 @@ Sub EmitInstr(ByVal i As Long)
                 Case 32
                     EmitLine("    mov eax, dword [r13 + r14*4]")
             End Select
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_EQ,OP_GT,OP_LT,OP_AND,OP_OR,OP_XOR
             EmitLine("    ; "+IText(i))
@@ -1195,7 +1275,7 @@ Sub EmitInstr(ByVal i As Long)
                 Case 32
                     EmitLine("    mov r15d, dword [r13 + r14*4]")
             End Select
-            EmitAddrLoad(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrLoad(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             If IOp(i)=OP_EQ Then
                 EmitLine("    cmp r15, rax")
                 EmitLine("    sete al")
@@ -1215,30 +1295,30 @@ Sub EmitInstr(ByVal i As Long)
             ElseIf IOp(i)=OP_XOR Then
                 EmitLine("    xor rax, r15")
             End If
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_NOT
             EmitLine("    ; "+IText(i))
-            EmitAddrLoad(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrLoad(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitLine("    not rax")
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_SHL
             EmitLine("    ; "+IText(i))
-            EmitAddrLoad(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrLoad(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitLine("    shl rax, 1")
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_SHR
             EmitLine("    ; "+IText(i))
-            EmitAddrLoad(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrLoad(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitLine("    shr rax, 1")
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_STATUS
             EmitLine("    ; "+IText(i))
             EmitLine("    movzx rax, byte [ux_status]")
-            EmitAddrStore(IAddrKind(i),IAddrVal(i),"rax")
+            EmitAddrStore(IAddrKind(i),IAddrVal(i),IAddrVal2(i),"rax")
             EmitSetFlagsFromRAX()
         Case OP_LOOP_BEG
             EmitLoopBegin(i)
@@ -1246,7 +1326,7 @@ Sub EmitInstr(ByVal i As Long)
             EmitLoopEnd(i)
         Case OP_META
             EmitLine("    ; "+IText(i))
-            EmitMetaCall(IMetaId(i),IMetaDyn(i))
+            EmitMetaCall(IMetaId(i),IMetaDyn(i),IMetaForce(i))
         Case OP_BRANCH
             EmitBranch(i)
         Case OP_PRINT_STRING
@@ -1259,8 +1339,8 @@ Sub EmitInstr(ByVal i As Long)
             EmitLine("    nop")
     End Select
 End Sub
-Sub EmitAddrLoad(ByVal addrKind As Long, ByVal addrVal As Long, ByVal regName As String)
-    EmitAddrPtr(addrKind,addrVal,"r11")
+Sub EmitAddrLoad(ByVal addrKind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long, ByVal regName As String)
+    EmitAddrPtr(addrKind,addrVal,addrVal2,"r11")
     Select Case CellBits
         Case 8
             EmitLine("    movzx "+regName+", byte [r11]")
@@ -1270,8 +1350,8 @@ Sub EmitAddrLoad(ByVal addrKind As Long, ByVal addrVal As Long, ByVal regName As
             If LCase(regName)="rax" Then EmitLine("    mov eax, dword [r11]") Else EmitLine("    mov "+Reg32(regName)+", dword [r11]")
     End Select
 End Sub
-Sub EmitAddrStore(ByVal addrKind As Long, ByVal addrVal As Long, ByVal regName As String)
-    EmitAddrPtr(addrKind,addrVal,"r11")
+Sub EmitAddrStore(ByVal addrKind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long, ByVal regName As String)
+    EmitAddrPtr(addrKind,addrVal,addrVal2,"r11")
     Select Case CellBits
         Case 8
             EmitLine("    mov byte [r11], "+Reg8(regName))
@@ -1281,7 +1361,7 @@ Sub EmitAddrStore(ByVal addrKind As Long, ByVal addrVal As Long, ByVal regName A
             EmitLine("    mov dword [r11], "+Reg32(regName))
     End Select
 End Sub
-Sub EmitAddrPtr(ByVal addrKind As Long, ByVal addrVal As Long, ByVal outReg As String)
+Sub EmitAddrPtr(ByVal addrKind As Long, ByVal addrVal As Long, ByVal addrVal2 As Long, ByVal outReg As String)
     Select Case addrKind
         Case ADDR_T
             Select Case CellBits
@@ -1326,6 +1406,38 @@ Sub EmitAddrPtr(ByVal addrKind As Long, ByVal addrVal As Long, ByVal outReg As S
                 If addrVal<0 Or addrVal>=DataCells Then EmitLine("    jmp __ux_err_data")
             End If
             EmitLine("    lea "+outReg+", [r12 + DATA_OFFSET + "+LTrim(Str(addrVal*CellSize()))+"]")
+        Case ADDR_D_AT_T_REL
+            EmitAddrLoad(ADDR_T,0,0,"rax")
+            If addrVal2>=0 Then
+                EmitLine("    add rax, "+LTrim(Str(addrVal2)))
+            Else
+                EmitLine("    sub rax, "+LTrim(Str(Abs(addrVal2))))
+            End If
+            If BoundsOn Then EmitLine("    cmp rax, DATA_CELLS"):EmitLine("    jae __ux_err_data")
+            Select Case CellBits
+                Case 8
+                    EmitLine("    lea "+outReg+", [r12 + DATA_OFFSET + rax]")
+                Case 16
+                    EmitLine("    lea "+outReg+", [r12 + DATA_OFFSET + rax*2]")
+                Case 32
+                    EmitLine("    lea "+outReg+", [r12 + DATA_OFFSET + rax*4]")
+            End Select
+        Case ADDR_D_AT_TBASE_REL
+            EmitAddrLoad(ADDR_T_REL,addrVal,0,"rax")
+            If addrVal2>=0 Then
+                EmitLine("    add rax, "+LTrim(Str(addrVal2)))
+            Else
+                EmitLine("    sub rax, "+LTrim(Str(Abs(addrVal2))))
+            End If
+            If BoundsOn Then EmitLine("    cmp rax, DATA_CELLS"):EmitLine("    jae __ux_err_data")
+            Select Case CellBits
+                Case 8
+                    EmitLine("    lea "+outReg+", [r12 + DATA_OFFSET + rax]")
+                Case 16
+                    EmitLine("    lea "+outReg+", [r12 + DATA_OFFSET + rax*2]")
+                Case 32
+                    EmitLine("    lea "+outReg+", [r12 + DATA_OFFSET + rax*4]")
+            End Select
         Case ADDR_S_ABS
             If BoundsOn Then
                 If addrVal<0 Or addrVal>=StackCells Then EmitLine("    jmp __ux_err_stack_over")
@@ -1351,7 +1463,7 @@ Sub EmitAddrPtr(ByVal addrKind As Long, ByVal addrVal As Long, ByVal outReg As S
         Case ADDR_P
             EmitLine("    lea "+outReg+", [ux_ptr]")
         Case ADDR_IND_T
-            EmitAddrLoad(ADDR_T,0,"rax")
+            EmitAddrLoad(ADDR_T,0,0,"rax")
             If BoundsOn Then EmitLine("    cmp rax, TAPE_CELLS"):EmitLine("    jae __ux_err_ptr")
             Select Case CellBits
                 Case 8
@@ -1362,7 +1474,7 @@ Sub EmitAddrPtr(ByVal addrKind As Long, ByVal addrVal As Long, ByVal outReg As S
                     EmitLine("    lea "+outReg+", [r12 + rax*4]")
             End Select
         Case ADDR_IND_T_REL
-            EmitAddrLoad(ADDR_T_REL,addrVal,"rax")
+            EmitAddrLoad(ADDR_T_REL,addrVal,0,"rax")
             If BoundsOn Then EmitLine("    cmp rax, TAPE_CELLS"):EmitLine("    jae __ux_err_ptr")
             Select Case CellBits
                 Case 8
@@ -1400,11 +1512,11 @@ Sub EmitSetFlagsFromRAX()
     EmitLine("    mov word [ux_flags], dx")
     EmitLine("    pop rax")
 End Sub
-Sub EmitMetaCall(ByVal metaId As Long, ByVal dynamicFlag As Long)
+Sub EmitMetaCall(ByVal metaId As Long, ByVal dynamicFlag As Long, ByVal forceHost As Long)
     EmitLine("    mov qword [ux_ptr], rbx")
     EmitLine("    mov qword [ux_sp], r14")
     If dynamicFlag Then
-        EmitAddrLoad(ADDR_T,0,"rax")
+        EmitAddrLoad(ADDR_T,0,0,"rax")
         EmitLine("    mov ecx, eax")
     Else
         EmitLine("    mov ecx, "+LTrim(Str(metaId)))
@@ -1420,11 +1532,11 @@ Sub EmitBranch(ByVal i As Long)
     EmitLine("    ; "+IText(i)+" -> __ux_ip_"+LTrim(Str(target)))
     Select Case IBrCond(i)
         Case BR_CUR_NZ
-            EmitAddrLoad(ADDR_T,0,"rax")
+            EmitAddrLoad(ADDR_T,0,0,"rax")
             EmitLine("    cmp rax, 0")
             EmitLine("    jne __ux_ip_"+LTrim(Str(target)))
         Case BR_CUR_Z
-            EmitAddrLoad(ADDR_T,0,"rax")
+            EmitAddrLoad(ADDR_T,0,0,"rax")
             EmitLine("    cmp rax, 0")
             EmitLine("    je __ux_ip_"+LTrim(Str(target)))
         Case BR_ALWAYS
@@ -1459,7 +1571,7 @@ Sub EmitLoopBegin(ByVal i As Long)
     Dim id As Long
     id=LoopId(i)
     EmitLine("__ux_loop_beg_"+LTrim(Str(id))+":")
-    EmitAddrLoad(ADDR_T,0,"rax")
+    EmitAddrLoad(ADDR_T,0,0,"rax")
     EmitLine("    cmp rax, 0")
     EmitLine("    je __ux_loop_end_"+LTrim(Str(id)))
 End Sub
@@ -1500,3 +1612,4 @@ Sub EmitFooter()
     EmitLine("    call ux_runtime_error")
     EmitLine("    jmp __ux_ok_exit")
 End Sub
+

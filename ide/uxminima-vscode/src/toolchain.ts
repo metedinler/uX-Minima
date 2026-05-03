@@ -33,7 +33,7 @@ export class UxmToolchain {
     const buildDirSetting = cfg.get<string>("buildDirectory", "build");
     return {
       fullTool: this.resolveTool(cfg.get<string>("fullToolPath", "uxm31_full_tool.exe"), root),
-      compiler: this.resolveTool(cfg.get<string>("compilerPath", "uxm31_compiler_full.exe"), root),
+      compiler: this.resolveTool(cfg.get<string>("compilerPath", "uxm.exe"), root),
       runtime: this.resolveTool(cfg.get<string>("runtimePath", "uxm31_runtime_fb_full.bas"), root),
       nasm: cfg.get<string>("nasmPath", "nasm"),
       fbc: cfg.get<string>("fbcPath", "fbc"),

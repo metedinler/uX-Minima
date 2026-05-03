@@ -3,11 +3,13 @@ setlocal
 set FBC=fbc
 set NASM=nasm
 echo [1/4] Compiler derleniyor...
-%FBC% uxm31_compiler_fb.bas -x uxm31_compiler.exe
+%FBC% -lang fb uxm31_compiler_fb.bas -x uxm.exe
 if errorlevel 1 goto fail
+if exist uxm31_compiler.exe del /q uxm31_compiler.exe >nul 2>nul
+copy /y uxm.exe uxm31_compiler.exe >nul
 echo [2/4] Test klasoru hazirlaniyor...
 if not exist build mkdir build
-echo [OK] Compiler hazir.
+echo [OK] Derleyici hazir: uxm.exe
 echo.
 echo Kullanim:
 echo   build_one.bat tests\test01_print_A.uxm
