@@ -30,10 +30,12 @@ Diger dosyalar bu dosyanin alt kanit ve detay dosyalaridir.
 
 ## 3. Kesin Teknik Gercek Durum
 
-1. Bu ortamda fbc obj link adimi her makinede garanti degil.
-2. Buna ragmen derleyici hatti UXM -> ASM -> OBJ seviyesinde calisir durumda.
-3. VS Code eklentisi Build Native akisinda link dusse bile artefaktlari koruma mantigina sahip.
-4. Internal Trace ve Build Native komutlari eklenti tarafinda aktif.
+1. Aktif repo: calisilan/uxm31_FULL_FINAL_REAL ve origin senkronu tamam.
+2. x64 FreeBASIC yolu build betiklerine ve eklenti ayarlarina sabitlendi.
+3. Derleyici hatti UXM -> ASM -> OBJ -> EXE olarak calisir durumda.
+4. run_tests.bat zinciri bastan sona tamamlanir.
+5. VS Code eklentisi Internal Trace ve Build Native komutlari aktif.
+6. GitHub release v3.1.0 olusturuldu ve uxm.exe asset olarak yayinlandi.
 
 ## 4. Hedef Mimari (Tek Cumle)
 
@@ -106,10 +108,10 @@ Bu formati kullan:
 
 ### Son Guncelleme
 
-- Tarih:
-- Ozet:
-- Degisen dosyalar:
-- Sonraki adim:
+- Tarih: 2026-05-04
+- Ozet: x64 toolchain sabitlendi, test zinciri tamamlandi, VSIX paketlendi ve release acildi.
+- Degisen dosyalar: build_all.bat, build_one.bat, ide/uxminima-vscode/package.json, ide/uxminima-vscode/src/toolchain.ts, tests/test32_wild_layout_change.uxm, README.md, .vscode/settings.json
+- Sonraki adim: remaining belge dosyalarinda yeni teknik gerceklerin yansimasi ve dokuman dili son cilasi.
 
 ### Acik Riskler
 
