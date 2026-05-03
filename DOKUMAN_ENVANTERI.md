@@ -1,5 +1,12 @@
 # Dokuman Envanteri (Calisma Klasoru + PCK)
 
+## Operasyonel Ana Belge
+
+- MASTER_TAKIP_DOKUMANI_V31.md
+
+Not:
+Bu envanterdeki tum kaynaklarin guncel takip ve karar ozetleri ana belgeye islenir.
+
 ## Calisma Klasorunde Tespit Edilen Ana MD/TXT
 
 - uX_Minima_Kullanim Klavuzu.md

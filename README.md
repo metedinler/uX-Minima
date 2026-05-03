@@ -25,3 +25,8 @@ Odak: calisan derleyici hatti, runtime, testler ve VS Code eklentisi.
 
 ## Not
 Bu klasorde klasor-bazli README dosyalari olusturulmustur. Gerektikce alan uzmani notlari ile detaylandirilmalidir.
+
+## Ana Takip Belgesi
+- MASTER_TAKIP_DOKUMANI_V31.md
+
+Bu klasorde plan, oncelik ve degisim takibi icin once ana takip belgesine bak.

@@ -1,5 +1,8 @@
 # Belgede Olup Kodda Olmayanlar Raporu
 
+Operasyonel takip referansi:
+MASTER_TAKIP_DOKUMANI_V31.md
+
 Bu rapor, ayrintili belge kopyalari ile aktif kod tabani arasindaki farklari cikarmak icin hazirlandi.
 Kaynak belge klasoru: BELGE_KOPYALARI/
 Kod taramasi: uxm31_*.bas, final/uxm31_compiler_final.bas, ide/uxminima-vscode/src, ide/uxminima-vscode/docs
