@@ -1,0 +1,13 @@
+# UX-MATH V1 macro header
+# Polynomial and RPN expression calculation layer
+# Host-forced meta call syntax @!N is required
+m240={@!240}
+m241={@!241}
+m242={@!242}
+m243={@!243}
+m244={@!244}
+m250={@!250}
+m251={@!251}
+m252={@!252}
+m253={@!253}
+m254={@!254}

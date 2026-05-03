@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/*.log
+
+# Node
+**/node_modules/
+
+# TypeScript build output
+ide/uxminima-vscode/out/
+
+# Build artifacts
+build/
+ASM/
+OBJ/
+EXE/
+*.exe
+*.obj
+*.asm
+*.o
+*.ndjson
+*.uir.json
+*.opt.json
+*.log
+
+# Temporary
+*.tmp
+*.bak

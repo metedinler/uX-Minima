@@ -1,0 +1,115 @@
+{
+  "name": "uxminima-vscode",
+  "displayName": "UX-MINIMA V3.1 Tools",
+  "description": "UX-MINIMA .uxm language support, diagnostics, trace replay, memory watch, UIR/OPT export and native build commands.",
+  "version": "0.1.0",
+  "publisher": "metedinler",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:uxminima",
+    "onCommand:uxminima.runTrace",
+    "onCommand:uxminima.internalTrace",
+    "onCommand:uxminima.exportUIR",
+    "onCommand:uxminima.exportOPT",
+    "onCommand:uxminima.buildNative",
+    "onCommand:uxminima.openMemoryWatch",
+    "onCommand:uxminima.validateFile",
+    "onCommand:uxminima.openMetaHelp"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "uxminima",
+        "aliases": ["UX-MINIMA", "uxm"],
+        "extensions": [".uxm"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "uxminima",
+        "scopeName": "source.uxm",
+        "path": "./syntaxes/uxm.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "uxminima",
+        "path": "./snippets/uxm.code-snippets"
+      }
+    ],
+    "commands": [
+      {"command": "uxminima.runTrace", "title": "UX-MINIMA: Run Trace with Toolchain"},
+      {"command": "uxminima.internalTrace", "title": "UX-MINIMA: Internal Trace & Memory Watch"},
+      {"command": "uxminima.exportUIR", "title": "UX-MINIMA: Export UIR"},
+      {"command": "uxminima.exportOPT", "title": "UX-MINIMA: Export Optimizer Report"},
+      {"command": "uxminima.buildNative", "title": "UX-MINIMA: Build Native EXE"},
+      {"command": "uxminima.openMemoryWatch", "title": "UX-MINIMA: Open Memory Watch"},
+      {"command": "uxminima.validateFile", "title": "UX-MINIMA: Validate Current File"},
+      {"command": "uxminima.openMetaHelp", "title": "UX-MINIMA: Open Meta Service Help"}
+    ],
+    "configuration": {
+      "title": "UX-MINIMA",
+      "properties": {
+        "uxminima.fullToolPath": {
+          "type": "string",
+          "default": "uxm31_full_tool.exe",
+          "description": "Path to uxm31_full_tool.exe for run/uir/opt trace commands."
+        },
+        "uxminima.compilerPath": {
+          "type": "string",
+          "default": "uxm31_compiler.exe",
+          "description": "Path to native UX-MINIMA compiler executable."
+        },
+        "uxminima.runtimePath": {
+          "type": "string",
+          "default": "uxm31_runtime_fb.bas",
+          "description": "Path to FreeBASIC runtime source."
+        },
+        "uxminima.nasmPath": {
+          "type": "string",
+          "default": "nasm",
+          "description": "Path to NASM executable."
+        },
+        "uxminima.fbcPath": {
+          "type": "string",
+          "default": "fbc",
+          "description": "Path to FreeBASIC compiler."
+        },
+        "uxminima.buildDirectory": {
+          "type": "string",
+          "default": "build",
+          "description": "Build output directory relative to workspace root."
+        }
+      }
+    },
+    "menus": {
+      "editor/title": [
+        {"command": "uxminima.internalTrace", "when": "resourceExtname == .uxm", "group": "navigation"},
+        {"command": "uxminima.buildNative", "when": "resourceExtname == .uxm", "group": "navigation"}
+      ],
+      "editor/context": [
+        {"command": "uxminima.validateFile", "when": "resourceExtname == .uxm", "group": "uxminima"},
+        {"command": "uxminima.openMetaHelp", "when": "resourceExtname == .uxm", "group": "uxminima"}
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.4.0"
+  }
+}

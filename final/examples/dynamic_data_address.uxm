@@ -1,0 +1,6 @@
+# EXPECT_OUTPUT: X
+# D@ adresleme testi
+>>
+0(T)+k10
+0(D@T)+k88
+.(D@T)

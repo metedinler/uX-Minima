@@ -1,0 +1,32 @@
+{
+  "Print A": {
+    "prefix": "printA",
+    "body": ["0+k65."],
+    "description": "A karakterini basar"
+  },
+  "String definition": {
+    "prefix": "str",
+    "body": ["s${1:1}=${2:0},{${3:Merhaba\\n}}", "p${1:1}"],
+    "description": "sN string tanımı ve pN ile basma"
+  },
+  "Meta add frame": {
+    "prefix": "add",
+    "body": [">>", "0(T-2)+k${1:10}", "0(T-1)+k${2:20}", "@20", "@61"],
+    "description": "@20 toplama frame şablonu"
+  },
+  "FIFO push pop": {
+    "prefix": "fifo",
+    "body": [">>", "0(T-1)+k${1:65}", "@90", "@91", ".(T+1)"],
+    "description": "FIFO push/pop şablonu"
+  },
+  "Data write read": {
+    "prefix": "datawr",
+    "body": [">>", "0(T-2)+k${1:5}", "0(T-1)+k${2:88}", "@96", "0(T-1)+k${1:5}", "@95", ".(T+1)"],
+    "description": "Data write/read şablonu"
+  },
+  "Wild layout": {
+    "prefix": "wildlayout",
+    "body": ["#mode wild", ">>", "0(T-2)+k48", "0(T-1)+k4", "0(T)+k12", "@127", "@84", "@61"],
+    "description": "Wild mode layout değiştirme şablonu"
+  }
+}
