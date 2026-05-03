@@ -1,0 +1,7 @@
+{
+  "uxminima.compilerPath": "uxm.exe",
+  "uxminima.runtimePath": "uxm31_runtime_fb_full.bas",
+  "uxminima.nasmPath": "nasm",
+  "uxminima.fbcPath": "C:/Users/mete/Downloads/BasicOyunSource/uXBasic_repo/tools/FreeBASIC-1.10.1-win64/fbc.exe",
+  "uxminima.buildDirectory": "build"
+}
