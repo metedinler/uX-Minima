@@ -1,7 +1,3 @@
-# Dosya 2: `uxm31_runtime_fb.bas`
-
-```freebasic
-Option Explicit
 #Lang "fb"
 Extern "C"
 Declare Sub uxm_entry()
@@ -1139,18 +1135,3 @@ If ux_status<>0 Then
 Print "Final status: ";ux_status;" ";
 PrintStatusMessage ux_status
 End If
-```
-
-Bu dosya, önce verdiğim FreeBASIC compiler dosyasının ürettiği NASM objesiyle linklenecek runtime’dır.
-
-Derleme zinciri şöyle olacak:
-
-```bat
-fbc uxm31_compiler_fb.bas -x uxm31_compiler.exe
-uxm31_compiler.exe test05_meta_add.uxm test05_meta_add.asm
-nasm -f win64 test05_meta_add.asm -o test05_meta_add.obj
-fbc uxm31_runtime_fb.bas test05_meta_add.obj -x test05_meta_add.exe
-test05_meta_add.exe
-```
-
-Bir sonraki devamda **test dosyalarını ve build scriptini** FreeBASIC sürüme göre vereceğim.

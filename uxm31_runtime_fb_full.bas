@@ -1,7 +1,3 @@
-# Dosya: `uxm31_runtime_fb_full.bas`
-
-```freebasic
-Option Explicit
 #Lang "fb"
 Extern "C"
 Declare Sub uxm_entry()
@@ -1247,37 +1243,3 @@ If ux_status<>0 Then
 Print "Final status: ";ux_status;" ";
 PrintStatusMessage ux_status
 End If
-```
-
-## Bu runtime’daki yeni meta servisler
-
-```text
-@90   FIFO push: arg2 = (T-1)
-@91   FIFO pop -> (T+1)
-@92   FIFO peek -> (T+1)
-@93   FIFO count -> (T+1)
-@94   FIFO clear
-@95   data read: index=(T-1) -> (T+1)
-@96   data write: index=(T-2), value=(T-1)
-@97   data digit read: index=(T-1), ASCII digit -> sayı
-@98   data block copy: src=(T-2), dst=(T-1), count=(T)
-@99   data block clear: dst=(T-2), count=(T-1)
-@100  tape sort ascending: start=(T-2), count=(T-1)
-@101  tape sort descending
-@102  data sort ascending
-@103  data sort descending
-@104  tape linear search: start=(T-2), count=(T-1), target=(T)
-@105  data linear search
-@106  tape block copy: src=(T-2), dst=(T-1), count=(T)
-@107  tape block clear: dst=(T-2), count=(T-1)
-@120  unsigned mode
-@121  signed mode
-@122  signed flag query
-@123  little endian
-@124  big endian
-@125  endian query
-@126  flags query
-@127  wild layout change: tapeKB=(T-2), stackKB=(T-1), dataKB=(T)
-```
-
-**devam** yazarsan şimdi `uxm31_compiler_fb_full.bas` dosyasını, yani bu runtime’a bağlı **tam native x64 compiler** dosyasını vereceğim.

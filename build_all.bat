@@ -1,6 +1,11 @@
 @echo off
 setlocal
+set FBC64=C:\Users\mete\Downloads\BasicOyunSource\uXBasic_repo\tools\FreeBASIC-1.10.1-win64\fbc.exe
+if exist "%FBC64%" (
+set FBC=%FBC64%
+) else (
 set FBC=fbc
+)
 set NASM=nasm
 echo [1/4] Compiler derleniyor...
 %FBC% -lang fb uxm31_compiler_fb.bas -x uxm.exe

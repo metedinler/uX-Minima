@@ -71,7 +71,7 @@
         },
         "uxminima.runtimePath": {
           "type": "string",
-          "default": "uxm31_runtime_fb.bas",
+          "default": "uxm31_runtime_fb_full.bas",
           "description": "Path to FreeBASIC runtime source."
         },
         "uxminima.nasmPath": {
@@ -81,7 +81,7 @@
         },
         "uxminima.fbcPath": {
           "type": "string",
-          "default": "fbc",
+          "default": "C:/Users/mete/Downloads/BasicOyunSource/uXBasic_repo/tools/FreeBASIC-1.10.1-win64/fbc.exe",
           "description": "Path to FreeBASIC compiler."
         },
         "uxminima.buildDirectory": {

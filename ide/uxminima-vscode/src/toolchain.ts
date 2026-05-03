@@ -52,7 +52,7 @@ export class UxmToolchain {
       baseName,
       buildDir: paths.buildDir,
       asm: path.join(paths.buildDir, `${baseName}.asm`),
-      obj: path.join(paths.buildDir, `${baseName}.obj`),
+      obj: path.join(paths.buildDir, `${baseName}.o`),
       exe: path.join(paths.buildDir, `${baseName}.exe`),
       trace: path.join(paths.buildDir, `${baseName}.trace.ndjson`),
       uir: path.join(paths.buildDir, `${baseName}.uir.json`),
@@ -84,15 +84,9 @@ export class UxmToolchain {
   async buildNative(sourceFile: string): Promise<BuildArtifacts> {
     const paths = this.getPaths();
     const art = this.artifactsFor(sourceFile);
-    await this.run(paths.compiler, [art.source, art.asm, art.uir, art.opt], "UXM -> ASM");
+    await this.run(paths.compiler, [art.source, art.asm], "UXM -> ASM");
     await this.run(paths.nasm, ["-f", "win64", art.asm, "-o", art.obj], "ASM -> OBJ");
-    try {
-      await this.run(paths.fbc, [paths.runtime, art.obj, "-x", art.exe], "Runtime + OBJ -> EXE");
-    } catch (err) {
-      this.output.appendLine("[WARN] Runtime link adimi basarisiz oldu. ASM ve OBJ uretimi tamamlandi.");
-      this.output.appendLine(String(err));
-      this.output.show(true);
-    }
+    await this.run(paths.fbc, ["-x", art.exe, paths.runtime, art.obj], "Runtime + OBJ -> EXE");
     return art;
   }
 
