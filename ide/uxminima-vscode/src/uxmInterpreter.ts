@@ -2,10 +2,10 @@ import { TraceEvent, CellEntry, ascii } from "./traceReader";
 import { META_SERVICES } from "./metaServices";
 
 type SpaceName = "T" | "D" | "S" | "P" | "E" | "F";
-type AddrKind = "T" | "T_REL" | "T_ABS" | "D_ABS" | "S_ABS" | "SP" | "P" | "E" | "F" | "IND_T" | "IND_T_REL";
+type AddrKind = "T" | "T_REL" | "T_ABS" | "D_ABS" | "S_ABS" | "SP" | "P" | "E" | "F" | "IND_T" | "IND_T_REL" | "D_AT_T_REL" | "D_AT_TBASE_REL";
 
-interface Address { kind: AddrKind; value: number; text: string; }
-interface Instr { op: string; amount: number; text: string; addr: Address; metaId?: number; metaDyn?: boolean; brCond?: string; brDir?: number; brDist?: number; brTarget?: number; mate?: number; stringId?: number; }
+interface Address { kind: AddrKind; value: number; value2?: number; text: string; }
+interface Instr { op: string; amount: number; text: string; addr: Address; metaId?: number; metaDyn?: boolean; metaForceHost?: boolean; brCond?: string; brDir?: number; brDist?: number; brTarget?: number; mate?: number; stringId?: number; }
 interface StringDef { id: number; start: number; text: string; }
 interface MacroDef { id: number; text: string; }
 
@@ -132,6 +132,12 @@ export class UxmInterpreter {
       }
       if (c === "@") {
         if (code[p + 1] === "#") { out.push({ op: "META", amount: 0, text: "@#", addr: this.addrT(), metaDyn: true }); p += 2; continue; }
+        const mForce = /^@!([0-9]+)/.exec(code.slice(p));
+        if (mForce) {
+          out.push({ op: "META", amount: 0, text: mForce[0], addr: this.addrT(), metaId: Number(mForce[1]), metaForceHost: true });
+          p += mForce[0].length;
+          continue;
+        }
         const m = /^@([0-9]+)/.exec(code.slice(p));
         if (m) {
           const id = Number(m[1]);
@@ -200,6 +206,15 @@ export class UxmInterpreter {
     if (/^T:\d+$/.test(body)) { return { kind: "T_ABS", value: Number(body.slice(2)), text: `(${body})` }; }
     if (/^D:\d+$/.test(body)) { return { kind: "D_ABS", value: Number(body.slice(2)), text: `(${body})` }; }
     if (/^S:\d+$/.test(body)) { return { kind: "S_ABS", value: Number(body.slice(2)), text: `(${body})` }; }
+    if (/^D@T$/.test(body)) { return { kind: "D_AT_T_REL", value: 0, value2: 0, text: `(${body})` }; }
+    if (/^D@T[+]\d+$/.test(body)) { return { kind: "D_AT_T_REL", value: 0, value2: Number(body.slice(4)), text: `(${body})` }; }
+    if (/^D@T-\d+$/.test(body)) { return { kind: "D_AT_T_REL", value: 0, value2: -Number(body.slice(4)), text: `(${body})` }; }
+    const dAtTBase = /^D@\(T([+-]\d+)?\)([+-]\d+)?$/.exec(body);
+    if (dAtTBase) {
+      const baseRel = dAtTBase[1] ? Number(dAtTBase[1]) : 0;
+      const dataRel = dAtTBase[2] ? Number(dAtTBase[2]) : 0;
+      return { kind: "D_AT_TBASE_REL", value: baseRel, value2: dataRel, text: `(${body})` };
+    }
     const indirect = /^\*\(T([+-]\d+)\)$/.exec(body);
     if (indirect) { return { kind: "IND_T_REL", value: Number(indirect[1]), text: `(${body})` }; }
     this.diagnostics.push(`Geçersiz adresleme: (${body})`);
@@ -432,7 +447,31 @@ export class UxmInterpreter {
 
   private readAddr(addr: Address): number { const r = this.resolve(addr); if (!r) { return 0; } const [space, idx] = r; if (space === "T") { return this.readTape(idx); } if (space === "D") { return this.data[idx] ?? 0; } if (space === "S") { return this.stack[idx] ?? 0; } if (space === "P") { return this.ptr; } if (space === "E") { return this.status; } if (space === "F") { return this.flags; } return 0; }
   private writeAddr(addr: Address, value: number): void { const r = this.resolve(addr); if (!r) { return; } const [space, idx] = r; const v = value & this.mask(); if (space === "T") { this.writeTape(idx, v); } if (space === "D") { this.data[idx] = v; } if (space === "S") { this.stack[idx] = v; } if (space === "P") { this.ptr = v; } if (space === "E") { this.setStatus(v); } if (space === "F") { this.flags = v; } this.setZS(v); }
-  private resolve(addr: Address): [SpaceName, number] | undefined { let idx = 0; switch (addr.kind) { case "T": return ["T", this.ptr]; case "T_REL": return ["T", this.ptr + addr.value]; case "T_ABS": return ["T", addr.value]; case "D_ABS": return ["D", addr.value]; case "S_ABS": return ["S", addr.value]; case "SP": return ["S", Math.max(0, this.sp - 1)]; case "P": return ["P", 0]; case "E": return ["E", 0]; case "F": return ["F", 0]; case "IND_T": idx = this.readTape(this.ptr); return ["T", idx]; case "IND_T_REL": idx = this.readTape(this.ptr + addr.value); return ["T", idx]; } }
+  private resolve(addr: Address): [SpaceName, number] | undefined {
+    let idx = 0;
+    let out: [SpaceName, number] | undefined;
+    switch (addr.kind) {
+      case "T": out = ["T", this.ptr]; break;
+      case "T_REL": out = ["T", this.ptr + addr.value]; break;
+      case "T_ABS": out = ["T", addr.value]; break;
+      case "D_ABS": out = ["D", addr.value]; break;
+      case "S_ABS": out = ["S", addr.value]; break;
+      case "SP": out = ["S", Math.max(0, this.sp - 1)]; break;
+      case "P": out = ["P", 0]; break;
+      case "E": out = ["E", 0]; break;
+      case "F": out = ["F", 0]; break;
+      case "IND_T": idx = this.readTape(this.ptr); out = ["T", idx]; break;
+      case "IND_T_REL": idx = this.readTape(this.ptr + addr.value); out = ["T", idx]; break;
+      case "D_AT_T_REL": idx = this.readTape(this.ptr) + (addr.value2 ?? 0); out = ["D", idx]; break;
+      case "D_AT_TBASE_REL": idx = this.readTape(this.ptr + addr.value) + (addr.value2 ?? 0); out = ["D", idx]; break;
+    }
+    if (!out) { return undefined; }
+    const [space, index] = out;
+    if (space === "T" && (index < 0 || index >= this.tape.length)) { this.setStatus(10); return undefined; }
+    if (space === "D" && (index < 0 || index >= this.data.length)) { this.setStatus(16); return undefined; }
+    if (space === "S" && (index < 0 || index >= this.stack.length)) { this.setStatus(12); return undefined; }
+    return out;
+  }
 
   private readTape(i: number): number { if (i < 0 || i >= this.tape.length) { this.setStatus(10); return 0; } return this.tape[i] ?? 0; }
   private writeTape(i: number, value: number): void { if (i < 0 || i >= this.tape.length) { this.setStatus(10); return; } this.tape[i] = value & this.mask(); this.setZS(this.tape[i]); }
