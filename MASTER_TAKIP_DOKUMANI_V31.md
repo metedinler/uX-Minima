@@ -155,3 +155,48 @@ Bu sprintin hedefi, hata/status davranisini 4 hatta gizli fark birakmadan standa
 4. `test42` ve `test43` senaryolari Sprint 1 backloguna eklenir.
 
 Bu dosya, su andan itibaren operasyonel ana belge olarak kullanilacaktir.
+
+## 11. Birlesik Faz-Sprint Yol Haritasi (6 Faz + Sprint 1)
+
+Asagidaki harita, onceki 6 faz programini ve mevcut Sprint 1 uygulamasini tek planda birlestirir.
+
+### Faz 0 - Gerceklik Kilidi ve Matris Otoritesi
+
+1. Kod-belge matrisi tek otorite olarak kilitlenir.
+2. Komut/meta/adresleme satirlari 4 hat bazinda ayni adlarla takip edilir.
+3. Gizli fark yakalama kurali zorunlu hale getilir.
+
+### Faz 1 - Cekirdek Semantik Esitleme
+
+1. `e`, `@9..@15`, branch flag kosullari ve `@!` davranisi eslenir.
+2. Sprint 1 bu fazin ilk icra sprintidir.
+
+#### Sprint 1 (aktif)
+
+1. `e` + ERR standardi baslatildi.
+2. Full Tool tarafinda `@!N` parse/dispatch ve `@11/@13/@14/@15` devreye alindi.
+3. Final/ARGE tarafinda flag-branch ASM emit genisletildi ve core ERR servisleri eklendi.
+4. VSCode internal interpreter tarafinda `@11/@13/@14/@15` semantigi eklendi.
+5. Native runtime hattinda `@11/@13/@14/@15` paritesi tamamlandi.
+6. Sprint 1 dogrulama testleri (`test42_error_flag_set_reset`, `test43_error_macro_helpers`) beklenen cikti ile gecti.
+
+### Faz 2 - Parser/Emitter Tekillestirme
+
+1. Active ve Final parser farklari kapatilir.
+2. UIR/diag ciktilarinda ortak alanlar zorunlu olur.
+
+### Faz 3 - Runtime ve Tooling Paritesi
+
+1. Native runtime, full tool ve VSCode ic yorumlayici ayni test vektorleriyle dogrulanir.
+2. Desteklenmeyen her nokta acik tanili bilincli desteklenmiyor olarak yazilir.
+
+### Faz 4 - Test Genisleme ve Regresyon Bariyeri
+
+1. Sprint bazli yeni testler (test42, test43 ve devamı) otomatik zincire baglanir.
+2. Matris satirlari test kaniti olmadan VAR seviyesine yukseltilmez.
+
+### Faz 5 - Stabilizasyon ve Release Hazirlik
+
+1. Belge-kod-fark raporlari sifirlanir.
+2. Build/test/release akisi deterministik ve izlenebilir hale getirilir.
+3. Son release notu bu master belgeden uretilir.

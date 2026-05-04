@@ -580,7 +580,7 @@ Sub ParseMeta(ByRef code As String, ByRef p As Long, ByVal depth As Long)
     st=p:p+=1:forceHost=0
     If p<=Len(code) And Mid(code,p,1)="!" Then forceHost=1:p+=1
     If p>Len(code) Then SyntaxError "@ sonrası id bekleniyor",p:Exit Sub
-    If Mid(code,p,1)="#" Then p+=1:AddMeta -1,1,0,"@#",st:Exit Sub
+    If Mid(code,p,1)="#" Then p+=1:AddMeta -1,1,forceHost,Mid(code,st,p-st),st:Exit Sub
     id=ParseUnsigned(code,p,ok):If ok=0 Then SyntaxError "@ sonrası sayı bekleniyor",p:Exit Sub
     If id<0 Or id>255 Then SyntaxError "meta id 0..255 olmalı",st:Exit Sub
     If forceHost=0 Then idx=FindMacro(id):If idx<>0 Then ParseProgram macroDef(idx).txt,depth+1:Exit Sub
@@ -588,13 +588,13 @@ Sub ParseMeta(ByRef code As String, ByRef p As Long, ByVal depth As Long)
 End Sub
 
 Sub ParseBranch(ByRef code As String, ByRef p As Long)
-    Dim st As Long,cond As Long,dir As Long,dist As Long,ok As Long,c As String
+    Dim st As Long,cond As Long,brDir As Long,dist As Long,ok As Long,c As String
     st=p:p+=1:If p>Len(code) Then SyntaxError ": sonrası branch bekleniyor",p:Exit Sub
     c=Mid(code,p,1)
     If c=":" Then cond=BR_ALWAYS:p+=1 ElseIf c="0" Then cond=BR_CUR_Z:p+=1 ElseIf c="z" Then cond=BR_Z_SET:p+=1 ElseIf c="Z" Then cond=BR_Z_CLR:p+=1 ElseIf c="c" Then cond=BR_C_SET:p+=1 ElseIf c="C" Then cond=BR_C_CLR:p+=1 ElseIf c="o" Then cond=BR_O_SET:p+=1 ElseIf c="O" Then cond=BR_O_CLR:p+=1 ElseIf c="s" Then cond=BR_S_SET:p+=1 ElseIf c="S" Then cond=BR_S_CLR:p+=1 ElseIf c="+" Or c="-" Then cond=BR_CUR_NZ Else SyntaxError "geçersiz branch tipi",p:Exit Sub
-    c=Mid(code,p,1):If c="+" Then dir=1 ElseIf c="-" Then dir=-1 Else SyntaxError "branch için + veya - gerekli",p:Exit Sub
+    c=Mid(code,p,1):If c="+" Then brDir=1 ElseIf c="-" Then brDir=-1 Else SyntaxError "branch için + veya - gerekli",p:Exit Sub
     p+=1:dist=ParseUnsigned(code,p,ok):If ok=0 Or dist<=0 Then SyntaxError "branch mesafesi gerekli",p:Exit Sub
-    AddBranch cond,dir,dist,Mid(code,st,p-st),st
+    AddBranch cond,brDir,dist,Mid(code,st,p-st),st
 End Sub
 
 Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal txt As String, ByVal pos As Long)
@@ -757,6 +757,19 @@ Sub RuntimeMeta(ByVal id As Long)
     Select Case id
     Case 0:SetStatus STATUS_OK
     Case 5:outputText+=Chr(10):SetStatus STATUS_OK
+    Case 9:WriteAddr ADDR_T_REL,1,0,statusByte:SetLogicFlags statusByte
+    Case 10:SetStatus STATUS_OK
+    Case 11:SetStatus ReadAddr(ADDR_T_REL,-2,0) And &HFF
+    Case 12:outputText+="STATUS="+Str(statusByte):SetStatus STATUS_OK
+    Case 13:If statusByte=0 Then SetStatus 1 Else SetStatus statusByte
+    Case 14:SetStatus STATUS_OK
+    Case 15
+        If (flags And FLAG_ERR)<>0 Then
+            WriteAddr ADDR_T_REL,1,0,1
+        Else
+            WriteAddr ADDR_T_REL,1,0,0
+        End If
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
     Case 20:WriteAddr ADDR_T_REL,1,0,(a+b) And CellMask():SetLogicFlags (a+b):SetStatus STATUS_OK
     Case 21:WriteAddr ADDR_T_REL,1,0,(a-b) And CellMask():SetLogicFlags (a-b):SetStatus STATUS_OK
     Case 22:WriteAddr ADDR_T_REL,1,0,(a*b) And CellMask():SetLogicFlags (a*b):SetStatus STATUS_OK
@@ -971,7 +984,30 @@ Sub EmitAddrPtr(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal out
     Case Else:EmitLine "    lea "+outReg+", [r12+rbx]"
     End Select
 End Sub
-Sub EmitSetFlagsFromRAX():EmitLine "    ; flags update minimal":End Sub
+Sub EmitSetFlagsFromRAX()
+    Dim id As Long
+    id=NewAsmId()
+    EmitLine "    push rax"
+    EmitLine "    mov dx, word [ux_flags]"
+    EmitLine "    and dx, 0FFF0h"
+    EmitLine "    cmp rax, 0"
+    EmitLine "    jne __ux_noz_"+LTrim(Str(id))
+    EmitLine "    or dx, FLAG_Z"
+    EmitLine "__ux_noz_"+LTrim(Str(id))+":"
+    Select Case cellBits
+    Case 8
+        EmitLine "    test al, 80h"
+    Case 16
+        EmitLine "    test ax, 8000h"
+    Case Else
+        EmitLine "    test eax, 80000000h"
+    End Select
+    EmitLine "    jz __ux_nos_"+LTrim(Str(id))
+    EmitLine "    or dx, FLAG_S"
+    EmitLine "__ux_nos_"+LTrim(Str(id))+":"
+    EmitLine "    mov word [ux_flags], dx"
+    EmitLine "    pop rax"
+End Sub
 Sub EmitMetaCall(ByVal id As Long, ByVal dyn As Long)
     EmitLine "    mov qword [ux_ptr], rbx":EmitLine "    mov qword [ux_sp], r14":If dyn Then EmitAddrLoad ADDR_T,0,0,"rax":EmitLine "    mov ecx, eax" Else EmitLine "    mov ecx, "+LTrim(Str(id))
     EmitLine "    lea rdx, [ux_mem]":EmitLine "    call ux_meta_call_ex":EmitLine "    mov rbx, qword [ux_ptr]":EmitLine "    mov r14, qword [ux_sp]"
@@ -982,7 +1018,15 @@ Sub EmitBranch(ByVal i As Long)
     Case BR_ALWAYS:EmitLine "    jmp __ux_ip_"+LTrim(Str(t))
     Case BR_CUR_NZ:EmitAddrLoad ADDR_T,0,0,"rax":EmitLine "    cmp rax,0":EmitLine "    jne __ux_ip_"+LTrim(Str(t))
     Case BR_CUR_Z:EmitAddrLoad ADDR_T,0,0,"rax":EmitLine "    cmp rax,0":EmitLine "    je __ux_ip_"+LTrim(Str(t))
-    Case Else:EmitLine "    ; flag branch not expanded in minimal emitter"
+    Case BR_Z_SET:EmitLine "    test word [ux_flags], FLAG_Z":EmitLine "    jnz __ux_ip_"+LTrim(Str(t))
+    Case BR_Z_CLR:EmitLine "    test word [ux_flags], FLAG_Z":EmitLine "    jz __ux_ip_"+LTrim(Str(t))
+    Case BR_C_SET:EmitLine "    test word [ux_flags], FLAG_C":EmitLine "    jnz __ux_ip_"+LTrim(Str(t))
+    Case BR_C_CLR:EmitLine "    test word [ux_flags], FLAG_C":EmitLine "    jz __ux_ip_"+LTrim(Str(t))
+    Case BR_O_SET:EmitLine "    test word [ux_flags], FLAG_O":EmitLine "    jnz __ux_ip_"+LTrim(Str(t))
+    Case BR_O_CLR:EmitLine "    test word [ux_flags], FLAG_O":EmitLine "    jz __ux_ip_"+LTrim(Str(t))
+    Case BR_S_SET:EmitLine "    test word [ux_flags], FLAG_S":EmitLine "    jnz __ux_ip_"+LTrim(Str(t))
+    Case BR_S_CLR:EmitLine "    test word [ux_flags], FLAG_S":EmitLine "    jz __ux_ip_"+LTrim(Str(t))
+    Case Else:EmitLine "    ; unknown branch condition"
     End Select
 End Sub
 Sub EmitFooter()

@@ -65,3 +65,10 @@ Dort hat (Native, Final, Full Tool, VSCode Internal) arasinda status ve hata bay
 3. Her fark ya kapatildi ya bilincli desteklenmiyor olarak aciklandi.
 4. test42 ve test43 artifact kayitlari test matrisi ve raporda gorunur.
 5. Master takip dosyasi Sprint 1 basladi durumunda.
+
+## Sprint 1 Anlik Uygulama Durumu
+1. Full Tool: `@!` parse/dispatch ve `@11/@13/@14/@15` kodu eklendi.
+2. Final/ARGE: flag-branch ASM emit kosullari tamamlandi, core ERR servisleri eklendi.
+3. VSCode Internal: `@11/@13/@14/@15` runtime semantigi eklendi.
+4. Native runtime: `@11/@13/@14/@15` ERR servis paritesi tamamlandi.
+5. Dogrulama: `tests/test42_error_flag_set_reset.uxm` cikti `10`, `tests/test43_error_macro_helpers.uxm` cikti `100`.

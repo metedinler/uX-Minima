@@ -329,12 +329,17 @@ export class UxmInterpreter {
     const arg2 = this.readTape(this.ptr - 1);
     const arg0 = this.readTape(this.ptr);
     let result: number | undefined;
+    let preserveStatusAfterWrite = false;
     switch (id) {
       case 0: this.setStatus(0); break;
       case 3: result = Math.floor(Math.random() * 256); break;
       case 5: this.output += "\n"; this.setStatus(0); break;
-      case 9: result = this.status; break;
+      case 9: result = this.status; preserveStatusAfterWrite = true; break;
       case 10: this.setStatus(0); break;
+      case 11: this.setStatus(arg1 & 0xff); break;
+      case 13: this.setStatus(this.status === 0 ? 1 : this.status); break;
+      case 14: this.setStatus(0); break;
+      case 15: result = (this.flags & 0x400) ? 1 : 0; preserveStatusAfterWrite = true; break;
       case 20: result = arg1 + arg2; break;
       case 21: result = arg1 - arg2; break;
       case 22: result = arg1 * arg2; break;
@@ -381,7 +386,12 @@ export class UxmInterpreter {
       case 127: this.changeLayout(arg1, arg2, arg0); break;
       default: this.setStatus(5); break;
     }
-    if (result !== undefined) { this.writeTape(this.ptr + 1, result); this.setStatus(this.status === 15 ? 15 : 0); }
+    if (result !== undefined) {
+      this.writeTape(this.ptr + 1, result);
+      if (!preserveStatusAfterWrite) {
+        this.setStatus(this.status === 15 ? 15 : 0);
+      }
+    }
   }
 
   private copy(mem: number[], src: number, dst: number, count: number): void { for (let i = 0; i < count; i++) { mem[dst + i] = mem[src + i] ?? 0; } this.setStatus(0); }

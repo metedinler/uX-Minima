@@ -111,6 +111,7 @@ Type TInstr
     text As String
     metaId As Long
     metaDyn As Long
+    metaForceHost As Long
     brCond As Long
     brDir As Long
     brDist As Long
@@ -179,7 +180,7 @@ Declare Sub ParsePrintString(ByRef code As String, ByRef p As Long)
 Declare Sub ParseMeta(ByRef code As String, ByRef p As Long)
 Declare Sub ParseBranch(ByRef code As String, ByRef p As Long)
 Declare Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal ak As Long, ByVal av As Long, ByVal txt As String)
-Declare Sub AddMeta(ByVal id As Long, ByVal dyn As Long, ByVal txt As String)
+Declare Sub AddMeta(ByVal id As Long, ByVal dyn As Long, ByVal forceHost As Long, ByVal txt As String)
 Declare Sub AddBranch(ByVal cond As Long, ByVal dir As Long, ByVal dist As Long, ByVal txt As String)
 Declare Sub AddString(ByVal id As Long, ByVal st As Long, ByVal txt As String)
 Declare Sub AddMacro(ByVal id As Long, ByVal txt As String)
@@ -604,18 +605,24 @@ Sub ParseMeta(ByRef code As String, ByRef p As Long)
     Dim ok As Long
     Dim id As Long
     Dim st As Long
+    Dim forceHost As Long
     st=p
     p=p+1
+    forceHost=0
+    If p<=Len(code) And Mid(code,p,1)="!" Then
+        forceHost=1
+        p=p+1
+    End If
     If p>Len(code) Then SyntaxError "@ sonrasi id bekleniyor",p:Exit Sub
     If Mid(code,p,1)="#" Then
         p=p+1
-        AddMeta -1,1,"@#"
+        AddMeta -1,1,forceHost,Mid(code,st,p-st)
         Exit Sub
     End If
     id=ParseUnsigned(code,p,ok)
     If ok=0 Then SyntaxError "@ sonrasi sayi bekleniyor",p:Exit Sub
     If id<0 Or id>255 Then SyntaxError "meta id 0..255 olmali",st:Exit Sub
-    AddMeta id,0,Mid(code,st,p-st)
+    AddMeta id,0,forceHost,Mid(code,st,p-st)
 End Sub
 Sub ParseBranch(ByRef code As String, ByRef p As Long)
     Dim st As Long
@@ -646,10 +653,11 @@ Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal ak As Long, ByVal av 
     Instr(InstrCount).addrVal=av
     Instr(InstrCount).text=txt
 End Sub
-Sub AddMeta(ByVal id As Long, ByVal dyn As Long, ByVal txt As String)
+Sub AddMeta(ByVal id As Long, ByVal dyn As Long, ByVal forceHost As Long, ByVal txt As String)
     AddInstr OP_META,0,ADDR_T,0,txt
     Instr(InstrCount).metaId=id
     Instr(InstrCount).metaDyn=dyn
+    Instr(InstrCount).metaForceHost=forceHost
 End Sub
 Sub AddBranch(ByVal cond As Long, ByVal dir As Long, ByVal dist As Long, ByVal txt As String)
     AddInstr OP_BRANCH,0,ADDR_T,0,txt
@@ -1091,7 +1099,7 @@ Sub ExecInstr(ByRef ip As Long, ByVal depth As Long)
         TraceEvent oldIp,"LOOP_END",""
     Case OP_META
         If Instr(ip).metaDyn Then v=Tape(Ptr) Else v=Instr(ip).metaId
-        If v>=128 Then CallMacro v,depth+1 Else MetaCall v
+        If v>=128 And Instr(ip).metaForceHost=0 Then CallMacro v,depth+1 Else MetaCall v
         TraceEvent oldIp,"META","""meta_id"":"+Str(v)
         ip=ip+1
     Case OP_BRANCH
@@ -1307,7 +1315,17 @@ Sub MetaCore(ByVal id As Long)
     Case 5:OutputText=OutputText+Chr(10):SetStatus STATUS_OK
     Case 9:Tape(Ptr+1)=StatusByte:SetLogicFlags StatusByte
     Case 10:SetStatus STATUS_OK
+    Case 11:SetStatus Tape(Ptr-2) And &HFF
     Case 12:OutputText=OutputText+"STATUS="+Str(StatusByte):SetStatus STATUS_OK
+    Case 13:If StatusByte=0 Then SetStatus 1 Else SetStatus StatusByte
+    Case 14:SetStatus STATUS_OK
+    Case 15
+        If (Flags And FLAG_ERR)<>0 Then
+            Tape(Ptr+1)=1
+        Else
+            Tape(Ptr+1)=0
+        End If
+        SetLogicFlags Tape(Ptr+1)
     Case Else:SetStatus STATUS_INVALID_META
     End Select
 End Sub

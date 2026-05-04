@@ -573,13 +573,23 @@ Case 9
 SetResult ux_status
 SetLogicFlags ux_status
 Case 10
-ux_status=0
-ux_flags=ux_flags And Not FLAG_ERR
+SetStatus STATUS_OK
 Case 11
-ux_status=Arg1() And &HFF
-If ux_status=0 Then ux_flags=ux_flags And Not FLAG_ERR Else ux_flags=ux_flags Or FLAG_ERR
+SetStatus CByte(Arg1() And &HFF)
 Case 12
 PrintStatusMessage ux_status
+Case 13
+If ux_status=0 Then SetStatus 1 Else SetStatus ux_status
+Case 14
+SetStatus STATUS_OK
+Case 15
+If (ux_flags And FLAG_ERR)<>0 Then
+SetResult 1
+SetLogicFlags 1
+Else
+SetResult 0
+SetLogicFlags 0
+End If
 Case Else
 SetStatus STATUS_INVALID_META
 End Select
