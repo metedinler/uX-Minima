@@ -56,7 +56,7 @@ uxminima-vscode/
 │     └─ memoryPanel.js
 ├─ tools/
 │  ├─ uxm31_full_tool.exe
-│  ├─ uxm31_compiler_full.exe
+│  ├─ uxm.exe
 │  ├─ uxm31_runtime_fb_full.bas
 │  └─ README_TOOLCHAIN.md
 ├─ docs/

@@ -2833,9 +2833,9 @@ End If
 @127  wild layout change: tapeKB=(T-2), stackKB=(T-1), dataKB=(T)
 ```
 
-**devam** yazarsan şimdi `uxm31_compiler_fb_full.bas` dosyasını, yani bu runtime’a bağlı **tam native x64 compiler** dosyasını vereceğim.
+**devam** yazarsan şimdi `uxm31_compiler_fb.bas` dosyasını, yani bu runtime’a bağlı **tam native x64 compiler** dosyasını vereceğim.
 
-# Dosya: `uxm31_compiler_fb_full.bas`
+# Dosya: `uxm31_compiler_fb.bas`
 
 ```freebasic
 Option Explicit
@@ -4450,8 +4450,8 @@ Bu native compiler artık şu çıktıları verir:
 Derleme:
 
 ```bat
-fbc uxm31_compiler_fb_full.bas -x uxm31_compiler_full.exe
-uxm31_compiler_full.exe tests\test05_meta_add.uxm build\test05.asm build\test05.uir.json build\test05.opt.json
+fbc uxm31_compiler_fb.bas -x uxm.exe
+uxm.exe tests\test05_meta_add.uxm build\test05.asm build\test05.uir.json build\test05.opt.json
 nasm -f win64 build\test05.asm -o build\test05.obj
 fbc uxm31_runtime_fb_full.bas build\test05.obj -x build\test05.exe
 build\test05.exe
@@ -4462,20 +4462,20 @@ Bu noktada dosya seti şöyle oldu:
 ```text
 uxm31_full_tool_fb.bas          yorumlayıcı + JSON trace + IDE + UIR + optimizer + macro call-stack
 uxm31_runtime_fb_full.bas       native ASM ile linklenen full runtime
-uxm31_compiler_fb_full.bas      native ASM üreten full compiler
+uxm31_compiler_fb.bas           native ASM üreten full compiler
 ```
 
-`uxm31_full_tool_fb.bas` tarafında runtime macro call-stack gerçek çalışır. `uxm31_compiler_fb_full.bas` tarafında macro’lar derleme zamanında inline açılır; native EXE tarafında `@128..255` kullanıcı macro call-stack değil, derlenmiş kod olarak bulunur.
+`uxm31_full_tool_fb.bas` tarafında runtime macro call-stack gerçek çalışır. `uxm31_compiler_fb.bas` tarafında macro’lar derleme zamanında inline açılır; native EXE tarafında `@128..255` kullanıcı macro call-stack değil, derlenmiş kod olarak bulunur.
 
 Tamam Mete abi. Aşağıdaki testler **öncekilerden farklıdır** ve beklenen çıktılar dosyanın içinde `# EXPECT_OUTPUT:` yorum satırı olarak yazılmıştır.
 
 Klasör adı önerisi:
 
 ```bat
-mkdir tests_full
+mkdir tests
 ```
 
-## `tests_full\test20_fifo_char_order.uxm`
+## `tests\test20_fifo_char_order.uxm`
 
 ```text
 # TEST: FIFO push/pop karakter sırası
@@ -4491,7 +4491,7 @@ mkdir tests_full
 .(T+1)
 ```
 
-## `tests_full\test21_fifo_count_peek.uxm`
+## `tests\test21_fifo_count_peek.uxm`
 
 ```text
 # TEST: FIFO count ve peek
@@ -4510,7 +4510,7 @@ mkdir tests_full
 @61
 ```
 
-## `tests_full\test22_data_write_read_char.uxm`
+## `tests\test22_data_write_read_char.uxm`
 
 ```text
 # TEST: data alanına yaz ve oku
@@ -4524,7 +4524,7 @@ mkdir tests_full
 .(T+1)
 ```
 
-## `tests_full\test23_data_digit_ascii_to_number.uxm`
+## `tests\test23_data_digit_ascii_to_number.uxm`
 
 ```text
 # TEST: data alanındaki ASCII rakamı sayıya çevir
@@ -4536,7 +4536,7 @@ s1=10,{987}
 @61
 ```
 
-## `tests_full\test24_data_block_copy_print.uxm`
+## `tests\test24_data_block_copy_print.uxm`
 
 ```text
 # TEST: data block copy
@@ -4564,7 +4564,7 @@ s1=0,{HELLO}
 .(T+1)
 ```
 
-## `tests_full\test25_data_sort_ascending.uxm`
+## `tests\test25_data_sort_ascending.uxm`
 
 ```text
 # TEST: data sort ascending
@@ -4593,7 +4593,7 @@ s1=0,{HELLO}
 .(T+1)
 ```
 
-## `tests_full\test26_tape_sort_descending_chars.uxm`
+## `tests\test26_tape_sort_descending_chars.uxm`
 
 ```text
 # TEST: tape sort descending
@@ -4610,7 +4610,7 @@ s1=0,{HELLO}
 .(T:12)
 ```
 
-## `tests_full\test27_tape_linear_search.uxm`
+## `tests\test27_tape_linear_search.uxm`
 
 ```text
 # TEST: tape linear search
@@ -4626,7 +4626,7 @@ s1=0,{HELLO}
 @61
 ```
 
-## `tests_full\test28_dynamic_meta_fifo.uxm`
+## `tests\test28_dynamic_meta_fifo.uxm`
 
 ```text
 # TEST: @# ile dinamik meta çağrı
@@ -4640,7 +4640,7 @@ s1=0,{HELLO}
 .(T+1)
 ```
 
-## `tests_full\test29_nested_macro_call.uxm`
+## `tests\test29_nested_macro_call.uxm`
 
 ```text
 # TEST: nested macro call
@@ -4650,7 +4650,7 @@ m129={0+k73.}
 @128
 ```
 
-## `tests_full\test30_word_mode_add.uxm`
+## `tests\test30_word_mode_add.uxm`
 
 ```text
 # TEST: word cell mode toplama
@@ -4663,7 +4663,7 @@ m129={0+k73.}
 @61
 ```
 
-## `tests_full\test31_safe_mode_wild_denied.uxm`
+## `tests\test31_safe_mode_wild_denied.uxm`
 
 ```text
 # TEST: safe mode içinde wild layout change reddedilmeli
@@ -4678,7 +4678,7 @@ e(T+1)
 @61
 ```
 
-## `tests_full\test32_wild_layout_change.uxm`
+## `tests\test32_wild_layout_change.uxm`
 
 ```text
 # TEST: wild mode memory layout change
@@ -4693,7 +4693,7 @@ e(T+1)
 @61
 ```
 
-## `tests_full\test33_bitwise_and_stack.uxm`
+## `tests\test33_bitwise_and_stack.uxm`
 
 ```text
 # TEST: stack üzerinden AND işlemi
@@ -4707,7 +4707,7 @@ $(T)
 @61
 ```
 
-## `tests_full\test34_data_block_clear.uxm`
+## `tests\test34_data_block_clear.uxm`
 
 ```text
 # TEST: data block clear
@@ -4728,7 +4728,7 @@ s1=0,{ABC}
 .(T+1)
 ```
 
-## `tests_full\test35_optimizer_visible_result.uxm`
+## `tests\test35_optimizer_visible_result.uxm`
 
 ```text
 # TEST: optimizer clear/inc-dec merge/cancel
