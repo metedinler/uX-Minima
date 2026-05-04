@@ -48,6 +48,58 @@ tests_full\*.uxm                Test programları
 build\                          Üretilen asm, obj, exe, json dosyaları
 ```
 
+## 41. UX-MAT V1 (Kod Gercekligi)
+
+Bu repoda UX-MAT V1 cekirdegi aktif olarak eklidir.
+
+Gercek entegrasyon noktasi:
+
+- `math_extensions/runtime/runtime_matrix_services.bas`
+- `uxm31_runtime_fb_full.bas` icinde `metaId>=160 And metaId<=199` yonlendirmesi
+- `math_extensions/lib/ux_mat_v1.uxm` ve `lib/ux_mat_v1.uxm`
+
+Desteklenen temel meta/macro araligi:
+
+- `@160` MAT_INIT
+- `@161` MAT_CLEAR
+- `@162` MAT_SET
+- `@163` MAT_GET
+- `@164` MAT_FILL
+- `@165` MAT_COPY
+- `@166` MAT_PRINT
+- `@167` MAT_ADD
+- `@168` MAT_SUB
+- `@169` MAT_SCALAR_MUL
+- `@170` MAT_MUL
+- `@171` MAT_TRANSPOSE_COPY
+- `@172` MAT_IDENTITY
+- `@173` MAT_TRACE
+- `@174` MAT_SHAPE
+- `@175` MAT_DET2
+- `@176` MAT_PRINT_RAW
+
+V1 kapsaminda aktif veri tipleri:
+
+- `type=0` unsigned integer
+- `type=1` signed integer
+- `type=2` fixed-point
+
+Compiler ARGE direktifleri (aktif):
+
+- `#matrix BASE ROWS COLS = values...`
+- `#matrix-signed BASE ROWS COLS = values...`
+- `#matrix-fixed BASE ROWS COLS SCALE = values...`
+- `#identity BASE SIZE`
+- `#zeros BASE ROWS COLS`
+- `#ones BASE ROWS COLS`
+
+Hazir testler:
+
+- `tests_matrix/test_matrix01_init_set_print.uxm`
+- `tests_matrix/test_matrix02_add_2x2.uxm`
+- `tests_matrix/test_matrix03_mul_2x2.uxm`
+- `tests_matrix/test_matrix04_identity_trace_det2.uxm`
+
 ---
 
 ## 3. Gerekli Araçlar

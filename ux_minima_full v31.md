@@ -4767,3 +4767,35 @@ uxm31_full_tool.exe opt tests_full\test20_fifo_char_order.uxm build\test20.opt.j
 ```
 
 Not: `test32_wild_layout_change.uxm` özellikle **native full runtime** tarafındaki `@84` tape cell sorgusunu kullanır. `uxm31_full_tool_fb.bas` içinde aynı sonucu istiyorsak `@84/@85/@86` servislerini interpreter motoruna da eklemek gerekir.
+
+## UX-MAT V1 Entegrasyon Durumu
+
+Bu surumde UX-MAT V1 cekirdegi aktiflestirilmistir.
+
+Runtime:
+
+- `uxm31_runtime_fb_full.bas` icinde `@160..@199` araligi `MetaMatrix`e yonlenir.
+- Uygulama kodu `math_extensions/runtime/runtime_matrix_services.bas` dosyasindadir.
+
+Compiler:
+
+- `math_extensions/compiler/arge_parse_matrix_additions.bas` dahil edilmistir.
+- `#matrix`, `#matrix-signed`, `#matrix-fixed`, `#identity`, `#zeros`, `#ones` direktifleri data initializer ureterek asm cikisina yansir.
+
+Lib:
+
+- `lib/ux_mat_v1.uxm`
+- `math_extensions/lib/ux_mat_v1.uxm`
+
+Ilk calisan V1 islevleri:
+
+- Init/clear/set/get/fill/copy/print
+- Add/sub/scalar-mul/mul
+- Transpose-copy/identity/trace/det2
+
+Testler:
+
+- `tests_matrix/test_matrix01_init_set_print.uxm`
+- `tests_matrix/test_matrix02_add_2x2.uxm`
+- `tests_matrix/test_matrix03_mul_2x2.uxm`
+- `tests_matrix/test_matrix04_identity_trace_det2.uxm`

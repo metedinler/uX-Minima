@@ -168,6 +168,7 @@ Dim Shared DefaultBigEndian As Long
 Dim Shared OutFF As Long
 Dim Shared EmitLabelCounter As Long
 #Include Once "math_extensions/compiler/arge_parse_math_additions.bas"
+#Include Once "math_extensions/compiler/arge_parse_matrix_additions.bas"
 Main()
 End
 Sub Main()
@@ -322,6 +323,8 @@ Sub ParsePragmas()
                 If v<>"" Then DataKB=ParseSizeKB(v,DataKB)
             ElseIf InStr(low,"#poly")=1 Or InStr(low,"#expr-rpn")=1 Then
                 ParseArgeMathLine lineText
+            ElseIf InStr(low,"#matrix")=1 Or InStr(low,"#identity")=1 Or InStr(low,"#zeros")=1 Or InStr(low,"#ones")=1 Then
+                ParseArgeMatrixLine lineText
             End If
         End If
         p=p+1

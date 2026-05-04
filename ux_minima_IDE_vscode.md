@@ -319,3 +319,24 @@ Böyle başlarsak birkaç adımda çalışan VS Code eklentisi çıkar. Sonra me
 [3]: https://code.visualstudio.com/api/language-extensions/language-server-extension-guide?utm_source=chatgpt.com "Language Server Extension Guide"
 [4]: https://docs.github.com/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot?utm_source=chatgpt.com "Adding repository custom instructions for GitHub Copilot"
 [5]: https://code.visualstudio.com/docs/debugtest/tasks?utm_source=chatgpt.com "Integrate with External Tools via Tasks"
+
+## UX-MAT V1 IDE Notu (Kod Gercekligi)
+
+Mevcut kod tabaninda matris makro/meta altyapisi eklenmistir.
+
+Aktif dosyalar:
+
+- `math_extensions/runtime/runtime_matrix_services.bas`
+- `math_extensions/lib/ux_mat_v1.uxm`
+- `lib/ux_mat_v1.uxm`
+
+IDE uzerinden hizli dogrulama icin:
+
+1. `tests_matrix/test_matrix01_init_set_print.uxm`
+2. `tests_matrix/test_matrix02_add_2x2.uxm`
+3. `tests_matrix/test_matrix03_mul_2x2.uxm`
+
+Not:
+
+- Matris cagrilari `@!160..@!193` host-zorlanmis macro duzeni ile tanimlidir.
+- Derleyici tarafinda `#matrix`, `#matrix-signed`, `#matrix-fixed`, `#identity`, `#zeros`, `#ones` ARGE satirlari parse edilmektedir.
