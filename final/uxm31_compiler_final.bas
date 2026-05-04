@@ -266,6 +266,15 @@ Declare Sub SetZeroSign(ByVal v As ULongInt)
 Declare Sub ClearArithFlags()
 Declare Sub FifoPush(ByVal v As ULongInt)
 Declare Function FifoPop() As ULongInt
+Declare Function FifoPeek() As ULongInt
+Declare Sub DataBlockCopy(ByVal src As Long, ByVal dst As Long, ByVal cnt As Long)
+Declare Sub DataBlockClear(ByVal dst As Long, ByVal cnt As Long)
+Declare Sub TapeBlockCopy(ByVal src As Long, ByVal dst As Long, ByVal cnt As Long)
+Declare Sub TapeBlockClear(ByVal dst As Long, ByVal cnt As Long)
+Declare Sub SortTape(ByVal startIdx As Long, ByVal cnt As Long, ByVal ascending As Long)
+Declare Sub SortData(ByVal startIdx As Long, ByVal cnt As Long, ByVal ascending As Long)
+Declare Function LinearSearchTape(ByVal startIdx As Long, ByVal cnt As Long, ByVal target As ULongInt) As Long
+Declare Function LinearSearchData(ByVal startIdx As Long, ByVal cnt As Long, ByVal target As ULongInt) As Long
 Declare Function ReadAddr(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long) As ULongInt
 Declare Sub WriteAddr(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal v As ULongInt)
 Declare Function ResolveIndex(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByRef spaceName As String, ByRef ok As Long) As Long
@@ -797,11 +806,34 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 89:outputText+="LAYOUT tape="+Str(tapeCells)+" stack="+Str(stackCells)+" data="+Str(dataCells):SetStatus STATUS_OK
     Case 90:FifoPush b
     Case 91:WriteAddr ADDR_T_REL,1,0,FifoPop():SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 92:WriteAddr ADDR_T_REL,1,0,FifoPeek():SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
     Case 93:WriteAddr ADDR_T_REL,1,0,fifoCount:SetStatus STATUS_OK
+    Case 94:fifoHead=0:fifoTail=0:fifoCount=0:SetStatus STATUS_OK
     Case 95:If b>=dataCells Then SetStatus STATUS_DATA_BOUNDS Else WriteAddr ADDR_T_REL,1,0,dataMem(b):SetStatus STATUS_OK
     Case 96:If a>=dataCells Then SetStatus STATUS_DATA_BOUNDS Else dataMem(a)=b And CellMask():SetStatus STATUS_OK
+    Case 97
+        If b>=dataCells Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            If dataMem(b)>=48 And dataMem(b)<=57 Then
+                WriteAddr ADDR_T_REL,1,0,dataMem(b)-48
+                SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+                SetStatus STATUS_OK
+            Else
+                WriteAddr ADDR_T_REL,1,0,0
+                SetStatus STATUS_UNDERFLOW
+            End If
+        End If
     Case 98:Dim i As Long:For i=0 To c-1:If a+i<dataCells And b+i<dataCells Then dataMem(b+i)=dataMem(a+i):Next:SetStatus STATUS_OK
     Case 99:For i As Long=0 To b-1:If a+i<dataCells Then dataMem(a+i)=0:Next:SetStatus STATUS_OK
+    Case 100:SortTape CLng(a),CLng(b),1
+    Case 101:SortTape CLng(a),CLng(b),0
+    Case 102:SortData CLng(a),CLng(b),1
+    Case 103:SortData CLng(a),CLng(b),0
+    Case 104:WriteAddr ADDR_T_REL,1,0,LinearSearchTape(CLng(a),CLng(b),c):SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 105:WriteAddr ADDR_T_REL,1,0,LinearSearchData(CLng(a),CLng(b),c):SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 106:TapeBlockCopy CLng(a),CLng(b),CLng(c)
+    Case 107:TapeBlockClear CLng(a),CLng(b)
     Case 120:flags And=Not FLAG_SGN:SetStatus STATUS_OK
     Case 121:flags Or=FLAG_SGN:SetStatus STATUS_OK
     Case 126:WriteAddr ADDR_T_REL,1,0,flags:SetStatus STATUS_OK
@@ -817,6 +849,87 @@ Function FifoPop() As ULongInt
     Dim v As ULongInt
     If fifoCount=0 Then SetStatus STATUS_STACK_UNDERFLOW:Return 0
     v=fifoMem(fifoHead):fifoHead=(fifoHead+1) Mod 65536:fifoCount-=1:SetStatus STATUS_OK:Return v
+End Function
+Function FifoPeek() As ULongInt
+    If fifoCount=0 Then SetStatus STATUS_STACK_UNDERFLOW:Return 0
+    SetStatus STATUS_OK
+    Return fifoMem(fifoHead)
+End Function
+Sub DataBlockCopy(ByVal src As Long, ByVal dst As Long, ByVal cnt As Long)
+    Dim i As Long
+    If src<0 Or dst<0 Or src+cnt>dataCells Or dst+cnt>dataCells Then SetStatus STATUS_DATA_BOUNDS:Exit Sub
+    For i=0 To cnt-1
+        dataMem(dst+i)=dataMem(src+i)
+    Next
+    SetStatus STATUS_OK
+End Sub
+Sub DataBlockClear(ByVal dst As Long, ByVal cnt As Long)
+    Dim i As Long
+    If dst<0 Or dst+cnt>dataCells Then SetStatus STATUS_DATA_BOUNDS:Exit Sub
+    For i=0 To cnt-1
+        dataMem(dst+i)=0
+    Next
+    SetStatus STATUS_OK
+End Sub
+Sub TapeBlockCopy(ByVal src As Long, ByVal dst As Long, ByVal cnt As Long)
+    Dim i As Long
+    If src<0 Or dst<0 Or src+cnt>tapeCells Or dst+cnt>tapeCells Then SetStatus STATUS_PTR_BOUNDS:Exit Sub
+    For i=0 To cnt-1
+        tape(dst+i)=tape(src+i)
+    Next
+    SetStatus STATUS_OK
+End Sub
+Sub TapeBlockClear(ByVal dst As Long, ByVal cnt As Long)
+    Dim i As Long
+    If dst<0 Or dst+cnt>tapeCells Then SetStatus STATUS_PTR_BOUNDS:Exit Sub
+    For i=0 To cnt-1
+        tape(dst+i)=0
+    Next
+    SetStatus STATUS_OK
+End Sub
+Sub SortTape(ByVal startIdx As Long, ByVal cnt As Long, ByVal ascending As Long)
+    Dim i As Long,j As Long,tmp As ULongInt
+    If startIdx<0 Or startIdx+cnt>tapeCells Then SetStatus STATUS_PTR_BOUNDS:Exit Sub
+    For i=0 To cnt-2
+        For j=0 To cnt-2-i
+            If (ascending<>0 And tape(startIdx+j)>tape(startIdx+j+1)) Or (ascending=0 And tape(startIdx+j)<tape(startIdx+j+1)) Then
+                tmp=tape(startIdx+j)
+                tape(startIdx+j)=tape(startIdx+j+1)
+                tape(startIdx+j+1)=tmp
+            End If
+        Next
+    Next
+    SetStatus STATUS_OK
+End Sub
+Sub SortData(ByVal startIdx As Long, ByVal cnt As Long, ByVal ascending As Long)
+    Dim i As Long,j As Long,tmp As ULongInt
+    If startIdx<0 Or startIdx+cnt>dataCells Then SetStatus STATUS_DATA_BOUNDS:Exit Sub
+    For i=0 To cnt-2
+        For j=0 To cnt-2-i
+            If (ascending<>0 And dataMem(startIdx+j)>dataMem(startIdx+j+1)) Or (ascending=0 And dataMem(startIdx+j)<dataMem(startIdx+j+1)) Then
+                tmp=dataMem(startIdx+j)
+                dataMem(startIdx+j)=dataMem(startIdx+j+1)
+                dataMem(startIdx+j+1)=tmp
+            End If
+        Next
+    Next
+    SetStatus STATUS_OK
+End Sub
+Function LinearSearchTape(ByVal startIdx As Long, ByVal cnt As Long, ByVal target As ULongInt) As Long
+    Dim i As Long
+    If startIdx<0 Or startIdx+cnt>tapeCells Then SetStatus STATUS_PTR_BOUNDS:Return CellMask()
+    For i=0 To cnt-1
+        If tape(startIdx+i)=target Then Return i
+    Next
+    Return CellMask()
+End Function
+Function LinearSearchData(ByVal startIdx As Long, ByVal cnt As Long, ByVal target As ULongInt) As Long
+    Dim i As Long
+    If startIdx<0 Or startIdx+cnt>dataCells Then SetStatus STATUS_DATA_BOUNDS:Return CellMask()
+    For i=0 To cnt-1
+        If dataMem(startIdx+i)=target Then Return i
+    Next
+    Return CellMask()
 End Function
 
 Function ResolveIndex(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByRef spaceName As String, ByRef ok As Long) As Long

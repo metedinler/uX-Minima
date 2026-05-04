@@ -221,6 +221,9 @@ Declare Sub DataBlockClear(ByVal dst As Long, ByVal cnt As Long)
 Declare Sub SortTape(ByVal startIdx As Long, ByVal cnt As Long, ByVal ascending As Long)
 Declare Sub SortData(ByVal startIdx As Long, ByVal cnt As Long, ByVal ascending As Long)
 Declare Function LinearSearchTape(ByVal startIdx As Long, ByVal cnt As Long, ByVal target As ULongInt) As Long
+Declare Function LinearSearchData(ByVal startIdx As Long, ByVal cnt As Long, ByVal target As ULongInt) As Long
+Declare Sub TapeBlockCopy(ByVal src As Long, ByVal dst As Long, ByVal cnt As Long)
+Declare Sub TapeBlockClear(ByVal dst As Long, ByVal cnt As Long)
 Declare Function ReadAddr(ByVal ak As Long, ByVal av As Long) As ULongInt
 Declare Sub WriteAddr(ByVal ak As Long, ByVal av As Long, ByVal v As ULongInt)
 Declare Function ResolveIndex(ByVal ak As Long, ByVal av As Long, ByRef spaceName As String, ByRef ok As Long) As Long
@@ -1412,6 +1415,9 @@ Sub MetaFifoDataSort(ByVal id As Long)
     Case 102:SortData a,b,1
     Case 103:SortData a,b,0
     Case 104:Tape(Ptr+1)=LinearSearchTape(a,b,c):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 105:Tape(Ptr+1)=LinearSearchData(a,b,c):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 106:TapeBlockCopy a,b,c
+    Case 107:TapeBlockClear a,b
     Case 120:Flags=Flags And Not FLAG_SGN:SetStatus STATUS_OK
     Case 121:Flags=Flags Or FLAG_SGN:SetStatus STATUS_OK
     Case 122:If (Flags And FLAG_SGN)<>0 Then Tape(Ptr+1)=1 Else Tape(Ptr+1)=0:SetStatus STATUS_OK
@@ -1516,6 +1522,30 @@ Function LinearSearchTape(ByVal startIdx As Long, ByVal cnt As Long, ByVal targe
     Next
     Return CellMask()
 End Function
+Function LinearSearchData(ByVal startIdx As Long, ByVal cnt As Long, ByVal target As ULongInt) As Long
+    Dim i As Long
+    If startIdx<0 Or startIdx+cnt>DataCells Then SetStatus STATUS_DATA_BOUNDS:Return CellMask()
+    For i=0 To cnt-1
+        If DataMem(startIdx+i)=target Then Return i
+    Next
+    Return CellMask()
+End Function
+Sub TapeBlockCopy(ByVal src As Long, ByVal dst As Long, ByVal cnt As Long)
+    Dim i As Long
+    If src<0 Or dst<0 Or src+cnt>TapeCells Or dst+cnt>TapeCells Then SetStatus STATUS_PTR_BOUNDS:Exit Sub
+    For i=0 To cnt-1
+        Tape(dst+i)=Tape(src+i)
+    Next
+    SetStatus STATUS_OK
+End Sub
+Sub TapeBlockClear(ByVal dst As Long, ByVal cnt As Long)
+    Dim i As Long
+    If dst<0 Or dst+cnt>TapeCells Then SetStatus STATUS_PTR_BOUNDS:Exit Sub
+    For i=0 To cnt-1
+        Tape(dst+i)=0
+    Next
+    SetStatus STATUS_OK
+End Sub
 Function GetJsonValue(ByVal js As String, ByVal key As String) As String
     Dim p As Long
     Dim q As Long
