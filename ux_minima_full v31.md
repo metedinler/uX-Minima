@@ -4768,34 +4768,34 @@ uxm31_full_tool.exe opt tests_full\test20_fifo_char_order.uxm build\test20.opt.j
 
 Not: `test32_wild_layout_change.uxm` özellikle **native full runtime** tarafındaki `@84` tape cell sorgusunu kullanır. `uxm31_full_tool_fb.bas` içinde aynı sonucu istiyorsak `@84/@85/@86` servislerini interpreter motoruna da eklemek gerekir.
 
+---
+
 ## UX-MAT V1 Entegrasyon Durumu
 
-Bu surumde UX-MAT V1 cekirdegi aktiflestirilmistir.
+Bu sürümde UX-MAT V1 çekirdeği etkinleştirilmiştir. Aşağıdaki bileşenler kod tabanına dahil edilmiştir.
 
-Runtime:
+### Runtime
 
-- `uxm31_runtime_fb_full.bas` icinde `@160..@199` araligi `MetaMatrix`e yonlenir.
-- Uygulama kodu `math_extensions/runtime/runtime_matrix_services.bas` dosyasindadir.
+- `uxm31_runtime_fb_full.bas` içinde `metaId>=160 And metaId<=199` koşulu `MetaMatrix` alt programına yönlenir.
+- Uygulama kodu: `math_extensions/runtime/runtime_matrix_services.bas`
+- Desteklenen işlevler: MatInit, MatClear, MatSet, MatGet, MatFill, MatCopy, MatPrint, MatAdd, MatSub, MatScalarMul, MatMul, MatTransposeCopy, MatIdentity, MatTrace, MatShape, MatDet2, MatPrintRaw
 
-Compiler:
+### Compiler (ARGE)
 
-- `math_extensions/compiler/arge_parse_matrix_additions.bas` dahil edilmistir.
-- `#matrix`, `#matrix-signed`, `#matrix-fixed`, `#identity`, `#zeros`, `#ones` direktifleri data initializer ureterek asm cikisina yansir.
+- `math_extensions/compiler/arge_parse_matrix_additions.bas` `uxm31_compiler_fb.bas` içine dahil edilmiştir.
+- Tanınan direktifler: `#matrix`, `#matrix-signed`, `#matrix-fixed`, `#identity`, `#zeros`, `#ones`
+- Bu direktifler derleme sırasında DATA alanına başlık + eleman başlatma kodu üretir.
 
-Lib:
+### Lib / Makro Başlıkları
 
 - `lib/ux_mat_v1.uxm`
 - `math_extensions/lib/ux_mat_v1.uxm`
 
-Ilk calisan V1 islevleri:
+### Çalışan Testler
 
-- Init/clear/set/get/fill/copy/print
-- Add/sub/scalar-mul/mul
-- Transpose-copy/identity/trace/det2
-
-Testler:
-
-- `tests_matrix/test_matrix01_init_set_print.uxm`
-- `tests_matrix/test_matrix02_add_2x2.uxm`
-- `tests_matrix/test_matrix03_mul_2x2.uxm`
-- `tests_matrix/test_matrix04_identity_trace_det2.uxm`
+| Dosya | Beklenen Çıktı |
+| ----- | --------------- |
+| `tests_matrix/test_matrix01_init_set_print.uxm` | `[1 2]\n[3 4]` |
+| `tests_matrix/test_matrix02_add_2x2.uxm` | `[6 8]\n[10 12]` |
+| `tests_matrix/test_matrix03_mul_2x2.uxm` | `[19 22]\n[43 50]` |
+| `tests_matrix/test_matrix04_identity_trace_det2.uxm` | 3x3 birim matris + trace=3 + det2=-2 |

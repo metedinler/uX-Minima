@@ -48,60 +48,6 @@ tests_full\*.uxm                Test programları
 build\                          Üretilen asm, obj, exe, json dosyaları
 ```
 
-## 41. UX-MAT V1 (Kod Gercekligi)
-
-Bu repoda UX-MAT V1 cekirdegi aktif olarak eklidir.
-
-Gercek entegrasyon noktasi:
-
-- `math_extensions/runtime/runtime_matrix_services.bas`
-- `uxm31_runtime_fb_full.bas` icinde `metaId>=160 And metaId<=199` yonlendirmesi
-- `math_extensions/lib/ux_mat_v1.uxm` ve `lib/ux_mat_v1.uxm`
-
-Desteklenen temel meta/macro araligi:
-
-- `@160` MAT_INIT
-- `@161` MAT_CLEAR
-- `@162` MAT_SET
-- `@163` MAT_GET
-- `@164` MAT_FILL
-- `@165` MAT_COPY
-- `@166` MAT_PRINT
-- `@167` MAT_ADD
-- `@168` MAT_SUB
-- `@169` MAT_SCALAR_MUL
-- `@170` MAT_MUL
-- `@171` MAT_TRANSPOSE_COPY
-- `@172` MAT_IDENTITY
-- `@173` MAT_TRACE
-- `@174` MAT_SHAPE
-- `@175` MAT_DET2
-- `@176` MAT_PRINT_RAW
-
-V1 kapsaminda aktif veri tipleri:
-
-- `type=0` unsigned integer
-- `type=1` signed integer
-- `type=2` fixed-point
-
-Compiler ARGE direktifleri (aktif):
-
-- `#matrix BASE ROWS COLS = values...`
-- `#matrix-signed BASE ROWS COLS = values...`
-- `#matrix-fixed BASE ROWS COLS SCALE = values...`
-- `#identity BASE SIZE`
-- `#zeros BASE ROWS COLS`
-- `#ones BASE ROWS COLS`
-
-Hazir testler:
-
-- `tests_matrix/test_matrix01_init_set_print.uxm`
-- `tests_matrix/test_matrix02_add_2x2.uxm`
-- `tests_matrix/test_matrix03_mul_2x2.uxm`
-- `tests_matrix/test_matrix04_identity_trace_det2.uxm`
-
----
-
 ## 3. Gerekli Araçlar
 
 Windows üzerinde şu araçlar gerekir:
@@ -1348,7 +1294,10 @@ T+1 sonuç
 @90..@94     FIFO servisleri
 @95..@107    data/tape block, sort, search servisleri
 @120..@127   flags, endian, signed, wild layout servisleri
-@128..@255   kullanıcı macro alanı
+@128..@159   kullanıcı macro alanı
+@160..@176   matris servisleri (UX-MAT V1)
+@200..@239   kayan nokta servisleri (UX-FP)
+@240..@254   genişletilmiş matematik (polinom, ifade)
 ```
 
 ---
@@ -1382,7 +1331,90 @@ build\program.exe
 
 ---
 
-## 40. Sonuç
+## 40. UX-MAT V1 Matrix Servisleri
+
+UX-MAT V1, UX-MINIMA üzerinde matris işlemleri yapabilen yerleşik bir servis katmanıdır. `@160..@176` meta aralığında çalışır.
+
+### Bellek Modeli
+
+Her matris DATA alanında bir başlık bloğu ve ardından gelen elemanlarla saklanır:
+
+```text
+D:BASE+0   magic = 77 ('M')
+D:BASE+1   sürüm = 1
+D:BASE+2   boyut = 2 (2B matris)
+D:BASE+3   tip: 0=unsigned, 1=signed, 2=fixed-point
+D:BASE+4   bayraklar
+D:BASE+5   satır sayısı
+D:BASE+6   sütun sayısı
+D:BASE+7   scale (fixed-point için)
+D:BASE+16+ elemanlar (satır-öncelikli)
+```
+
+> **Önemli:** 8-bit tape sisteminde `T-n` hücreleri tek byte taşır. DATA base adresi 0–254 arasında olmalıdır. 255'i aşan adresler `mod 256` kesilir ve yanlış matrise işaret eder.
+
+### Frame Düzeni
+
+Matrix meta çağrılarında pointer T=30 konumunda (30 adet `>`) olmalıdır:
+
+```text
+T-4 = dst / base adresi
+T-3 = A / satır sayısı / base adresi
+T-2 = B / sütun sayısı
+T-1 = param1 / değer / tip
+T   = param2 / scale
+T+1 = sonuç / durum (meta tarafından yazılır)
+```
+
+### Meta Servis Tablosu
+
+| Meta   | İşlev                      | Frame kullanımı                        |
+| ------ | -------------------------- | -------------------------------------- |
+| `@160` | MAT_INIT                   | T-4=base, T-3=rows, T-2=cols, T-1=tip, T=scale |
+| `@161` | MAT_CLEAR                  | T-4=base                               |
+| `@162` | MAT_SET                    | T-4=base, T-3=row, T-2=col, T-1=değer |
+| `@163` | MAT_GET                    | T-4=base, T-3=row, T-2=col → T+1      |
+| `@164` | MAT_FILL                   | T-4=base, T-3=değer                    |
+| `@165` | MAT_COPY                   | T-4=dst, T-3=src                       |
+| `@166` | MAT_PRINT                  | T-3=base                               |
+| `@167` | MAT_ADD                    | T-4=dst, T-3=A, T-2=B                 |
+| `@168` | MAT_SUB                    | T-4=dst, T-3=A, T-2=B                 |
+| `@169` | MAT_SCALAR_MUL             | T-4=dst, T-3=A, T-2=skaler            |
+| `@170` | MAT_MUL                    | T-4=dst, T-3=A, T-2=B                 |
+| `@171` | MAT_TRANSPOSE_COPY         | T-4=dst, T-3=src                       |
+| `@172` | MAT_IDENTITY               | T-4=base, T-3=N, T-2=tip, T-1=scale  |
+| `@173` | MAT_TRACE                  | T-3=base → T+1                         |
+| `@174` | MAT_SHAPE                  | T-3=base (yazdırır)                    |
+| `@175` | MAT_DET2                   | T-3=base → T+1 (sadece 2×2)           |
+| `@176` | MAT_PRINT_RAW              | T-3=base (ham bayt yazdırır)           |
+
+### Compiler Direktifleri
+
+```text
+#matrix BASE ROWS COLS = v1,v2,...
+#matrix-signed BASE ROWS COLS = v1,v2,...
+#matrix-fixed BASE ROWS COLS SCALE = v1.f1,v2.f2,...
+#identity BASE SIZE
+#zeros BASE ROWS COLS
+#ones BASE ROWS COLS
+```
+
+### Makro Başlıkları
+
+`lib/ux_mat_v1.uxm` veya `math_extensions/lib/ux_mat_v1.uxm` dosyasını dahil ederek `m160`..`m176` isimli makroları kullanabilirsiniz.
+
+### Testler
+
+```text
+tests_matrix/test_matrix01_init_set_print.uxm   init/set/print
+tests_matrix/test_matrix02_add_2x2.uxm          2x2 matris toplama
+tests_matrix/test_matrix03_mul_2x2.uxm          2x2 matris çarpma
+tests_matrix/test_matrix04_identity_trace_det2.uxm  identity/trace/det2
+```
+
+---
+
+## 41. Sonuç
 
 UX-MINIMA x64 V3.1 Full, küçük görünen ama bellek, pointer, stack, FIFO, data table, sort, branch, macro ve native x64 üretim mantığını bir araya getiren deneysel bir programlama sistemidir.
 

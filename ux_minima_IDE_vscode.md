@@ -320,23 +320,39 @@ Böyle başlarsak birkaç adımda çalışan VS Code eklentisi çıkar. Sonra me
 [4]: https://docs.github.com/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot?utm_source=chatgpt.com "Adding repository custom instructions for GitHub Copilot"
 [5]: https://code.visualstudio.com/docs/debugtest/tasks?utm_source=chatgpt.com "Integrate with External Tools via Tasks"
 
-## UX-MAT V1 IDE Notu (Kod Gercekligi)
+---
 
-Mevcut kod tabaninda matris makro/meta altyapisi eklenmistir.
+## UX-MAT V1: Matris Altyapısı (Aktif Dosyalar ve Test Noktaları)
 
-Aktif dosyalar:
+UX-MINIMA V3.1 kod tabanına matris meta/makro altyapısı (UX-MAT V1) eklenmiştir. IDE geliştirmesinde bu dosyalar ve test noktaları dikkate alınmalıdır.
 
-- `math_extensions/runtime/runtime_matrix_services.bas`
-- `math_extensions/lib/ux_mat_v1.uxm`
-- `lib/ux_mat_v1.uxm`
+**Kaynak dosyalar:**
 
-IDE uzerinden hizli dogrulama icin:
+| Dosya | Açıklama |
+| ----- | -------- |
+| `math_extensions/runtime/runtime_matrix_services.bas` | Runtime: init/set/get/add/mul/print/trace/det2 |
+| `math_extensions/compiler/arge_parse_matrix_additions.bas` | Compiler: `#matrix` ARGE direktif ayrıştırıcı |
+| `math_extensions/lib/ux_mat_v1.uxm` | Makro başlıkları (`m160`..`m176`) |
+| `lib/ux_mat_v1.uxm` | Aynı makro başlıkları (proje kök lib dizini) |
 
-1. `tests_matrix/test_matrix01_init_set_print.uxm`
-2. `tests_matrix/test_matrix02_add_2x2.uxm`
-3. `tests_matrix/test_matrix03_mul_2x2.uxm`
+**Syntax highlighting için tanınması gereken yeni direktifler:**
 
-Not:
+```text
+#matrix
+#matrix-signed
+#matrix-fixed
+#identity
+#zeros
+#ones
+```
 
-- Matris cagrilari `@!160..@!193` host-zorlanmis macro duzeni ile tanimlidir.
-- Derleyici tarafinda `#matrix`, `#matrix-signed`, `#matrix-fixed`, `#identity`, `#zeros`, `#ones` ARGE satirlari parse edilmektedir.
+**Meta aralığı:** `@160`..`@176` (MatInit → MatPrintRaw)
+
+**IDE doğrulama için hazır test dosyaları:**
+
+1. `tests_matrix/test_matrix01_init_set_print.uxm` — Beklenen çıktı: `[1 2]\n[3 4]`
+2. `tests_matrix/test_matrix02_add_2x2.uxm` — Beklenen çıktı: `[6 8]\n[10 12]`
+3. `tests_matrix/test_matrix03_mul_2x2.uxm` — Beklenen çıktı: `[19 22]\n[43 50]`
+4. `tests_matrix/test_matrix04_identity_trace_det2.uxm` — Beklenen çıktı: `[1 0 0]\n[0 1 0]\n[0 0 1]\n3-2`
+
+**Önemli kısıtlama:** 8-bit tape modunda DATA base adresi 0–254 arasında kalmalıdır. 255'i aşan adresler byte truncation'a uğrar.
