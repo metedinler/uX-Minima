@@ -360,10 +360,22 @@ export class UxmInterpreter {
       case 61: this.output += String(this.readTape(this.ptr + 1)); this.setStatus(0); break;
       case 64: this.output += " "; this.setStatus(0); break;
       case 80: this.ptr = arg2; this.boundsPtr(); this.flags |= 0x1000; break;
+      case 81:
+        if (this.ptr + arg2 >= this.tape.length) {
+          this.setStatus(10);
+        } else {
+          this.ptr += arg2;
+          this.flags |= 0x1000;
+          this.setStatus(0);
+        }
+        break;
       case 82: result = this.ptr; break;
+      case 83: result = this.ptr < this.tape.length ? 1 : 0; break;
       case 84: result = this.tape.length; break;
       case 85: result = this.data.length; break;
       case 86: result = this.stack.length; break;
+      case 87: result = this.cellBits; break;
+      case 88: result = this.cellBits === 8 ? 1 : this.cellBits === 16 ? 2 : 4; break;
       case 89: this.output += `LAYOUT tape=${this.tape.length} stack=${this.stack.length} data=${this.data.length}`; break;
       case 90: this.fifo.push(arg2 & this.mask()); this.setStatus(0); break;
       case 91: result = this.fifo.shift() ?? 0; this.setStatus(this.fifo.length >= 0 ? 0 : 12); break;

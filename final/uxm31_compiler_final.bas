@@ -786,9 +786,15 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 61:outputText+=LTrim(Str(ReadAddr(ADDR_T_REL,1,0))):SetStatus STATUS_OK
     Case 64:outputText+=" ":SetStatus STATUS_OK
     Case 80:If b>=tapeCells Then SetStatus STATUS_PTR_BOUNDS Else ptr=b:flags Or=FLAG_PCHG:SetStatus STATUS_OK
+    Case 81:If CLngInt(ptr)+CLngInt(b)>=CLngInt(tapeCells) Then SetStatus STATUS_PTR_BOUNDS Else ptr=ptr+CLngInt(b):flags Or=FLAG_PCHG:SetStatus STATUS_OK
+    Case 82:WriteAddr ADDR_T_REL,1,0,ptr:SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 83:If ptr<tapeCells Then WriteAddr ADDR_T_REL,1,0,1 Else WriteAddr ADDR_T_REL,1,0,0:SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 84:WriteAddr ADDR_T_REL,1,0,tapeCells:SetStatus STATUS_OK
     Case 85:WriteAddr ADDR_T_REL,1,0,dataCells:SetStatus STATUS_OK
     Case 86:WriteAddr ADDR_T_REL,1,0,stackCells:SetStatus STATUS_OK
+    Case 87:WriteAddr ADDR_T_REL,1,0,cellBits:SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 88:WriteAddr ADDR_T_REL,1,0,CellSize():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 89:outputText+="LAYOUT tape="+Str(tapeCells)+" stack="+Str(stackCells)+" data="+Str(dataCells):SetStatus STATUS_OK
     Case 90:FifoPush b
     Case 91:WriteAddr ADDR_T_REL,1,0,FifoPop():SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
     Case 93:WriteAddr ADDR_T_REL,1,0,fifoCount:SetStatus STATUS_OK

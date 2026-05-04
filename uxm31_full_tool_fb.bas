@@ -1377,7 +1377,14 @@ Sub MetaPtrMem(ByVal id As Long)
     v=Tape(Ptr-1)
     Select Case id
     Case 80:If v>=TapeCells Then SetStatus STATUS_PTR_BOUNDS Else Ptr=v:Flags=Flags Or FLAG_PCHG:SetStatus STATUS_OK
+    Case 81:If Ptr+CLng(v)>=TapeCells Then SetStatus STATUS_PTR_BOUNDS Else Ptr=Ptr+CLng(v):Flags=Flags Or FLAG_PCHG:SetStatus STATUS_OK
     Case 82:Tape(Ptr+1)=Ptr:SetLogicFlags Ptr:SetStatus STATUS_OK
+    Case 83:If Ptr<TapeCells Then Tape(Ptr+1)=1 Else Tape(Ptr+1)=0:SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 84:Tape(Ptr+1)=TapeCells:SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 85:Tape(Ptr+1)=DataCells:SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 86:Tape(Ptr+1)=StackCells:SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 87:Tape(Ptr+1)=CellBits:SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 88:Tape(Ptr+1)=CellSize():SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case 89:OutputText=OutputText+"LAYOUT tape="+Str(TapeCells)+" stack="+Str(StackCells)+" data="+Str(DataCells):SetStatus STATUS_OK
     Case Else:SetStatus STATUS_INVALID_META
     End Select
