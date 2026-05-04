@@ -119,4 +119,39 @@ Bu formati kullan:
 2. Active/final semantik sapmasi.
 3. FP entegrasyonunun yari kalma riski.
 
+## 10. Sprint 1 Baslatildi: e Komutu ve ERR Bayragi Standartlasmasi
+
+Bu sprintin hedefi, hata/status davranisini 4 hatta gizli fark birakmadan standartlastirmaktir.
+
+### Sprint 1 kapsam kilidi
+
+1. `e` komutu resmi durumdadir: aktif hucreye status byte yazar.
+2. Core meta setine ERR bayragi yonetimi eklenir:
+	- `@13` ERR FLAG SET
+	- `@14` ERR FLAG RESET
+	- `@15` ERR FLAG READ
+3. `FLAGS.R` (runtime error present) semantigi tek kural olur:
+	- status `0` ise `R=0`
+	- status `!=0` ise `R=1`
+4. Diger tum davranislar bu kuralla tutarli olmak zorundadir.
+
+### Hat bazli zorunlu davranis
+
+1. Native compiler/runtime
+	- `e`, `@9..@15` semantigi runtime tarafinda deterministik calisir.
+2. Final/ARGE compiler
+	- interpret ve asm emit tarafinda ayni status/ERR bayragi sonucunu verir.
+3. Full tool
+	- `e`, `@9..@15` ve macro yardimcilari ayni sonucu verir.
+4. VS Code ic yorumlayici
+	- destek varsa birebir semantik uygular.
+	- destek yoksa acik tanili bilincli desteklenmiyor sonucu verir.
+
+### Sprint 1 kabul kriteri
+
+1. Bir komut standarda girdiyse 4 hatta da ya calisir ya da acikca bilincli desteklenmiyor diye isaretlenir.
+2. Gizli fark kalmaz.
+3. Matris paketindeki `meta_servis_matrisi.csv` ve rapor notlari bu durumu acikca yansitir.
+4. `test42` ve `test43` senaryolari Sprint 1 backloguna eklenir.
+
 Bu dosya, su andan itibaren operasyonel ana belge olarak kullanilacaktir.

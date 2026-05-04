@@ -59,7 +59,7 @@ V3 tasarımında 26 komut vardı:
 26 }     SHR / sağa kaydır / ikiye böl
 ```
 
-V3.1’de bunlara ek olarak **hata/status byte sorgusu için `e` komutu** resmileştirilebilir.
+V3.1’de bunlara ek olarak **hata/status byte sorgusu için `e` komutu** resmileştirilmiştir.
 
 ```text
 27 e     error/status byte oku
@@ -168,6 +168,9 @@ decimal sayı olarak yazdır
 @10  status byte sıfırla
 @11  status byte set et
 @12  son hata mesajını yazdır
+@13  ERR flag set et (R=1)
+@14  ERR flag reset et (R=0)
+@15  ERR flag oku
 ```
 
 Davranış:
@@ -184,9 +187,70 @@ Davranış:
 
 @12:
     status koduna göre açıklama yazdır
+
+@13:
+    FLAGS.R = 1
+
+@14:
+    FLAGS.R = 0
+
+@15:
+    output = FLAGS.R
 ```
 
 Böylece hem `e` kısa komutuyla hızlı okuma yapılır hem de meta komutlarla status yönetilir.
+
+### 4.1 FLAGS.R senkron kuralı
+
+`FLAGS.R` hata oluştu/oluşmadı bayrağıdır ve `status` ile tutarlı kalmalıdır.
+
+```text
+status == 0  -> FLAGS.R = 0
+status != 0  -> FLAGS.R = 1
+```
+
+Ek tutarlılık kuralları:
+
+```text
+@10 status clear   -> status=0 ve FLAGS.R=0
+@11 status set     -> status!=0 ise FLAGS.R=1, status=0 ise FLAGS.R=0
+@13 err set        -> FLAGS.R=1 (status değeri korunabilir)
+@14 err reset      -> FLAGS.R=0
+```
+
+### 4.2 `e` komutu için standart macro yardımcıları
+
+Kullanıcı alanında (`@128..@159`) aşağıdaki kısa macro yardımcıları önerilir:
+
+```text
+m128={e}
+m129={e@60}
+m130={@!13}
+m131={@!14}
+m132={@!10@!14}
+```
+
+Anlam:
+
+```text
+m128  status byte'ı aktif hücreye al
+m129  status byte'ı decimal yazdır
+m130  ERR bayrağını set et
+m131  ERR bayrağını reset et
+m132  status ve ERR bayrağını birlikte temizle
+```
+
+### 4.3 Dört hat için gizli fark yasağı
+
+Bu belgeye giren komutlar ve servisler için zorunlu kural:
+
+```text
+Bir komut standarda girdiyse,
+4 hattın tamamında ya çalışmalı
+ya da açıkça "bilinçli desteklenmiyor" olarak işaretlenmelidir.
+```
+
+Yasak durum: Sessizce farklı davranış.
 
 ## 5. Bayrak sistemi neden gerekli?
 
@@ -4473,6 +4537,9 @@ Başlangıç için önerilen servisler:
 @10   status byte sıfırla
 @11   status byte set et
 @12   son hata mesajını yazdır
+@13   ERR flag set et (FLAGS.R=1)
+@14   ERR flag reset et (FLAGS.R=0)
+@15   ERR flag oku (output=(T+1))
 ```
 
 Bu servisler runtime’ın en temel dış dünya kapısıdır.
@@ -4840,6 +4907,8 @@ Flag servisleri:
 @148  aritmetik flagleri sıfırla
 @149  tüm flags word oku
 ```
+
+Not: `FLAGS.R` için set/reset/read işlemleri bu tabloda değil, çekirdek status servislerinde `@13/@14/@15` ile yönetilir.
 
 Ek mode servisleri:
 
