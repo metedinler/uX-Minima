@@ -332,11 +332,18 @@ export class UxmInterpreter {
     let preserveStatusAfterWrite = false;
     switch (id) {
       case 0: this.setStatus(0); break;
+      case 1: this.setStatus(0); break;
+      case 2: this.setStatus(0); break;
       case 3: result = Math.floor(Math.random() * 256); break;
+      case 4: result = Date.now(); break;
       case 5: this.output += "\n"; this.setStatus(0); break;
+      case 6: this.output += "[UXM META]"; this.setStatus(0); break;
+      case 7: result = 7; break;
+      case 8: result = 8; break;
       case 9: result = this.status; preserveStatusAfterWrite = true; break;
       case 10: this.setStatus(0); break;
       case 11: this.setStatus(arg1 & 0xff); break;
+      case 12: this.output += `STATUS=${this.status}`; this.setStatus(0); break;
       case 13: this.setStatus(this.status === 0 ? 1 : this.status); break;
       case 14: this.setStatus(0); break;
       case 15: result = (this.flags & 0x400) ? 1 : 0; preserveStatusAfterWrite = true; break;

@@ -1,17 +1,17 @@
 ﻿Kategori,ID,Ad,Belge Durumu,Kod Genel,Runtime Host,Final Interpreter,Full Tool,VSCode Runtime,VSCode Help,Test Kanıtı,Not
 Meta Servis,0,OK/no-op,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,1,CLS,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test16_data_digit.uxm; tests/test17_endian_word_split.uxm; tests/test25_data_sort_ascending.uxm,
-Meta Servis,2,"LOCATE 1,1",VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests/test05_meta_add.uxm; tests/test09_div_mod.uxm; tests/test12_signed_mode.uxm; tests/test13_status_div_zero.uxm; tests/test30_word_mode_add.uxm,
+Meta Servis,1,CLS,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test16_data_digit.uxm; tests/test17_endian_word_split.uxm; tests/test25_data_sort_ascending.uxm,
+Meta Servis,2,"LOCATE 1,1",VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test05_meta_add.uxm; tests/test09_div_mod.uxm; tests/test12_signed_mode.uxm; tests/test13_status_div_zero.uxm; tests/test30_word_mode_add.uxm,
 Meta Servis,3,RANDOM BYTE,VAR,VAR,VAR,YOK,VAR,VAR,VAR,,
-Meta Servis,4,TIMER,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm; tests/test11_hypotenuse.uxm,
+Meta Servis,4,TIMER,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm; tests/test11_hypotenuse.uxm,
 Meta Servis,5,NEWLINE,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test08_newline.uxm; tests/test09_div_mod.uxm; tests/test21_fifo_count_peek.uxm,
-Meta Servis,6,PRINT META INFO,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm,
-Meta Servis,7,VERSION MAJOR,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,8,VERSION MINOR,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests/test18_pointer_service.uxm; tests/test32_wild_layout_change.uxm,
+Meta Servis,6,PRINT META INFO,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm; tests/test44_meta_version_info.uxm,
+Meta Servis,7,VERSION MAJOR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test44_meta_version_info.uxm,
+Meta Servis,8,VERSION MINOR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test18_pointer_service.uxm; tests/test32_wild_layout_change.uxm; tests/test44_meta_version_info.uxm,
 Meta Servis,9,STATUS READ,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test20_fifo_char_order.uxm; tests/test21_fifo_count_peek.uxm; tests/test22_data_write_read_char.uxm; tests/test23_data_digit_ascii_to_number.uxm; tests/test24_data_block_copy_print.uxm,
 Meta Servis,10,STATUS CLEAR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test25_data_sort_ascending.uxm; tests/test26_tape_sort_descending_chars.uxm; tests/test27_tape_linear_search.uxm,
 Meta Servis,11,STATUS SET,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,12,STATUS PRINT,VAR,KISMEN,VAR,VAR,VAR,YOK,VAR,tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test29_nested_macro_call.uxm; tests/test31_safe_mode_wild_denied.uxm; tests/test32_wild_layout_change.uxm,
+Meta Servis,12,STATUS PRINT,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test29_nested_macro_call.uxm; tests/test31_safe_mode_wild_denied.uxm; tests/test32_wild_layout_change.uxm,
 Meta Servis,13,ERR FLAG SET,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,Sprint 1 tamamlandi: 4 hatta parite saglandi
 Meta Servis,14,ERR FLAG RESET,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,Sprint 1 tamamlandi: 4 hatta parite saglandi
 Meta Servis,15,ERR FLAG READ,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,Sprint 1 tamamlandi: 4 hatta parite saglandi

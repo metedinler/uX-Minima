@@ -756,7 +756,14 @@ Sub RuntimeMeta(ByVal id As Long)
     a=ReadAddr(ADDR_T_REL,-2,0):b=ReadAddr(ADDR_T_REL,-1,0):c=ReadAddr(ADDR_T,0,0)
     Select Case id
     Case 0:SetStatus STATUS_OK
+    Case 1:SetStatus STATUS_OK
+    Case 2:SetStatus STATUS_OK
+    Case 3:WriteAddr ADDR_T_REL,1,0,Int(Rnd*256) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 4:WriteAddr ADDR_T_REL,1,0,CULngInt(Timer*1000) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 5:outputText+=Chr(10):SetStatus STATUS_OK
+    Case 6:outputText+="[UXM META]":SetStatus STATUS_OK
+    Case 7:WriteAddr ADDR_T_REL,1,0,7:SetLogicFlags 7:SetStatus STATUS_OK
+    Case 8:WriteAddr ADDR_T_REL,1,0,8:SetLogicFlags 8:SetStatus STATUS_OK
     Case 9:WriteAddr ADDR_T_REL,1,0,statusByte:SetLogicFlags statusByte
     Case 10:SetStatus STATUS_OK
     Case 11:SetStatus ReadAddr(ADDR_T_REL,-2,0) And &HFF

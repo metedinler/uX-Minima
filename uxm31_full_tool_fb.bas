@@ -1311,8 +1311,14 @@ End Sub
 Sub MetaCore(ByVal id As Long)
     Select Case id
     Case 0:SetStatus STATUS_OK
+    Case 1:SetStatus STATUS_OK
+    Case 2:SetStatus STATUS_OK
     Case 3:Tape(Ptr+1)=Int(Rnd*256) And CellMask():SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 4:Tape(Ptr+1)=CULngInt(Timer*1000) And CellMask():SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case 5:OutputText=OutputText+Chr(10):SetStatus STATUS_OK
+    Case 6:OutputText=OutputText+"[UXM META]":SetStatus STATUS_OK
+    Case 7:Tape(Ptr+1)=7:SetLogicFlags 7:SetStatus STATUS_OK
+    Case 8:Tape(Ptr+1)=8:SetLogicFlags 8:SetStatus STATUS_OK
     Case 9:Tape(Ptr+1)=StatusByte:SetLogicFlags StatusByte
     Case 10:SetStatus STATUS_OK
     Case 11:SetStatus Tape(Ptr-2) And &HFF
