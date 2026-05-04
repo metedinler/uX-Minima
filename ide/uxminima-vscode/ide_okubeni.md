@@ -85,7 +85,7 @@ Native toolchain için daha sonra şu dosyaları `tools/` klasörüne koyacağı
 
 ```text
 uxm31_full_tool.exe
-uxm31_compiler_full.exe
+uxm.exe
 uxm31_runtime_fb_full.bas
 nasm.exe
 fbc.exe

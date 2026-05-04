@@ -130,7 +130,7 @@ VS Code eklentisi için bizim mevcut dosyalar şöyle kullanılacak:
 
 ```text
 uxm31_full_tool.exe          interpreter / trace / UIR / opt
-uxm31_compiler_full.exe      native ASM compiler
+uxm.exe                      native ASM compiler
 uxm31_runtime_fb_full.bas    runtime
 nasm.exe                     assembler
 fbc.exe                      linker/compiler
@@ -345,7 +345,7 @@ Build Native EXE
 Çalıştıracağı zincir:
 
 ```bat
-uxm31_compiler_full.exe program.uxm build\program.asm build\program.uir.json build\program.opt.json
+uxm.exe program.uxm build\program.asm build\program.uir.json build\program.opt.json
 nasm -f win64 build\program.asm -o build\program.obj
 fbc uxm31_runtime_fb_full.bas build\program.obj -x build\program.exe
 ```
@@ -393,7 +393,7 @@ uxminima-vscode/
 ├─ src/extension.ts
 ├─ tools/
 │  ├─ uxm31_full_tool.exe
-│  ├─ uxm31_compiler_full.exe
+│  ├─ uxm.exe
 │  └─ uxm31_runtime_fb_full.bas
 └─ README.md
 ```

@@ -2346,7 +2346,7 @@ Evet Mete abi, **çekirdek tasarım büyük ölçüde tamamlandı**, ama “sağ
 Şu anda parçalar halinde tasarladık:
 
 ```text
-uxm31_compiler_fb_full.bas
+uxm31_compiler_fb.bas
 uxm31_runtime_fb_full.bas
 uxm31_full_tool_fb.bas
 ux_fp_v1.uxm
@@ -2358,7 +2358,7 @@ Bunların artık tek proje ağacında düzenlenmesi gerekiyor:
 ```text
 uxminima/
 ├─ compiler/
-│  └─ uxm31_compiler_fb_full.bas
+│  └─ uxm31_compiler_fb.bas
 ├─ runtime/
 │  └─ uxm31_runtime_fb_full.bas
 ├─ tools/
@@ -2367,7 +2367,6 @@ uxminima/
 │  └─ ux_fp_v1.uxm
 ├─ vscode-extension/
 ├─ tests/
-├─ tests_full/
 ├─ tests_fp/
 ├─ docs/
 └─ build/
@@ -2397,7 +2396,7 @@ Bu adresleme **normal modda çalışmalı**. Wild mode’a bağlı olmamalı.
 Bunu hem şu dosyalara gömmek gerekiyor:
 
 ```text
-uxm31_compiler_fb_full.bas
+uxm31_compiler_fb.bas
 uxm31_full_tool_fb.bas
 VS Code diagnostics
 VS Code syntax highlighting
@@ -2576,7 +2575,7 @@ Artık bir test runner lazım.
 Görevi:
 
 ```text
-tests_full/*.uxm çalıştır
+tests/*.uxm çalıştır
 tests_fp/*.uxm çalıştır
 EXPECT_OUTPUT satırını oku
 gerçek çıktı ile karşılaştır
@@ -2618,8 +2617,8 @@ Copilot ile UXM kod yazdırma kuralları
 Şu komutları elle yazmak yerine:
 
 ```bat
-fbc uxm31_compiler_fb_full.bas -x uxm31_compiler_full.exe
-uxm31_compiler_full.exe program.uxm build\program.asm build\program.uir.json build\program.opt.json
+fbc uxm31_compiler_fb.bas -x uxm.exe
+uxm.exe program.uxm build\program.asm build\program.uir.json build\program.opt.json
 nasm -f win64 build\program.asm -o build\program.obj
 fbc uxm31_runtime_fb_full.bas build\program.obj -x build\program.exe
 ```
@@ -2669,7 +2668,7 @@ En önemli 5 iş şunlar:
 Bence sıradaki en doğru adım:
 
 ```text
-uxm31_compiler_fb_full.bas
+uxm31_compiler_fb.bas
 uxm31_runtime_fb_full.bas
 uxm31_full_tool_fb.bas
 ```
