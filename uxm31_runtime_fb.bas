@@ -892,6 +892,9 @@ SetStatus STATUS_OK
 Case 68
 Print Bin(Arg2());
 SetStatus STATUS_OK
+Case 69
+Print Chr(Arg2() And &HFF);
+SetStatus STATUS_OK
 Case Else
 SetStatus STATUS_INVALID_META
 End Select

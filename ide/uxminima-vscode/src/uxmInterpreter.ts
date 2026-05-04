@@ -358,7 +358,12 @@ export class UxmInterpreter {
       case 43: result = Math.round(Math.sqrt(arg1 * arg1 + arg2 * arg2)); break;
       case 60: this.output += String(arg2); this.setStatus(0); break;
       case 61: this.output += String(this.readTape(this.ptr + 1)); this.setStatus(0); break;
+      case 62: this.output += String(this.pop()); break;
+      case 63: result = 0; this.setStatus(26); preserveStatusAfterWrite = true; break;
       case 64: this.output += " "; this.setStatus(0); break;
+      case 67: this.output += (arg2 & this.mask()).toString(16).toUpperCase(); this.setStatus(0); break;
+      case 68: this.output += (arg2 & this.mask()).toString(2); this.setStatus(0); break;
+      case 69: this.output += String.fromCharCode(arg2 & 0xff); this.setStatus(0); break;
       case 80: this.ptr = arg2; this.boundsPtr(); this.flags |= 0x1000; break;
       case 81:
         if (this.ptr + arg2 >= this.tape.length) {

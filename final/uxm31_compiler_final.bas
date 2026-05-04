@@ -793,7 +793,21 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 24:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a Mod b) And CellMask():SetStatus STATUS_OK
     Case 60:outputText+=LTrim(Str(b)):SetStatus STATUS_OK
     Case 61:outputText+=LTrim(Str(ReadAddr(ADDR_T_REL,1,0))):SetStatus STATUS_OK
+    Case 62
+        If sp<=0 Then
+            SetStatus STATUS_STACK_UNDERFLOW
+        Else
+            sp-=1
+            outputText+=LTrim(Str(stackMem(sp) And CellMask()))
+        End If
+    Case 63
+        WriteAddr ADDR_T_REL,1,0,0
+        SetLogicFlags 0
+        SetStatus STATUS_EOF
     Case 64:outputText+=" ":SetStatus STATUS_OK
+    Case 67:outputText+=Hex(b And CellMask()):SetStatus STATUS_OK
+    Case 68:outputText+=Bin(b And CellMask()):SetStatus STATUS_OK
+    Case 69:outputText+=Chr((b And &HFF)):SetStatus STATUS_OK
     Case 80:If b>=tapeCells Then SetStatus STATUS_PTR_BOUNDS Else ptr=b:flags Or=FLAG_PCHG:SetStatus STATUS_OK
     Case 81:If CLngInt(ptr)+CLngInt(b)>=CLngInt(tapeCells) Then SetStatus STATUS_PTR_BOUNDS Else ptr=ptr+CLngInt(b):flags Or=FLAG_PCHG:SetStatus STATUS_OK
     Case 82:WriteAddr ADDR_T_REL,1,0,ptr:SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK

@@ -1371,7 +1371,18 @@ Sub MetaIO(ByVal id As Long)
     Select Case id
     Case 60:OutputText=OutputText+LTrim(Str(Tape(Ptr-1))):SetStatus STATUS_OK
     Case 61:OutputText=OutputText+LTrim(Str(Tape(Ptr+1))):SetStatus STATUS_OK
+    Case 62
+        If SP<=0 Then
+            SetStatus STATUS_STACK_UNDERFLOW
+        Else
+            SP=SP-1
+            OutputText=OutputText+LTrim(Str(StackMem(SP) And CellMask()))
+        End If
+    Case 63:Tape(Ptr+1)=0:SetLogicFlags 0:SetStatus STATUS_EOF
     Case 64:OutputText=OutputText+" ":SetStatus STATUS_OK
+    Case 67:OutputText=OutputText+Hex(Tape(Ptr-1) And CellMask()):SetStatus STATUS_OK
+    Case 68:OutputText=OutputText+Bin(Tape(Ptr-1) And CellMask()):SetStatus STATUS_OK
+    Case 69:OutputText=OutputText+Chr((Tape(Ptr-1) And &HFF)):SetStatus STATUS_OK
     Case Else:SetStatus STATUS_INVALID_META
     End Select
 End Sub
