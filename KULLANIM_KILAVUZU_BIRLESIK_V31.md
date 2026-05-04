@@ -37,12 +37,12 @@ uxm31_compiler_fb.bas           Native x64 NASM compiler kaynagi
 uxm31_runtime_fb_full.bas       Native exe için FreeBASIC runtime
 uxm31_full_tool_fb.bas          Interpreter + JSON trace + UIR + optimizer + IDE motoru
 uxm.exe                         Derleyici calistirilabilir dosyasi
-````
+```
 
 Yardımcı dosyalar:
 
 ```text
-tests_full\*.uxm                Test programları
+tests\*.uxm                Test programları
 build\                          Üretilen asm, obj, exe, json dosyaları
 ```
 
@@ -73,7 +73,7 @@ UX-MINIMA native derleme hattı şu şekildedir:
 ```text
 .uxm kaynak dosyası
         ↓
-uxm31_compiler_fb_full.bas
+uxm31_compiler_fb.bas
         ↓
 x64 NASM .asm dosyası
         ↓
@@ -88,7 +88,7 @@ Windows .exe
 
 ```bat
 fbc -lang fb uxm31_compiler_fb.bas -x uxm.exe
-uxm.exe tests_full\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
+uxm.exe tests\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
 nasm -f win64 build\test20.asm -o build\test20.obj
 fbc uxm31_runtime_fb_full.bas build\test20.obj -x build\test20.exe
 build\test20.exe
@@ -108,25 +108,25 @@ Native exe üretmeden, programı yorumlayıcı modda çalıştırmak için:
 
 ```bat
 fbc uxm31_full_tool_fb.bas -x uxm31_full_tool.exe
-uxm31_full_tool.exe run tests_full\test20_fifo_char_order.uxm build\test20.trace.ndjson
+uxm31_full_tool.exe run tests\test20_fifo_char_order.uxm build\test20.trace.ndjson
 ```
 
 UIR üretmek için:
 
 ```bat
-uxm31_full_tool.exe uir tests_full\test20_fifo_char_order.uxm build\test20.uir.json
+uxm31_full_tool.exe uir tests\test20_fifo_char_order.uxm build\test20.uir.json
 ```
 
 Optimizer raporu üretmek için:
 
 ```bat
-uxm31_full_tool.exe opt tests_full\test20_fifo_char_order.uxm build\test20.opt.json
+uxm31_full_tool.exe opt tests\test20_fifo_char_order.uxm build\test20.opt.json
 ```
 
 IDE komutu ile çalıştırmak için örnek `ide_run.json`:
 
 ```json
-{"command":"run","source":"tests_full\\test20_fifo_char_order.uxm","out":"build\\ide_trace.ndjson"}
+{"command":"run","source":"tests\\test20_fifo_char_order.uxm","out":"build\\ide_trace.ndjson"}
 ```
 
 Çalıştırma:
@@ -271,6 +271,26 @@ Safe mode daha kontrollüdür. Wild mode, tehlikeli ve deneysel servisleri açar
 #endian little
 #endian big
 ```
+
+### ARGE veri üretim direktifleri (kodda aktif)
+
+```text
+#poly BASE = c0,c1,c2,...
+#expr-rpn BASE = x 2 pow 3 x mul add 2 add
+
+#matrix BASE ROWS COLS = v1,v2,...
+#matrix-signed BASE ROWS COLS = v1,v2,...
+#matrix-fixed BASE ROWS COLS SCALE = v1.f1,v2.f2,...
+#identity BASE SIZE
+#zeros BASE ROWS COLS
+#ones BASE ROWS COLS
+```
+
+Not:
+
+- `#poly` ve `#expr-rpn` `math_extensions/compiler/arge_parse_math_additions.bas` ile parse edilir.
+- `#matrix*` ailesi `math_extensions/compiler/arge_parse_matrix_additions.bas` ile parse edilir.
+- Bu direktifler compile-time DATA initializer üretir; runtime'da ek bir parser gerekmez.
 
 ---
 
@@ -753,6 +773,73 @@ X
 321
 ```
 
+### Extension meta servisleri (kodda aktif)
+
+#### UX-MAT V1 (Matrix) - `@160..@176`
+
+| Meta | Görev |
+| --- | --- |
+| `@160` | MatInit |
+| `@161` | MatClear |
+| `@162` | MatSet |
+| `@163` | MatGet |
+| `@164` | MatFill |
+| `@165` | MatCopy |
+| `@166` | MatPrint |
+| `@167` | MatAdd |
+| `@168` | MatSub |
+| `@169` | MatScalarMul |
+| `@170` | MatMul |
+| `@171` | MatTransposeCopy |
+| `@172` | MatIdentity |
+| `@173` | MatTrace |
+| `@174` | MatShape |
+| `@175` | MatDet2 |
+| `@176` | MatPrintRaw |
+
+Matrix çağrılarında 5 argümanlı frame kullanılır (`T-4..T`). Uygulamada pointer'ın bu frame'e göre konumlanması gerekir.
+
+#### UX-FP V1 (Floating Point) - `@200..@224` aktif alt küme
+
+| Meta | Görev |
+| --- | --- |
+| `@200` | FPInit(16) |
+| `@201` | FPInit(32) |
+| `@202` | FPZero |
+| `@203` | FPCopy |
+| `@204` | normalize/store mant-exp |
+| `@209` | FP ham debug print |
+| `@210` | FP add |
+| `@211` | FP sub |
+| `@212` | FP mul |
+| `@213` | FP div |
+| `@214` | FP compare |
+| `@215` | abs |
+| `@216` | neg |
+| `@217` | round(16) |
+| `@218` | round(32) |
+| `@219` | trunc |
+| `@220` | from int |
+| `@221` | from decimal string |
+| `@222` | to decimal string |
+| `@223` | decimal print |
+| `@224` | scale10 adjust |
+
+#### UX-MATH EXT (Polynomial / Expression) - `@240..@244` ve `@250..@254`
+
+| Meta | Görev |
+| --- | --- |
+| `@240` | Polynomial derivative |
+| `@241` | Polynomial integral |
+| `@242` | Polynomial eval |
+| `@243` | Polynomial print |
+| `@244` | Polynomial clear |
+| `@250` | RPN expression eval |
+| `@251` | Numerical derivative |
+| `@252` | Trapezoid integral |
+| `@253` | Simpson integral |
+| `@254` | RPN expression print |
+
 ---
 
 ## 23. Flags Sistemi
@@ -1035,7 +1122,7 @@ Interpreter/full tool ile çalıştırıldığında her adım NDJSON formatında
 Komut:
 
 ```bat
-uxm31_full_tool.exe run tests_full\test20_fifo_char_order.uxm build\test20.trace.ndjson
+uxm31_full_tool.exe run tests\test20_fifo_char_order.uxm build\test20.trace.ndjson
 ```
 
 Trace satırları şu tiptedir:
@@ -1067,13 +1154,13 @@ UIR, compiler’ın kaynak kodu nasıl gördüğünü gösteren ara temsildir.
 Komut:
 
 ```bat
-uxm31_full_tool.exe uir tests_full\test20_fifo_char_order.uxm build\test20.uir.json
+uxm31_full_tool.exe uir tests\test20_fifo_char_order.uxm build\test20.uir.json
 ```
 
 Native compiler da UIR üretir:
 
 ```bat
-uxm31_compiler_full.exe tests_full\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
+uxm.exe tests\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
 ```
 
 UIR içinde her komut şu bilgilerle yer alır:
@@ -1107,7 +1194,7 @@ Optimizer şu tip dönüşümleri yapar:
 Optimizer raporu:
 
 ```bat
-uxm31_full_tool.exe opt tests_full\test35_optimizer_visible_result.uxm build\test35.opt.json
+uxm31_full_tool.exe opt tests\test35_optimizer_visible_result.uxm build\test35.opt.json
 ```
 
 Örnek rapor:
@@ -1213,7 +1300,7 @@ p1
 Native compiler:
 
 ```text
-uxm31_compiler_fb_full.bas
+uxm31_compiler_fb.bas
 ```
 
 şunu yapar:
@@ -1268,6 +1355,15 @@ Test dosyalarında beklenen çıktı `# EXPECT_OUTPUT:` ile yazılır.
 ```
 
 İleride test runner bu satırı okuyup gerçek çıktı ile karşılaştırabilir.
+
+Aktif test kümeleri:
+
+```text
+tests\*.uxm                          çekirdek dil, data/fifo/branch/wild
+tests_matrix\*.uxm                   matrix servisleri (@160..@176)
+tests_fp\*.uxm                       floating point servisleri (@200..@224 alt küme)
+math_extensions\tests_math\*.uxm    polynomial ve expression servisleri (@240+, @250+)
+```
 
 ---
 
@@ -1329,12 +1425,28 @@ T+1 sonuç
 @90..@94     FIFO servisleri
 @95..@107    data/tape block, sort, search servisleri
 @120..@127   flags, endian, signed, wild layout servisleri
-@128..@255   kullanıcı macro alanı
+@128..@159   kullanıcı macro alanı
+@160..@176   UX-MAT V1 matrix servisleri
+@200..@224   UX-FP V1 aktif floating-point alt kümesi
+@240..@244   polynomial servisleri
+@250..@254   expression/numerik servisleri
 ```
 
 ---
 
-## 39. Önerilen Çalışma Düzeni
+## 39. Kodda Aktif Olup Hala Tamamlanmayanlar
+
+Bu bölüm “hedeflenen ama tam kapanmamış işler” için teknik takip maddelerini toplar.
+
+1. FP aralığı `@200..@239` olarak ayrılmış olsa da aktif implementasyon `@200..@224` alt kümesidir.
+2. FP tarafında `@225..@239` için davranış sözleşmesi henüz netleştirilmemiştir.
+3. Matrix yönlendirme aralığı `@160..@199` olsa da uygulanan işlevler `@160..@176` ile sınırlıdır.
+4. Math-extra tarafında `@245..@249` aralığı şu an boş bırakılmıştır.
+5. Düşük seviyede tüm extension setleri için tek, birleşik “meta id -> işlev” dokümanı sürdürülmelidir.
+
+---
+
+## 40. Önerilen Çalışma Düzeni
 
 Bir program yazarken şu sırayı izle:
 
@@ -1363,10 +1475,13 @@ build\program.exe
 
 ---
 
-## 40. Sonuç
+## 41. Sonuç
 
 UX-MINIMA x64 V3.1 Full, küçük görünen ama bellek, pointer, stack, FIFO, data table, sort, branch, macro ve native x64 üretim mantığını bir araya getiren deneysel bir programlama sistemidir.
 
 Bu dil klasik BASIC veya Python gibi yazılmaz. Bu dilde programcı, doğrudan belleğin üzerinde düşünür. Her hücre bir değişken, her pointer hareketi bir adresleme kararı, her meta servis küçük bir sistem çağrısı, her branch ise işlemci mantığına yakın bir karar noktasıdır.
 
 Bu yüzden UX-MINIMA yalnızca bir ezoterik dil değildir. Aynı zamanda bilgisayar mimarisi, compiler tasarımı, interpreter mantığı, bellek modeli ve düşük seviye programlama eğitimi için kullanılabilecek özel bir deney alanıdır.
+
+
+

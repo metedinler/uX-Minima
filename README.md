@@ -16,6 +16,8 @@ EN: UX-MINIMA is a cell-based DSL (tape/stack/data). A .uxm source is compiled t
 - EN: Native compile chain (UXM -> ASM -> OBJ -> EXE)
 - TR: Meta servisler (core, aritmetik, matematik, IO, pointer, FIFO/data/sort/wild)
 - EN: Meta services (core, arithmetic, math, IO, pointer, FIFO/data/sort/wild)
+- TR: Extension katmanlari: UX-MAT V1 (`@160..@176`), UX-FP V1 (`@200..@224` aktif alt kume), UX-MATH EXT (`@240..@244`, `@250..@254`)
+- EN: Extension layers: UX-MAT V1 (`@160..@176`), UX-FP V1 (active subset `@200..@224`), UX-MATH EXT (`@240..@244`, `@250..@254`)
 - TR: Dynamic meta cagrisi ve adresleme varyantlari
 - EN: Dynamic meta calls and addressing variants
 - TR: VS Code eklentisi (syntax, komutlar, native build, trace/uir/opt)
@@ -46,6 +48,14 @@ run_tests.bat
 TR: `run_tests.bat` tum testleri sirayla calistirir.
 EN: `run_tests.bat` runs all tests sequentially.
 
+Ek test kumeleri / Additional test suites:
+
+```text
+tests_matrix/*.uxm
+tests_fp/*.uxm
+math_extensions/tests_math/*.uxm
+```
+
 ## VS Code Eklentisi / VS Code Extension
 
 Konum / Location: ide/uxminima-vscode
@@ -66,6 +76,8 @@ EN: The generated VSIX can be installed into VS Code.
 - runtime/: TR: Runtime katmani | EN: Runtime layer
 - ide/: TR: VS Code eklentisi | EN: VS Code extension
 - tests/: TR: Dil testleri | EN: Language tests
+- tests_matrix/: TR: Matrix testleri | EN: Matrix tests
+- tests_fp/: TR: Floating-point testleri | EN: Floating-point tests
 - build/: TR: Derleme ciktilari | EN: Build artifacts
 - tools/: TR: Yardimci araclar | EN: Helper tools
 

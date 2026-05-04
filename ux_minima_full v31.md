@@ -4745,14 +4745,14 @@ s1=0,{ABC}
 Native full compiler hattı için:
 
 ```bat
-fbc uxm31_compiler_fb_full.bas -x uxm31_compiler_full.exe
+fbc -lang fb uxm31_compiler_fb.bas -x uxm.exe
 fbc uxm31_full_tool_fb.bas -x uxm31_full_tool.exe
 ```
 
 Tek tek native derleme:
 
 ```bat
-uxm31_compiler_full.exe tests_full\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
+uxm.exe tests\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
 nasm -f win64 build\test20.asm -o build\test20.obj
 fbc uxm31_runtime_fb_full.bas build\test20.obj -x build\test20.exe
 build\test20.exe
@@ -4761,41 +4761,66 @@ build\test20.exe
 Interpreter/IDE trace hattı için:
 
 ```bat
-uxm31_full_tool.exe run tests_full\test20_fifo_char_order.uxm build\test20.trace.ndjson
-uxm31_full_tool.exe uir tests_full\test20_fifo_char_order.uxm build\test20.uir.json
-uxm31_full_tool.exe opt tests_full\test20_fifo_char_order.uxm build\test20.opt.json
+uxm31_full_tool.exe run tests\test20_fifo_char_order.uxm build\test20.trace.ndjson
+uxm31_full_tool.exe uir tests\test20_fifo_char_order.uxm build\test20.uir.json
+uxm31_full_tool.exe opt tests\test20_fifo_char_order.uxm build\test20.opt.json
 ```
 
 Not: `test32_wild_layout_change.uxm` özellikle **native full runtime** tarafındaki `@84` tape cell sorgusunu kullanır. `uxm31_full_tool_fb.bas` içinde aynı sonucu istiyorsak `@84/@85/@86` servislerini interpreter motoruna da eklemek gerekir.
 
 ---
 
-## UX-MAT V1 Entegrasyon Durumu
+## UX Extension Entegrasyon Durumu (MAT / FP / MATH-EXTRA)
 
-Bu sürümde UX-MAT V1 çekirdeği etkinleştirilmiştir. Aşağıdaki bileşenler kod tabanına dahil edilmiştir.
+Bu sürümde extension katmanları üç başlıkta aktif durumdadır: UX-MAT V1, UX-FP V1 ve UX-MATH EXT.
 
-### Runtime
+### Runtime yönlendirme
 
-- `uxm31_runtime_fb_full.bas` içinde `metaId>=160 And metaId<=199` koşulu `MetaMatrix` alt programına yönlenir.
-- Uygulama kodu: `math_extensions/runtime/runtime_matrix_services.bas`
-- Desteklenen işlevler: MatInit, MatClear, MatSet, MatGet, MatFill, MatCopy, MatPrint, MatAdd, MatSub, MatScalarMul, MatMul, MatTransposeCopy, MatIdentity, MatTrace, MatShape, MatDet2, MatPrintRaw
+- `uxm31_runtime_fb_full.bas`
+    - `metaId>=160 And metaId<=199` -> `MetaMatrix`
+    - `metaId>=200 And metaId<=239` -> `MetaFloatingPoint`
+    - `metaId>=240 And metaId<=254` -> `MetaMathExtra`
 
-### Compiler (ARGE)
+### Modül dosyaları
 
-- `math_extensions/compiler/arge_parse_matrix_additions.bas` `uxm31_compiler_fb.bas` içine dahil edilmiştir.
-- Tanınan direktifler: `#matrix`, `#matrix-signed`, `#matrix-fixed`, `#identity`, `#zeros`, `#ones`
-- Bu direktifler derleme sırasında DATA alanına başlık + eleman başlatma kodu üretir.
+- Matrix runtime: `math_extensions/runtime/runtime_matrix_services.bas`
+- FP runtime: `runtime/runtime_fp_services.bas`
+- Polynomial/expression runtime: `math_extensions/runtime/runtime_math_services.bas`
+- Matrix ARGE parser: `math_extensions/compiler/arge_parse_matrix_additions.bas`
+- Poly/expr ARGE parser: `math_extensions/compiler/arge_parse_math_additions.bas`
 
-### Lib / Makro Başlıkları
+### Compiler ARGE direktifleri (aktif)
 
-- `lib/ux_mat_v1.uxm`
-- `math_extensions/lib/ux_mat_v1.uxm`
+```text
+#poly BASE = c0,c1,c2,...
+#expr-rpn BASE = x 2 pow 3 x mul add 2 add
 
-### Çalışan Testler
+#matrix BASE ROWS COLS = v1,v2,...
+#matrix-signed BASE ROWS COLS = v1,v2,...
+#matrix-fixed BASE ROWS COLS SCALE = v1.f1,v2.f2,...
+#identity BASE SIZE
+#zeros BASE ROWS COLS
+#ones BASE ROWS COLS
+```
 
-| Dosya | Beklenen Çıktı |
-| ----- | --------------- |
-| `tests_matrix/test_matrix01_init_set_print.uxm` | `[1 2]\n[3 4]` |
-| `tests_matrix/test_matrix02_add_2x2.uxm` | `[6 8]\n[10 12]` |
-| `tests_matrix/test_matrix03_mul_2x2.uxm` | `[19 22]\n[43 50]` |
-| `tests_matrix/test_matrix04_identity_trace_det2.uxm` | 3x3 birim matris + trace=3 + det2=-2 |
+### Aktif meta alt kümeleri
+
+- Matrix: `@160..@176`
+- Floating point: `@200..@224` (aktif alt küme)
+- Polynomial: `@240..@244`
+- Expression/numerik: `@250..@254`
+
+### Test kapsamı
+
+| Küme | Dosyalar |
+| --- | --- |
+| Core | `tests/*.uxm` |
+| Matrix | `tests_matrix/*.uxm` |
+| Floating point | `tests_fp/*.uxm` |
+| Poly/expr | `math_extensions/tests_math/*.uxm` |
+
+### Açık kalan aralıklar (takip)
+
+- FP tarafında ayrılmış ama henüz aktif olmayan aralık: `@225..@239`
+- Matrix yönlendirme aralığında ayrılmış ama henüz kullanılmayan bölüm: `@177..@199`
+- Math-extra içinde boş bırakılan bölüm: `@245..@249`

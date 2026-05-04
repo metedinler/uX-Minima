@@ -322,22 +322,25 @@ Böyle başlarsak birkaç adımda çalışan VS Code eklentisi çıkar. Sonra me
 
 ---
 
-## UX-MAT V1: Matris Altyapısı (Aktif Dosyalar ve Test Noktaları)
+## UX Extensions: IDE Etkisi (MAT / FP / MATH-EXTRA)
 
-UX-MINIMA V3.1 kod tabanına matris meta/makro altyapısı (UX-MAT V1) eklenmiştir. IDE geliştirmesinde bu dosyalar ve test noktaları dikkate alınmalıdır.
+UX-MINIMA V3.1 aktif kod tabanında extension katmanı üç modülden oluşur: matrix, floating point, polynomial/expression.
 
 **Kaynak dosyalar:**
 
 | Dosya | Açıklama |
 | ----- | -------- |
-| `math_extensions/runtime/runtime_matrix_services.bas` | Runtime: init/set/get/add/mul/print/trace/det2 |
-| `math_extensions/compiler/arge_parse_matrix_additions.bas` | Compiler: `#matrix` ARGE direktif ayrıştırıcı |
-| `math_extensions/lib/ux_mat_v1.uxm` | Makro başlıkları (`m160`..`m176`) |
-| `lib/ux_mat_v1.uxm` | Aynı makro başlıkları (proje kök lib dizini) |
+| `math_extensions/runtime/runtime_matrix_services.bas` | Matrix runtime (`@160..@176`) |
+| `runtime/runtime_fp_services.bas` | Floating point runtime (`@200..@224` aktif alt küme) |
+| `math_extensions/runtime/runtime_math_services.bas` | Polynomial/expression runtime (`@240..@244`, `@250..@254`) |
+| `math_extensions/compiler/arge_parse_matrix_additions.bas` | `#matrix*` ARGE parser |
+| `math_extensions/compiler/arge_parse_math_additions.bas` | `#poly`, `#expr-rpn` ARGE parser |
 
-**Syntax highlighting için tanınması gereken yeni direktifler:**
+**Syntax highlighting/validator için tanınması gereken ek direktifler:**
 
 ```text
+#poly
+#expr-rpn
 #matrix
 #matrix-signed
 #matrix-fixed
@@ -346,13 +349,24 @@ UX-MINIMA V3.1 kod tabanına matris meta/makro altyapısı (UX-MAT V1) eklenmiş
 #ones
 ```
 
-**Meta aralığı:** `@160`..`@176` (MatInit → MatPrintRaw)
+**Meta aralıkları:**
 
-**IDE doğrulama için hazır test dosyaları:**
+```text
+@160..@176   matrix
+@200..@224   floating point (aktif alt küme)
+@240..@244   polynomial
+@250..@254   expression/numerik
+```
 
-1. `tests_matrix/test_matrix01_init_set_print.uxm` — Beklenen çıktı: `[1 2]\n[3 4]`
-2. `tests_matrix/test_matrix02_add_2x2.uxm` — Beklenen çıktı: `[6 8]\n[10 12]`
-3. `tests_matrix/test_matrix03_mul_2x2.uxm` — Beklenen çıktı: `[19 22]\n[43 50]`
-4. `tests_matrix/test_matrix04_identity_trace_det2.uxm` — Beklenen çıktı: `[1 0 0]\n[0 1 0]\n[0 0 1]\n3-2`
+**IDE doğrulama için test kümeleri:**
+
+1. `tests_matrix/*.uxm`
+2. `tests_fp/*.uxm`
+3. `math_extensions/tests_math/*.uxm`
+
+**Araç zinciri notu:**
+
+- Build/diagnostic komutları çalıştırılırken aktif derleyici `uxm31_compiler_fb.bas` üzerinden üretilen `uxm.exe` kabul edilmelidir.
+- Test paneli veya komut paleti entegrasyonunda tek klasör varsayımı yerine çoklu test kümesi (`tests`, `tests_matrix`, `tests_fp`, `math_extensions/tests_math`) desteklenmelidir.
 
 **Önemli kısıtlama:** 8-bit tape modunda DATA base adresi 0–254 arasında kalmalıdır. 255'i aşan adresler byte truncation'a uğrar.

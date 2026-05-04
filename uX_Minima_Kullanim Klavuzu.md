@@ -1,6 +1,3 @@
-Mete abi, aşağıdaki metin doğrudan **`KULLANMA_KILAVUZU.md`** olarak kaydedilebilir.
-
-````markdown
 # UX-MINIMA x64 V3.1 Full Kullanma Kılavuzu
 
 ## 1. UX-MINIMA Nedir?
@@ -36,15 +33,15 @@ deneysel sistemdir.
 Full V3.1 sisteminde ana dosyalar şunlardır:
 
 ```text
-uxm31_compiler_fb_full.bas      Native x64 NASM compiler
+uxm31_compiler_fb.bas      Native x64 NASM compiler
 uxm31_runtime_fb_full.bas       Native exe için FreeBASIC runtime
 uxm31_full_tool_fb.bas          Interpreter + JSON trace + UIR + optimizer + IDE motoru
-````
+```
 
 Yardımcı dosyalar:
 
 ```text
-tests_full\*.uxm                Test programları
+tests\*.uxm                Test programları
 build\                          Üretilen asm, obj, exe, json dosyaları
 ```
 
@@ -73,7 +70,7 @@ UX-MINIMA native derleme hattı şu şekildedir:
 ```text
 .uxm kaynak dosyası
         ↓
-uxm31_compiler_fb_full.bas
+uxm31_compiler_fb.bas
         ↓
 x64 NASM .asm dosyası
         ↓
@@ -87,8 +84,8 @@ Windows .exe
 Örnek:
 
 ```bat
-fbc uxm31_compiler_fb_full.bas -x uxm31_compiler_full.exe
-uxm31_compiler_full.exe tests_full\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
+fbc -lang fb uxm31_compiler_fb.bas -x uxm.exe
+uxm.exe tests\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
 nasm -f win64 build\test20.asm -o build\test20.obj
 fbc uxm31_runtime_fb_full.bas build\test20.obj -x build\test20.exe
 build\test20.exe
@@ -102,25 +99,25 @@ Native exe üretmeden, programı yorumlayıcı modda çalıştırmak için:
 
 ```bat
 fbc uxm31_full_tool_fb.bas -x uxm31_full_tool.exe
-uxm31_full_tool.exe run tests_full\test20_fifo_char_order.uxm build\test20.trace.ndjson
+uxm31_full_tool.exe run tests\test20_fifo_char_order.uxm build\test20.trace.ndjson
 ```
 
 UIR üretmek için:
 
 ```bat
-uxm31_full_tool.exe uir tests_full\test20_fifo_char_order.uxm build\test20.uir.json
+uxm31_full_tool.exe uir tests\test20_fifo_char_order.uxm build\test20.uir.json
 ```
 
 Optimizer raporu üretmek için:
 
 ```bat
-uxm31_full_tool.exe opt tests_full\test20_fifo_char_order.uxm build\test20.opt.json
+uxm31_full_tool.exe opt tests\test20_fifo_char_order.uxm build\test20.opt.json
 ```
 
 IDE komutu ile çalıştırmak için örnek `ide_run.json`:
 
 ```json
-{"command":"run","source":"tests_full\\test20_fifo_char_order.uxm","out":"build\\ide_trace.ndjson"}
+{"command":"run","source":"tests\\test20_fifo_char_order.uxm","out":"build\\ide_trace.ndjson"}
 ```
 
 Çalıştırma:
@@ -255,6 +252,22 @@ Safe mode daha kontrollüdür. Wild mode, tehlikeli ve deneysel servisleri açar
 #endian big
 ```
 
+### ARGE veri üretim direktifleri (aktif)
+
+```text
+#poly BASE = c0,c1,c2,...
+#expr-rpn BASE = x 2 pow 3 x mul add 2 add
+
+#matrix BASE ROWS COLS = v1,v2,...
+#matrix-signed BASE ROWS COLS = v1,v2,...
+#matrix-fixed BASE ROWS COLS SCALE = v1.f1,v2.f2,...
+#identity BASE SIZE
+#zeros BASE ROWS COLS
+#ones BASE ROWS COLS
+```
+
+Not: Bu direktifler compile-time DATA initializer üretir.
+
 ---
 
 ## 9. Temel Komutlar
@@ -356,6 +369,12 @@ Yanlış:
 | `(F)`      | Flags word                               |
 | `(*T)`     | Aktif hücredeki değeri adres kabul eder  |
 | `(*(T+N))` | T+N hücresindeki değeri adres kabul eder |
+| `(D@T)`    | Data alanında, aktif tape hücresinin gösterdiği adres |
+| `(D@T+N)`  | Data alanında, aktif tape hücre adresi + ofset |
+| `(D@T-N)`  | Data alanında, aktif tape hücre adresi - ofset |
+| `(D@(T-2)+N)` | Data alanında, `T-2` hücre değeri + ofset |
+| `(D@(T-1)+N)` | Data alanında, `T-1` hücre değeri + ofset |
+| `(D@(T)+N)`   | Data alanında, `T` hücre değeri + ofset |
 
 Örnek:
 
@@ -481,6 +500,14 @@ Stack LIFO, FIFO ise kuyruk mantığıdır. İkisi farklı amaçlar için kullan
 ## 15. Meta Servis Mantığı
 
 Meta servisler `@N` biçiminde çağrılır.
+
+Meta çağrı türleri:
+
+```text
+@N   : Kullanıcı makro varsa makro, yoksa host meta servis
+@!N  : Zorla host meta servis
+@#   : Dinamik meta (aktif hücre değeri)
+```
 
 Genel frame mantığı:
 
@@ -721,6 +748,24 @@ X
 ```text
 321
 ```
+
+### Extension meta servisleri (aktif)
+
+#### Matrix (`@160..@176`)
+
+`@160` init, `@161` clear, `@162` set, `@163` get, `@164` fill, `@165` copy,
+`@166` print, `@167` add, `@168` sub, `@169` scalar mul, `@170` mul,
+`@171` transpose, `@172` identity, `@173` trace, `@174` shape, `@175` det2, `@176` raw print.
+
+#### Floating point (`@200..@224` aktif alt küme)
+
+`@200/@201` init(16/32), `@210` add, `@211` sub, `@212` mul, `@213` div,
+`@214` compare, `@220` from-int, `@221` from-dec-string, `@223` decimal print.
+
+#### Math-extra (`@240..@244`, `@250..@254`)
+
+`@240..@244` polynomial türev/integral/eval/print/clear,
+`@250..@254` RPN expression eval/türev/integral/print.
 
 ---
 
@@ -1004,7 +1049,7 @@ Interpreter/full tool ile çalıştırıldığında her adım NDJSON formatında
 Komut:
 
 ```bat
-uxm31_full_tool.exe run tests_full\test20_fifo_char_order.uxm build\test20.trace.ndjson
+uxm31_full_tool.exe run tests\test20_fifo_char_order.uxm build\test20.trace.ndjson
 ```
 
 Trace satırları şu tiptedir:
@@ -1036,13 +1081,13 @@ UIR, compiler’ın kaynak kodu nasıl gördüğünü gösteren ara temsildir.
 Komut:
 
 ```bat
-uxm31_full_tool.exe uir tests_full\test20_fifo_char_order.uxm build\test20.uir.json
+uxm31_full_tool.exe uir tests\test20_fifo_char_order.uxm build\test20.uir.json
 ```
 
 Native compiler da UIR üretir:
 
 ```bat
-uxm31_compiler_full.exe tests_full\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
+uxm.exe tests\test20_fifo_char_order.uxm build\test20.asm build\test20.uir.json build\test20.opt.json
 ```
 
 UIR içinde her komut şu bilgilerle yer alır:
@@ -1076,7 +1121,7 @@ Optimizer şu tip dönüşümleri yapar:
 Optimizer raporu:
 
 ```bat
-uxm31_full_tool.exe opt tests_full\test35_optimizer_visible_result.uxm build\test35.opt.json
+uxm31_full_tool.exe opt tests\test35_optimizer_visible_result.uxm build\test35.opt.json
 ```
 
 Örnek rapor:
@@ -1182,7 +1227,7 @@ p1
 Native compiler:
 
 ```text
-uxm31_compiler_fb_full.bas
+uxm31_compiler_fb.bas
 ```
 
 şunu yapar:
@@ -1237,6 +1282,15 @@ Test dosyalarında beklenen çıktı `# EXPECT_OUTPUT:` ile yazılır.
 ```
 
 İleride test runner bu satırı okuyup gerçek çıktı ile karşılaştırabilir.
+
+Aktif test kümeleri:
+
+```text
+tests\*.uxm                          çekirdek dil, data/fifo/branch/wild
+tests_matrix\*.uxm                   matrix servisleri (@160..@176)
+tests_fp\*.uxm                       floating point servisleri (@200..@224 alt küme)
+math_extensions\tests_math\*.uxm    polynomial ve expression servisleri (@240+, @250+)
+```
 
 ---
 
@@ -1296,8 +1350,9 @@ T+1 sonuç
 @120..@127   flags, endian, signed, wild layout servisleri
 @128..@159   kullanıcı macro alanı
 @160..@176   matris servisleri (UX-MAT V1)
-@200..@239   kayan nokta servisleri (UX-FP)
-@240..@254   genişletilmiş matematik (polinom, ifade)
+@200..@224   kayan nokta servisleri (UX-FP, aktif alt küme)
+@240..@244   polynomial servisleri
+@250..@254   expression/numerik servisleri
 ```
 
 ---
@@ -1323,7 +1378,7 @@ Bir program yazarken şu sırayı izle:
 uxm31_full_tool.exe run program.uxm build\program.trace.ndjson
 uxm31_full_tool.exe uir program.uxm build\program.uir.json
 uxm31_full_tool.exe opt program.uxm build\program.opt.json
-uxm31_compiler_full.exe program.uxm build\program.asm build\program.uir.json build\program.opt.json
+uxm.exe program.uxm build\program.asm build\program.uir.json build\program.opt.json
 nasm -f win64 build\program.asm -o build\program.obj
 fbc uxm31_runtime_fb_full.bas build\program.obj -x build\program.exe
 build\program.exe
@@ -1331,90 +1386,7 @@ build\program.exe
 
 ---
 
-## 40. UX-MAT V1 Matrix Servisleri
-
-UX-MAT V1, UX-MINIMA üzerinde matris işlemleri yapabilen yerleşik bir servis katmanıdır. `@160..@176` meta aralığında çalışır.
-
-### Bellek Modeli
-
-Her matris DATA alanında bir başlık bloğu ve ardından gelen elemanlarla saklanır:
-
-```text
-D:BASE+0   magic = 77 ('M')
-D:BASE+1   sürüm = 1
-D:BASE+2   boyut = 2 (2B matris)
-D:BASE+3   tip: 0=unsigned, 1=signed, 2=fixed-point
-D:BASE+4   bayraklar
-D:BASE+5   satır sayısı
-D:BASE+6   sütun sayısı
-D:BASE+7   scale (fixed-point için)
-D:BASE+16+ elemanlar (satır-öncelikli)
-```
-
-> **Önemli:** 8-bit tape sisteminde `T-n` hücreleri tek byte taşır. DATA base adresi 0–254 arasında olmalıdır. 255'i aşan adresler `mod 256` kesilir ve yanlış matrise işaret eder.
-
-### Frame Düzeni
-
-Matrix meta çağrılarında pointer T=30 konumunda (30 adet `>`) olmalıdır:
-
-```text
-T-4 = dst / base adresi
-T-3 = A / satır sayısı / base adresi
-T-2 = B / sütun sayısı
-T-1 = param1 / değer / tip
-T   = param2 / scale
-T+1 = sonuç / durum (meta tarafından yazılır)
-```
-
-### Meta Servis Tablosu
-
-| Meta   | İşlev                      | Frame kullanımı                        |
-| ------ | -------------------------- | -------------------------------------- |
-| `@160` | MAT_INIT                   | T-4=base, T-3=rows, T-2=cols, T-1=tip, T=scale |
-| `@161` | MAT_CLEAR                  | T-4=base                               |
-| `@162` | MAT_SET                    | T-4=base, T-3=row, T-2=col, T-1=değer |
-| `@163` | MAT_GET                    | T-4=base, T-3=row, T-2=col → T+1      |
-| `@164` | MAT_FILL                   | T-4=base, T-3=değer                    |
-| `@165` | MAT_COPY                   | T-4=dst, T-3=src                       |
-| `@166` | MAT_PRINT                  | T-3=base                               |
-| `@167` | MAT_ADD                    | T-4=dst, T-3=A, T-2=B                 |
-| `@168` | MAT_SUB                    | T-4=dst, T-3=A, T-2=B                 |
-| `@169` | MAT_SCALAR_MUL             | T-4=dst, T-3=A, T-2=skaler            |
-| `@170` | MAT_MUL                    | T-4=dst, T-3=A, T-2=B                 |
-| `@171` | MAT_TRANSPOSE_COPY         | T-4=dst, T-3=src                       |
-| `@172` | MAT_IDENTITY               | T-4=base, T-3=N, T-2=tip, T-1=scale  |
-| `@173` | MAT_TRACE                  | T-3=base → T+1                         |
-| `@174` | MAT_SHAPE                  | T-3=base (yazdırır)                    |
-| `@175` | MAT_DET2                   | T-3=base → T+1 (sadece 2×2)           |
-| `@176` | MAT_PRINT_RAW              | T-3=base (ham bayt yazdırır)           |
-
-### Compiler Direktifleri
-
-```text
-#matrix BASE ROWS COLS = v1,v2,...
-#matrix-signed BASE ROWS COLS = v1,v2,...
-#matrix-fixed BASE ROWS COLS SCALE = v1.f1,v2.f2,...
-#identity BASE SIZE
-#zeros BASE ROWS COLS
-#ones BASE ROWS COLS
-```
-
-### Makro Başlıkları
-
-`lib/ux_mat_v1.uxm` veya `math_extensions/lib/ux_mat_v1.uxm` dosyasını dahil ederek `m160`..`m176` isimli makroları kullanabilirsiniz.
-
-### Testler
-
-```text
-tests_matrix/test_matrix01_init_set_print.uxm   init/set/print
-tests_matrix/test_matrix02_add_2x2.uxm          2x2 matris toplama
-tests_matrix/test_matrix03_mul_2x2.uxm          2x2 matris çarpma
-tests_matrix/test_matrix04_identity_trace_det2.uxm  identity/trace/det2
-```
-
----
-
-## 41. Sonuç
+## 40. Sonuç
 
 UX-MINIMA x64 V3.1 Full, küçük görünen ama bellek, pointer, stack, FIFO, data table, sort, branch, macro ve native x64 üretim mantığını bir araya getiren deneysel bir programlama sistemidir.
 
@@ -1422,5 +1394,5 @@ Bu dil klasik BASIC veya Python gibi yazılmaz. Bu dilde programcı, doğrudan b
 
 Bu yüzden UX-MINIMA yalnızca bir ezoterik dil değildir. Aynı zamanda bilgisayar mimarisi, compiler tasarımı, interpreter mantığı, bellek modeli ve düşük seviye programlama eğitimi için kullanılabilecek özel bir deney alanıdır.
 
-```
-```
+
+
