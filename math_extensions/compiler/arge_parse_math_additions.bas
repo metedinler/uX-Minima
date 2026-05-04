@@ -5,8 +5,8 @@ Declare Function SplitCsvCount(ByVal s As String) As Long
 Declare Function SplitCsvValue(ByVal s As String, ByVal idx As Long) As Long
 Declare Sub EmitDataInitializers()
 Declare Function RpnTokenCode(ByVal tok As String) As Long
-Declare Sub ParseExprRpn(ByVal base As Long, ByVal rpnText As String)
-Declare Sub ParsePoly(ByVal base As Long, ByVal csvText As String)
+Declare Sub ParseExprRpn(ByVal baseAddr As Long, ByVal rpnText As String)
+Declare Sub ParsePoly(ByVal baseAddr As Long, ByVal csvText As String)
 Type TDataInit
     idx As Long
     value As Long
@@ -19,22 +19,22 @@ Sub ParseArgeMathLine(ByVal lineText As String)
     Dim pEq As Long
     Dim leftPart As String
     Dim rightPart As String
-    Dim base As Long
+    Dim baseAddr As Long
     low=LCase(Trim(lineText))
     If Left(low,5)="#poly" Then
         pEq=InStr(lineText,"=")
         If pEq=0 Then Exit Sub
         leftPart=Trim(Left(lineText,pEq-1))
         rightPart=Trim(Mid(lineText,pEq+1))
-        base=Val(Trim(Mid(leftPart,6)))
-        ParsePoly base,rightPart
+        baseAddr=Val(Trim(Mid(leftPart,6)))
+        ParsePoly baseAddr,rightPart
     ElseIf Left(low,9)="#expr-rpn" Then
         pEq=InStr(lineText,"=")
         If pEq=0 Then Exit Sub
         leftPart=Trim(Left(lineText,pEq-1))
         rightPart=Trim(Mid(lineText,pEq+1))
-        base=Val(Trim(Mid(leftPart,10)))
-        ParseExprRpn base,rightPart
+        baseAddr=Val(Trim(Mid(leftPart,10)))
+        ParseExprRpn baseAddr,rightPart
     End If
 End Sub
 Sub AddDataInit(ByVal dataIndex As Long, ByVal value As Long)
@@ -72,17 +72,17 @@ Function SplitCsvValue(ByVal s As String, ByVal idx As Long) As Long
     If cur=idx Then Return Val(Trim(part))
     Return 0
 End Function
-Sub ParsePoly(ByVal base As Long, ByVal csvText As String)
+Sub ParsePoly(ByVal baseAddr As Long, ByVal csvText As String)
     Dim n As Long
     Dim i As Long
     n=SplitCsvCount(csvText)
     If n<=0 Then Exit Sub
-    AddDataInit base+0,80
-    AddDataInit base+1,1
-    AddDataInit base+2,n-1
-    AddDataInit base+3,0
+    AddDataInit baseAddr+0,80
+    AddDataInit baseAddr+1,1
+    AddDataInit baseAddr+2,n-1
+    AddDataInit baseAddr+3,0
     For i=0 To n-1
-        AddDataInit base+4+i,SplitCsvValue(csvText,i)
+        AddDataInit baseAddr+4+i,SplitCsvValue(csvText,i)
     Next
 End Sub
 Function RpnTokenCode(ByVal tok As String) As Long
@@ -107,18 +107,18 @@ Function RpnTokenCode(ByVal tok As String) As Long
     End Select
     Return 1
 End Function
-Sub ParseExprRpn(ByVal base As Long, ByVal rpnText As String)
+Sub ParseExprRpn(ByVal baseAddr As Long, ByVal rpnText As String)
     Dim i As Long
     Dim tok As String
     Dim outIdx As Long
     Dim tokenCount As Long
     Dim code As Long
-    outIdx=base+4
+    outIdx=baseAddr+4
     tokenCount=0
     tok=""
-    AddDataInit base+0,69
-    AddDataInit base+1,1
-    AddDataInit base+3,0
+    AddDataInit baseAddr+0,69
+    AddDataInit baseAddr+1,1
+    AddDataInit baseAddr+3,0
     For i=1 To Len(rpnText)+1
         If i>Len(rpnText) Or Mid(rpnText,i,1)=" " Or Mid(rpnText,i,1)=Chr(9) Then
             tok=Trim(tok)
@@ -142,14 +142,14 @@ Sub ParseExprRpn(ByVal base As Long, ByVal rpnText As String)
     Next
     AddDataInit outIdx,99
     tokenCount=tokenCount+1
-    AddDataInit base+2,tokenCount
+    AddDataInit baseAddr+2,tokenCount
 End Sub
 ' Call EmitDataInitializers() in EmitHeader after ux_mem initialization and before user instructions.
 Sub EmitDataInitializers()
     Dim i As Long
     Dim off As Long
     For i=1 To DataInitCount
-        off=DATA_OFFSET+DataInit(i).idx*CELL_BYTES
+        off=DataOffset+DataInit(i).idx*CellSize()
         Print #OutFF,"    mov "+MemSizePrefix()+" [ux_mem + "+LTrim(Str(off))+"] , "+LTrim(Str(DataInit(i).value))
     Next
 End Sub

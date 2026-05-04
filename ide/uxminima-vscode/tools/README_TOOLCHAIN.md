@@ -1,16 +1,21 @@
 # UX-MINIMA Toolchain
 
-Bu klasöre şu dosyaları koy:
+Bu klasörde final ARGE compiler kaynağı vardır:
 
-- `uxm31_full_tool.exe`
-- `uxm31_compiler_full.exe`
-- `uxm31_runtime_fb_full.bas`
+```text
+uxm31_compiler_final.bas
+```
 
-Ayarlar VS Code Settings içinden değiştirilebilir:
+VS Code komutu ile derlenir:
 
-- `uxminima.fullToolPath`
-- `uxminima.compilerPath`
-- `uxminima.runtimePath`
-- `uxminima.nasmPath`
-- `uxminima.fbcPath`
-- `uxminima.buildDirectory`
+```text
+UX-MINIMA: Build Final ARGE Compiler
+```
+
+Veya elle:
+
+```bat
+fbc uxm31_compiler_final.bas -x uxm31_compiler_final.exe
+```
+
+Native EXE üretmek için ayrıca `uxm31_runtime_fb_full.bas`, `nasm` ve `fbc` gerekir.

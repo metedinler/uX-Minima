@@ -3,19 +3,16 @@
 ' ElseIf metaId>=240 And metaId<=254 Then
 '     MetaMathExtra metaId
 ' Declarations:
-Declare Sub MetaMathExtra(ByVal metaId As ULongInt)
 Declare Sub MetaPolynomial(ByVal metaId As ULongInt)
 Declare Sub MetaExpression(ByVal metaId As ULongInt)
 Declare Sub PolyDerivative(ByVal dstBase As LongInt, ByVal srcBase As LongInt)
 Declare Sub PolyIntegral(ByVal dstBase As LongInt, ByVal srcBase As LongInt, ByVal constantC As LongInt)
 Declare Function PolyEval(ByVal srcBase As LongInt, ByVal x As LongInt) As LongInt
 Declare Sub PolyPrint(ByVal srcBase As LongInt)
-Declare Sub PolyClear(ByVal base As LongInt, ByVal count As LongInt)
-Declare Function ReadPolyCoeff(ByVal base As LongInt, ByVal idx As LongInt) As LongInt
-Declare Sub WritePolyCoeff(ByVal base As LongInt, ByVal idx As LongInt, ByVal value As LongInt)
+Declare Sub PolyClear(ByVal baseAddr As LongInt, ByVal count As LongInt)
+Declare Function ReadPolyCoeff(ByVal baseAddr As LongInt, ByVal idx As LongInt) As LongInt
+Declare Sub WritePolyCoeff(ByVal baseAddr As LongInt, ByVal idx As LongInt, ByVal value As LongInt)
 Declare Function ExprEval(ByVal exprBase As LongInt, ByVal x As LongInt) As LongInt
-Declare Function ExprPop(ByRef stack() As LongInt, ByRef sp As LongInt) As LongInt
-Declare Sub ExprPush(ByRef stack() As LongInt, ByRef sp As LongInt, ByVal v As LongInt)
 Declare Sub ExprPrintRpn(ByVal exprBase As LongInt)
 Declare Function NumDeriv(ByVal exprBase As LongInt, ByVal x As LongInt, ByVal h As LongInt) As LongInt
 Declare Function NumIntegralTrap(ByVal exprBase As LongInt, ByVal a As LongInt, ByVal b As LongInt, ByVal n As LongInt) As LongInt
@@ -60,11 +57,11 @@ Sub MetaPolynomial(ByVal metaId As ULongInt)
         SetResult STATUS_INVALID_META
     End Select
 End Sub
-Function ReadPolyCoeff(ByVal base As LongInt, ByVal idx As LongInt) As LongInt
-    Return CLngInt(ReadData(base+4+idx))
+Function ReadPolyCoeff(ByVal baseAddr As LongInt, ByVal idx As LongInt) As LongInt
+    Return CLngInt(ReadData(baseAddr+4+idx))
 End Function
-Sub WritePolyCoeff(ByVal base As LongInt, ByVal idx As LongInt, ByVal value As LongInt)
-    WriteData base+4+idx,value
+Sub WritePolyCoeff(ByVal baseAddr As LongInt, ByVal idx As LongInt, ByVal value As LongInt)
+    WriteData baseAddr+4+idx,value
 End Sub
 Sub PolyDerivative(ByVal dstBase As LongInt, ByVal srcBase As LongInt)
     Dim deg As LongInt
@@ -154,10 +151,10 @@ Sub PolyPrint(ByVal srcBase As LongInt)
     Next i
     SetStatus STATUS_OK
 End Sub
-Sub PolyClear(ByVal base As LongInt, ByVal count As LongInt)
+Sub PolyClear(ByVal baseAddr As LongInt, ByVal count As LongInt)
     Dim i As LongInt
     For i=0 To count-1
-        WriteData base+i,0
+        WriteData baseAddr+i,0
     Next i
     SetStatus STATUS_OK
 End Sub
@@ -208,23 +205,23 @@ Sub MetaExpression(ByVal metaId As ULongInt)
         SetResult STATUS_INVALID_META
     End Select
 End Sub
-Sub ExprPush(ByRef stack() As LongInt, ByRef sp As LongInt, ByVal v As LongInt)
+Sub ExprPush(ByVal stack As Long Ptr, ByRef sp As LongInt, ByVal v As LongInt)
     sp=sp+1
-    stack(sp)=v
+    stack[sp]=v
 End Sub
-Function ExprPop(ByRef stack() As LongInt, ByRef sp As LongInt) As LongInt
+Function ExprPop(ByVal stack As Long Ptr, ByRef sp As LongInt) As LongInt
     If sp<=0 Then
         SetStatus STATUS_STACK_UNDERFLOW
         Return 0
     End If
-    ExprPop=stack(sp)
+    ExprPop=stack[sp]
     sp=sp-1
 End Function
 Function ExprEval(ByVal exprBase As LongInt, ByVal x As LongInt) As LongInt
     Dim tokenCount As LongInt
     Dim ip As LongInt
     Dim tok As LongInt
-    Dim stack(0 To 255) As LongInt
+    Dim stack(0 To 255) As Long
     Dim sp As LongInt
     Dim a As LongInt
     Dim b As LongInt
@@ -242,43 +239,43 @@ Function ExprEval(ByVal exprBase As LongInt, ByVal x As LongInt) As LongInt
         ip=ip+1
         Select Case tok
         Case 1
-            ExprPush stack(),sp,CLngInt(ReadData(ip))
+            ExprPush @stack(0),sp,CLngInt(ReadData(ip))
             ip=ip+1
         Case 2
-            ExprPush stack(),sp,x
+            ExprPush @stack(0),sp,x
         Case 10
-            b=ExprPop(stack(),sp):a=ExprPop(stack(),sp):ExprPush stack(),sp,a+b
+            b=ExprPop(@stack(0),sp):a=ExprPop(@stack(0),sp):ExprPush @stack(0),sp,a+b
         Case 11
-            b=ExprPop(stack(),sp):a=ExprPop(stack(),sp):ExprPush stack(),sp,a-b
+            b=ExprPop(@stack(0),sp):a=ExprPop(@stack(0),sp):ExprPush @stack(0),sp,a-b
         Case 12
-            b=ExprPop(stack(),sp):a=ExprPop(stack(),sp):ExprPush stack(),sp,a*b
+            b=ExprPop(@stack(0),sp):a=ExprPop(@stack(0),sp):ExprPush @stack(0),sp,a*b
         Case 13
-            b=ExprPop(stack(),sp):a=ExprPop(stack(),sp)
-            If b=0 Then SetStatus STATUS_DIV_ZERO:Return 0 Else ExprPush stack(),sp,a\b
+            b=ExprPop(@stack(0),sp):a=ExprPop(@stack(0),sp)
+            If b=0 Then SetStatus STATUS_DIV_ZERO:Return 0 Else ExprPush @stack(0),sp,a\b
         Case 14
-            b=ExprPop(stack(),sp):a=ExprPop(stack(),sp)
+            b=ExprPop(@stack(0),sp):a=ExprPop(@stack(0),sp)
             r=1
             For p=1 To b
                 r=r*a
             Next p
-            ExprPush stack(),sp,r
+            ExprPush @stack(0),sp,r
         Case 20
-            a=ExprPop(stack(),sp):ExprPush stack(),sp,CLngInt(Sin(CDbl(a)*PI_D/180.0)*100.0)
+            a=ExprPop(@stack(0),sp):ExprPush @stack(0),sp,CLngInt(Sin(CDbl(a)*PI_D/180.0)*100.0)
         Case 21
-            a=ExprPop(stack(),sp):ExprPush stack(),sp,CLngInt(Cos(CDbl(a)*PI_D/180.0)*100.0)
+            a=ExprPop(@stack(0),sp):ExprPush @stack(0),sp,CLngInt(Cos(CDbl(a)*PI_D/180.0)*100.0)
         Case 22
-            a=ExprPop(stack(),sp):ExprPush stack(),sp,CLngInt(Tan(CDbl(a)*PI_D/180.0)*100.0)
+            a=ExprPop(@stack(0),sp):ExprPush @stack(0),sp,CLngInt(Tan(CDbl(a)*PI_D/180.0)*100.0)
         Case 23
-            a=ExprPop(stack(),sp):ExprPush stack(),sp,CLngInt(Exp(CDbl(a)))
+            a=ExprPop(@stack(0),sp):ExprPush @stack(0),sp,CLngInt(Exp(CDbl(a)))
         Case 24
-            a=ExprPop(stack(),sp):If a<=0 Then SetStatus STATUS_UNDERFLOW:Return 0 Else ExprPush stack(),sp,CLngInt(Log(CDbl(a)))
+            a=ExprPop(@stack(0),sp):If a<=0 Then SetStatus STATUS_UNDERFLOW:Return 0 Else ExprPush @stack(0),sp,CLngInt(Log(CDbl(a)))
         Case 25
-            a=ExprPop(stack(),sp):If a<0 Then SetStatus STATUS_UNDERFLOW:Return 0 Else ExprPush stack(),sp,CLngInt(Sqr(CDbl(a)))
+            a=ExprPop(@stack(0),sp):If a<0 Then SetStatus STATUS_UNDERFLOW:Return 0 Else ExprPush @stack(0),sp,CLngInt(Sqr(CDbl(a)))
         Case 30
-            a=ExprPop(stack(),sp):ExprPush stack(),sp,-a
+            a=ExprPop(@stack(0),sp):ExprPush @stack(0),sp,-a
         Case 31
-            a=ExprPop(stack(),sp):If a<0 Then a=-a
-            ExprPush stack(),sp,a
+            a=ExprPop(@stack(0),sp):If a<0 Then a=-a
+            ExprPush @stack(0),sp,a
         Case 99
             Exit Do
         Case Else
@@ -371,3 +368,4 @@ Sub ExprPrintRpn(ByVal exprBase As LongInt)
     Loop
     SetStatus STATUS_OK
 End Sub
+

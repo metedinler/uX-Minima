@@ -1,0 +1,9 @@
+# EXPECT_OUTPUT: AB
+#arge version
+#arge json on
+#arge step on
+#arge trace on
+#arge watch tape=0:16
+#arge watch data=0:16
+s1=0,{AB}
+p1

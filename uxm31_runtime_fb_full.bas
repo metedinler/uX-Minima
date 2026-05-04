@@ -126,6 +126,8 @@ Declare Sub MetaMath(ByVal metaId As ULongInt)
 Declare Sub MetaIO(ByVal metaId As ULongInt)
 Declare Sub MetaPointerMemory(ByVal metaId As ULongInt)
 Declare Sub MetaFifoDataSortWild(ByVal metaId As ULongInt)
+Declare Sub MetaFloatingPoint(ByVal metaId As ULongInt)
+Declare Sub MetaMathExtra(ByVal metaId As ULongInt)
 Function MemBase() As UByte Ptr
 Return @ux_mem
 End Function
@@ -757,6 +759,10 @@ ElseIf metaId<90 Then
 MetaPointerMemory metaId
 ElseIf metaId<128 Then
 MetaFifoDataSortWild metaId
+ElseIf metaId>=200 And metaId<=239 Then
+MetaFloatingPoint metaId
+ElseIf metaId>=240 And metaId<=254 Then
+MetaMathExtra metaId
 Else
 SetStatus STATUS_INVALID_META
 End If
@@ -1221,6 +1227,8 @@ Case Else
 SetStatus STATUS_INVALID_META
 End Select
 End Sub
+#Include Once "runtime/runtime_fp_services.bas"
+#Include Once "math_extensions/runtime/runtime_math_services.bas"
 Randomize Timer
 fifoHead=0
 fifoTail=0

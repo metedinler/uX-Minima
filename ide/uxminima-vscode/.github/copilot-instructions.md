@@ -30,3 +30,25 @@ Kod yazarken:
 - Tape/Stack/Data/FIFO görselleştirme trace dosyasından veya extension içi interpreter'dan yapılır.
 - Syntax highlighting TextMate grammar ile yapılır.
 - Diagnostics extension içinde hızlı parser ile yapılır.
+
+## FINAL ARGE compiler integration
+
+This extension now uses `tools/uxm31_compiler_final.bas` as the main compiler/tool source.
+The VS Code toolchain compiles it with FreeBASIC into `uxm31_compiler_final.exe` when needed.
+
+Final compiler CLI:
+
+```bat
+uxm31_compiler_final.exe --input file.uxm --mode all --asm out.asm --uir out.uir.json --diag out.diag.json --trace out.trace.ndjson --opt out.opt.json
+uxm31_compiler_final.exe --input file.uxm --mode step --trace out.trace.ndjson --max-steps 1000
+uxm31_compiler_final.exe --ide-in request.json --ide-out response.json
+```
+
+New language-standard features:
+- `(D@T)`, `(D@T+N)`, `(D@T-N)` are normal-mode dynamic data addressing forms.
+- `(D@(T-2)+N)`, `(D@(T-1)+N)`, `(D@(T)+N)` are dynamic data addressing forms using a tape-relative cell as data base.
+- `@!N` forces host/runtime meta call and bypasses macro expansion.
+- `#arge ...` comments configure parse/JSON/interpreter/step/watch intent.
+
+Do not treat `(D@...)` as wild mode. It is normal syntax.
+Do not rewrite `@!N` into `@N`; that changes semantics.

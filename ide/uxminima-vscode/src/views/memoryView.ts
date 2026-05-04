@@ -39,6 +39,8 @@ export class MemoryViewPanel {
     const encoded = JSON.stringify(events).replace(/</g, "\\u003c");
     const first = events[0];
     const summary = trace.snapshot ? JSON.stringify(trace.snapshot) : "No snapshot";
+    const endOutput = trace.end?.output ?? "";
+    const encodedEndOutput = JSON.stringify(endOutput).replace(/</g, "\\u003c");
     return `<!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -85,12 +87,13 @@ export class MemoryViewPanel {
   </div>
 <script>
 const events = ${encoded};
+const endOutput = ${encodedEndOutput};
 let idx = 0;
 const byId = id => document.getElementById(id);
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
 function ascii(v) { if (v >= 32 && v <= 126) return String.fromCharCode(v); if (v === 10) return '\\n'; if (v === 13) return '\\r'; if (v === 9) return '\\t'; return ''; }
 function table(cells, ptr) {
-  if (!cells || !cells.length) return '<div class="small">Bu trace satırında hücre snapshot yok.</div>';
+  if (!cells || !cells.length) return '<div class="small">Bu trace satırında hücre snapshot yok. Final compiler trace satırında current/ptr bilgisi varsa Current Step kartını kullan.</div>';
   return '<table><thead><tr><th>Index</th><th>Value</th><th>ASCII</th></tr></thead><tbody>' + cells.map(c =>
     '<tr class="' + (c.index === ptr ? 'ptr' : '') + '"><td>' + c.index + '</td><td>' + c.value + '</td><td>' + esc(c.ascii || ascii(c.value)) + '</td></tr>'
   ).join('') + '</tbody></table>';
@@ -107,11 +110,12 @@ function render() {
   byId('stepLabel').textContent = (idx + 1) + ' / ' + events.length;
   byId('current').textContent = 'step=' + e.step + '\\nip=' + e.ip + '\\nop=' + e.op + '\\nsrc=' + (e.src || '') + '\\nptr=' + e.ptr + '\\nsp=' + e.sp + '\\nfifo_count=' + e.fifo_count + '\\ncurrent=' + e.current + (e.meta_id !== undefined ? '\\nmeta_id=' + e.meta_id : '');
   byId('flags').innerHTML = '<div>Status: <span class="' + (e.status ? 'bad' : 'ok') + '">' + e.status + '</span></div><div class="mono">' + esc(flagsText(e.flags || 0)) + '</div>';
-  byId('tape').innerHTML = table(e.tape, e.ptr);
+  const syntheticTape = e.tape || [{ index: e.ptr, value: e.current, ascii: ascii(e.current) }];
+  byId('tape').innerHTML = table(syntheticTape, e.ptr);
   byId('stack').innerHTML = table(e.stack, -1);
   byId('fifo').innerHTML = table(e.fifo, -1);
   byId('data').innerHTML = table(e.data, -1);
-  byId('output').textContent = e.output || '';
+  byId('output').textContent = e.output || endOutput || '';
 }
 byId('first').onclick = () => { idx = 0; render(); };
 byId('prev').onclick = () => { idx--; render(); };

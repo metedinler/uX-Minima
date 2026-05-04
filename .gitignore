@@ -25,6 +25,12 @@ EXE/
 *.opt.json
 *.log
 
+# VSIX binary paketler
+*.vsix
+
+# ASM build output dosyasi (klasor degil dosya)
+/ASM
+
 # Temporary
 *.tmp
 *.bak

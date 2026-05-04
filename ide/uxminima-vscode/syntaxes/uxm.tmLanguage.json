@@ -22,7 +22,7 @@
     },
     "pragmas": {
       "patterns": [
-        {"name": "keyword.control.pragma.uxm", "match": "^\\s*#(mode|cell|memory|bounds|overflow|compare|endian)\\b.*$"}
+        {"name": "keyword.control.pragma.uxm", "match": "^\\s*#(mode|cell|memory|bounds|overflow|compare|endian|arge)\\b.*$"}
       ]
     },
     "strings": {
@@ -62,12 +62,13 @@
     "meta": {
       "patterns": [
         {"name": "support.function.meta.dynamic.uxm", "match": "@#"},
+        {"name": "support.function.meta.host.uxm", "match": "@![0-9]{1,3}"},
         {"name": "support.function.meta.uxm", "match": "@[0-9]{1,3}"}
       ]
     },
     "addressing": {
       "patterns": [
-        {"name": "variable.parameter.address.uxm", "match": "\\((T|T[+-][0-9]+|T:[0-9]+|D:[0-9]+|S:[0-9]+|SP|P|E|F|\\*T|\\*\\(T[+-][0-9]+\\))\\)"}
+        {"name": "variable.parameter.address.uxm", "match": "\\((D@T(?:[+-][0-9]+)?|D@\\(T(?:[+-][0-9]+)?\\)(?:[+-][0-9]+)?|T|T[+-][0-9]+|T:[0-9]+|D:[0-9]+|S:[0-9]+|SP|P|E|F|\\*T|\\*\\(T[+-][0-9]+\\))\\)"}
       ]
     },
     "repeat": {

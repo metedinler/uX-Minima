@@ -4,6 +4,11 @@
     "body": ["0+k65."],
     "description": "A karakterini basar"
   },
+  "ARGE header": {
+    "prefix": "arge",
+    "body": ["#arge version", "#arge json on", "#arge trace on", "#arge watch tape=0:32", "#arge watch data=0:32", ""],
+    "description": "Final ARGE compiler için JSON/trace/watch başlığı"
+  },
   "String definition": {
     "prefix": "str",
     "body": ["s${1:1}=${2:0},{${3:Merhaba\\n}}", "p${1:1}"],
@@ -14,6 +19,16 @@
     "body": [">>", "0(T-2)+k${1:10}", "0(T-1)+k${2:20}", "@20", "@61"],
     "description": "@20 toplama frame şablonu"
   },
+  "Host meta forced": {
+    "prefix": "hostmeta",
+    "body": ["@!${1:210}"],
+    "description": "Macro aramasını bypass eden host meta çağrısı"
+  },
+  "Dynamic data address": {
+    "prefix": "datt",
+    "body": ["0(T-2)+k${1:100}", "0(D@(T-2)+${2:8})+k${3:65}", ".(D@(T-2)+${2:8})"],
+    "description": "(D@(T-2)+N) dinamik data adresleme örneği"
+  },
   "FIFO push pop": {
     "prefix": "fifo",
     "body": [">>", "0(T-1)+k${1:65}", "@90", "@91", ".(T+1)"],
@@ -23,6 +38,11 @@
     "prefix": "datawr",
     "body": [">>", "0(T-2)+k${1:5}", "0(T-1)+k${2:88}", "@96", "0(T-1)+k${1:5}", "@95", ".(T+1)"],
     "description": "Data write/read şablonu"
+  },
+  "FP add macro frame": {
+    "prefix": "fpadd",
+    "body": ["# UX-FP frame", ">>", "0(T-2)+k${1:100}", "@200", "0(T-2)+k${2:140}", "@200", "0(T-2)+k${3:180}", "@200", "0(T-2)+k${1:100}", "0(T-1)+k${4:12}", "@220", "0(T-2)+k${2:140}", "0(T-1)+k${5:34}", "@220", "0(T-2)+k${3:180}", "0(T-1)+k${1:100}", "0(T)+k${2:140}", "@210", "0(T-1)+k${3:180}", "@223"],
+    "description": "UX-FP V1 ADD örneği"
   },
   "Wild layout": {
     "prefix": "wildlayout",

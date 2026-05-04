@@ -7,6 +7,7 @@ export interface CellEntry {
 }
 
 export interface TraceEvent {
+  type?: string;
   step: number;
   ip: number;
   op: string;
@@ -19,6 +20,7 @@ export interface TraceEvent {
   current: number;
   char?: number;
   meta_id?: number;
+  force_host?: number;
   taken?: number;
   target?: number;
   tape?: CellEntry[];
@@ -28,8 +30,16 @@ export interface TraceEvent {
   output?: string;
 }
 
+export interface TraceEnd {
+  type: "end";
+  steps?: number;
+  status?: number;
+  output?: string;
+}
+
 export interface TraceFile {
   snapshot?: Record<string, unknown>;
+  end?: TraceEnd;
   events: TraceEvent[];
 }
 
@@ -37,21 +47,24 @@ export function readTraceFile(filePath: string): TraceFile {
   const text = fs.readFileSync(filePath, "utf8");
   const events: TraceEvent[] = [];
   let snapshot: Record<string, unknown> | undefined;
+  let end: TraceEnd | undefined;
   for (const rawLine of text.split(/\r?\n/)) {
     const line = rawLine.trim();
     if (!line) { continue; }
     try {
       const obj = JSON.parse(line);
-      if (obj.type === "snapshot") {
+      if (obj.type === "snapshot" || obj.type === "start") {
         snapshot = obj;
+      } else if (obj.type === "end") {
+        end = obj as TraceEnd;
       } else if (typeof obj.step === "number") {
         events.push(obj as TraceEvent);
       }
     } catch {
-      // Eski veya bozuk satırları atla; panel kalan geçerli satırlarla çalışsın.
+      // Bozuk satırları atla; panel kalan geçerli satırlarla çalışsın.
     }
   }
-  return { snapshot, events };
+  return { snapshot, end, events };
 }
 
 export function ascii(value: number): string {

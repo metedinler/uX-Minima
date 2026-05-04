@@ -167,6 +167,7 @@ Dim Shared DefaultSigned As Long
 Dim Shared DefaultBigEndian As Long
 Dim Shared OutFF As Long
 Dim Shared EmitLabelCounter As Long
+#Include Once "math_extensions/compiler/arge_parse_math_additions.bas"
 Main()
 End
 Sub Main()
@@ -319,6 +320,8 @@ Sub ParsePragmas()
                 If v<>"" Then StackKB=ParseSizeKB(v,StackKB)
                 v=GetPragmaValue(low,"data")
                 If v<>"" Then DataKB=ParseSizeKB(v,DataKB)
+            ElseIf InStr(low,"#poly")=1 Or InStr(low,"#expr-rpn")=1 Then
+                ParseArgeMathLine lineText
             End If
         End If
         p=p+1
@@ -1074,6 +1077,7 @@ Sub GenerateASM()
     Open OutAsm For Output As #OutFF
     EmitHeader()
     EmitStringInitializers()
+    EmitDataInitializers()
     For i=1 To InstrCount
         EmitAsmLabelIfNeeded(i)
         EmitInstr(i)

@@ -58,14 +58,34 @@ export const META_SERVICES: Record<number, MetaServiceInfo> = {
   124: { id: 124, name: "BIG ENDIAN", frame: "none", description: "Big endian moda geçer." },
   125: { id: 125, name: "ENDIAN QUERY", frame: "T+1", description: "Endian bayrağını döndürür." },
   126: { id: 126, name: "FLAGS QUERY", frame: "T+1", description: "Flags word değerini döndürür." },
-  127: { id: 127, name: "WILD LAYOUT CHANGE", frame: "tapeKB=T-2 stackKB=T-1 dataKB=T", description: "Sadece wild mode: bellek layout değiştirir." }
+  127: { id: 127, name: "WILD LAYOUT CHANGE", frame: "tapeKB=T-2 stackKB=T-1 dataKB=T", description: "Sadece wild mode: bellek layout değiştirir." },
+  200: { id: 200, name: "FP_INIT16", frame: "T-2=base", description: "UX-FP V1 FP16 bloğu başlatır." },
+  201: { id: 201, name: "FP_INIT32", frame: "T-2=base", description: "UX-FP V1 FP32 bloğu başlatır." },
+  202: { id: 202, name: "FP_ZERO", frame: "T-2=base", description: "FP bloğunu sıfır değerine çeker." },
+  203: { id: 203, name: "FP_COPY", frame: "T-2=dst T-1=src", description: "FP bloğunu kopyalar." },
+  204: { id: 204, name: "FP_NORMALIZE", frame: "T-2=base", description: "FP mantissa/exponent normalizasyonu." },
+  210: { id: 210, name: "FP_ADD", frame: "T-2=R T-1=A T=B", description: "Decimal floating point toplama." },
+  211: { id: 211, name: "FP_SUB", frame: "T-2=R T-1=A T=B", description: "Decimal floating point çıkarma." },
+  212: { id: 212, name: "FP_MUL", frame: "T-2=R T-1=A T=B", description: "Decimal floating point çarpma." },
+  213: { id: 213, name: "FP_DIV", frame: "T-2=R T-1=A T=B", description: "Decimal floating point bölme." },
+  214: { id: 214, name: "FP_COMPARE", frame: "T-1=A T=B -> T+1", description: "0 eşit, 1 A>B, maxcell A<B." },
+  215: { id: 215, name: "FP_ABS", frame: "T-2=dst T-1=src", description: "Mutlak değer." },
+  216: { id: 216, name: "FP_NEG", frame: "T-2=dst T-1=src", description: "İşaret değiştirir." },
+  217: { id: 217, name: "FP_ROUND16", frame: "T-2=base", description: "Virgülden sonra 16 haneye yuvarlar." },
+  218: { id: 218, name: "FP_ROUND32", frame: "T-2=base", description: "Virgülden sonra 32 haneye yuvarlar." },
+  219: { id: 219, name: "FP_TRUNC", frame: "T-2=base", description: "Kesir kısmını atar." },
+  220: { id: 220, name: "FP_FROM_INT", frame: "T-2=dst T-1=int", description: "Integer değerden FP üretir." },
+  221: { id: 221, name: "FP_FROM_DEC_STRING", frame: "T-2=dst T-1=dataStart", description: "Data alanındaki decimal string'den FP üretir." },
+  222: { id: 222, name: "FP_TO_DEC_STRING", frame: "T-2=src T-1=dataStart", description: "FP değeri data string olarak yazar." },
+  223: { id: 223, name: "FP_PRINT_DEC", frame: "T-1=src", description: "FP değeri decimal olarak basar." },
+  224: { id: 224, name: "FP_SCALE10", frame: "T-2=base T-1=shift", description: "10 tabanında exponent kaydırma." },
 };
 
 export function metaMarkdown(id: number): string {
   const m = META_SERVICES[id];
   if (!m) {
     if (id >= 128 && id <= 255) {
-      return `@${id}: kullanıcı macro alanı. Native compiler tarafında compile-time inline, full tool tarafında runtime macro call-stack.`;
+      return `@${id}: kullanıcı macro / FP host servis alanı. Macro varsa @${id} macro açar; @!${id} host servisi zorlar.`;
     }
     return `@${id}: tanımsız meta servis.`;
   }

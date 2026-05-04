@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 
 const commandBeforeAddress = /([><+\-0\.,\[\]\$%\?!;&\|\^~\{\}eE])\s+\(/g;
 const addressWithSpace = /\([^\)]*\s+[^\)]*\)/g;
-const metaPattern = /@([0-9]+)/g;
+const metaPattern = /@!?([0-9]+)/g;
 const macroPattern = /\bm([0-9]+)\s*=\s*\{/g;
 const memoryPattern = /^\s*#memory\s+(.+)$/i;
 
@@ -50,7 +50,14 @@ export class UxmDiagnostics {
     for (const match of line.matchAll(addressWithSpace)) {
       const start = match.index ?? 0;
       const range = new vscode.Range(lineIndex, start, lineIndex, Math.min(line.length, start + match[0].length));
-      diagnostics.push(new vscode.Diagnostic(range, "Adresleme parantezi içinde boşluk yasak. Örnek: (T+1), (D:0)", vscode.DiagnosticSeverity.Error));
+      diagnostics.push(new vscode.Diagnostic(range, "Adresleme parantezi içinde boşluk yasak. Örnek: (T+1), (D:0), (D@T+8), (D@(T-2)+8)", vscode.DiagnosticSeverity.Error));
+    }
+
+
+    const dynamicDataAddress = /\(D@(?:T(?:[+-][0-9]+)?|\(T(?:[+-][0-9]+)?\))(?:[+-][0-9]+)?\)/g;
+    for (const match of line.matchAll(dynamicDataAddress)) {
+      // Geçerli yeni adresleme modu. Regex burada özellikle bırakıldı ki ileride hover/semantic info eklenebilsin.
+      void match;
     }
 
     for (const match of line.matchAll(metaPattern)) {
