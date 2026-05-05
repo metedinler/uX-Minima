@@ -1359,6 +1359,13 @@ Sub MetaArith(ByVal id As Long)
     Case 27:If IsSigned() Then sf=ToSigned(b):If sf<0 Then r=FromSigned(-sf) Else r=b Else r=b:End If:Tape(Ptr+1)=r:SetLogicFlags r:SetStatus STATUS_OK
     Case 28:If IsSigned() Then r=FromSigned(-ToSigned(b)) Else r=((Not b)+1) And CellMask():Tape(Ptr+1)=r:SetLogicFlags r:SetStatus STATUS_OK
     Case 29:SetCompareFlags a,b:If a=b Then r=0 ElseIf a>b Then r=1 Else r=CellMask():Tape(Ptr+1)=r:SetStatus STATUS_OK
+    Case 30:If b<a Then Tape(Ptr+1)=a:SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK Else Tape(Ptr+1)=(a+Int(Rnd*(b-a+1))) And CellMask():SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 31:Randomize CInt(b):SetStatus STATUS_OK
+    Case 32:Tape(Ptr+1)=ClampCell(Int(Rnd*ScaleFactor())):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 33:If b=0 Then Tape(Ptr+1)=0:SetStatus STATUS_DIV_ZERO Else Tape(Ptr+1)=(a\b) And CellMask():SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 34:If b=0 Then Tape(Ptr+1)=0:SetStatus STATUS_DIV_ZERO Else Tape(Ptr+1)=FromSigned(ToSigned(a)\ToSigned(b)):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 35:If b=0 Then Tape(Ptr+1)=0:SetStatus STATUS_DIV_ZERO Else Tape(Ptr+1)=(a Mod b) And CellMask():SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 36:If b=0 Then Tape(Ptr+1)=0:SetStatus STATUS_DIV_ZERO Else Tape(Ptr+1)=FromSigned(ToSigned(a) Mod ToSigned(b)):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case Else:SetStatus STATUS_INVALID_META
     End Select
 End Sub

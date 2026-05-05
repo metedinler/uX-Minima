@@ -801,6 +801,35 @@ Sub RuntimeMeta(ByVal id As Long)
             End If:WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
     Case 28:r=((Not b)+1) And CellMask():WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
     Case 29:If a=b Then r=0 ElseIf a>b Then r=1 Else r=CellMask():WriteAddr ADDR_T_REL,1,0,r And CellMask():SetStatus STATUS_OK
+    Case 30:If b<a Then r=a Else r=(a+CULngInt(Int(Rnd*(b-a+1)))) And CellMask():WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
+    Case 31:Randomize CInt(b):SetStatus STATUS_OK
+    Case 32:WriteAddr ADDR_T_REL,1,0,CLngInt(Rnd*ScaleFactor()) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 33:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a\b) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 34:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else
+                Dim sf34 As LongInt
+                Dim sb34 As LongInt
+                Dim base34 As ULongInt
+                If cellBits=8 Then base34=256 ElseIf cellBits=16 Then base34=65536 Else base34=4294967296
+                If (a And IIf(cellBits=8,&H80, IIf(cellBits=16,&H8000,&H80000000)))<>0 Then sf34=CLngInt(a) - CLngInt(base34) Else sf34=CLngInt(a)
+                If (b And IIf(cellBits=8,&H80, IIf(cellBits=16,&H8000,&H80000000)))<>0 Then sb34=CLngInt(b) - CLngInt(base34) Else sb34=CLngInt(b)
+                If sb34=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else
+                    Dim sr34 As LongInt: sr34=sf34\sb34
+                    If sr34<0 Then r=(CLngInt(base34)+sr34) And CellMask() Else r=sr34
+                    WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
+                End If
+    Case 35:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a Mod b) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 36:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else
+                Dim sf36 As LongInt
+                Dim sb36 As LongInt
+                Dim base36 As ULongInt
+                If cellBits=8 Then base36=256 ElseIf cellBits=16 Then base36=65536 Else base36=4294967296
+                If (a And IIf(cellBits=8,&H80, IIf(cellBits=16,&H8000,&H80000000)))<>0 Then sf36=CLngInt(a) - CLngInt(base36) Else sf36=CLngInt(a)
+                If (b And IIf(cellBits=8,&H80, IIf(cellBits=16,&H8000,&H80000000)))<>0 Then sb36=CLngInt(b) - CLngInt(base36) Else sb36=CLngInt(b)
+                If sb36=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else
+                    Dim sm36 As LongInt: sm36=sf36 Mod sb36
+                    If sm36<0 Then r=(CLngInt(base36)+sm36) And CellMask() Else r=sm36
+                    WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
+                End If
     Case 40:Dim sf40 As LongInt:If cellBits=8 Then sf40=100 ElseIf cellBits=16 Then sf40=1000 Else sf40=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Sin(CDbl(b)*3.14159265358979/180.0)*sf40) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 41:Dim sf41 As LongInt:If cellBits=8 Then sf41=100 ElseIf cellBits=16 Then sf41=1000 Else sf41=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Cos(CDbl(b)*3.14159265358979/180.0)*sf41) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 42:Dim sf42 As LongInt:If cellBits=8 Then sf42=100 ElseIf cellBits=16 Then sf42=1000 Else sf42=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Tan(CDbl(b)*3.14159265358979/180.0)*sf42) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK

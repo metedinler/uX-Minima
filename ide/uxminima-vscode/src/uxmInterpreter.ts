@@ -35,6 +35,7 @@ export class UxmInterpreter {
   private dataKB = 24;
   private output = "";
   private step = 0;
+  private rngState = 0;
 
   run(source: string): InternalTraceResult {
     this.reset();
@@ -64,6 +65,7 @@ export class UxmInterpreter {
     this.output = "";
     this.step = 0;
     this.fifo = [];
+    this.rngState = Date.now() >>> 0;
   }
 
   private parsePragmas(source: string): void {
@@ -334,7 +336,7 @@ export class UxmInterpreter {
       case 0: this.setStatus(0); break;
       case 1: this.setStatus(0); break;
       case 2: this.setStatus(0); break;
-      case 3: result = Math.floor(Math.random() * 256); break;
+      case 3: result = Math.floor(this.rngNext() * 256); break;
       case 4: result = Date.now(); break;
       case 5: this.output += "\n"; this.setStatus(0); break;
       case 6: this.output += "[UXM META]"; this.setStatus(0); break;
@@ -367,6 +369,51 @@ export class UxmInterpreter {
       } break;
       case 28: result = (((~arg2) + 1) >>> 0) & this.mask(); break;
       case 29: result = arg1 === arg2 ? 0 : (arg1 > arg2 ? 1 : this.mask()); break;
+      case 30: { // RND_RANGE: min=T-2, max=T-1 -> T+1
+        if (arg2 < arg1) { result = arg1; } else { result = arg1 + Math.floor(this.rngNext() * (arg2 - arg1 + 1)); }
+      } break;
+      case 31: // RND_SEED: seed=T-1
+        this.rngSeed(arg2);
+        this.setStatus(0);
+        break;
+      case 32: // RND_FLOAT01 -> scaled fixed 0..ScaleFactor
+        result = Math.floor(this.rngNext() * this.scale());
+        break;
+      case 33: // DIV_UNSIGNED
+        if (arg2 === 0) { result = 0; this.setStatus(15); } else { result = Math.floor(arg1 / arg2); }
+        break;
+      case 34: { // DIV_SIGNED
+        if (arg2 === 0) { result = 0; this.setStatus(15); break; }
+        const toSigned = (v: number) => {
+          if (this.cellBits === 8 && (v & 0x80)) return v - 256;
+          if (this.cellBits === 16 && (v & 0x8000)) return v - 65536;
+          if (this.cellBits === 32 && (v & 0x80000000)) return v - 4294967296;
+          return v;
+        };
+        const sa = toSigned(arg1);
+        const sb = toSigned(arg2);
+        const sr = Math.trunc(sa / sb);
+        const pow2 = this.cellBits === 8 ? 256 : this.cellBits === 16 ? 65536 : 4294967296;
+        result = sr < 0 ? ((pow2 + sr) >>> 0) & this.mask() : (sr & this.mask());
+      } break;
+      case 35: // MOD_UNSIGNED
+        if (arg2 === 0) { result = 0; this.setStatus(15); } else { result = arg1 % arg2; }
+        break;
+      case 36: { // MOD_SIGNED
+        if (arg2 === 0) { result = 0; this.setStatus(15); break; }
+        const toSigned2 = (v: number) => {
+          if (this.cellBits === 8 && (v & 0x80)) return v - 256;
+          if (this.cellBits === 16 && (v & 0x8000)) return v - 65536;
+          if (this.cellBits === 32 && (v & 0x80000000)) return v - 4294967296;
+          return v;
+        };
+        const sa2 = toSigned2(arg1);
+        const sb2 = toSigned2(arg2);
+        let m = sa2 % sb2;
+        const pow2_2 = this.cellBits === 8 ? 256 : this.cellBits === 16 ? 65536 : 4294967296;
+        if (m < 0) m += pow2_2;
+        result = m & this.mask();
+      } break;
       case 40: result = Math.round(Math.sin(arg2 * Math.PI / 180) * this.scale()); break;
       case 41: result = Math.round(Math.cos(arg2 * Math.PI / 180) * this.scale()); break;
       case 42: result = Math.round(Math.tan(arg2 * Math.PI / 180) * this.scale()); break;
@@ -528,6 +575,8 @@ export class UxmInterpreter {
   private setStatus(code: number): void { this.status = code & 0xff; if (this.status === 0) { this.flags &= ~0x400; } else { this.flags |= 0x400; } }
   private setZS(v: number): void { this.flags &= ~(1 | 8); const x = v & this.mask(); if (x === 0) { this.flags |= 1; } if ((x & this.signBit()) !== 0) { this.flags |= 8; } }
   private mask(): number { return this.cellBits === 8 ? 0xff : this.cellBits === 16 ? 0xffff : 0xffffffff; }
+  private rngSeed(seed: number): void { this.rngState = seed >>> 0; }
+  private rngNext(): number { this.rngState = (Math.imul(1664525, this.rngState) + 1013904223) >>> 0; return this.rngState / 4294967296; }
   private signBit(): number { return this.cellBits === 8 ? 0x80 : this.cellBits === 16 ? 0x8000 : 0x80000000; }
   private scale(): number { return this.cellBits === 8 ? 100 : this.cellBits === 16 ? 1000 : 10000; }
   private unescape(s: string): string { return s.replace(/\\n/g, "\n").replace(/\\r/g, "\r").replace(/\\t/g, "\t").replace(/\\\{/g, "{").replace(/\\\}/g, "}").replace(/\\\\/g, "\\"); }

@@ -720,6 +720,23 @@ r=CellMask()
 End If
 SetResult r
 SetStatus STATUS_OK
+Case 30
+	If b<a Then
+		SetResult a
+		SetLogicFlags ResultValue()
+		SetStatus STATUS_OK
+	Else
+		SetResult CULngInt(Int(Rnd*(b-a+1))+a) And CellMask()
+		SetLogicFlags ResultValue()
+		SetStatus STATUS_OK
+	End If
+Case 31
+	Randomize CInt(b)
+	SetStatus STATUS_OK
+Case 32
+	SetResult ClampToCell(CLngInt(Rnd*ScaleFactor()))
+	SetLogicFlags ResultValue()
+	SetStatus STATUS_OK
 Case 33
 If b=0 Then
 SetResult 0
