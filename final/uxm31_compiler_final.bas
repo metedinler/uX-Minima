@@ -791,6 +791,10 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 22:WriteAddr ADDR_T_REL,1,0,(a*b) And CellMask():SetLogicFlags (a*b):SetStatus STATUS_OK
     Case 23:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a\b) And CellMask():SetStatus STATUS_OK
     Case 24:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a Mod b) And CellMask():SetStatus STATUS_OK
+    Case 40:Dim sf40 As LongInt:If cellBits=8 Then sf40=100 ElseIf cellBits=16 Then sf40=1000 Else sf40=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Sin(CDbl(b)*3.14159265358979/180.0)*sf40) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 41:Dim sf41 As LongInt:If cellBits=8 Then sf41=100 ElseIf cellBits=16 Then sf41=1000 Else sf41=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Cos(CDbl(b)*3.14159265358979/180.0)*sf41) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 42:Dim sf42 As LongInt:If cellBits=8 Then sf42=100 ElseIf cellBits=16 Then sf42=1000 Else sf42=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Tan(CDbl(b)*3.14159265358979/180.0)*sf42) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 43:WriteAddr ADDR_T_REL,1,0,CULngInt(Sqr(CDbl(a)*CDbl(a)+CDbl(b)*CDbl(b))) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 60:outputText+=LTrim(Str(b)):SetStatus STATUS_OK
     Case 61:outputText+=LTrim(Str(ReadAddr(ADDR_T_REL,1,0))):SetStatus STATUS_OK
     Case 62
