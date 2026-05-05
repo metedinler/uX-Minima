@@ -1,3 +1,4 @@
+# EXPECT_OUTPUT: -2
 #compare signed
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #matrix-signed 50 2 2 = 1,2,3,4

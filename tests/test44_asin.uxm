@@ -1,3 +1,4 @@
+# EXPECT_OUTPUT: 30
 >>
 0(T-1)+k50
 @44

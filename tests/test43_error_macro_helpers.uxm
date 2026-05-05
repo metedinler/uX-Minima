@@ -1,5 +1,6 @@
 rem TEST: ERR macro yardimcilari (m130,m131,m132)
 rem EXPECT_OUTPUT: 100
+# EXPECT_OUTPUT: 100
 m130={@!13}
 m131={@!14}
 m132={@!10@!14}
