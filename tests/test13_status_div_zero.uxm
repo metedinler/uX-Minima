@@ -5,6 +5,6 @@
 e
 @61
 
-#15
-#[UXM program finished]
-#Final status: 15 Division by zero
+# EXPECT_OUTPUT: 15
+# [UXM program finished]
+# Final status: 15 Division by zero

@@ -1,5 +1,5 @@
-# TEST: ERR flag set/reset/read temel davranisi
-# EXPECT_OUTPUT: 10
+rem TEST: ERR flag set/reset/read temel davranisi
+rem EXPECT_OUTPUT: 10
 >>
 @13
 @15

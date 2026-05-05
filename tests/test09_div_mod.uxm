@@ -7,6 +7,6 @@
 @24
 @61
 
-#3
-#2
-#[UXM program finished]
+# EXPECT_OUTPUT: 3
+# EXPECT_OUTPUT: 2
+# [UXM program finished]
