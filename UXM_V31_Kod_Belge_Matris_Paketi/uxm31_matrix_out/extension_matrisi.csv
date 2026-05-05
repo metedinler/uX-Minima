@@ -1,0 +1,9 @@
+﻿Extension,Belge Kapsamı,Kod Gerçekliği,Aktif Servis Sayısı,Beklenen/Aktif Aralık Sayısı,Dosyalar/Not
+UX-MAT,"@160..@176 aktif, @177..@199 plan/reserve",VAR,17,17,"runtime_matrix_services.bas, ux_mat_v1.uxm, tests_matrix"
+UX-FP,"@200..@224 aktif alt küme, @225..@239 reserve/eksik",VAR,26,26,"runtime_fp_services.bas, ux_fp_v1.uxm, tests_fp"
+UX-CALC/MATH,"@240..@244 poly, @250..@254 expr/numerik",VAR,10,10,"runtime_math_services.bas, ux_math_v1.uxm, tests_math"
+UX-STAT,@260..@289 ayrılmış,PLAN,0,0,Kodda runtime yok
+UX-GA,@290..@319 ayrılmış,PLAN,0,0,Kodda runtime yok
+UX-ML,@320..@349 ayrılmış,PLAN,0,0,Kodda runtime yok / test41 örnek YSA core komutlarla
+UX-BIO,@350..@379 ayrılmış,PLAN,0,0,Kodda runtime yok
+UX-SIM,@380..@399 ayrılmış,PLAN,0,0,Kodda runtime yok / test40 örnek 4-bit CPU core komutlarla

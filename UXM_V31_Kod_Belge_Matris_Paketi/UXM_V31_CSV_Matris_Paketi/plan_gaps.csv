@@ -1,0 +1,9 @@
+Plan_Item,Code_Reality,Gap,Next_Action
+4 hat standardı,4 hat var ama yüksek servislerde parite yok,FP/Matrix/Math/Türev/İntegral 4 hatta eşitlenmemiş,Koddan 4_Hat_Parity matrisi üret ve sadece AÇIK/KISMEN maddelere patch planı yaz
+Sprint 1 e/ERR,@9..@15 dört hatta büyük ölçüde var; test42/43 var,Plan dosyası plan+rapor karışmış,Sprint planı ve uygulama raporu iki dosyaya ayrılmalı
+Compiler adı,uxm.exe standardizasyonu var ama bazı eski referanslar/kopyalar olabilir,Plan maddelerinde ad standardı açık takip kalemi değil,"toolchain.ts, package.json, bat dosyaları ve docs referansları tek satırda izlenecek"
+FP servisleri,runtime/runtime_fp_services.bas içinde @200..224 yoğun; diğer hatlarda zayıf/yok,4 hat paritesi yok,"Final, Full Tool, VSCode tarafına minimum behavior veya explicit unsupported-status standardı"
+Matrix servisleri,math_extensions/runtime/runtime_matrix_services.bas içinde @160..176 var; tests_matrix var,run_tests.bat tests_matrix'i ana koşuya almıyor; diğer hatlarda yok,tests_matrix runner'a eklenecek; Final/Full/VSCode paritesi planlanacak
+Türev/İntegral/Polinom,math_extensions/runtime/runtime_math_services.bas içinde @240..254 var,Final/Full/VSCode tarafı yok/kısmi,Math servis sözleşmesi ve 4 hat standardı belirlenecek
+Doküman toparlama,"MD/CSV dosyaları kök, paket, kopya ve alt klasörlerde dağınık","Plan, rapor, kılavuz ve legacy ayrımı yok",Doc_Manifest ve Move_Manifest ile git mv; silme yok
+Silme/overwrite güvenliği,Remove-Item/overwrite izleri var; test24 olayında iddia/commit çelişkisi olasılığı var,İzin/işlem günlüğü yok,DEGISIKLIK_GUNLUGU_TR.md zorunlu; commit/push onaysız yasak

@@ -1,0 +1,14 @@
+Group,Description,Services,Native,Final_ARGE,Full_Tool,VSCode_Internal,Status,Main_Gap
+Sprint1_STATUS_ERR,Sprint 1 e/ERR/status,9..15,7/7,7/7,7/7,7/7,KAPALI,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+Core_Meta,Faz2 çekirdek meta,1..8,6/6,6/6,6/6,6/6,KAPALI,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+Arithmetic_25_29,MIN/MAX/ABS/NEG/CMP,25..29,5/5,5/5,5/5,5/5,KAPALI,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+Random_Div_Float_30_36,RND/DIV/MOD/FLOAT,30..36,7/7,7/7,7/7,7/7,KAPALI,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+Trig_40_49,SIN/COS/TAN/HYPOT/ASIN/ACOS/SQRT/SINH/COSH/TANH,40..49,10/10,10/10,10/10,10/10,KAPALI,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+IO_Print_60_79,print/io stack/raw/hex/bin,60..79,8/20,8/20,8/20,8/20,KISMEN,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+Pointer_80_89,pointer meta,80..89,10/10,10/10,10/10,10/10,KAPALI,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+FIFO_Data_Tape_90_107,FIFO/Data/Tape,90..107,18/18,18/18,18/18,18/18,KAPALI,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+Flags_Wild_120_127,flags/wild/protected,120..127,8/8,3/8,8/8,8/8,KISMEN,Kod taramasında grup durumu yukarıdaki sayımlara göre.
+Matrix_160_176,UX-MAT V1 matrix services,160..176,17/17,0/17,0/17,0/17,AÇIK/KISMEN,Yüksek servisler native/runtime düzeyinde var; 4 hat paritesi eksik görünüyor.
+FP_200_224,UX-FP decimal/fp services,200..224,21/25,0/25,0/25,0/25,AÇIK/KISMEN,Yüksek servisler native/runtime düzeyinde var; 4 hat paritesi eksik görünüyor.
+Reserved_FP_230_234,FP reserved/invalid,230..234,1/5,0/5,0/5,0/5,AÇIK/KISMEN,Yüksek servisler native/runtime düzeyinde var; 4 hat paritesi eksik görünüyor.
+Math_Derivative_Integral_240_254,polinom/türev/integral/math services,240..254,10/15,0/15,0/15,0/15,AÇIK/KISMEN,Yüksek servisler native/runtime düzeyinde var; 4 hat paritesi eksik görünüyor.

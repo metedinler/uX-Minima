@@ -1,0 +1,28 @@
+Feature,File,Exists,Evidence,Assessment,Note
+Compiler name uxm.exe,build_all.bat,VAR,uxm.exe @ L11: %FBC% -lang fb uxm31_compiler_fb.bas -x uxm.exe | uxm @ L11: %FBC% -lang fb uxm31_compiler_fb.bas -x uxm.exe,VAR,Derleyici ad standardizasyonu planın izleme dosyalarında açık madde olmalı.
+Compiler name uxm.exe,build_one.bat,VAR,uxm.exe @ L17: if not exist uxm.exe ( | uxm @ L17: if not exist uxm.exe (,VAR,Derleyici ad standardizasyonu planın izleme dosyalarında açık madde olmalı.
+Compiler name uxm.exe,ide/uxminima-vscode/src/toolchain.ts,VAR,uxm @ L34: export class UxmToolchain {,VAR,Derleyici ad standardizasyonu planın izleme dosyalarında açık madde olmalı.
+Compiler name uxm.exe,ide/uxminima-vscode/package.json,VAR,"uxm @ L2: ""name"": ""uxminima-vscode"",",VAR,Derleyici ad standardizasyonu planın izleme dosyalarında açık madde olmalı.
+D@T addressing,uxm31_compiler_fb.bas,VAR,"D@T @ L853: If Left(b,3)=""D@T"" Then",VAR,Adresleme ailesi dört hatta aranmalı.
+D@T addressing,final/uxm31_compiler_final.bas,VAR,"D@T @ L369: Print ""Dil ekleri: (D@T+N), (D@(T-2)+N), @!N host meta.""",VAR,Adresleme ailesi dört hatta aranmalı.
+D@T addressing,uxm31_full_tool_fb.bas,VAR,YOK,KANIT YOK,Adresleme ailesi dört hatta aranmalı.
+D@T addressing,ide/uxminima-vscode/src/uxmInterpreter.ts,VAR,"D@T @ L211: if (/^D@T$/.test(body)) { return { kind: ""D_AT_T_REL"", value: 0, value2: 0, text: `(${body})` }; }",VAR,Adresleme ailesi dört hatta aranmalı.
+@!N host meta,uxm31_compiler_fb.bas,VAR,YOK,KANIT YOK,Host meta zorlaması dört hatta aranmalı.
+@!N host meta,final/uxm31_compiler_final.bas,VAR,"@! @ L369: Print ""Dil ekleri: (D@T+N), (D@(T-2)+N), @!N host meta."" | host meta @ L369: Print ""Dil ekleri: (D@T+N), (D@(T-2)+N), @!N host meta.""",VAR,Host meta zorlaması dört hatta aranmalı.
+@!N host meta,uxm31_full_tool_fb.bas,VAR,YOK,KANIT YOK,Host meta zorlaması dört hatta aranmalı.
+@!N host meta,ide/uxminima-vscode/src/uxmInterpreter.ts,VAR,@! @ L137: const mForce = /^@!([0-9]+)/.exec(code.slice(p));,VAR,Host meta zorlaması dört hatta aranmalı.
+FP runtime services,runtime/runtime_fp_services.bas,VAR,Case 200 @ L48: Case 200 | Case 201 @ L51: Case 201 | UX-FP @ L1: ' UX-FP V1 runtime services for uxm31_runtime_fb_full.bas,VAR,FP 200+ servisleri 4 hatta eşit değil.
+FP runtime services,uxm31_runtime_fb_full.bas,VAR,"fp_ @ L1264: #Include Once ""runtime/runtime_fp_services.bas""",VAR,FP 200+ servisleri 4 hatta eşit değil.
+FP runtime services,final/uxm31_compiler_final.bas,VAR,YOK,KANIT YOK,FP 200+ servisleri 4 hatta eşit değil.
+FP runtime services,uxm31_full_tool_fb.bas,VAR,YOK,KANIT YOK,FP 200+ servisleri 4 hatta eşit değil.
+FP runtime services,ide/uxminima-vscode/src/uxmInterpreter.ts,VAR,YOK,KANIT YOK,FP 200+ servisleri 4 hatta eşit değil.
+Matrix runtime services,math_extensions/runtime/runtime_matrix_services.bas,VAR,Case 160 @ L522: Case 160 | UX-MAT @ L1: ' UX-MAT V1 runtime services for uxm31_runtime_fb_full.bas | matrix @ L507: Sub MetaMatrix(ByVal metaId As ULongInt),VAR,Matrix servisleri native/math_extensions tarafında yoğun.
+Matrix runtime services,uxm31_runtime_fb_full.bas,VAR,matrix @ L131: Declare Sub MetaMatrix(ByVal metaId As ULongInt),VAR,Matrix servisleri native/math_extensions tarafında yoğun.
+Matrix runtime services,final/uxm31_compiler_final.bas,VAR,YOK,KANIT YOK,Matrix servisleri native/math_extensions tarafında yoğun.
+Matrix runtime services,uxm31_full_tool_fb.bas,VAR,YOK,KANIT YOK,Matrix servisleri native/math_extensions tarafında yoğun.
+Matrix runtime services,ide/uxminima-vscode/src/uxmInterpreter.ts,VAR,YOK,KANIT YOK,Matrix servisleri native/math_extensions tarafında yoğun.
+Derivative/Integral services,math_extensions/runtime/runtime_math_services.bas,VAR,"Case 240 @ L39: Case 240 | Case 250 @ L170: Case 250 | derivative @ L8: Declare Sub PolyDerivative(ByVal dstBase As LongInt, ByVal srcBase As LongInt)",VAR,Türev/integral native math runtime dışına taşınmalı.
+Derivative/Integral services,final/uxm31_compiler_final.bas,VAR,YOK,KANIT YOK,Türev/integral native math runtime dışına taşınmalı.
+Derivative/Integral services,uxm31_full_tool_fb.bas,VAR,YOK,KANIT YOK,Türev/integral native math runtime dışına taşınmalı.
+Derivative/Integral services,ide/uxminima-vscode/src/uxmInterpreter.ts,VAR,YOK,KANIT YOK,Türev/integral native math runtime dışına taşınmalı.
+tests_matrix runner connection,run_tests.bat,VAR,YOK,KANIT YOK,tests_matrix ana koşuya bağlı mı kontrol edilmeli.

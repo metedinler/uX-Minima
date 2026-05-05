@@ -1,0 +1,11 @@
+Metric,Value,Comment
+Toplam dosya,749,"Zip içinden, .git hariç"
+BAS kaynak,16,FreeBASIC kaynakları
+TypeScript kaynak,214,VS Code eklenti kaynakları
+Markdown belge,83,Toparlanacak belgeler
+UXM test/program,85,Test/program dosyaları
+4 hat durumu,VAR,Tek hat değil; 4 hat zorunlu parite hedefli
+Sprint1,Büyük ölçüde kapalı,@9..@15 dört hatta görünüyor
+FP/Matrix/Math,AÇIK,Native runtime var; diğer hatlar eksik
+Ana risk,Kopya kaynaklar,Aynı adlı ama farklı içerikli dosyalar var
+Güvenlik,Silme yasak,git mv dışında taşıma yok
