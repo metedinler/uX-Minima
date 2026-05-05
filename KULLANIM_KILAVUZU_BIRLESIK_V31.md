@@ -4,18 +4,18 @@
 
 UX-MINIMA, Brainfuck mantığından doğan fakat daha genişletilmiş bir düşük seviyeli programlama dilidir.
  Temelinde bir **tape**, yani hücrelerden oluşan doğrusal bellek alanı vardır. Programcı, bu tape üzerinde bir
- pointer ile gezinir, hücreleri artırır, azaltır, sıfırlar, yazdırır, okur, stack veya FIFO yapısına veri
+ pointer ile gezinir, hücreleri artırır, azaltır, sıfırlar, yazdırır, okur, yığın (stack (LIFO)) veya kuyruk (queue (FIFO )) yapısına veri
  atar, meta servislerle daha gelişmiş işlemler çağırır.
 
 Klasik Brainfuck yalnızca birkaç komutla çalışır. UX-MINIMA V3.1 ise bu yapıyı genişletir:
 
 - Tape belleği vardır.
-- Stack belleği vardır.
+- Yığın belleği vardır.
 - Data belleği vardır.
 - FIFO kuyruğu vardır.
 - Byte / Word / Dword hücre tipi seçilebilir.
 - Signed / unsigned çalışma modu vardır.
-- Endian bayrağı vardır.
+- Endian bayrağı vardır. Kullanıcı big-endian veya little-endian seçebilir.
 - Carry, overflow, zero, sign gibi flag sistemi vardır.
 - Meta servislerle matematik, string, data, sort, FIFO, layout ve sistem işlemleri yapılabilir.
 - Native x64 NASM çıktısı üretilebilir.
@@ -42,7 +42,7 @@ uxm.exe                         Derleyici calistirilabilir dosyasi
 Yardımcı dosyalar:
 
 ```text
-tests\*.uxm                Test programları
+tests\*.uxm                     Test programları
 build\                          Üretilen asm, obj, exe, json dosyaları
 ```
 
@@ -100,6 +100,8 @@ Gercek ortam notu:
 - Bu durumda calisan seviye sunlardir: UXM -> ASM -> OBJ.
 - Uygulama dosyasi (`.exe`) uretimi ortama bagli olabilir.
 
+## Önemli Not:
+Calısma ortamında freebasıc x64 derleyicisi ve nasm assembler’ı kurulu ve PATH içinde olmalıdır. Derleyici adı `uxm.exe` olarak sabitlenmiştir. Bu sekilde VS Code eklentisi ve build betikleri bu ismi varsayılan olarak kullanır. EXE uretimi her ortamda garanti olmayabilir, fakat ASM ve OBJ uretimi garantilidir. Exe uretimi hata verirse, ASM ve OBJ dosyaları korunur ve manuel olarak linklenebilir. exe uretımı kullanıcının bılgısayarında freebasic x64 derleyicisi ve nasm assembler’ının düzgün kurulu ve PATH içinde olduğunu varsayar. Bu araçlar olmadan exe uretimi mümkün değildir, fakat ASM ve OBJ dosyaları yine de üretilebilir.
 ---
 
 ## 5. Interpreter / IDE / Trace Akışı
@@ -181,6 +183,7 @@ Stack : 4 KB
 Data  : 12 KB
 Toplam: 64 KB
 ```
+Kullanıcı bellek dağılımını `#memory` pragma’sı ile değiştirebilir. Isteğe bağlı olarak tape, stack ve data alanlarının boyutları ayarlanabilir, fakat toplam 64 KB’ı geçemez.
 
 Kaynak dosyada pragma ile ayarlanabilir:
 
@@ -219,6 +222,10 @@ Dword mod:
 0..4294967295 unsigned
 ```
 
+Kullanıcı hucre yapılarını bayt (byte), kelime (word) veya çift kelime (dword) olarak seçebilir. Bu seçim, hücre başına düşen byte sayısını ve hücrelerin alabileceği değer aralığını belirler. Hücre tipi `#cell` pragma’sı ile ayarlanabilir ve programın geri kalanında geçerli olur. Örneğin, `#cell word` seçilirse, her hücre 2 byte olur ve 0..65535 arası unsigned veya -32768..32767 arası signed değerler alabilir. Bu, programcının ihtiyaçlarına göre bellek kullanımını optimize etmesine olanak tanır.
+
+Kullanici 64 KB toplam bellek alanini byte sectiginde 65536 hücre olarak kullanabilirken, word sectiginde 32768 hücre, dword sectiginde ise 16384 hücre kullanabilir. Bu, programcının uygulamasının bellek ihtiyaçlarına göre hücre tipini seçmesine olanak tanır. Ancak, toplam bellek alanı 64 KB’ı geçemez, bu nedenle hücre tipi ve bellek dağılımı dikkatli bir şekilde planlanmalıdır.
+
 ---
 
 ## 8. Pragma Komutları
@@ -235,6 +242,11 @@ Pragma satırları `#` ile başlar.
 
 Safe mode daha kontrollüdür. Wild mode, tehlikeli ve deneysel servisleri açar. 
 Özellikle runtime memory layout değiştirme için wild mode gerekir.
+Kullanici wild modda her turlu kontrolu eline alir, bu nedenle de wild modda kullaniciya daha fazla guven duyar. Normal mod ise safe ve wild arasinda orta bir noktadir. Wild mode kullanilirken kullanici programlamas esnasinda gereken kontrolleri yapmalidir. Yapmazsa karsilasabilecegi sorunlar su sekildedir:   
+- Bellek bozulması (memory corruption)
+- Beklenmeyen davranış (unexpected behavior)
+- Çökme (crash)
+Bu tur sorunlardan dolayi bu programin yazari sorumlu degildir.
 
 ### Hücre tipi
 
@@ -1234,6 +1246,10 @@ Bu dilde program yazarken düşünce şu olmalıdır:
 
 UX-MINIMA’da yüksek seviyeli dillerdeki değişken, array, function, if, goto, procedure gibi kavramların hepsi bellek, pointer, branch, stack ve meta servislerle kurulur.
 
+Kullanici komutlarin kullanimina alistiginda kolay bir sekilde bu dusunce yapisina gecebilir. Bu dusunce yapisi, programciya bellegi ve islemleri tam kontrol etme gucu verir. Ancak bu gucun sorumlulugu da programciya aittir. Yanlis bir pointer hareketi, hatali bir branch veya stack kullanimi programin beklenmedik sekilde davranmasina neden olabilir. Bu nedenle dikkatli planlama ve test yapmak önemlidir.
+Ayrica bu genis dusunce yapisi, kolay okunamayan kodlar ve dogrudan asembler ile calisma kullaniciya makineye en yakin sekilde super hizli kod yazma imkani verir. Bu da performans kritik uygulamalar icin ideal olabilir. Ancak bu dusunce yapisi, basit islemler icin bile detayli bellek ve islem kontrolu gerektirebilir, bu da gelistirme surecini uzatabilir. Bu nedenle, UX-MINIMA’da program yazarken, hangi durumlarda bu dusunce yapisinin avantajlarini kullanmak istedigine karar vermek onemlidir. BrainFuck benzeri bir dildeki bu dik ogrenme egrisini asmak zaman alabilir, ancak bu dilin sundugu gucu ve esnekligi kullanarak ustun performansli ve ozellestirilmis uygulamalar gelistirmek mumkun olabilir.
+
+ogrenme egrisinin dikligi sebebi ile compiler dogustan vscode ile entegredir. Kullanici, compiler’in urettigi JSON trace dosyasini kullanarak adim adim kodunu izleyebilir, debug yapabilir ve performans analizleri yapabilir. Bu sayede, UX-MINIMA’nin dusunce yapisina daha hizli alisabilir ve bu gucu etkili bir sekilde kullanmaya baslayabilir.
 ---
 
 ## 34. Basit Program Örnekleri
@@ -1362,7 +1378,7 @@ Aktif test kümeleri:
 tests\*.uxm                          çekirdek dil, data/fifo/branch/wild
 tests_matrix\*.uxm                   matrix servisleri (@160..@176)
 tests_fp\*.uxm                       floating point servisleri (@200..@224 alt küme)
-math_extensions\tests_math\*.uxm    polynomial ve expression servisleri (@240+, @250+)
+math_extensions\tests_math\*.uxm     polynomial ve expression servisleri (@240+, @250+)
 ```
 
 ---
@@ -1484,4 +1500,4 @@ Bu dil klasik BASIC veya Python gibi yazılmaz. Bu dilde programcı, doğrudan b
 Bu yüzden UX-MINIMA yalnızca bir ezoterik dil değildir. Aynı zamanda bilgisayar mimarisi, compiler tasarımı, interpreter mantığı, bellek modeli ve düşük seviye programlama eğitimi için kullanılabilecek özel bir deney alanıdır.
 
 
-
+Kolay gelsin...
