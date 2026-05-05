@@ -53,5 +53,5 @@ math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,math_extensions/tests_m
 math_extensions/tests_math/test_math05_num_deriv.uxm,math_extensions/tests_math,"61,251","+,-0:>@E^e",YOK,YOK
 math_extensions/tests_math/test_math06_integral_trap.uxm,math_extensions/tests_math,"61,252","+,-.0:>@Ee",YOK,YOK
 math_extensions/tests_math/test_math07_integral_simpson.uxm,math_extensions/tests_math,"61,253","+,-.0:>@E^e",YOK,YOK
-tests/test42_error_flag_set_reset.uxm,tests,"13,14,15","+-0:>@Ee",YOK,YOK
-tests/test43_error_macro_helpers.uxm,tests,"9,10,13,14,15,60","+-0:>@Ee{}",YOK,YOK
+tests/test42_error_flag_set_reset.uxm,tests,"13,14,15","+-0:>@Ee",VAR,VAR
+tests/test43_error_macro_helpers.uxm,tests,"9,10,13,14,15,60","+-0:>@Ee{}",VAR,VAR
