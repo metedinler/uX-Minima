@@ -113,3 +113,28 @@ Kod yazmadan önce:
 3. Duplicate kaynakların hash farkını kesinleştir.
 4. `tests_matrix` ana test zincirine bağlanacak mı, önce planla.
 5. Klasör düzenleme için `Move_Manifest` içindeki `git mv` komutlarını sırayla uygula.
+
+## Uygulama Durumu (2026-05-06)
+
+Bu plandan secilen maddeler ayni turda uygulanmistir:
+
+1. `GERCEKLIK_KILIDI.md` olusturuldu.
+2. 50-120 test kapsami icin `# EXPECT_OUTPUT` bosluklari kapatildi; kapsam raporu yeniden uretildi.
+3. Duplicate kaynaklar icin hash fark raporu koddan uretildi:
+  - `uxm31_matrix_out/duplicate_hash_diffs.csv`
+  - `UXM_V31_CSV_Matris_Paketi/duplicate_hash_diffs.csv`
+4. Operasyon takibi icin `DEGISIKLIK_GUNLUGU_TR.md` olusturuldu.
+
+## Plan Durum Ozeti
+
+Tamamlananlar:
+
+1. Gerceklik kilidi (madde 1)
+2. Duplicate hash farkinin kesinlestirilmesi (madde 3)
+3. Matris ve test kapsam raporlarinin guncel kanitla senkronu
+
+Devam Edenler:
+
+1. 4_Hat_Parity matrisinin koddan tam yeniden uretimi (madde 2)
+2. `tests_matrix` ana test zinciri karar/plani (madde 4)
+3. Klasor duzeni icin `git mv` tabanli uygulama (madde 5)

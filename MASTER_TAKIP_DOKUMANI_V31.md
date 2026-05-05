@@ -113,6 +113,14 @@ Bu formati kullan:
 - Degisen dosyalar: build_all.bat, build_one.bat, ide/uxminima-vscode/package.json, ide/uxminima-vscode/src/toolchain.ts, tests/test32_wild_layout_change.uxm, README.md, .vscode/settings.json
 - Sonraki adim: remaining belge dosyalarinda yeni teknik gerceklerin yansimasi ve dokuman dili son cilasi.
 
+### Son Guncelleme (Plan Uygulama - 2026-05-06)
+
+- Tarih: 2026-05-06
+- Ozet: 50-120 test EXPECT bosluklari kapatildi, duplicate hash farklari koddan yeniden uretildi, yeni takip belgeleri olusturuldu.
+- Degisen dosyalar: tests/test16_data_digit.uxm, tests/test18_pointer_service.uxm, tests/test42_error_flag_set_reset.uxm, tests/test43_error_macro_helpers.uxm, tests/test44_asin.uxm, tests/test45_acos.uxm, tests/test46_sqrt.uxm, tests/test47_sinh.uxm, tests/test48_cosh.uxm, tests/test49_tanh.uxm, tests_matrix/_tmp_det_debug.uxm, UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/test_matrisi.csv, UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/UXM_V31_tests_meta_50_120_expect_report.csv, UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/duplicate_hash_diffs.csv, GERCEKLIK_KILIDI.md, DEGISIKLIK_GUNLUGU_TR.md
+- Kanit raporlari: UXM_V31_tests_meta_50_120_expect_report.csv, UXM_V31_Kod_Belge_Matris_Paketi/UXM_V31_CSV_Matris_Paketi/duplicate_hash_diffs.csv
+- Sonraki adim: tests_matrix runner entegrasyon karari + 4 hat parity satirlarinin tam koddan yeniden uretimi.
+
 ### Acik Riskler
 
 1. Link adimi ortam farki.
@@ -200,3 +208,17 @@ Asagidaki harita, onceki 6 faz programini ve mevcut Sprint 1 uygulamasini tek pl
 1. Belge-kod-fark raporlari sifirlanir.
 2. Build/test/release akisi deterministik ve izlenebilir hale getirilir.
 3. Son release notu bu master belgeden uretilir.
+
+## 12. Eski-Yeni Plan Senkron Durumu (2026-05-06)
+
+Tamamlandi:
+
+1. Yeni plandaki Gerceklik Kilidi maddesi uygulandi.
+2. Eski plandaki Sprint 1 test izleme maddeleri test kaniti ile guncellendi.
+3. Matris cikti klasoru ve CSV paketinde ayni kanit dosyalari tutuldu.
+
+Kalan:
+
+1. 4 hat parity matrisinin satir bazli tam yeniden uretimi.
+2. tests_matrix'in ana test zincirine entegrasyon karari.
+3. Duplicate NO satirlari icin otorite secimi ve git mv/esitleme manifesti.

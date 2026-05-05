@@ -72,3 +72,12 @@ Dort hat (Native, Final, Full Tool, VSCode Internal) arasinda status ve hata bay
 3. VSCode Internal: `@11/@13/@14/@15` runtime semantigi eklendi.
 4. Native runtime: `@11/@13/@14/@15` ERR servis paritesi tamamlandi.
 5. Dogrulama: `tests/test42_error_flag_set_reset.uxm` cikti `10`, `tests/test43_error_macro_helpers.uxm` cikti `100`.
+
+## Sprint 1 Izleme Guncellemesi (2026-05-06)
+
+1. `test42` ve `test43` dosyalarina harness-uyumlu `# EXPECT_OUTPUT` satirlari eklendi.
+2. 50-120 odakli testlerde EXPECT kapsami tamlandi; kapsam raporunda `HasExpect=YES` oldu.
+3. Kanit dosyalari:
+	- `UXM_V31_tests_meta_50_120_expect_report.csv`
+	- `UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/UXM_V31_tests_meta_50_120_expect_report.csv`
+4. Matris ciktisi `test_matrisi.csv` Sprint 1 artifact durumuna gore guncellendi.
