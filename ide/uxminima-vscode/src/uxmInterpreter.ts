@@ -418,6 +418,12 @@ export class UxmInterpreter {
       case 41: result = Math.round(Math.cos(arg2 * Math.PI / 180) * this.scale()); break;
       case 42: result = Math.round(Math.tan(arg2 * Math.PI / 180) * this.scale()); break;
       case 43: result = Math.round(Math.sqrt(arg1 * arg1 + arg2 * arg2)); break;
+      case 44: result = Math.round(Math.asin(arg2 / this.scale()) * 180 / Math.PI); break;
+      case 45: result = Math.round(Math.acos(arg2 / this.scale()) * 180 / Math.PI); break;
+      case 46: result = Math.round(Math.sqrt(arg2)); break;
+      case 47: result = Math.round(Math.sinh(arg2 * Math.PI / 180) * this.scale()); break;
+      case 48: result = Math.round(Math.cosh(arg2 * Math.PI / 180) * this.scale()); break;
+      case 49: result = Math.round(Math.tanh(arg2 * Math.PI / 180) * this.scale()); break;
       case 60: this.output += String(arg2); this.setStatus(0); break;
       case 61: this.output += String(this.readTape(this.ptr + 1)); this.setStatus(0); break;
       case 62: this.output += String(this.pop()); break;

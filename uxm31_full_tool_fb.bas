@@ -1379,6 +1379,12 @@ Sub MetaMath(ByVal id As Long)
     Case 41:Tape(Ptr+1)=ClampCell(Cos(CDbl(b)*PI_D/180.0)*ScaleFactor()):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case 42:Tape(Ptr+1)=ClampCell(Tan(CDbl(b)*PI_D/180.0)*ScaleFactor()):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case 43:Tape(Ptr+1)=ClampCell(Sqr(CDbl(a)*CDbl(a)+CDbl(b)*CDbl(b))):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 44:Tape(Ptr+1)=ClampCell(CLngInt(Asin(CDbl(b)/ScaleFactor())*180.0/PI_D)):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 45:Tape(Ptr+1)=ClampCell(CLngInt(Acos(CDbl(b)/ScaleFactor())*180.0/PI_D)):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 46:Tape(Ptr+1)=ClampCell(CLngInt(Sqr(CDbl(b)))):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 47:Tape(Ptr+1)=ClampCell(CLngInt(Sinh(CDbl(b)*PI_D/180.0)*ScaleFactor())):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 48:Tape(Ptr+1)=ClampCell(CLngInt(Cosh(CDbl(b)*PI_D/180.0)*ScaleFactor())):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 49:Tape(Ptr+1)=ClampCell(CLngInt(Tanh(CDbl(b)*PI_D/180.0)*ScaleFactor())):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case Else:SetStatus STATUS_INVALID_META
     End Select
 End Sub

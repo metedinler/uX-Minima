@@ -834,6 +834,12 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 41:Dim sf41 As LongInt:If cellBits=8 Then sf41=100 ElseIf cellBits=16 Then sf41=1000 Else sf41=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Cos(CDbl(b)*3.14159265358979/180.0)*sf41) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 42:Dim sf42 As LongInt:If cellBits=8 Then sf42=100 ElseIf cellBits=16 Then sf42=1000 Else sf42=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Tan(CDbl(b)*3.14159265358979/180.0)*sf42) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 43:WriteAddr ADDR_T_REL,1,0,CULngInt(Sqr(CDbl(a)*CDbl(a)+CDbl(b)*CDbl(b))) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 44:Dim sf44 As LongInt:If cellBits=8 Then sf44=100 ElseIf cellBits=16 Then sf44=1000 Else sf44=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Asin(CDbl(b)/sf44)*180.0/3.14159265358979) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 45:Dim sf45 As LongInt:If cellBits=8 Then sf45=100 ElseIf cellBits=16 Then sf45=1000 Else sf45=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Acos(CDbl(b)/sf45)*180.0/3.14159265358979) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 46:WriteAddr ADDR_T_REL,1,0,CLngInt(Sqr(CDbl(b))) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 47:Dim sf47 As LongInt:If cellBits=8 Then sf47=100 ElseIf cellBits=16 Then sf47=1000 Else sf47=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Sinh(CDbl(b)*3.14159265358979/180.0)*sf47) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 48:Dim sf48 As LongInt:If cellBits=8 Then sf48=100 ElseIf cellBits=16 Then sf48=1000 Else sf48=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Cosh(CDbl(b)*3.14159265358979/180.0)*sf48) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 49:Dim sf49 As LongInt:If cellBits=8 Then sf49=100 ElseIf cellBits=16 Then sf49=1000 Else sf49=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Tanh(CDbl(b)*3.14159265358979/180.0)*sf49) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 60:outputText+=LTrim(Str(b)):SetStatus STATUS_OK
     Case 61:outputText+=LTrim(Str(ReadAddr(ADDR_T_REL,1,0))):SetStatus STATUS_OK
     Case 62
