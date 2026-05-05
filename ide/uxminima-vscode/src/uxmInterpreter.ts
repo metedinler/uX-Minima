@@ -352,6 +352,21 @@ export class UxmInterpreter {
       case 22: result = arg1 * arg2; break;
       case 23: if (arg2 === 0) { result = 0; this.setStatus(15); } else { result = Math.floor(arg1 / arg2); } break;
       case 24: if (arg2 === 0) { result = 0; this.setStatus(15); } else { result = arg1 % arg2; } break;
+      case 25: result = arg1 < arg2 ? arg1 : arg2; break;
+      case 26: result = arg1 > arg2 ? arg1 : arg2; break;
+      case 27: {
+        if ((this.flags & 0x10) !== 0) {
+          let signed = arg2;
+          if (this.cellBits === 8 && (arg2 & 0x80)) signed = arg2 - 256;
+          else if (this.cellBits === 16 && (arg2 & 0x8000)) signed = arg2 - 65536;
+          else if (this.cellBits === 32 && (arg2 & 0x80000000)) signed = arg2 - 4294967296;
+          result = signed < 0 ? (Math.abs(signed) & this.mask()) : (signed & this.mask());
+        } else {
+          result = arg2 & this.mask();
+        }
+      } break;
+      case 28: result = (((~arg2) + 1) >>> 0) & this.mask(); break;
+      case 29: result = arg1 === arg2 ? 0 : (arg1 > arg2 ? 1 : this.mask()); break;
       case 40: result = Math.round(Math.sin(arg2 * Math.PI / 180) * this.scale()); break;
       case 41: result = Math.round(Math.cos(arg2 * Math.PI / 180) * this.scale()); break;
       case 42: result = Math.round(Math.tan(arg2 * Math.PI / 180) * this.scale()); break;

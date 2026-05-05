@@ -1312,6 +1312,9 @@ Sub MetaCall(ByVal id As Long)
     If id<20 Then MetaCore id ElseIf id<40 Then MetaArith id ElseIf id<60 Then MetaMath id ElseIf id<80 Then MetaIO id ElseIf id<90 Then MetaPtrMem id ElseIf id<128 Then MetaFifoDataSort id Else SetStatus STATUS_INVALID_META
 End Sub
 Sub MetaCore(ByVal id As Long)
+    Dim r As ULongInt
+    Dim full As ULongInt
+    Dim sf As LongInt
     Select Case id
     Case 0:SetStatus STATUS_OK
     Case 1:SetStatus STATUS_OK
@@ -1351,6 +1354,11 @@ Sub MetaArith(ByVal id As Long)
     Case 22:full=a*b:r=full And CellMask():Tape(Ptr+1)=r:SetLogicFlags r:If full>CellMask() Then SetStatus STATUS_OVERFLOW Else SetStatus STATUS_OK
     Case 23:If b=0 Then Tape(Ptr+1)=0:SetStatus STATUS_DIV_ZERO Else Tape(Ptr+1)=(a\b) And CellMask():SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case 24:If b=0 Then Tape(Ptr+1)=0:SetStatus STATUS_DIV_ZERO Else Tape(Ptr+1)=(a Mod b) And CellMask():SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 25:If a<b Then r=a Else r=b:Tape(Ptr+1)=r:SetLogicFlags r:SetStatus STATUS_OK
+    Case 26:If a>b Then r=a Else r=b:Tape(Ptr+1)=r:SetLogicFlags r:SetStatus STATUS_OK
+    Case 27:If IsSigned() Then sf=ToSigned(b):If sf<0 Then r=FromSigned(-sf) Else r=b Else r=b:End If:Tape(Ptr+1)=r:SetLogicFlags r:SetStatus STATUS_OK
+    Case 28:If IsSigned() Then r=FromSigned(-ToSigned(b)) Else r=((Not b)+1) And CellMask():Tape(Ptr+1)=r:SetLogicFlags r:SetStatus STATUS_OK
+    Case 29:SetCompareFlags a,b:If a=b Then r=0 ElseIf a>b Then r=1 Else r=CellMask():Tape(Ptr+1)=r:SetStatus STATUS_OK
     Case Else:SetStatus STATUS_INVALID_META
     End Select
 End Sub
