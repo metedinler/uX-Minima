@@ -1,4 +1,4 @@
-Test,Küme,Meta IDs,Komut İşaretleri,ASM Artifact,EXE Artifact
+﻿Test,Küme,Meta IDs,Komut İşaretleri,ASM Artifact,EXE Artifact
 tests/test01_print_A.uxm,tests,"40,61",+-0>@,VAR,VAR
 tests/test02_string.uxm,tests,,",-.0:[]e{}",VAR,VAR
 tests/test03_addressing.uxm,tests,,+.0:[]e,VAR,VAR
@@ -36,22 +36,22 @@ tests/test35_optimizer_visible_result.uxm,tests,,+-.0:Ee,VAR,VAR
 tests/test40_4bit_cpu_alu_model.uxm,tests,"20,61","!$%&+,-.0:<>@E^e{}",VAR,VAR
 tests/test41_4_neuron_nn_model.uxm,tests,"20,61","!$%+,.0:>@Ee{}",VAR,VAR
 tests_fp/test_fp01_add_int.uxm,tests_fp,"200,210,220,223",+-.0:>@E,VAR,VAR
-tests_fp/test_fp02_sub_int.uxm,tests_fp,"200,211,220,223",+-.0:>@E,OK,OK
-tests_fp/test_fp03_mul_int.uxm,tests_fp,"200,212,220,223",+-.0:>@E,OK,OK
-tests_fp/test_fp04_div_int.uxm,tests_fp,"200,213,220,223",+-.0:>@E,OK,OK
-tests_fp/test_fp05_from_string.uxm,tests_fp,"200,221,223","+,-.0:>@E{}",OK,OK
-tests_fp/test_fp06_add_dec_string.uxm,tests_fp,"200,210,221,223","+,-.0:>@E{}",OK,OK
+tests_fp/test_fp02_sub_int.uxm,tests_fp,"200,211,220,223",+-.0:>@E,YOK,YOK
+tests_fp/test_fp03_mul_int.uxm,tests_fp,"200,212,220,223",+-.0:>@E,YOK,YOK
+tests_fp/test_fp04_div_int.uxm,tests_fp,"200,213,220,223",+-.0:>@E,YOK,YOK
+tests_fp/test_fp05_from_string.uxm,tests_fp,"200,221,223","+,-.0:>@E{}",YOK,YOK
+tests_fp/test_fp06_add_dec_string.uxm,tests_fp,"200,210,221,223","+,-.0:>@E{}",YOK,YOK
 tests_matrix/_tmp_det_debug.uxm,tests_matrix,"61,166,175","+,-0>@e",VAR,VAR
 tests_matrix/test_matrix01_init_set_print.uxm,tests_matrix,"160,162,166","+,-0:>@E[]e",VAR,VAR
 tests_matrix/test_matrix02_add_2x2.uxm,tests_matrix,"166,167","+,-0:>@E[]e",VAR,VAR
 tests_matrix/test_matrix03_mul_2x2.uxm,tests_matrix,"166,170","+,-0:>@E[]",VAR,VAR
 tests_matrix/test_matrix04_identity_trace_det2.uxm,tests_matrix,"61,166,172,173,175","+,-0:;>@E[]e",VAR,VAR
 math_extensions/tests_math/test_math01_poly_deriv_arge.uxm,math_extensions/tests_math,"240,243","+,-0:>@E^e",VAR,VAR
-math_extensions/tests_math/test_math02_poly_integral_arge.uxm,math_extensions/tests_math,"241,243","+,-0:>@E^e",OK,OK
-math_extensions/tests_math/test_math03_poly_eval_arge.uxm,math_extensions/tests_math,"61,242","+,-0:>@E^e",OK,OK
-math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,math_extensions/tests_math,"61,250","+,-0:>@E^e",OK,OK
-math_extensions/tests_math/test_math05_num_deriv.uxm,math_extensions/tests_math,"61,251","+,-0:>@E^e",OK,OK
-math_extensions/tests_math/test_math06_integral_trap.uxm,math_extensions/tests_math,"61,252","+,-.0:>@Ee",OK,OK
-math_extensions/tests_math/test_math07_integral_simpson.uxm,math_extensions/tests_math,"61,253","+,-.0:>@E^e",OK,OK
+math_extensions/tests_math/test_math02_poly_integral_arge.uxm,math_extensions/tests_math,"241,243","+,-0:>@E^e",YOK,YOK
+math_extensions/tests_math/test_math03_poly_eval_arge.uxm,math_extensions/tests_math,"61,242","+,-0:>@E^e",YOK,YOK
+math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,math_extensions/tests_math,"61,250","+,-0:>@E^e",YOK,YOK
+math_extensions/tests_math/test_math05_num_deriv.uxm,math_extensions/tests_math,"61,251","+,-0:>@E^e",YOK,YOK
+math_extensions/tests_math/test_math06_integral_trap.uxm,math_extensions/tests_math,"61,252","+,-.0:>@Ee",YOK,YOK
+math_extensions/tests_math/test_math07_integral_simpson.uxm,math_extensions/tests_math,"61,253","+,-.0:>@E^e",YOK,YOK
 tests/test42_error_flag_set_reset.uxm,tests,"13,14,15","+-0:>@Ee",VAR,VAR
 tests/test43_error_macro_helpers.uxm,tests,"9,10,13,14,15,60","+-0:>@Ee{}",VAR,VAR

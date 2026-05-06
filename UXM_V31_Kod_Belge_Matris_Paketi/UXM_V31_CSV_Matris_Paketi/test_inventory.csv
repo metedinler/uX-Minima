@@ -1,7 +1,7 @@
 Test_Dir,Exists,UXM_Count,Connected_in_run_tests,Sample
 tests,VAR,55,VAR,"tests/test01_print_A.uxm, tests/test02_string.uxm, tests/test03_addressing.uxm, tests/test04_stack_lifo.uxm, tests/test05_meta_add.uxm"
 tests_fp,VAR,6,VAR,"tests_fp/test_fp01_add_int.uxm, tests_fp/test_fp02_sub_int.uxm, tests_fp/test_fp03_mul_int.uxm, tests_fp/test_fp04_div_int.uxm, tests_fp/test_fp05_from_string.uxm"
-tests_matrix,VAR,5,OK,"tests_matrix/_tmp_det_debug.uxm, tests_matrix/test_matrix01_init_set_print.uxm, tests_matrix/test_matrix02_add_2x2.uxm, tests_matrix/test_matrix03_mul_2x2.uxm, tests_matrix/test_matrix04_identity_trace_det2.uxm"
-math_extensions/tests_math,VAR,7,OK,"math_extensions/tests_math/test_math01_poly_deriv_arge.uxm, math_extensions/tests_math/test_math02_poly_integral_arge.uxm, math_extensions/tests_math/test_math03_poly_eval_arge.uxm, math_extensions/tests_math/test_math04_expr_rpn_eval.uxm, math_extensions/tests_math/test_math05_num_deriv.uxm"
+tests_matrix,VAR,5,YOK,"tests_matrix/_tmp_det_debug.uxm, tests_matrix/test_matrix01_init_set_print.uxm, tests_matrix/test_matrix02_add_2x2.uxm, tests_matrix/test_matrix03_mul_2x2.uxm, tests_matrix/test_matrix04_identity_trace_det2.uxm"
+math_extensions/tests_math,VAR,7,YOK,"math_extensions/tests_math/test_math01_poly_deriv_arge.uxm, math_extensions/tests_math/test_math02_poly_integral_arge.uxm, math_extensions/tests_math/test_math03_poly_eval_arge.uxm, math_extensions/tests_math/test_math04_expr_rpn_eval.uxm, math_extensions/tests_math/test_math05_num_deriv.uxm"
 final/examples,VAR,2,KISMEN/ELLE,"final/examples/dynamic_data_address.uxm, final/examples/final_probe.uxm"
 ide/uxminima-vscode/examples,VAR,4,KISMEN/ELLE,"ide/uxminima-vscode/examples/data_sort.uxm, ide/uxminima-vscode/examples/dynamic_data_address.uxm, ide/uxminima-vscode/examples/fifo_watch.uxm, ide/uxminima-vscode/examples/final_probe.uxm"
