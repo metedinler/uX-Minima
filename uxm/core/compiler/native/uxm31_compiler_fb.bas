@@ -174,8 +174,8 @@ Dim Shared PragmaArgeTrace As Long
 Dim Shared PragmaArgeWatch As Long
 Dim Shared OutFF As Long
 Dim Shared EmitLabelCounter As Long
-#Include Once "math_extensions/compiler/arge_parse_math_additions.bas"
-#Include Once "math_extensions/compiler/arge_parse_matrix_additions.bas"
+#Include Once "../extensions/arge_parse_math_additions.bas"
+#Include Once "../extensions/arge_parse_matrix_additions.bas"
 Main()
 End
 Sub Main()

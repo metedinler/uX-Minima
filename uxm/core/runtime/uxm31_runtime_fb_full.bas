@@ -1400,9 +1400,9 @@ Case Else
 	SetStatus STATUS_INVALID_META
 End Select
 End Sub
-#Include Once "runtime/runtime_fp_services.bas"
-#Include Once "math_extensions/runtime/runtime_matrix_services.bas"
-#Include Once "math_extensions/runtime/runtime_math_services.bas"
+#Include Once "services/runtime_fp_services.bas"
+#Include Once "services/runtime_matrix_services.bas"
+#Include Once "services/runtime_math_services.bas"
 Randomize Timer
 fifoHead=0
 fifoTail=0

@@ -19,7 +19,7 @@ foreach($d in $testDirs){
     foreach($f in Get-ChildItem $d -Filter *.uxm){
         $name=$f.BaseName
         $asm="uxm/build/asm/current/$name.asm"
-        $obj="uxm/build/obj/current/$name.obj"
+        $obj="uxm/build/obj/current/$name.o"
         $exe="uxm/build/exe/current/$name.exe"
         $log="uxm/build/logs/$name.log"
         if($nativeOk){
