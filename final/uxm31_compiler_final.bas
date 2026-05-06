@@ -946,6 +946,18 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 204
         If CLng(a)+2>=dataCells Then SetStatus STATUS_DATA_BOUNDS Else
             dataMem(CLng(a)+2)=FPReadScaled(CLng(a)) And CellMask():SetStatus STATUS_OK
+    Case 205
+        WriteAddr ADDR_T_REL,1,0,(FPReadScaled(CLng(a))\FPScaleConst()) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 206
+        If FPReadScaled(CLng(a))=0 Then WriteAddr ADDR_T_REL,1,0,1 Else WriteAddr ADDR_T_REL,1,0,0
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 207
+        If FPReadScaled(CLng(a))=0 Then WriteAddr ADDR_T_REL,1,0,0 ElseIf FPReadScaled(CLng(a))<0 Then WriteAddr ADDR_T_REL,1,0,CellMask() Else WriteAddr ADDR_T_REL,1,0,1
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 208
+        WriteAddr ADDR_T_REL,1,0,Abs(FPReadScaled(CLng(a))\FPScaleConst()) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 209
         outputText+="FP RAW base="+LTrim(Str(a))+" v="+LTrim(Str(FPReadScaled(CLng(a)))):SetStatus STATUS_OK
     Case 210

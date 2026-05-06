@@ -860,6 +860,20 @@ export class UxmInterpreter {
         if (arg1 + 2 >= this.data.length) this.setStatus(16);
         else { this.data[arg1 + 2] = this.fpReadScaled(arg1) & this.mask(); this.setStatus(0); }
         break;
+      case 205:
+        result = Math.trunc(this.fpReadScaled(arg1) / this.fpScaleConst());
+        break;
+      case 206:
+        result = this.fpReadScaled(arg1) === 0 ? 1 : 0;
+        break;
+      case 207:
+        if (this.fpReadScaled(arg1) === 0) result = 0;
+        else if (this.fpReadScaled(arg1) < 0) result = this.mask();
+        else result = 1;
+        break;
+      case 208:
+        result = Math.abs(Math.trunc(this.fpReadScaled(arg1) / this.fpScaleConst()));
+        break;
       case 209:
         this.output += `FP RAW base=${arg1} v=${this.fpReadScaled(arg1)}`;
         this.setStatus(0);

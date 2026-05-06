@@ -60,6 +60,28 @@ Sub MetaFloatingPoint(ByVal metaId As ULongInt)
     Case 204
         FPStoreMantExp rBase,ReadData(rBase+2),FPMantissaString(rBase),FPSignedExp(rBase)
         SetResult 0
+    Case 205
+        SetResult FromSignedValue(CLngInt(Val(FPFormatDecimal(aBase))))
+        SetLogicFlags ResultValue()
+    Case 206
+        If FPMantissaString(aBase)="0" Then
+            SetResult 1
+        Else
+            SetResult 0
+        End If
+        SetLogicFlags ResultValue()
+    Case 207
+        If FPMantissaString(aBase)="0" Then
+            SetResult 0
+        ElseIf ReadData(aBase+2)<>0 Then
+            SetResult CellMask()
+        Else
+            SetResult 1
+        End If
+        SetLogicFlags ResultValue()
+    Case 208
+        SetResult Abs(CLngInt(Val(FPFormatDecimal(aBase)))) And CellMask()
+        SetLogicFlags ResultValue()
     Case 209
         Print "FP RAW baseAddr=";aBase;" sign=";ReadData(aBase+2);" exp=";FPSignedExp(aBase);" mant=";FPMantissaString(aBase)
         SetResult 0

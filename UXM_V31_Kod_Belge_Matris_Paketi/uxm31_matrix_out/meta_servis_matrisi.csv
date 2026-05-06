@@ -204,10 +204,10 @@
 "Meta Servis","202","FP_ZERO","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
 "Meta Servis","203","FP_COPY","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
 "Meta Servis","204","FP_NORMALIZE","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
-"Meta Servis","205","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
-"Meta Servis","206","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
-"Meta Servis","207","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
-"Meta Servis","208","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","205","FP_TO_INT_RESULT","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_fp/test_fp07_int_zero_sign_abs.uxm",""
+"Meta Servis","206","FP_IS_ZERO","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_fp/test_fp07_int_zero_sign_abs.uxm",""
+"Meta Servis","207","FP_SIGNUM","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_fp/test_fp07_int_zero_sign_abs.uxm",""
+"Meta Servis","208","FP_ABS_INT_RESULT","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_fp/test_fp07_int_zero_sign_abs.uxm",""
 "Meta Servis","209","FP_DEBUG_PRINT","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
 "Meta Servis","210","FP_ADD","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp06_add_dec_string.uxm",""
 "Meta Servis","211","FP_SUB","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp02_sub_int.uxm",""
@@ -395,4 +395,5 @@
 "Meta Servis","397","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
 "Meta Servis","398","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
 "Meta Servis","399","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+
 

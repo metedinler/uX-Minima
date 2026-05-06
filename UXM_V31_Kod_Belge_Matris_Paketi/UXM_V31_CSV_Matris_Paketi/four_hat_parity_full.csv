@@ -204,10 +204,10 @@
 "202","FP_ZERO","VAR","VAR","YOK","VAR","3/4","PARTIAL",""
 "203","FP_COPY","VAR","VAR","YOK","VAR","3/4","PARTIAL",""
 "204","FP_NORMALIZE","VAR","VAR","YOK","VAR","3/4","PARTIAL",""
-"205","Reserved/User/Planned","YOK","YOK","YOK","YOK","0/4","NONE",""
-"206","Reserved/User/Planned","YOK","YOK","YOK","YOK","0/4","NONE",""
-"207","Reserved/User/Planned","YOK","YOK","YOK","YOK","0/4","NONE",""
-"208","Reserved/User/Planned","YOK","YOK","YOK","YOK","0/4","NONE",""
+"205","FP_TO_INT_RESULT","VAR","VAR","YOK","VAR","3/4","PARTIAL","tests_fp/test_fp07_int_zero_sign_abs.uxm"
+"206","FP_IS_ZERO","VAR","VAR","YOK","VAR","3/4","PARTIAL","tests_fp/test_fp07_int_zero_sign_abs.uxm"
+"207","FP_SIGNUM","VAR","VAR","YOK","VAR","3/4","PARTIAL","tests_fp/test_fp07_int_zero_sign_abs.uxm"
+"208","FP_ABS_INT_RESULT","VAR","VAR","YOK","VAR","3/4","PARTIAL","tests_fp/test_fp07_int_zero_sign_abs.uxm"
 "209","FP_DEBUG_PRINT","VAR","VAR","YOK","VAR","3/4","PARTIAL",""
 "210","FP_ADD","VAR","VAR","YOK","VAR","3/4","PARTIAL","tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp06_add_dec_string.uxm"
 "211","FP_SUB","VAR","VAR","YOK","VAR","3/4","PARTIAL","tests_fp/test_fp02_sub_int.uxm"
@@ -395,4 +395,5 @@
 "397","UX-SIM reserved","YOK","YOK","YOK","YOK","0/4","NONE",""
 "398","UX-SIM reserved","YOK","YOK","YOK","YOK","0/4","NONE",""
 "399","UX-SIM reserved","YOK","YOK","YOK","YOK","0/4","NONE",""
+
 

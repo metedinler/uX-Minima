@@ -56,3 +56,4 @@ math_extensions/tests_math/test_math07_integral_simpson.uxm,math_extensions/test
 tests/test42_error_flag_set_reset.uxm,tests,"13,14,15","+-0:>@Ee",VAR,VAR
 tests/test43_error_macro_helpers.uxm,tests,"9,10,13,14,15,60","+-0:>@Ee{}",VAR,VAR
 
+tests_fp/test_fp07_int_zero_sign_abs.uxm,tests_fp,"200,202,205,206,207,208,220,61",+-.0:>@E,VAR,VAR
