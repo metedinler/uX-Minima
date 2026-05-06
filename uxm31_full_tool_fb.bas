@@ -280,19 +280,19 @@ Sub Main()
         If cmd="opt" Then outFile=srcFile+".opt.json"
     End If
     LoadFile srcFile
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     ParsePragmas()
     ApplyMemory()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     FirstPassDefs()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     ParseProgram Src,0
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     ValidateProgram()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     OptimizeProgram()
     ValidateProgram()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     If cmd="run" Then
         RunProgram outFile
         Print OutputText
@@ -432,6 +432,12 @@ Sub FirstPassDefs()
         c=Mid(Src,p,1)
         If c="#" Then
             SkipLine Src,p
+        ElseIf (c="r" Or c="R") And p+2<=Len(Src) And LCase(Mid(Src,p,3))="rem" Then
+            If p+3>Len(Src) Or IsSpaceC(Mid(Src,p+3,1)) Then
+                SkipLine Src,p
+            Else
+                p=p+1
+            End If
         ElseIf c="s" Or c="S" Then
             ParseStringDef Src,p
         ElseIf c="m" Or c="M" Then
@@ -454,6 +460,12 @@ Sub ParseProgram(ByRef code As String, ByVal depth As Long)
             p=p+1
         ElseIf Mid(code,p,1)="#" Then
             SkipLine code,p
+        ElseIf (Mid(code,p,1)="r" Or Mid(code,p,1)="R") And p+2<=Len(code) And LCase(Mid(code,p,3))="rem" Then
+            If p+3>Len(code) Or IsSpaceC(Mid(code,p+3,1)) Then
+                SkipLine code,p
+            Else
+                ParseOne code,p,depth
+            End If
         ElseIf Mid(code,p,1)="s" Or Mid(code,p,1)="S" Then
             ParseStringDef code,p
         ElseIf Mid(code,p,1)="m" Or Mid(code,p,1)="M" Then
@@ -582,11 +594,20 @@ Sub ParseMacroDef(ByRef code As String, ByRef p As Long)
     Dim id As Long
     Dim txt As String
     p=p+1
+    Do While p<=Len(code) And IsSpaceC(Mid(code,p,1))
+        p=p+1
+    Loop
     id=ParseUnsigned(code,p,ok)
     If ok=0 Then SyntaxError "mN icin N bekleniyor",p:Exit Sub
     If id<128 Or id>255 Then SyntaxError "mN id 128..255 olmali",p:Exit Sub
+    Do While p<=Len(code) And IsSpaceC(Mid(code,p,1))
+        p=p+1
+    Loop
     If p>Len(code) Or Mid(code,p,1)<>"=" Then SyntaxError "mN icin = bekleniyor",p:Exit Sub
     p=p+1
+    Do While p<=Len(code) And IsSpaceC(Mid(code,p,1))
+        p=p+1
+    Loop
     txt=ParseBraced(code,p,ok)
     If ok=0 Then SyntaxError "mN icin {kod} bekleniyor",p:Exit Sub
     AddMacro id,txt
@@ -1603,7 +1624,7 @@ Sub RunIDECommand(ByVal fn As String)
     out=GetJsonValue(js,"out")
     If out="" Then out=source+"."+cmd+".json"
     LoadFile source
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     ParsePragmas
     ApplyMemory
     FirstPassDefs
@@ -1611,7 +1632,7 @@ Sub RunIDECommand(ByVal fn As String)
     ValidateProgram
     OptimizeProgram
     ValidateProgram
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     If cmd="run" Then RunProgram out:Print OutputText
     If cmd="uir" Then ExportUIR out
     If cmd="opt" Then ExportOpt out
@@ -1643,3 +1664,4 @@ uxm31_full_tool.exe ide ide_run.json
 Bu dosya eksik kalan büyük parçaların **interpreter / trace / UIR / optimizer / IDE / macro call-stack / FIFO / data-sort / wild layout** tarafını gerçek olarak verir.
 
 **devam** yazarsan bir sonraki mesajda bunu native x64 hattına bağlayan güncellenmiş `uxm31_compiler_fb.bas` ve `uxm31_runtime_fb.bas` dosyalarını tam vererek devam edeceğim.
+

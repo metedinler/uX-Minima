@@ -18,6 +18,7 @@ export interface InternalTraceResult {
 
 export class UxmInterpreter {
   private readonly diagnostics: string[] = [];
+  private readonly unsupportedMetaReported = new Set<number>();
   private instr: Instr[] = [];
   private strings = new Map<number, StringDef>();
   private macros = new Map<number, MacroDef>();
@@ -51,6 +52,7 @@ export class UxmInterpreter {
 
   private reset(): void {
     this.diagnostics.length = 0;
+    this.unsupportedMetaReported.clear();
     this.instr = [];
     this.strings.clear();
     this.macros.clear();
@@ -295,7 +297,7 @@ export class UxmInterpreter {
       case "STATUS": this.writeAddr(ins.addr, this.status); return ip + 1;
       case "LOOP_BEGIN": return this.tape[this.ptr] === 0 && ins.mate !== undefined ? ins.mate + 1 : ip + 1;
       case "LOOP_END": return this.tape[this.ptr] !== 0 && ins.mate !== undefined ? ins.mate + 1 : ip + 1;
-      case "META": this.meta(ins.metaDyn ? this.tape[this.ptr] : (ins.metaId ?? 0)); return ip + 1;
+      case "META": this.meta(ins.metaDyn ? this.tape[this.ptr] : (ins.metaId ?? 0), ins.metaForceHost === true); return ip + 1;
       case "BRANCH": return this.branchTaken(ins) ? (ins.brTarget ?? ip + 1) : ip + 1;
       case "PRINT_STRING": this.printString(ins.stringId ?? 0); return ip + 1;
       default: return ip + 1;
@@ -325,8 +327,14 @@ export class UxmInterpreter {
     }
   }
 
-  private meta(id: number): void {
-    if (id >= 128 && id <= 255) { this.setStatus(5); return; }
+  private meta(id: number, forceHost = false): void {
+    if (id >= 128 && id <= 255) {
+      const reason = forceHost
+        ? "@!N host meta cagrisi internal yorumlayicida uygulanmadi"
+        : "128..255 araliginda host/macro servis runtime olarak uygulanmadi";
+      this.markUnsupportedMeta(id, reason);
+      return;
+    }
     const arg1 = this.readTape(this.ptr - 2);
     const arg2 = this.readTape(this.ptr - 1);
     const arg0 = this.readTape(this.ptr);
@@ -476,7 +484,7 @@ export class UxmInterpreter {
       case 125: result = (this.flags & 0x20) ? 1 : 0; break;
       case 126: result = this.flags; break;
       case 127: this.changeLayout(arg1, arg2, arg0); break;
-      default: this.setStatus(5); break;
+      default: this.markUnsupportedMeta(id, "meta servis tanimli degil veya internal yorumlayicida henuz uygulanmadi"); break;
     }
     if (result !== undefined) {
       this.writeTape(this.ptr + 1, result);
@@ -484,6 +492,20 @@ export class UxmInterpreter {
         this.setStatus(this.status === 15 ? 15 : 0);
       }
     }
+  }
+
+  private markUnsupportedMeta(id: number, reason: string): void {
+    this.setStatus(5);
+    if (this.unsupportedMetaReported.has(id)) {
+      return;
+    }
+    const info = META_SERVICES[id];
+    if (info) {
+      this.diagnostics.push(`@${id} ${info.name}: bilincli desteklenmiyor (${reason}).`);
+    } else {
+      this.diagnostics.push(`@${id}: bilincli desteklenmiyor (${reason}).`);
+    }
+    this.unsupportedMetaReported.add(id);
   }
 
   private copy(mem: number[], src: number, dst: number, count: number): void { for (let i = 0; i < count; i++) { mem[dst + i] = mem[src + i] ?? 0; } this.setStatus(0); }

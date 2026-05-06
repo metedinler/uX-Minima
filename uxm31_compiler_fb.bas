@@ -192,19 +192,19 @@ Sub Main()
         OutAsm=InFile+".asm"
     End If
     ReadFileToSrc(InFile)
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     ParsePragmas()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     ApplyMemoryModel()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     FirstPassDefinitions()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     ParseProgram(Src,0)
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     ValidateBranches()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     GenerateASM()
-    If HadError Then Print ErrMsg:End
+    If HadError Then Print ErrMsg:End 1
     Print "ASM uretildi: ";OutAsm
     Print "NASM:"
     Print "nasm -f win64 ";OutAsm;" -o program.obj"
@@ -377,6 +377,12 @@ Sub FirstPassDefinitions()
         c=Mid(Src,p,1)
         If c="#" Then
             SkipLine(Src,p)
+        ElseIf (c="r" Or c="R") And p+2<=Len(Src) And LCase(Mid(Src,p,3))="rem" Then
+            If p+3>Len(Src) Or IsSpaceChar(Mid(Src,p+3,1)) Then
+                SkipLine(Src,p)
+            Else
+                p=p+1
+            End If
         ElseIf c="s" Or c="S" Then
             ParseStringDef(Src,p)
         ElseIf c="m" Or c="M" Then
@@ -399,6 +405,12 @@ Sub ParseProgram(ByRef code As String, ByVal depth As Long)
             p=p+1
         ElseIf Mid(code,p,1)="#" Then
             SkipLine(code,p)
+        ElseIf (Mid(code,p,1)="r" Or Mid(code,p,1)="R") And p+2<=Len(code) And LCase(Mid(code,p,3))="rem" Then
+            If p+3>Len(code) Or IsSpaceChar(Mid(code,p+3,1)) Then
+                SkipLine(code,p)
+            Else
+                ParseOneInstruction(code,p,depth)
+            End If
         ElseIf Mid(code,p,1)="s" Or Mid(code,p,1)="S" Then
             ParseStringDef(code,p)
         ElseIf Mid(code,p,1)="m" Or Mid(code,p,1)="M" Then
@@ -550,11 +562,20 @@ Sub ParseMacroDef(ByRef code As String, ByRef p As Long)
     Dim id As Long
     Dim txt As String
     p=p+1
+    Do While p<=Len(code) And IsSpaceChar(Mid(code,p,1))
+        p=p+1
+    Loop
     id=ParseUnsignedLong(code,p,ok)
     If ok=0 Then SyntaxError("mN taniminda N bekleniyor",p):Exit Sub
     If id<128 Or id>255 Then SyntaxError("mN kullanici macro id 128..255 araliginda olmali",p):Exit Sub
+    Do While p<=Len(code) And IsSpaceChar(Mid(code,p,1))
+        p=p+1
+    Loop
     If p>Len(code) Or Mid(code,p,1)<>"=" Then SyntaxError("mN taniminda '=' bekleniyor",p):Exit Sub
     p=p+1
+    Do While p<=Len(code) And IsSpaceChar(Mid(code,p,1))
+        p=p+1
+    Loop
     txt=ParseBracedText(code,p,ok)
     If ok=0 Then SyntaxError("mN taniminda {UXM kodu} bekleniyor",p):Exit Sub
     AddMacroDef(id,txt)
@@ -1619,4 +1640,5 @@ Sub EmitFooter()
     EmitLine("    call ux_runtime_error")
     EmitLine("    jmp __ux_ok_exit")
 End Sub
+
 
