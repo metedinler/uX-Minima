@@ -432,6 +432,48 @@ export class UxmInterpreter {
       case 47: result = Math.round(Math.sinh(arg2 * Math.PI / 180) * this.scale()); break;
       case 48: result = Math.round(Math.cosh(arg2 * Math.PI / 180) * this.scale()); break;
       case 49: result = Math.round(Math.tanh(arg2 * Math.PI / 180) * this.scale()); break;
+      case 52: {
+        const x = this.toSignedCell(arg2) / this.scale();
+        result = Math.round(Math.asinh(x) * this.scale());
+      } break;
+      case 53: {
+        const x = arg2 / this.scale();
+        if (x < 1) {
+          result = 0;
+          this.setStatus(14);
+        } else {
+          result = Math.round(Math.acosh(x) * this.scale());
+        }
+      } break;
+      case 54: {
+        const x = this.toSignedCell(arg2) / this.scale();
+        if (Math.abs(x) >= 1) {
+          result = 0;
+          this.setStatus(13);
+        } else {
+          result = Math.round(Math.atanh(x) * this.scale());
+        }
+      } break;
+      case 55:
+        if (arg2 === 0) {
+          result = 0;
+          this.setStatus(14);
+        } else {
+          result = Math.round(Math.log(arg2) * this.scale());
+        }
+        break;
+      case 56:
+        result = Math.round(Math.exp(this.toSignedCell(arg2) / this.scale()) * this.scale());
+        break;
+      case 57:
+        result = Math.round(Math.pow(arg1, arg2));
+        break;
+      case 58:
+        result = Math.round((arg2 * Math.PI / 180) * this.scale());
+        break;
+      case 59:
+        result = Math.round((arg2 / this.scale()) * 180 / Math.PI);
+        break;
       case 60: this.output += String(arg2); this.setStatus(0); break;
       case 61: this.output += String(this.readTape(this.ptr + 1)); this.setStatus(0); break;
       case 62: this.output += String(this.pop()); break;
@@ -512,6 +554,13 @@ export class UxmInterpreter {
   private clear(mem: number[], dst: number, count: number): void { for (let i = 0; i < count; i++) { mem[dst + i] = 0; } this.setStatus(0); }
   private sort(mem: number[], start: number, count: number, asc: boolean): void { const part = mem.slice(start, start + count).sort((a, b) => asc ? a - b : b - a); for (let i = 0; i < part.length; i++) { mem[start + i] = part[i]; } this.setStatus(0); }
   private search(mem: number[], start: number, count: number, target: number): number { for (let i = 0; i < count; i++) { if (mem[start + i] === target) { return i; } } return this.mask(); }
+  private toSignedCell(v: number): number {
+    const masked = v & this.mask();
+    if (this.cellBits === 8 && (masked & 0x80)) return masked - 0x100;
+    if (this.cellBits === 16 && (masked & 0x8000)) return masked - 0x10000;
+    if (this.cellBits === 32 && (masked & 0x80000000)) return masked - 0x100000000;
+    return masked;
+  }
 
   private changeLayout(tapeKB: number, stackKB: number, dataKB: number): void {
     if ((this.flags & 0x40) === 0) { this.setStatus(23); return; }

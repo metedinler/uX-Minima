@@ -15,6 +15,7 @@ Bu dosya, verilen zip içindeki kod dosyaları, test klasörleri, Git geçmişi,
 - Aynı adlı ama farklı içerikli kaynak dosyalar vardır; otorite kaynaklar kilitlenmeden yeni patch tehlikelidir.
 - `tests_matrix` klasörü ana `run_tests.bat` zincirine bağlandı.
 - Copilot tarafından `Remove-Item`, overwrite veya silme/yeniden yazma riski doğuran işlemler görüldüğü için işlem günlüğü ve onay kuralı zorunludur.
+- Compilerin planlarda ve teknik belgelerdeki ozellikleri tam ve kesin olarak calisacak sekilde kodlama yapilarak tum aciklar kalatilacaktir. Asil amac belge uretmekten cok compilerin kod yazilarak bitirilmesidir. Bunun devamli kullanicinin soylemesi gerekmez.
 
 ## Kod gerçekliğine göre ana açıklar
 

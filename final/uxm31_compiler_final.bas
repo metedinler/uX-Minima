@@ -13,6 +13,7 @@ Const MAX_DIAG As Long = 8192
 Const MAX_OPT As Long = 65536
 Const MAX_WATCH As Long = 512
 Const MEM_TOTAL_BYTES As Long = 65536
+Const PI_D As Double = 3.1415926535897932384626433832795
 
 Const OP_NOP As Long=0
 Const OP_RIGHT As Long=1
@@ -279,6 +280,8 @@ Declare Function ReadAddr(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long)
 Declare Sub WriteAddr(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal v As ULongInt)
 Declare Function ResolveIndex(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByRef spaceName As String, ByRef ok As Long) As Long
 Declare Function CellMask() As ULongInt
+Declare Function ScaleFactor() As LongInt
+Declare Function ToSignedCell(ByVal v As ULongInt) As LongInt
 Declare Function CellSize() As Long
 Declare Function MemSizePrefix() As String
 Declare Function Reg8(ByVal r As String) As String
@@ -840,6 +843,59 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 47:Dim sf47 As LongInt:If cellBits=8 Then sf47=100 ElseIf cellBits=16 Then sf47=1000 Else sf47=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Sinh(CDbl(b)*3.14159265358979/180.0)*sf47) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 48:Dim sf48 As LongInt:If cellBits=8 Then sf48=100 ElseIf cellBits=16 Then sf48=1000 Else sf48=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Cosh(CDbl(b)*3.14159265358979/180.0)*sf48) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 49:Dim sf49 As LongInt:If cellBits=8 Then sf49=100 ElseIf cellBits=16 Then sf49=1000 Else sf49=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Tanh(CDbl(b)*3.14159265358979/180.0)*sf49) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 52
+        Dim x52 As Double
+        x52=CDbl(ToSignedCell(b))/CDbl(ScaleFactor())
+        WriteAddr ADDR_T_REL,1,0,CLngInt(Log(x52+Sqr(x52*x52+1.0))*ScaleFactor()) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 53
+        Dim x53 As Double
+        x53=CDbl(b)/CDbl(ScaleFactor())
+        If x53<1.0 Then
+            WriteAddr ADDR_T_REL,1,0,0
+            SetStatus STATUS_UNDERFLOW
+        Else
+            WriteAddr ADDR_T_REL,1,0,CLngInt(Log(x53+Sqr(x53*x53-1.0))*ScaleFactor()) And CellMask()
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 54
+        Dim x54 As Double
+        x54=CDbl(ToSignedCell(b))/CDbl(ScaleFactor())
+        If Abs(x54)>=1.0 Then
+            WriteAddr ADDR_T_REL,1,0,0
+            SetStatus STATUS_OVERFLOW
+        Else
+            WriteAddr ADDR_T_REL,1,0,CLngInt(0.5*Log((1.0+x54)/(1.0-x54))*ScaleFactor()) And CellMask()
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 55
+        If b=0 Then
+            WriteAddr ADDR_T_REL,1,0,0
+            SetStatus STATUS_UNDERFLOW
+        Else
+            WriteAddr ADDR_T_REL,1,0,CLngInt(Log(CDbl(b))*ScaleFactor()) And CellMask()
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 56
+        WriteAddr ADDR_T_REL,1,0,CLngInt(Exp(CDbl(ToSignedCell(b))/CDbl(ScaleFactor()))*ScaleFactor()) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 57
+        WriteAddr ADDR_T_REL,1,0,CLngInt(CDbl(a)^CDbl(b)) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 58
+        WriteAddr ADDR_T_REL,1,0,CLngInt(CDbl(b)*PI_D/180.0*ScaleFactor()) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 59
+        WriteAddr ADDR_T_REL,1,0,CLngInt((CDbl(b)/CDbl(ScaleFactor()))*180.0/PI_D) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
     Case 60:outputText+=LTrim(Str(b)):SetStatus STATUS_OK
     Case 61:outputText+=LTrim(Str(ReadAddr(ADDR_T_REL,1,0))):SetStatus STATUS_OK
     Case 62
@@ -1276,6 +1332,19 @@ Function LowerNoSpace(ByVal s As String) As String:Dim r As String="":For i As L
 Function GetKeyValue(ByVal lineText As String, ByVal key As String) As String:Dim p As Long=InStr(lineText,key+"="):If p=0 Then Return "" Else p+=Len(key)+1:Dim r As String="":Do While p<=Len(lineText) And Mid(lineText,p,1)<>",":r+=Mid(lineText,p,1):p+=1:Loop:Return r:End Function
 Function ParseKB(ByVal s As String, ByVal def As Long) As Long:Dim n As Long=Val(s):If n<=0 Then Return def Else Return n:End Function
 Function CellMask() As ULongInt:If cellBits=8 Then Return &HFFull ElseIf cellBits=16 Then Return &HFFFFull Else Return &HFFFFFFFFull:End Function
+Function ScaleFactor() As LongInt:If cellBits=8 Then Return 100 ElseIf cellBits=16 Then Return 1000 Else Return 10000:End Function
+Function ToSignedCell(ByVal v As ULongInt) As LongInt
+    Dim masked As ULongInt
+    masked=v And CellMask()
+    If (flags And FLAG_SGN)=0 Then Return CLngInt(masked)
+    If cellBits=8 Then
+        If (masked And &H80ull)<>0 Then Return CLngInt(masked)-256 Else Return CLngInt(masked)
+    ElseIf cellBits=16 Then
+        If (masked And &H8000ull)<>0 Then Return CLngInt(masked)-65536 Else Return CLngInt(masked)
+    Else
+        If (masked And &H80000000ull)<>0 Then Return CLngInt(masked)-4294967296 Else Return CLngInt(masked)
+    End If
+End Function
 Function CellSize() As Long:If cellBits=8 Then Return 1 ElseIf cellBits=16 Then Return 2 Else Return 4:End Function
 Function MemSizePrefix() As String:If cellBits=8 Then Return "byte" ElseIf cellBits=16 Then Return "word" Else Return "dword":End Function
 Function Reg8(ByVal r As String) As String:If LCase(r)="rax" Then Return "al" Else Return "al":End Function
