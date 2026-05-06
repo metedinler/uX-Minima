@@ -13,6 +13,16 @@ Hatta daha teknik söylersem:
 Yani bu klasör tek bir tekil compiler değil.
 Aynı UX-Minima dilini işleyen **birden fazla yürütüm/derleme hattı** var.
 
+## 2026-05-07 Kod Gerçeklik Doğrulama Notu
+
+- Bu hüküm güncel matris senkronu ile doğrulandı (`meta_servis_matrisi.csv` + `four_hat_parity.csv`).
+- Mimari belgedeki ana iddia (tek hat değil, çoklu yürütüm hattı) kodla uyumludur.
+- Teknik netlik:
+  - Runtime Host, Final Interpreter, Legacy Full Tool ve VSCode Internal ayrı yürütüm yollarıdır.
+  - `META_90_107` bandında dört hat parity kapanmıştır (`18/18`).
+  - `META_0_79` ve `META_80_89` bandında Final Interpreter kapsaması düşük kaldığı için sistem tam simetrik değildir.
+  - `META_160+` extension tarafı dört hatta ortak kodla kısmi kapanmıştır (`17/40`, `30/40`, `10/16`).
+
 ---
 
 # 1. Büyük Resim – Grafik Doküm

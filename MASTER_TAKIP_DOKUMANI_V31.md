@@ -121,6 +121,32 @@ Bu formati kullan:
 - Kanit raporlari: UXM_V31_tests_meta_50_120_expect_report.csv, UXM_V31_Kod_Belge_Matris_Paketi/UXM_V31_CSV_Matris_Paketi/duplicate_hash_diffs.csv
 - Sonraki adim: tests_matrix runner entegrasyon karari + 4 hat parity satirlarinin tam koddan yeniden uretimi.
 
+### Son Guncelleme (Kod-Gerceklik Senkronu - 2026-05-07)
+
+- Tarih: 2026-05-07
+- Ozet: `meta_servis_matrisi.csv` ve turev matrisler dispatcher-aware kod taramasiyla yeniden senkronlandi; false-positive olusturan dosya-geneli `Case` taramasi kaldirildi.
+- Dogrulanan durum: Mimari belge iddiasi kodla uyumlu (coklu hat yapisi). `META_90_107` bandi 4 hatta tam kapandi (`18/18`).
+- Guncel parity ozeti:
+	- `META_0_49`: `43/50, 7/50, 46/50, 43/50`
+	- `META_50_79`: `16/30, 3/30, 16/30, 16/30`
+	- `META_90_107`: `18/18` tum hatlar
+	- `META_160_199`: `17/40` tum hatlar
+	- `META_200_239`: `30/40` tum hatlar
+	- `META_240_259`: Runtime/Final/Full `10/16`, VSCode `15/16`
+- Degisen dosyalar (bu tur):
+	- `_matrix_sync_from_code.ps1`
+	- `uxm/reports/matrices/current/uxm31_matrix_out/meta_servis_matrisi.csv`
+	- `uxm/reports/matrices/current/uxm31_matrix_out/four_hat_parity_full.csv`
+	- `uxm/reports/matrices/current/uxm31_matrix_out/four_hat_parity.csv`
+	- `uxm/reports/matrices/current/uxm31_matrix_out/high_service_gaps.csv`
+	- `uxm/reports/matrices/current/uxm31_matrix_out/adresleme_matrisi.csv`
+	- `uxm/reports/matrices/current/uxm31_matrix_out/komut_matrisi.csv`
+	- `uxm/reports/matrices/current/uxm31_matrix_out/pragma_matrisi.csv`
+	- `uxm/reports/matrices/current/uxm31_matrix_out/UXM_KOD_BELGE_MATRIS_RAPORU.md`
+	- `KG Mimari Sistemi.md`
+	- `Kod gercekliginin Mimari Sistemi.md`
+- Sonraki adim: Final Interpreter kapsama aciklari (`0..79`, `80..89`) icin servis bazli kapanis plani.
+
 ### Acik Riskler
 
 1. Link adimi ortam farki.

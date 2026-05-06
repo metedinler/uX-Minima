@@ -1,13 +1,39 @@
 # UX-MINIMA V3.1 Kod-Belge Karşılaştırma ve İzleme Matrisi
 Bu rapor otomatik kod taraması + verilen tasarım/kılavuz/servis belgeleri karşılaştırmasıyla hazırlanmıştır. Durumlar: VAR, YOK, KISMEN, PLAN, RESERVED.
-## 1. Ana Bulgular
+
+## 0. 2026-05-07 Güncel Kod-Gerçeklik Senkronu
+- Bu raporun bu bölümünde yer alan sayılar, `uxm/reports/matrices/current/uxm31_matrix_out/meta_servis_matrisi.csv` dosyası koddan dispatcher-aware tarama ile yeniden üretilerek güncellenmiştir.
+- Tarama yaklaşımı: sadece ilgili meta dispatcher/metod blokları (`RuntimeMeta`, `Meta*`, TypeScript `private meta(...)`) taranır; dosya genelindeki ilgisiz `Case` satırları kapsam dışı bırakılır.
+- Not: Aşağıdaki eski maddeler tarihsel kayıt olarak kalabilir; bağlayıcı güncel durum bu bölümdeki sayılar ve parity tablolarıdır.
+
+### 0.1 Meta Servis Genel Dağılımı (396 satır)
+- `VAR`: 91
+- `KISMEN`: 92
+- `PLAN`: 213
+
+### 0.2 Dört Hat Parity Özeti (Güncel)
+- `META_0_49`: Runtime `43/50`, Final `7/50`, FullTool `46/50`, VSCode `43/50`, FullParity `7/50` (`PARTIAL`)
+- `META_50_79`: Runtime `16/30`, Final `3/30`, FullTool `16/30`, VSCode `16/30`, FullParity `3/30` (`PARTIAL`)
+- `META_80_89`: Runtime `10/10`, Final `4/10`, FullTool `10/10`, VSCode `10/10`, FullParity `4/10` (`PARTIAL`)
+- `META_90_107`: Runtime `18/18`, Final `18/18`, FullTool `18/18`, VSCode `18/18`, FullParity `18/18` (`CLOSED`)
+- `META_108_119`: `0/12` tüm hatlar (`OPEN`)
+- `META_120_127`: Runtime `8/8`, Final `7/8`, FullTool `8/8`, VSCode `8/8`, FullParity `7/8` (`PARTIAL`)
+- `META_160_199`: Runtime `17/40`, Final `17/40`, FullTool `17/40`, VSCode `17/40`, FullParity `17/40` (`PARTIAL`)
+- `META_200_239`: Runtime `30/40`, Final `30/40`, FullTool `30/40`, VSCode `30/40`, FullParity `30/40` (`PARTIAL`)
+- `META_240_259`: Runtime `10/16`, Final `10/16`, FullTool `10/16`, VSCode `15/16`, FullParity `10/16` (`PARTIAL`)
+
+### 0.3 Net Mimari Sonucu
+- Kod gerçekliği tek bir hat değil, çoklu hat yapısıdır: Runtime Host + Final Interpreter + Legacy Full Tool + VSCode internal.
+- `META_90_107` bandı dört hatta kapanmıştır (`CLOSED`).
+- En büyük açık, Final Interpreter'ın `0..79` ve `80..89` bandında düşük kapsama sahip olmasıdır.
+## 1. Tarihsel Ana Bulgular (Eski Snapshot)
 - Kod gerçekliğinde dört yürütüm/derleme hattı vardır: Native compiler, Final/ARGE compiler, Full Tool ve VS Code iç yorumlayıcı.
 - Native hat `uxm31_compiler_fb.bas` + `uxm31_runtime_fb_full.bas` ile ASM/OBJ/EXE hattıdır.
 - Final hat `final/uxm31_compiler_final.bas` ile interpret/step/trace/UIR/diag/opt/ASM işlerini birlikte taşır.
 - FP, Matrix ve Math servisleri runtime dosyalarında gerçek kod karşılığı bulmuştur; STAT/GA/ML/BIO/SIM alanları ise servis haritasında ayrılmış ama runtime’da henüz genel servis olarak yoktur.
 - Eski `@128..@255 kullanıcı alanı` fikri, son servis haritasında `@128..@159 kullanıcı`, `@160+ bilimsel kütüphane` olarak daraltılmıştır.
 
-## 2. Kısa Durum Sayıları
+## 2. Tarihsel Kısa Durum Sayıları (Eski Snapshot)
 - Komutlar: VAR=38
 - Meta Servisler: VAR=46, KISMEN=95, RESERVED=111, YOK=4, PLAN=140
 - Adresleme: VAR=17
@@ -15,6 +41,7 @@ Bu rapor otomatik kod taraması + verilen tasarım/kılavuz/servis belgeleri kar
 - Testler: VAR=43, YOK=11
 
 ## 3. Kritik Eksik/Kısmi Noktalar
+- Uyari: Bu bölümdeki satır bazlı liste eski snapshot'tan kalmıştır. Güncel karar/veri için üstteki `0.*` bölümlerini ve CSV matrislerini esas al.
 - @1 CLS: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
 - @2 LOCATE 1,1: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
 - @4 TIMER: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK

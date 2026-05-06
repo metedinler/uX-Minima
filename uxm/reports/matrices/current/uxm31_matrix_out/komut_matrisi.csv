@@ -1,39 +1,39 @@
-﻿Kategori,Öğe,Standart/Anlam,Belge Durumu,Native Compiler Parse,Native ASM/Emit/Runtime,Final Compiler Parse,Final Interpreter/Emit,Full Tool,VSCode Internal,Test Kanıtı,Kod Kanıtı,Not
-Temel,>,Pointer sağa,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:11,
-Temel,<,Pointer sola,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:12,
-Aritmetik,+,Aktif/adresli hücre artır,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:13,
-Aritmetik,-,Aktif/adresli hücre azalt,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:14,
-Aritmetik,+kN,N kadar artır,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,,
-Aritmetik,-kN,N kadar azalt,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,,
-Temel,0,Hücre sıfırla,VAR,VAR,VAR,VAR,VAR,VAR,VAR,KISMEN,uxm31_compiler_fb.bas:15,
-Aritmetik,0(addr)+kN,Sıfırla sonra artır/azalt inherit,VAR,VAR,VAR,VAR,VAR,YOK,VAR,,,
-I/O,.,Karakter bas,VAR,VAR,VAR,VAR,VAR,VAR,VAR,KISMEN,uxm31_compiler_fb.bas:16,
-I/O,",",Karakter oku,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:17,
-Akış,[,Döngü başı aktif hücre sıfır mı,VAR,YOK,YOK,YOK,YOK,YOK,VAR,,final/uxm31_compiler_final.bas:711,
-Akış,],Döngü sonu,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:19,
-Stack,$,Stack push,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:20,
-Stack,%,Stack pop,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:21,
-Compare,?,StackTop == current/adres,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:22,
-Compare,!,StackTop > current/adres,VAR,VAR,YOK,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:23,
-Compare,;,StackTop < current/adres,VAR,VAR,YOK,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:24,
-Bitwise,&,Bitwise AND,VAR,VAR,YOK,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:25,
-Bitwise,|,Bitwise OR,VAR,VAR,YOK,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:26,
-Bitwise,^,Bitwise XOR,VAR,VAR,YOK,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:27,
-Bitwise,~,Bitwise NOT,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:28,
-Bitwise,{,Sola shift,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:29,
-Bitwise,},Sağa shift,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:30,
-Status,e/E,Status byte oku,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:31,
-Data/String,sN={...},Data string tanımı,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,,
-Data/String,pN,String bas,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:34,
-Macro,mN={...},Macro tanımı,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,,
-Meta,@N,Sabit meta/macro çağrısı,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:32,
-Meta,@#,Aktif hücre id ile dinamik meta,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,final/uxm31_compiler_final.bas:878,
-Meta,@!N,Macro bypass host meta,VAR,VAR,VAR,VAR,VAR,YOK,VAR,,final/uxm31_compiler_final.bas:878,@!N Full Tool’da yok
-Branch,:+N / :-N,Aktif hücre !=0 relative branch,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:48,
-Branch,:0+N / :0-N,Aktif hücre ==0 branch,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,uxm31_compiler_fb.bas:49,
-Branch,::+N / ::-N,Koşulsuz branch,VAR,VAR,VAR,VAR,VAR,VAR,YOK,,uxm31_compiler_fb.bas:50,
-Branch,:z/:Z,Zero flag branch,VAR,VAR,VAR,VAR,KISMEN,VAR,VAR,,uxm31_compiler_fb.bas:51,Final ASM flag branch minimal
-Branch,:c/:C,Carry flag branch,VAR,VAR,VAR,VAR,KISMEN,VAR,VAR,,uxm31_compiler_fb.bas:48,Final ASM flag branch minimal
-Branch,:o/:O,Overflow flag branch,VAR,VAR,VAR,VAR,KISMEN,VAR,VAR,,uxm31_compiler_fb.bas:55,Final ASM flag branch minimal
-Branch,:s/:S,Sign flag branch,VAR,VAR,VAR,VAR,KISMEN,VAR,VAR,,uxm31_compiler_fb.bas:57,Final ASM flag branch minimal
-Syntax,#,Yorum / pragma başlangıcı,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,,
+"Kategori","Öğe","Standart/Anlam","Belge Durumu","Native Compiler Parse","Native ASM/Emit/Runtime","Final Compiler Parse","Final Interpreter/Emit","Full Tool","VSCode Internal","Test Kanıtı","Kod Kanıtı","Not"
+"Temel",">","Pointer sağa","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:11","2026-05-07 kod-gerceklik audit"
+"Temel","<","Pointer sola","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:12","2026-05-07 kod-gerceklik audit"
+"Aritmetik","+","Aktif/adresli hücre artır","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:13","2026-05-07 kod-gerceklik audit"
+"Aritmetik","-","Aktif/adresli hücre azalt","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:14","2026-05-07 kod-gerceklik audit"
+"Aritmetik","+kN","N kadar artır","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","","2026-05-07 kod-gerceklik audit"
+"Aritmetik","-kN","N kadar azalt","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","","2026-05-07 kod-gerceklik audit"
+"Temel","0","Hücre sıfırla","VAR","VAR","VAR","VAR","VAR","VAR","VAR","KISMEN","uxm31_compiler_fb.bas:15","2026-05-07 kod-gerceklik audit"
+"Aritmetik","0(addr)+kN","Sıfırla sonra artır/azalt inherit","VAR","VAR","VAR","VAR","VAR","YOK","VAR","","","2026-05-07 kod-gerceklik audit"
+"I/O",".","Karakter bas","VAR","VAR","VAR","VAR","VAR","VAR","VAR","KISMEN","uxm31_compiler_fb.bas:16","2026-05-07 kod-gerceklik audit"
+"I/O",",","Karakter oku","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:17","2026-05-07 kod-gerceklik audit"
+"Akış","[","Döngü başı aktif hücre sıfır mı","VAR","YOK","YOK","YOK","YOK","YOK","VAR","","final/uxm31_compiler_final.bas:711","2026-05-07 kod-gerceklik audit"
+"Akış","]","Döngü sonu","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:19","2026-05-07 kod-gerceklik audit"
+"Stack","$","Stack push","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:20","2026-05-07 kod-gerceklik audit"
+"Stack","%","Stack pop","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:21","2026-05-07 kod-gerceklik audit"
+"Compare","?","StackTop == current/adres","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:22","2026-05-07 kod-gerceklik audit"
+"Compare","!","StackTop > current/adres","VAR","VAR","YOK","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:23","2026-05-07 kod-gerceklik audit"
+"Compare",";","StackTop < current/adres","VAR","VAR","YOK","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:24","2026-05-07 kod-gerceklik audit"
+"Bitwise","&","Bitwise AND","VAR","VAR","YOK","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:25","2026-05-07 kod-gerceklik audit"
+"Bitwise","|","Bitwise OR","VAR","VAR","YOK","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:26","2026-05-07 kod-gerceklik audit"
+"Bitwise","^","Bitwise XOR","VAR","VAR","YOK","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:27","2026-05-07 kod-gerceklik audit"
+"Bitwise","~","Bitwise NOT","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:28","2026-05-07 kod-gerceklik audit"
+"Bitwise","{","Sola shift","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:29","2026-05-07 kod-gerceklik audit"
+"Bitwise","}","Sağa shift","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:30","2026-05-07 kod-gerceklik audit"
+"Status","e/E","Status byte oku","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:31","2026-05-07 kod-gerceklik audit"
+"Data/String","sN={...}","Data string tanımı","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","","2026-05-07 kod-gerceklik audit"
+"Data/String","pN","String bas","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:34","2026-05-07 kod-gerceklik audit"
+"Macro","mN={...}","Macro tanımı","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","","2026-05-07 kod-gerceklik audit"
+"Meta","@N","Sabit meta/macro çağrısı","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:32","2026-05-07 kod-gerceklik audit"
+"Meta","@#","Aktif hücre id ile dinamik meta","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","final/uxm31_compiler_final.bas:878","2026-05-07 kod-gerceklik audit"
+"Meta","@!N","Macro bypass host meta","VAR","VAR","VAR","VAR","VAR","YOK","VAR","","final/uxm31_compiler_final.bas:878","@!N Full Tool’da yok; 2026-05-07 kod-gerceklik audit"
+"Branch",":+N / :-N","Aktif hücre !=0 relative branch","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:48","2026-05-07 kod-gerceklik audit"
+"Branch",":0+N / :0-N","Aktif hücre ==0 branch","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","uxm31_compiler_fb.bas:49","2026-05-07 kod-gerceklik audit"
+"Branch","::+N / ::-N","Koşulsuz branch","VAR","VAR","VAR","VAR","VAR","VAR","YOK","","uxm31_compiler_fb.bas:50","2026-05-07 kod-gerceklik audit"
+"Branch",":z/:Z","Zero flag branch","VAR","VAR","VAR","VAR","KISMEN","VAR","VAR","","uxm31_compiler_fb.bas:51","Final ASM flag branch minimal; 2026-05-07 kod-gerceklik audit"
+"Branch",":c/:C","Carry flag branch","VAR","VAR","VAR","VAR","KISMEN","VAR","VAR","","uxm31_compiler_fb.bas:48","Final ASM flag branch minimal; 2026-05-07 kod-gerceklik audit"
+"Branch",":o/:O","Overflow flag branch","VAR","VAR","VAR","VAR","KISMEN","VAR","VAR","","uxm31_compiler_fb.bas:55","Final ASM flag branch minimal; 2026-05-07 kod-gerceklik audit"
+"Branch",":s/:S","Sign flag branch","VAR","VAR","VAR","VAR","KISMEN","VAR","VAR","","uxm31_compiler_fb.bas:57","Final ASM flag branch minimal; 2026-05-07 kod-gerceklik audit"
+"Syntax","#","Yorum / pragma başlangıcı","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","","2026-05-07 kod-gerceklik audit"
