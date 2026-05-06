@@ -1,17 +1,17 @@
-﻿Kategori,Öğe,Standart/Anlam,Belge Durumu,Native Compiler,Final Compiler,Full Tool,VSCode Internal,Kod Kanıtı,Not
+Kategori,Öğe,Standart/Anlam,Belge Durumu,Native Compiler,Final Compiler,Full Tool,VSCode Internal,Kod Kanıtı,Not
 Pragma/Direktif,#mode safe/normal/wild,Çalışma modu,VAR,VAR,VAR,VAR,VAR,uxm31_compiler_fb.bas:59,
 Pragma/Direktif,#cell byte/word/dword,Hücre tipi,VAR,VAR,VAR,VAR,VAR,uxm31_compiler_fb.bas:78,
 Pragma/Direktif,"#memory tape=,stack=,data=",64KB bellek yerleşimi,VAR,VAR,VAR,VAR,VAR,uxm31_compiler_fb.bas:67,
 Pragma/Direktif,#bounds on/off,Bounds kontrolü,VAR,VAR,VAR,VAR,VAR,uxm31_compiler_fb.bas:164,
 Pragma/Direktif,#compare signed/unsigned,Signed/unsigned compare modu,VAR,VAR,VAR,VAR,VAR,uxm31_compiler_fb.bas:311,
 Pragma/Direktif,#endian little/big,Endian modu,VAR,VAR,VAR,VAR,VAR,uxm31_compiler_fb.bas:167,
-Pragma/Direktif,#poly BASE=...,Polinom data initializer,VAR,VAR,YOK,YOK,YOK,uxm31_compiler_fb.bas:324,
-Pragma/Direktif,#expr-rpn BASE=...,RPN expression data initializer,VAR,VAR,YOK,YOK,YOK,uxm31_compiler_fb.bas:324,
-Pragma/Direktif,#matrix BASE ROWS COLS=...,Matris data initializer,VAR,VAR,YOK,YOK,YOK,uxm31_compiler_fb.bas:171,
-Pragma/Direktif,#matrix-signed ...,Signed matris initializer,VAR,VAR,YOK,YOK,YOK,,
-Pragma/Direktif,#matrix-fixed ...,Fixed/scale matris initializer,VAR,VAR,YOK,YOK,YOK,,
-Pragma/Direktif,#identity BASE SIZE,Identity initializer,VAR,VAR,YOK,YOK,YOK,uxm31_compiler_fb.bas:326,
-Pragma/Direktif,#zeros BASE ROWS COLS,Zeros initializer,VAR,VAR,VAR,VAR,YOK,uxm31_compiler_fb.bas:326,
-Pragma/Direktif,#ones BASE ROWS COLS,Ones initializer,VAR,VAR,VAR,VAR,YOK,uxm31_compiler_fb.bas:326,
-Pragma/Direktif,#arge json/interpreter/step/trace/watch,Final/ARGE direktifleri,VAR,YOK,VAR,YOK,YOK,uxm31_compiler_fb.bas:138,
-Pragma/Direktif,#seed,Deterministik random tasarımı,VAR,YOK,YOK,YOK,YOK,,"Tasarımda var, kodda görünür destek yok"
+Pragma/Direktif,#poly BASE=...,Polinom data initializer,VAR,VAR,OK,OK,OK,uxm31_compiler_fb.bas:324,
+Pragma/Direktif,#expr-rpn BASE=...,RPN expression data initializer,VAR,VAR,OK,OK,OK,uxm31_compiler_fb.bas:324,
+Pragma/Direktif,#matrix BASE ROWS COLS=...,Matris data initializer,VAR,VAR,OK,OK,OK,uxm31_compiler_fb.bas:171,
+Pragma/Direktif,#matrix-signed ...,Signed matris initializer,VAR,VAR,OK,OK,OK,,
+Pragma/Direktif,#matrix-fixed ...,Fixed/scale matris initializer,VAR,VAR,OK,OK,OK,,
+Pragma/Direktif,#identity BASE SIZE,Identity initializer,VAR,VAR,OK,OK,OK,uxm31_compiler_fb.bas:326,
+Pragma/Direktif,#zeros BASE ROWS COLS,Zeros initializer,VAR,VAR,VAR,VAR,OK,uxm31_compiler_fb.bas:326,
+Pragma/Direktif,#ones BASE ROWS COLS,Ones initializer,VAR,VAR,VAR,VAR,OK,uxm31_compiler_fb.bas:326,
+Pragma/Direktif,#arge json/interpreter/step/trace/watch,Final/ARGE direktifleri,VAR,OK,VAR,OK,OK,uxm31_compiler_fb.bas:138,
+Pragma/Direktif,#seed,Deterministik random tasarımı,VAR,OK,OK,OK,OK,,"Tasarımda var, kodda görünür destek yok"
