@@ -219,10 +219,11 @@ Tamamlandi:
 
 Kalan:
 
-1. Duplicate NO satirlari icin otorite secimi ve git mv/esitleme manifesti.
+1. `gitmv_esitleme_manifest.csv` PENDING adimlarinin uygulanmasi.
 
 Tamamlanan ek maddeler (2026-05-06 devam):
 
 1. 4 hat parity matrisinin satir bazli tam yeniden uretimi tamamlandi.
 2. tests_matrix ana test zincirine entegre edildi (`run_tests.bat`).
 3. Parity ciktilari hem `uxm31_matrix_out` hem CSV paketinde eszamanli tutuldu.
+4. Duplicate NO satirlari icin otorite secimi ve git-mv esitleme manifestleri uretildi.

@@ -135,7 +135,7 @@ Tamamlananlar:
 
 Devam Edenler:
 
-1. Klasor duzeni icin `git mv` tabanli uygulama (madde 5)
+1. Klasor duzeni icin `git mv` tabanli uygulama (madde 5) - uygulama sirasi manifestte PENDING
 
 Tamamlanan yeni maddeler:
 
@@ -145,3 +145,7 @@ Tamamlanan yeni maddeler:
 2. `tests_matrix` ana test zinciri karar/plani (madde 4)
   - Karar: ana zincire dahil
   - Uygulama: `run_tests.bat` icine `tests_matrix` eklendi
+3. Duplicate NO satirlari icin otorite secimi + git-mv/esitleme manifesti (kalan madde)
+  - `uxm31_matrix_out/duplicate_authority_selection.csv`
+  - `uxm31_matrix_out/gitmv_esitleme_manifest.csv`
+  - Ayni dosyalar `UXM_V31_CSV_Matris_Paketi` altina senkronlandi

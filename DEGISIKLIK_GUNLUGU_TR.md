@@ -17,9 +17,14 @@
    - UXM_V31_Kod_Belge_Matris_Paketi/UXM_V31_CSV_Matris_Paketi/four_hat_parity_full.csv
    - UXM_V31_Kod_Belge_Matris_Paketi/UXM_V31_CSV_Matris_Paketi/four_hat_parity.csv
 7. tests_matrix klasoru ana test zincirine baglandi (run_tests.bat).
+8. duplicate NO satirlari icin otorite secimi ve git-mv esitleme manifestleri uretildi:
+   - UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/duplicate_authority_selection.csv
+   - UXM_V31_Kod_Belge_Matris_Paketi/UXM_V31_CSV_Matris_Paketi/duplicate_authority_selection.csv
+   - UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/gitmv_esitleme_manifest.csv
+   - UXM_V31_Kod_Belge_Matris_Paketi/UXM_V31_CSV_Matris_Paketi/gitmv_esitleme_manifest.csv
 
 ## Sonraki Operasyon Adimi
 
-1. duplicate_hash_diffs.csv icindeki NO satirlari icin otorite dosya secimi ve esitleme manifesti cikar.
+1. gitmv_esitleme_manifest.csv icindeki PENDING adimlarini sira ile uygula.
 2. 4-hat parity aciklarini 50-120 odakli satir bazli takip et.
 3. tests_matrix icin CI/runner performans raporu ekle.
