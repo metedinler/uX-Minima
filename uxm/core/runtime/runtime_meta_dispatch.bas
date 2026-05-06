@@ -678,7 +678,7 @@ ux_ptr=0
 ux_sp=0
 uxm_entry()
 Print
-Print "[UXM program finished]"
+Print "[UXM program derlendi.]"
 If ux_status<>0 Then
 Print "Final status: ";ux_status;" ";
 PrintStatusMessage ux_status

@@ -49,7 +49,9 @@ if errorlevel 1 goto fail
 if "%ARGEPARSE_COMPAT%"=="1" copy /y "%EXE%" "%EXE_AR%" >nul
 echo [4/4] Calistiriliyor...
 "%EXE%"
-if errorlevel 1 goto fail
+set "RUN_EXIT=%ERRORLEVEL%"
+if not "%RUN_EXIT%"=="0" goto fail
+echo Exit kodu: %RUN_EXIT% [Basarili: Program hatasiz tamamlandi.]
 if "%ARGEPARSE_COMPAT%"=="1" (
 echo [ARGE] program alias aktif: program.asm/program.obj/program.exe
 ) else (
