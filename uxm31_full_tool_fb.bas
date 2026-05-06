@@ -1393,6 +1393,7 @@ End Sub
 Sub MetaMath(ByVal id As Long)
     Dim a As ULongInt
     Dim b As ULongInt
+    Dim x As Double
     a=Tape(Ptr-2)
     b=Tape(Ptr-1)
     Select Case id
@@ -1406,6 +1407,56 @@ Sub MetaMath(ByVal id As Long)
     Case 47:Tape(Ptr+1)=ClampCell(CLngInt(Sinh(CDbl(b)*PI_D/180.0)*ScaleFactor())):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case 48:Tape(Ptr+1)=ClampCell(CLngInt(Cosh(CDbl(b)*PI_D/180.0)*ScaleFactor())):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
     Case 49:Tape(Ptr+1)=ClampCell(CLngInt(Tanh(CDbl(b)*PI_D/180.0)*ScaleFactor())):SetLogicFlags Tape(Ptr+1):SetStatus STATUS_OK
+    Case 52
+        x=CDbl(ToSigned(b))/CDbl(ScaleFactor())
+        Tape(Ptr+1)=ClampCell(CLngInt(Log(x+Sqr(x*x+1.0))*ScaleFactor()))
+        SetLogicFlags Tape(Ptr+1)
+        SetStatus STATUS_OK
+    Case 53
+        x=CDbl(b)/CDbl(ScaleFactor())
+        If x<1.0 Then
+            Tape(Ptr+1)=0
+            SetStatus STATUS_UNDERFLOW
+        Else
+            Tape(Ptr+1)=ClampCell(CLngInt(Log(x+Sqr(x*x-1.0))*ScaleFactor()))
+            SetLogicFlags Tape(Ptr+1)
+            SetStatus STATUS_OK
+        End If
+    Case 54
+        x=CDbl(ToSigned(b))/CDbl(ScaleFactor())
+        If Abs(x)>=1.0 Then
+            Tape(Ptr+1)=0
+            SetStatus STATUS_OVERFLOW
+        Else
+            Tape(Ptr+1)=ClampCell(CLngInt(0.5*Log((1.0+x)/(1.0-x))*ScaleFactor()))
+            SetLogicFlags Tape(Ptr+1)
+            SetStatus STATUS_OK
+        End If
+    Case 55
+        If b=0 Then
+            Tape(Ptr+1)=0
+            SetStatus STATUS_UNDERFLOW
+        Else
+            Tape(Ptr+1)=ClampCell(CLngInt(Log(CDbl(b))*ScaleFactor()))
+            SetLogicFlags Tape(Ptr+1)
+            SetStatus STATUS_OK
+        End If
+    Case 56
+        Tape(Ptr+1)=ClampCell(CLngInt(Exp(CDbl(ToSigned(b))/CDbl(ScaleFactor()))*ScaleFactor()))
+        SetLogicFlags Tape(Ptr+1)
+        SetStatus STATUS_OK
+    Case 57
+        Tape(Ptr+1)=ClampCell(CLngInt(CDbl(a)^CDbl(b)))
+        SetLogicFlags Tape(Ptr+1)
+        SetStatus STATUS_OK
+    Case 58
+        Tape(Ptr+1)=ClampCell(CLngInt(CDbl(b)*PI_D/180.0*ScaleFactor()))
+        SetLogicFlags Tape(Ptr+1)
+        SetStatus STATUS_OK
+    Case 59
+        Tape(Ptr+1)=ClampCell(CLngInt((CDbl(b)/CDbl(ScaleFactor()))*180.0/PI_D))
+        SetLogicFlags Tape(Ptr+1)
+        SetStatus STATUS_OK
     Case Else:SetStatus STATUS_INVALID_META
     End Select
 End Sub
