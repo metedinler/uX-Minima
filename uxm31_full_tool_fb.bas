@@ -251,6 +251,97 @@ Declare Function ClampCell(ByVal v As Double) As ULongInt
 Declare Function GetJsonValue(ByVal js As String, ByVal key As String) As String
 Declare Function ReadAllText(ByVal fn As String) As String
 Declare Sub RunIDECommand(ByVal fn As String)
+
+' --- Compatibility wrappers for Final runtime API used by runtime/* modules ---
+Dim Shared ux_ptr As Long
+Dim Shared ux_tape_cells As Long
+Dim Shared ux_data_cells As Long
+Dim Shared ux_stack_cells As Long
+Dim Shared ux_cell_bits As Long
+Dim Shared ux_sp As Long
+
+Declare Function ReadTape(ByVal cellIndex As Long) As ULongInt
+Declare Sub WriteTape(ByVal cellIndex As Long, ByVal value As ULongInt)
+Declare Function ReadData(ByVal cellIndex As Long) As ULongInt
+Declare Sub WriteData(ByVal cellIndex As Long, ByVal value As ULongInt)
+Declare Function Arg0() As ULongInt
+Declare Function Arg1() As ULongInt
+Declare Function Arg2() As ULongInt
+Declare Sub SetResult(ByVal value As ULongInt)
+Declare Function ResultValue() As ULongInt
+
+Function ReadTape(ByVal cellIndex As Long) As ULongInt
+    If cellIndex<0 Or cellIndex>=TapeCells Then
+        SetStatus STATUS_PTR_BOUNDS
+        Return 0
+    End If
+    Return Tape(cellIndex) And CellMask()
+End Function
+
+Sub WriteTape(ByVal cellIndex As Long, ByVal value As ULongInt)
+    If cellIndex<0 Or cellIndex>=TapeCells Then
+        SetStatus STATUS_PTR_BOUNDS
+        Exit Sub
+    End If
+    Tape(cellIndex)=value And CellMask()
+    Flags=Flags Or FLAG_DIRTY
+    SetStatus STATUS_OK
+End Sub
+
+Function ReadData(ByVal cellIndex As Long) As ULongInt
+    If cellIndex<0 Or cellIndex>=DataCells Then
+        SetStatus STATUS_DATA_BOUNDS
+        Return 0
+    End If
+    Return DataMem(cellIndex) And CellMask()
+End Function
+
+Sub WriteData(ByVal cellIndex As Long, ByVal value As ULongInt)
+    If cellIndex<0 Or cellIndex>=DataCells Then
+        SetStatus STATUS_DATA_BOUNDS
+        Exit Sub
+    End If
+    DataMem(cellIndex)=value And CellMask()
+    Flags=Flags Or FLAG_DIRTY
+    SetStatus STATUS_OK
+End Sub
+
+Function Arg0() As ULongInt
+    Return ReadTape(CLngInt(ux_ptr))
+End Function
+
+Function Arg1() As ULongInt
+    Return ReadTape(CLngInt(ux_ptr)-2)
+End Function
+
+Function Arg2() As ULongInt
+    Return ReadTape(CLngInt(ux_ptr)-1)
+End Function
+
+Sub SetResult(ByVal value As ULongInt)
+    WriteTape(CLngInt(ux_ptr)+1,value)
+End Sub
+
+Function ResultValue() As ULongInt
+    Return ReadTape(CLngInt(ux_ptr)+1)
+End Function
+
+' Include runtime modules (matrix, floating point) to provide Meta handlers
+#Include Once "runtime/runtime_fp_services.bas"
+#Include Once "math_extensions/runtime/runtime_matrix_services.bas"
+Declare Function JsonEsc(ByVal s As String) As String
+Declare Function OpName(ByVal op As Long) As String
+Declare Function AddrText(ByVal ak As Long, ByVal av As Long) As String
+Declare Function CellMask() As ULongInt
+Declare Function CellSignBit() As ULongInt
+Declare Function ToSigned(ByVal v As ULongInt) As LongInt
+Declare Function FromSigned(ByVal v As LongInt) As ULongInt
+Declare Function IsSigned() As Long
+Declare Function ScaleFactor() As LongInt
+Declare Function ClampCell(ByVal v As Double) As ULongInt
+Declare Function GetJsonValue(ByVal js As String, ByVal key As String) As String
+Declare Function ReadAllText(ByVal fn As String) As String
+Declare Sub RunIDECommand(ByVal fn As String)
 Sub Main()
     Dim cmd As String
     Dim srcFile As String
@@ -1330,7 +1421,41 @@ Sub WriteAddr(ByVal ak As Long, ByVal av As Long, ByVal v As ULongInt)
     Flags=Flags Or FLAG_DIRTY
 End Sub
 Sub MetaCall(ByVal id As Long)
-    If id<20 Then MetaCore id ElseIf id<40 Then MetaArith id ElseIf id<60 Then MetaMath id ElseIf id<80 Then MetaIO id ElseIf id<90 Then MetaPtrMem id ElseIf id<128 Then MetaFifoDataSort id Else SetStatus STATUS_INVALID_META
+    If id<20 Then
+        MetaCore id
+    ElseIf id<40 Then
+        MetaArith id
+    ElseIf id<60 Then
+        MetaMath id
+    ElseIf id<80 Then
+        MetaIO id
+    ElseIf id<90 Then
+        MetaPtrMem id
+    ElseIf id<128 Then
+        MetaFifoDataSort id
+    ElseIf id>=160 And id<200 Then
+        ' Matrix meta range: prepare final-runtime compatibility context then dispatch
+        ux_ptr = Ptr
+        ux_tape_cells = TapeCells
+        ux_data_cells = DataCells
+        ux_stack_cells = StackCells
+        ux_sp = SP
+        ux_cell_bits = CellBits
+        MetaMatrix id
+        Ptr = ux_ptr
+    ElseIf id>=200 And id<240 Then
+        ' Floating-point meta range
+        ux_ptr = Ptr
+        ux_tape_cells = TapeCells
+        ux_data_cells = DataCells
+        ux_stack_cells = StackCells
+        ux_sp = SP
+        ux_cell_bits = CellBits
+        MetaFloatingPoint id
+        Ptr = ux_ptr
+    Else
+        SetStatus STATUS_INVALID_META
+    End If
 End Sub
 Sub MetaCore(ByVal id As Long)
     Dim r As ULongInt
