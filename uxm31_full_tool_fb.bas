@@ -212,6 +212,7 @@ Declare Sub MetaMath(ByVal id As Long)
 Declare Sub MetaIO(ByVal id As Long)
 Declare Sub MetaPtrMem(ByVal id As Long)
 Declare Sub MetaFifoDataSort(ByVal id As Long)
+Declare Sub MetaFlagsEndian(ByVal id As Long)
 Declare Sub WildLayoutChange()
 Declare Sub FifoPush(ByVal v As ULongInt)
 Declare Function FifoPop() As ULongInt
@@ -1444,6 +1445,16 @@ Sub MetaCall(ByVal id As Long)
         ux_cell_bits = CellBits
         MetaMatrix id
         Ptr = ux_ptr
+    ElseIf id>=120 And id<160 Then
+        ' Flags / Endian / small platform metas
+        ux_ptr = Ptr
+        ux_tape_cells = TapeCells
+        ux_data_cells = DataCells
+        ux_stack_cells = StackCells
+        ux_sp = SP
+        ux_cell_bits = CellBits
+        MetaFlagsEndian id
+        Ptr = ux_ptr
     ElseIf id>=200 And id<240 Then
         ' Floating-point meta range
         ux_ptr = Ptr
@@ -1604,6 +1615,151 @@ Sub MetaMath(ByVal id As Long)
         SetLogicFlags Tape(Ptr+1)
         SetStatus STATUS_OK
     Case Else:SetStatus STATUS_INVALID_META
+    End Select
+End Sub
+
+Function IsBigEndian() As Long
+    If (Flags And FLAG_END)<>0 Then
+        Return 1
+    Else
+        Return 0
+    End If
+End Function
+
+Sub MetaFlagsEndian(ByVal id As Long)
+    Dim a As ULongInt
+    Dim b As ULongInt
+    Dim r As ULongInt
+    a = Arg1()
+    b = Arg2()
+    Select Case id
+    Case 120
+        Flags = Flags And Not FLAG_SGN
+        SetStatus STATUS_OK
+    Case 121
+        Flags = Flags Or FLAG_SGN
+        SetStatus STATUS_OK
+    Case 122
+        If IsSigned() Then SetResult 1 Else SetResult 0
+        SetLogicFlags ResultValue()
+        SetStatus STATUS_OK
+    Case 130
+        If a = b Then r = 1 Else r = 0
+        SetResult r
+        SetCompareFlags a, b
+        SetStatus STATUS_OK
+    Case 131
+        If a > b Then r = 1 Else r = 0
+        SetResult r
+        SetCompareFlags a, b
+        SetStatus STATUS_OK
+    Case 132
+        If a < b Then r = 1 Else r = 0
+        SetResult r
+        SetCompareFlags a, b
+        SetStatus STATUS_OK
+    Case 133
+        If ToSigned(a) = ToSigned(b) Then r = 1 Else r = 0
+        SetResult r
+        SetCompareFlags a, b
+        SetStatus STATUS_OK
+    Case 134
+        If ToSigned(a) > ToSigned(b) Then r = 1 Else r = 0
+        SetResult r
+        SetCompareFlags a, b
+        SetStatus STATUS_OK
+    Case 135
+        If ToSigned(a) < ToSigned(b) Then r = 1 Else r = 0
+        SetResult r
+        SetCompareFlags a, b
+        SetStatus STATUS_OK
+    Case 140
+        If (Flags And FLAG_C)<>0 Then SetResult 1 Else SetResult 0
+        SetLogicFlags ResultValue()
+        SetStatus STATUS_OK
+    Case 141
+        Flags = Flags Or FLAG_C
+        SetStatus STATUS_OK
+    Case 142
+        Flags = Flags And Not FLAG_C
+        SetStatus STATUS_OK
+    Case 143
+        If (Flags And FLAG_O)<>0 Then SetResult 1 Else SetResult 0
+        SetLogicFlags ResultValue()
+        SetStatus STATUS_OK
+    Case 144
+        Flags = Flags Or FLAG_O
+        SetStatus STATUS_OK
+    Case 145
+        Flags = Flags And Not FLAG_O
+        SetStatus STATUS_OK
+    Case 146
+        If (Flags And FLAG_Z)<>0 Then SetResult 1 Else SetResult 0
+        SetLogicFlags ResultValue()
+        SetStatus STATUS_OK
+    Case 147
+        If (Flags And FLAG_S)<>0 Then SetResult 1 Else SetResult 0
+        SetLogicFlags ResultValue()
+        SetStatus STATUS_OK
+    Case 148
+        Flags = Flags And Not (FLAG_Z Or FLAG_C Or FLAG_O Or FLAG_S)
+        SetStatus STATUS_OK
+    Case 149
+        SetResult Flags
+        SetLogicFlags ResultValue()
+        SetStatus STATUS_OK
+    Case 150
+        Flags = Flags And Not FLAG_END
+        SetStatus STATUS_OK
+    Case 151
+        Flags = Flags Or FLAG_END
+        SetStatus STATUS_OK
+    Case 152
+        If IsBigEndian() Then SetResult 1 Else SetResult 0
+        SetLogicFlags ResultValue()
+        SetStatus STATUS_OK
+    Case 153
+        If IsBigEndian() Then
+            WriteTape(CLngInt(ux_ptr)+1,(b Shr 8) And &HFF)
+            WriteTape(CLngInt(ux_ptr)+2,b And &HFF)
+        Else
+            WriteTape(CLngInt(ux_ptr)+1,b And &HFF)
+            WriteTape(CLngInt(ux_ptr)+2,(b Shr 8) And &HFF)
+        End If
+        SetStatus STATUS_OK
+    Case 154
+        If IsBigEndian() Then
+            r = ((ReadTape(CLngInt(ux_ptr)+1) And &HFF) Shl 8) Or (ReadTape(CLngInt(ux_ptr)+2) And &HFF)
+        Else
+            r = (ReadTape(CLngInt(ux_ptr)+1) And &HFF) Or ((ReadTape(CLngInt(ux_ptr)+2) And &HFF) Shl 8)
+        End If
+        SetResult r
+        SetLogicFlags r
+        SetStatus STATUS_OK
+    Case 155
+        If IsBigEndian() Then
+            WriteTape(CLngInt(ux_ptr)+1,(b Shr 24) And &HFF)
+            WriteTape(CLngInt(ux_ptr)+2,(b Shr 16) And &HFF)
+            WriteTape(CLngInt(ux_ptr)+3,(b Shr 8) And &HFF)
+            WriteTape(CLngInt(ux_ptr)+4,b And &HFF)
+        Else
+            WriteTape(CLngInt(ux_ptr)+1,b And &HFF)
+            WriteTape(CLngInt(ux_ptr)+2,(b Shr 8) And &HFF)
+            WriteTape(CLngInt(ux_ptr)+3,(b Shr 16) And &HFF)
+            WriteTape(CLngInt(ux_ptr)+4,(b Shr 24) And &HFF)
+        End If
+        SetStatus STATUS_OK
+    Case 156
+        If IsBigEndian() Then
+            r = ((ReadTape(CLngInt(ux_ptr)+1) And &HFF) Shl 24) Or ((ReadTape(CLngInt(ux_ptr)+2) And &HFF) Shl 16) Or ((ReadTape(CLngInt(ux_ptr)+3) And &HFF) Shl 8) Or (ReadTape(CLngInt(ux_ptr)+4) And &HFF)
+        Else
+            r = (ReadTape(CLngInt(ux_ptr)+1) And &HFF) Or ((ReadTape(CLngInt(ux_ptr)+2) And &HFF) Shl 8) Or ((ReadTape(CLngInt(ux_ptr)+3) And &HFF) Shl 16) Or ((ReadTape(CLngInt(ux_ptr)+4) And &HFF) Shl 24)
+        End If
+        SetResult r
+        SetLogicFlags r
+        SetStatus STATUS_OK
+    Case Else
+        SetStatus STATUS_INVALID_META
     End Select
 End Sub
 Sub MetaIO(ByVal id As Long)
