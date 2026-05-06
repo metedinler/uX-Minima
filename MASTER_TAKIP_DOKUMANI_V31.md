@@ -219,7 +219,7 @@ Tamamlandi:
 
 Kalan:
 
-1. Faz 5 kapsaminda release notu uretim adiminin otomasyonu.
+1. Yok.
 
 Tamamlanan ek maddeler (2026-05-06 devam):
 
@@ -228,3 +228,4 @@ Tamamlanan ek maddeler (2026-05-06 devam):
 3. Parity ciktilari hem `uxm31_matrix_out` hem CSV paketinde eszamanli tutuldu.
 4. Duplicate NO satirlari icin otorite secimi ve git-mv esitleme manifestleri uretildi.
 5. `gitmv_esitleme_manifest.csv` PENDING adimlari fiilen `git mv` ile uygulandi ve `DONE` durumuna cekildi.
+6. Faz 5 release notu uretim otomasyonu `run_release_notes.bat` ile calistirildi ve `build/release_notes_auto.md` uretildi.
