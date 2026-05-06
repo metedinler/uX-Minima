@@ -126,6 +126,7 @@ Declare Sub MetaMath(ByVal metaId As ULongInt)
 Declare Sub MetaIO(ByVal metaId As ULongInt)
 Declare Sub MetaPointerMemory(ByVal metaId As ULongInt)
 Declare Sub MetaFifoDataSortWild(ByVal metaId As ULongInt)
+Declare Sub MetaFlagsEndian(ByVal metaId As ULongInt)
 Declare Sub MetaFloatingPoint(ByVal metaId As ULongInt)
 Declare Sub MetaMathExtra(ByVal metaId As ULongInt)
 Declare Sub MetaMatrix(ByVal metaId As ULongInt)
@@ -760,6 +761,8 @@ ElseIf metaId<90 Then
 MetaPointerMemory metaId
 ElseIf metaId<128 Then
 MetaFifoDataSortWild metaId
+ElseIf metaId>=150 And metaId<=159 Then
+	MetaFlagsEndian metaId
 ElseIf metaId>=160 And metaId<=199 Then
 MetaMatrix metaId
 ElseIf metaId>=200 And metaId<=239 Then
@@ -1259,6 +1262,142 @@ Case 127
 WildLayoutChange()
 Case Else
 SetStatus STATUS_INVALID_META
+End Select
+End Sub
+Sub MetaFlagsEndian(ByVal metaId As ULongInt)
+Dim a As ULongInt
+Dim b As ULongInt
+Dim r As ULongInt
+a=Arg1()
+b=Arg2()
+Select Case metaId
+Case 120
+	ux_flags=ux_flags And Not FLAG_SGN
+	SetStatus STATUS_OK
+Case 121
+	ux_flags=ux_flags Or FLAG_SGN
+	SetStatus STATUS_OK
+Case 122
+	If IsSignedMode() Then SetResult 1 Else SetResult 0
+	SetLogicFlags ResultValue()
+	SetStatus STATUS_OK
+Case 130
+	If a=b Then r=1 Else r=0
+	SetResult r
+	SetCompareFlags a,b
+	SetStatus STATUS_OK
+Case 131
+	If a>b Then r=1 Else r=0
+	SetResult r
+	SetCompareFlags a,b
+	SetStatus STATUS_OK
+Case 132
+	If a<b Then r=1 Else r=0
+	SetResult r
+	SetCompareFlags a,b
+	SetStatus STATUS_OK
+Case 133
+	If ToSignedValue(a)=ToSignedValue(b) Then r=1 Else r=0
+	SetResult r
+	SetCompareFlags a,b
+	SetStatus STATUS_OK
+Case 134
+	If ToSignedValue(a)>ToSignedValue(b) Then r=1 Else r=0
+	SetResult r
+	SetCompareFlags a,b
+	SetStatus STATUS_OK
+Case 135
+	If ToSignedValue(a)<ToSignedValue(b) Then r=1 Else r=0
+	SetResult r
+	SetCompareFlags a,b
+	SetStatus STATUS_OK
+Case 140
+	If (ux_flags And FLAG_C)<>0 Then SetResult 1 Else SetResult 0
+	SetLogicFlags ResultValue()
+	SetStatus STATUS_OK
+Case 141
+	ux_flags=ux_flags Or FLAG_C
+	SetStatus STATUS_OK
+Case 142
+	ux_flags=ux_flags And Not FLAG_C
+	SetStatus STATUS_OK
+Case 143
+	If (ux_flags And FLAG_O)<>0 Then SetResult 1 Else SetResult 0
+	SetLogicFlags ResultValue()
+	SetStatus STATUS_OK
+Case 144
+	ux_flags=ux_flags Or FLAG_O
+	SetStatus STATUS_OK
+Case 145
+	ux_flags=ux_flags And Not FLAG_O
+	SetStatus STATUS_OK
+Case 146
+	If (ux_flags And FLAG_Z)<>0 Then SetResult 1 Else SetResult 0
+	SetLogicFlags ResultValue()
+	SetStatus STATUS_OK
+Case 147
+	If (ux_flags And FLAG_S)<>0 Then SetResult 1 Else SetResult 0
+	SetLogicFlags ResultValue()
+	SetStatus STATUS_OK
+Case 148
+	ux_flags=ux_flags And Not (FLAG_Z Or FLAG_C Or FLAG_O Or FLAG_S)
+	SetStatus STATUS_OK
+Case 149
+	SetResult ux_flags
+	SetLogicFlags ResultValue()
+	SetStatus STATUS_OK
+Case 150
+	ux_flags=ux_flags And Not FLAG_END
+	SetStatus STATUS_OK
+Case 151
+	ux_flags=ux_flags Or FLAG_END
+	SetStatus STATUS_OK
+Case 152
+	If IsBigEndian() Then SetResult 1 Else SetResult 0
+	SetLogicFlags ResultValue()
+	SetStatus STATUS_OK
+Case 153
+	If IsBigEndian() Then
+		WriteTapeRel 1,(b Shr 8) And &HFF
+		WriteTapeRel 2,b And &HFF
+	Else
+		WriteTapeRel 1,b And &HFF
+		WriteTapeRel 2,(b Shr 8) And &HFF
+	End If
+	SetStatus STATUS_OK
+Case 154
+	If IsBigEndian() Then
+		r=((ReadTapeRel(1) And &HFF) Shl 8) Or (ReadTapeRel(2) And &HFF)
+	Else
+		r=(ReadTapeRel(1) And &HFF) Or ((ReadTapeRel(2) And &HFF) Shl 8)
+	End If
+	SetResult r
+	SetLogicFlags r
+	SetStatus STATUS_OK
+Case 155
+	If IsBigEndian() Then
+		WriteTapeRel 1,(b Shr 24) And &HFF
+		WriteTapeRel 2,(b Shr 16) And &HFF
+		WriteTapeRel 3,(b Shr 8) And &HFF
+		WriteTapeRel 4,b And &HFF
+	Else
+		WriteTapeRel 1,b And &HFF
+		WriteTapeRel 2,(b Shr 8) And &HFF
+		WriteTapeRel 3,(b Shr 16) And &HFF
+		WriteTapeRel 4,(b Shr 24) And &HFF
+	End If
+	SetStatus STATUS_OK
+Case 156
+	If IsBigEndian() Then
+		r=((ReadTapeRel(1) And &HFF) Shl 24) Or ((ReadTapeRel(2) And &HFF) Shl 16) Or ((ReadTapeRel(3) And &HFF) Shl 8) Or (ReadTapeRel(4) And &HFF)
+	Else
+		r=(ReadTapeRel(1) And &HFF) Or ((ReadTapeRel(2) And &HFF) Shl 8) Or ((ReadTapeRel(3) And &HFF) Shl 16) Or ((ReadTapeRel(4) And &HFF) Shl 24)
+	End If
+	SetResult r
+	SetLogicFlags r
+	SetStatus STATUS_OK
+Case Else
+	SetStatus STATUS_INVALID_META
 End Select
 End Sub
 #Include Once "runtime/runtime_fp_services.bas"
