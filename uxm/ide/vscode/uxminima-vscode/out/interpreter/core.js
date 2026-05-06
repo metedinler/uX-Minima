@@ -658,10 +658,10 @@ class UxmInterpreter {
         }
     }
     meta(id, forceHost = false) {
-        if (id >= 128 && id <= 255) {
+        if (id >= 128 && id <= 149) {
             const reason = forceHost
                 ? "@!N host meta cagrisi internal yorumlayicida uygulanmadi"
-                : "128..255 araliginda host/macro servis runtime olarak uygulanmadi";
+                : "128..149 araliginda host/macro servis runtime olarak uygulanmadi";
             this.markUnsupportedMeta(id, reason);
             return;
         }
@@ -1098,6 +1098,59 @@ class UxmInterpreter {
             case 125:
                 result = (this.flags & 0x20) ? 1 : 0;
                 break;
+            case 150:
+                this.flags &= ~0x20;
+                this.setStatus(0);
+                break;
+            case 151:
+                this.flags |= 0x20;
+                this.setStatus(0);
+                break;
+            case 152:
+                result = (this.flags & 0x20) ? 1 : 0;
+                break;
+            case 153:
+                if ((this.flags & 0x20) !== 0) {
+                    this.writeTape(this.ptr + 1, (arg2 >>> 8) & 0xff);
+                    this.writeTape(this.ptr + 2, arg2 & 0xff);
+                }
+                else {
+                    this.writeTape(this.ptr + 1, arg2 & 0xff);
+                    this.writeTape(this.ptr + 2, (arg2 >>> 8) & 0xff);
+                }
+                this.setStatus(0);
+                break;
+            case 154:
+                if ((this.flags & 0x20) !== 0) {
+                    result = ((this.readTape(this.ptr + 1) & 0xff) << 8) | (this.readTape(this.ptr + 2) & 0xff);
+                }
+                else {
+                    result = (this.readTape(this.ptr + 1) & 0xff) | ((this.readTape(this.ptr + 2) & 0xff) << 8);
+                }
+                break;
+            case 155:
+                if ((this.flags & 0x20) !== 0) {
+                    this.writeTape(this.ptr + 1, (arg2 >>> 24) & 0xff);
+                    this.writeTape(this.ptr + 2, (arg2 >>> 16) & 0xff);
+                    this.writeTape(this.ptr + 3, (arg2 >>> 8) & 0xff);
+                    this.writeTape(this.ptr + 4, arg2 & 0xff);
+                }
+                else {
+                    this.writeTape(this.ptr + 1, arg2 & 0xff);
+                    this.writeTape(this.ptr + 2, (arg2 >>> 8) & 0xff);
+                    this.writeTape(this.ptr + 3, (arg2 >>> 16) & 0xff);
+                    this.writeTape(this.ptr + 4, (arg2 >>> 24) & 0xff);
+                }
+                this.setStatus(0);
+                break;
+            case 156:
+                if ((this.flags & 0x20) !== 0) {
+                    result = ((this.readTape(this.ptr + 1) & 0xff) << 24) | ((this.readTape(this.ptr + 2) & 0xff) << 16) | ((this.readTape(this.ptr + 3) & 0xff) << 8) | (this.readTape(this.ptr + 4) & 0xff);
+                }
+                else {
+                    result = (this.readTape(this.ptr + 1) & 0xff) | ((this.readTape(this.ptr + 2) & 0xff) << 8) | ((this.readTape(this.ptr + 3) & 0xff) << 16) | ((this.readTape(this.ptr + 4) & 0xff) << 24);
+                }
+                break;
             case 126:
                 result = this.flags;
                 break;
@@ -1105,35 +1158,43 @@ class UxmInterpreter {
                 this.changeLayout(arg1, arg2, arg0);
                 break;
             case 160:
-                if (!this.matInit(arg1, arg2, arg0, 0, 0))
+                if (!this.matInit(this.readTape(this.ptr - 4), this.readTape(this.ptr - 3), this.readTape(this.ptr - 2), this.readTape(this.ptr - 1), this.readTape(this.ptr)))
                     this.setStatus(16);
                 else
                     this.setStatus(0);
+                result = this.status;
                 break;
             case 161:
-                if (!this.matValid(arg1))
+                if (!this.matValid(this.readTape(this.ptr - 4)))
                     this.setStatus(16);
                 else {
-                    const n = this.data[arg1 + 10] | 0;
+                    const base = this.readTape(this.ptr - 4);
+                    const n = this.data[base + 10] | 0;
                     for (let i = 0; i < n; i++)
-                        this.data[arg1 + 16 + i] = 0;
+                        this.data[base + 16 + i] = 0;
                     this.setStatus(0);
                 }
+                result = this.status;
                 break;
             case 162:
                 {
-                    const idx = this.matCellIndex(arg1, arg2, arg0);
+                    const base = this.readTape(this.ptr - 4);
+                    const row = this.readTape(this.ptr - 3);
+                    const col = this.readTape(this.ptr - 2);
+                    const val = this.readTape(this.ptr - 1);
+                    const idx = this.matCellIndex(base, row, col);
                     if (idx < 0)
                         this.setStatus(16);
                     else {
-                        this.data[idx] = this.readTape(this.ptr - 3) & this.mask();
+                        this.data[idx] = val & this.mask();
                         this.setStatus(0);
                     }
+                    result = this.status;
                 }
                 break;
             case 163:
                 {
-                    const idx = this.matCellIndex(arg1, arg2, arg0);
+                    const idx = this.matCellIndex(this.readTape(this.ptr - 4), this.readTape(this.ptr - 3), this.readTape(this.ptr - 2));
                     if (idx < 0)
                         this.setStatus(16);
                     else
@@ -1141,40 +1202,46 @@ class UxmInterpreter {
                 }
                 break;
             case 164:
-                if (!this.matValid(arg1))
+                if (!this.matValid(this.readTape(this.ptr - 4)))
                     this.setStatus(16);
                 else {
-                    const n = this.data[arg1 + 10] | 0;
+                    const base = this.readTape(this.ptr - 4);
+                    const n = this.data[base + 10] | 0;
                     const v = this.readTape(this.ptr - 3) & this.mask();
                     for (let i = 0; i < n; i++)
-                        this.data[arg1 + 16 + i] = v;
+                        this.data[base + 16 + i] = v;
                     this.setStatus(0);
                 }
+                result = this.status;
                 break;
             case 165:
-                if (!this.matValid(arg1) || !this.matValid(arg2))
+                if (!this.matValid(this.readTape(this.ptr - 4)) || !this.matValid(this.readTape(this.ptr - 3)))
                     this.setStatus(16);
                 else {
-                    const n = this.data[arg2 + 10] | 0;
-                    if ((this.data[arg1 + 10] | 0) !== n)
+                    const dst = this.readTape(this.ptr - 4);
+                    const src = this.readTape(this.ptr - 3);
+                    const n = this.data[src + 10] | 0;
+                    if ((this.data[dst + 10] | 0) !== n)
                         this.setStatus(16);
                     else {
                         for (let i = 0; i < n; i++)
-                            this.data[arg1 + 16 + i] = this.data[arg2 + 16 + i] ?? 0;
+                            this.data[dst + 16 + i] = this.data[src + 16 + i] ?? 0;
                         this.setStatus(0);
                     }
                 }
+                result = this.status;
                 break;
             case 166:
-                if (!this.matValid(arg1))
+                if (!this.matValid(this.readTape(this.ptr - 3)))
                     this.setStatus(16);
                 else {
-                    const rows = this.data[arg1 + 5] | 0;
-                    const cols = this.data[arg1 + 6] | 0;
+                    const base = this.readTape(this.ptr - 3);
+                    const rows = this.data[base + 5] | 0;
+                    const cols = this.data[base + 6] | 0;
                     for (let r = 0; r < rows; r++) {
                         let line = "[";
                         for (let c = 0; c < cols; c++) {
-                            const idx = this.matCellIndex(arg1, r, c);
+                            const idx = this.matCellIndex(base, r, c);
                             if (c > 0)
                                 line += " ";
                             line += String(this.toSignedCell(this.data[idx] ?? 0));
@@ -1186,138 +1253,171 @@ class UxmInterpreter {
                 break;
             case 167:
             case 168:
-                if (!this.matValid(arg1) || !this.matValid(arg2) || !this.matValid(arg0))
+                if (!this.matValid(this.readTape(this.ptr - 4)) || !this.matValid(this.readTape(this.ptr - 3)) || !this.matValid(this.readTape(this.ptr - 2)))
                     this.setStatus(16);
                 else {
-                    const n = this.data[arg1 + 10] | 0;
-                    if ((this.data[arg2 + 10] | 0) !== n || (this.data[arg0 + 10] | 0) !== n)
+                    const dst = this.readTape(this.ptr - 4);
+                    const aBase = this.readTape(this.ptr - 3);
+                    const bBase = this.readTape(this.ptr - 2);
+                    const n = this.data[dst + 10] | 0;
+                    if ((this.data[aBase + 10] | 0) !== n || (this.data[bBase + 10] | 0) !== n)
                         this.setStatus(16);
                     else {
                         for (let i = 0; i < n; i++) {
-                            const lv = this.toSignedCell(this.data[arg2 + 16 + i] ?? 0);
-                            const rv = this.toSignedCell(this.data[arg0 + 16 + i] ?? 0);
-                            this.data[arg1 + 16 + i] = (id === 167 ? lv + rv : lv - rv) & this.mask();
+                            const lv = this.toSignedCell(this.data[aBase + 16 + i] ?? 0);
+                            const rv = this.toSignedCell(this.data[bBase + 16 + i] ?? 0);
+                            this.data[dst + 16 + i] = (id === 167 ? lv + rv : lv - rv) & this.mask();
                         }
                         this.setStatus(0);
                     }
                 }
+                result = this.status;
                 break;
             case 169:
-                if (!this.matValid(arg1) || !this.matValid(arg2))
+                if (!this.matValid(this.readTape(this.ptr - 4)) || !this.matValid(this.readTape(this.ptr - 3)))
                     this.setStatus(16);
                 else {
-                    const n = this.data[arg1 + 10] | 0;
-                    if ((this.data[arg2 + 10] | 0) !== n)
+                    const dst = this.readTape(this.ptr - 4);
+                    const src = this.readTape(this.ptr - 3);
+                    const scalar = this.readTape(this.ptr - 2);
+                    const n = this.data[dst + 10] | 0;
+                    if ((this.data[src + 10] | 0) !== n)
                         this.setStatus(16);
                     else {
                         const s = this.toSignedCell(arg0);
                         for (let i = 0; i < n; i++)
-                            this.data[arg1 + 16 + i] = (this.toSignedCell(this.data[arg2 + 16 + i] ?? 0) * s) & this.mask();
+                            this.data[dst + 16 + i] = (this.toSignedCell(this.data[src + 16 + i] ?? 0) * this.toSignedCell(scalar)) & this.mask();
                         this.setStatus(0);
                     }
                 }
+                result = this.status;
                 break;
             case 170:
-                if (!this.matValid(arg1) || !this.matValid(arg2) || !this.matValid(arg0))
+                if (!this.matValid(this.readTape(this.ptr - 4)) || !this.matValid(this.readTape(this.ptr - 3)) || !this.matValid(this.readTape(this.ptr - 2)))
                     this.setStatus(16);
                 else {
-                    const ar = this.data[arg2 + 5] | 0;
-                    const ac = this.data[arg2 + 6] | 0;
-                    const br = this.data[arg0 + 5] | 0;
-                    const bc = this.data[arg0 + 6] | 0;
-                    if (ac !== br || (this.data[arg1 + 5] | 0) !== ar || (this.data[arg1 + 6] | 0) !== bc)
+                    const dst = this.readTape(this.ptr - 4);
+                    const aBase = this.readTape(this.ptr - 3);
+                    const bBase = this.readTape(this.ptr - 2);
+                    const ar = this.data[aBase + 5] | 0;
+                    const ac = this.data[aBase + 6] | 0;
+                    const br = this.data[bBase + 5] | 0;
+                    const bc = this.data[bBase + 6] | 0;
+                    if (ac !== br || (this.data[dst + 5] | 0) !== ar || (this.data[dst + 6] | 0) !== bc)
                         this.setStatus(16);
                     else {
                         for (let r = 0; r < ar; r++)
                             for (let c = 0; c < bc; c++) {
                                 let acc = 0;
                                 for (let k = 0; k < ac; k++) {
-                                    const ia = this.matCellIndex(arg2, r, k), ib = this.matCellIndex(arg0, k, c);
+                                    const ia = this.matCellIndex(aBase, r, k), ib = this.matCellIndex(bBase, k, c);
                                     acc += this.toSignedCell(this.data[ia] ?? 0) * this.toSignedCell(this.data[ib] ?? 0);
                                 }
-                                const io = this.matCellIndex(arg1, r, c);
+                                const io = this.matCellIndex(dst, r, c);
                                 this.data[io] = acc & this.mask();
                             }
                         this.setStatus(0);
                     }
                 }
+                result = this.status;
                 break;
             case 171:
-                if (!this.matValid(arg1) || !this.matValid(arg2))
+                if (!this.matValid(this.readTape(this.ptr - 4)) || !this.matValid(this.readTape(this.ptr - 3)))
                     this.setStatus(16);
                 else {
-                    const rs = this.data[arg2 + 5] | 0;
-                    const cs = this.data[arg2 + 6] | 0;
-                    if ((this.data[arg1 + 5] | 0) !== cs || (this.data[arg1 + 6] | 0) !== rs)
+                    const dst = this.readTape(this.ptr - 4);
+                    const src = this.readTape(this.ptr - 3);
+                    const rs = this.data[src + 5] | 0;
+                    const cs = this.data[src + 6] | 0;
+                    if ((this.data[dst + 5] | 0) !== cs || (this.data[dst + 6] | 0) !== rs)
                         this.setStatus(16);
                     else {
                         for (let r = 0; r < rs; r++)
                             for (let c = 0; c < cs; c++) {
-                                const s = this.matCellIndex(arg2, r, c), d = this.matCellIndex(arg1, c, r);
+                                const s = this.matCellIndex(src, r, c), d = this.matCellIndex(dst, c, r);
                                 this.data[d] = this.data[s] ?? 0;
                             }
                         this.setStatus(0);
                     }
                 }
+                result = this.status;
                 break;
             case 172:
-                if (!this.matInit(arg1, arg2, arg2, 0, 0))
+                if (!this.matInit(this.readTape(this.ptr - 4), this.readTape(this.ptr - 3), this.readTape(this.ptr - 3), this.readTape(this.ptr - 2), this.readTape(this.ptr - 1)))
                     this.setStatus(16);
                 else {
-                    for (let i = 0; i < arg2; i++) {
-                        const idx = this.matCellIndex(arg1, i, i);
+                    const base = this.readTape(this.ptr - 4);
+                    const n = this.readTape(this.ptr - 3);
+                    const typ = this.readTape(this.ptr - 2);
+                    const scale = this.readTape(this.ptr - 1);
+                    const one = typ === 2 ? Math.trunc(Math.pow(10, scale)) : 1;
+                    for (let i = 0; i < n; i++) {
+                        const idx = this.matCellIndex(base, i, i);
                         if (idx >= 0)
                             this.data[idx] = 1;
                     }
+                    for (let i = 0; i < n; i++) {
+                        const idx = this.matCellIndex(base, i, i);
+                        if (idx >= 0)
+                            this.data[idx] = one & this.mask();
+                    }
                     this.setStatus(0);
                 }
+                result = this.status;
                 break;
             case 173:
-                if (!this.matValid(arg1) || (this.data[arg1 + 5] | 0) !== (this.data[arg1 + 6] | 0))
+                if (!this.matValid(this.readTape(this.ptr - 3)) || (this.data[this.readTape(this.ptr - 3) + 5] | 0) !== (this.data[this.readTape(this.ptr - 3) + 6] | 0))
                     this.setStatus(16);
                 else {
-                    const n = this.data[arg1 + 5] | 0;
+                    const base = this.readTape(this.ptr - 3);
+                    const n = this.data[base + 5] | 0;
                     let tr = 0;
                     for (let i = 0; i < n; i++) {
-                        const idx = this.matCellIndex(arg1, i, i);
+                        const idx = this.matCellIndex(base, i, i);
                         tr += this.toSignedCell(this.data[idx] ?? 0);
                     }
                     result = tr;
                 }
                 break;
             case 174:
-                if (!this.matValid(arg1) || (this.data[arg1 + 5] | 0) !== 2 || (this.data[arg1 + 6] | 0) !== 2)
+                if (!this.matValid(this.readTape(this.ptr - 3)))
                     this.setStatus(16);
                 else {
-                    const m00 = this.toSignedCell(this.data[this.matCellIndex(arg1, 0, 0)] ?? 0);
-                    const m01 = this.toSignedCell(this.data[this.matCellIndex(arg1, 0, 1)] ?? 0);
-                    const m10 = this.toSignedCell(this.data[this.matCellIndex(arg1, 1, 0)] ?? 0);
-                    const m11 = this.toSignedCell(this.data[this.matCellIndex(arg1, 1, 1)] ?? 0);
-                    result = m00 * m11 - m01 * m10;
+                    const base = this.readTape(this.ptr - 3);
+                    this.writeTape(this.ptr + 1, this.data[base + 5] | 0);
+                    this.writeTape(this.ptr + 2, this.data[base + 6] | 0);
+                    this.setStatus(0);
+                    result = this.status;
                 }
                 break;
             case 175:
-                if (!this.matValid(arg1))
+                if (!this.matValid(this.readTape(this.ptr - 3)) || (this.data[this.readTape(this.ptr - 3) + 5] | 0) !== 2 || (this.data[this.readTape(this.ptr - 3) + 6] | 0) !== 2)
                     this.setStatus(16);
                 else {
-                    this.output += `${this.data[arg1 + 5] | 0}x${this.data[arg1 + 6] | 0}`;
-                    this.setStatus(0);
+                    const base = this.readTape(this.ptr - 3);
+                    const m00 = this.toSignedCell(this.data[this.matCellIndex(base, 0, 0)] ?? 0);
+                    const m01 = this.toSignedCell(this.data[this.matCellIndex(base, 0, 1)] ?? 0);
+                    const m10 = this.toSignedCell(this.data[this.matCellIndex(base, 1, 0)] ?? 0);
+                    const m11 = this.toSignedCell(this.data[this.matCellIndex(base, 1, 1)] ?? 0);
+                    result = m00 * m11 - m01 * m10;
                 }
                 break;
             case 176:
-                if (!this.matValid(arg1))
+                if (!this.matValid(this.readTape(this.ptr - 3)))
                     this.setStatus(16);
                 else {
-                    const n = this.data[arg1 + 10] | 0;
+                    const base = this.readTape(this.ptr - 3);
+                    const n = this.data[base + 10] | 0;
                     let s = "";
                     for (let i = 0; i < n; i++) {
                         if (i)
-                            s += " ";
-                        s += String(this.toSignedCell(this.data[arg1 + 16 + i] ?? 0));
+                            s += ",";
+                        s += String(this.toSignedCell(this.data[base + 16 + i] ?? 0));
                     }
                     this.output += s;
                     this.setStatus(0);
                 }
+                result = this.status;
                 break;
             case 200:
             case 201:
@@ -1493,16 +1593,16 @@ class UxmInterpreter {
                 break;
             case 243:
                 {
-                    if ((this.data[arg1] ?? 0) !== 80) {
+                    if ((this.data[arg2] ?? 0) !== 80) {
                         this.setStatus(16);
                         break;
                     }
-                    const deg = this.data[arg1 + 2] | 0;
+                    const deg = this.data[arg2 + 2] | 0;
                     let out = "";
                     for (let i = 0; i <= deg; i++) {
                         if (i > 0)
                             out += " + ";
-                        out += String(this.toSignedCell(this.data[arg1 + 4 + i] ?? 0));
+                        out += String(this.toSignedCell(this.data[arg2 + 4 + i] ?? 0));
                         if (i > 0)
                             out += "x";
                         if (i > 1)
@@ -1519,38 +1619,11 @@ class UxmInterpreter {
                 this.setStatus(0);
                 break;
             case 245:
-                if ((this.data[arg1] ?? 0) !== 80)
-                    this.setStatus(16);
-                else
-                    result = this.data[arg1 + 2] ?? 0;
-                break;
             case 246:
-                if ((this.data[arg1] ?? 0) !== 80)
-                    this.setStatus(16);
-                else
-                    result = this.data[arg1 + 3] ?? 0;
-                break;
             case 247:
-                if ((this.data[arg1] ?? 0) !== 80)
-                    this.setStatus(16);
-                else {
-                    this.output += `POLY@${arg1} deg=${this.data[arg1 + 2] ?? 0}`;
-                    this.setStatus(0);
-                }
-                break;
             case 248:
-                if ((this.data[arg1] ?? 0) !== 69)
-                    this.setStatus(16);
-                else
-                    result = this.data[arg1 + 2] ?? 0;
-                break;
             case 249:
-                if ((this.data[arg1] ?? 0) !== 69)
-                    this.setStatus(16);
-                else {
-                    this.output += `EXPR@${arg1} tok=${this.data[arg1 + 2] ?? 0}`;
-                    this.setStatus(0);
-                }
+                this.setStatus(5);
                 break;
             case 250:
                 result = this.exprEvalRpn(arg1, this.toSignedCell(arg2));
@@ -1567,40 +1640,52 @@ class UxmInterpreter {
                 break;
             case 252:
                 {
-                    const a = this.toSignedCell(arg2);
-                    const b = this.toSignedCell(arg0);
-                    const n = 16;
+                    const exprBase = this.readTape(this.ptr - 4);
+                    const a = this.toSignedCell(this.readTape(this.ptr - 3));
+                    const b = this.toSignedCell(this.readTape(this.ptr - 2));
+                    const n = this.toSignedCell(this.readTape(this.ptr - 1));
+                    if (n <= 0) {
+                        this.setStatus(15);
+                        result = 0;
+                        break;
+                    }
                     const h = (b - a) / n;
                     let sum = 0;
                     for (let i = 0; i <= n; i++) {
                         const x = a + i * h;
                         if (i === 0 || i === n)
-                            sum += this.exprEvalRpn(arg1, Math.trunc(x));
+                            sum += this.exprEvalRpn(exprBase, Math.trunc(x));
                         else
-                            sum += 2 * this.exprEvalRpn(arg1, Math.trunc(x));
+                            sum += 2 * this.exprEvalRpn(exprBase, Math.trunc(x));
                     }
                     result = Math.trunc((sum * h) / 2);
                 }
                 break;
             case 253:
                 {
-                    const a = this.toSignedCell(arg2);
-                    const b = this.toSignedCell(arg0);
-                    const n = 16;
+                    const exprBase = this.readTape(this.ptr - 4);
+                    const a = this.toSignedCell(this.readTape(this.ptr - 3));
+                    const b = this.toSignedCell(this.readTape(this.ptr - 2));
+                    const n = this.toSignedCell(this.readTape(this.ptr - 1));
+                    if (n <= 0 || (n % 2) !== 0) {
+                        this.setStatus(5);
+                        result = 0;
+                        break;
+                    }
                     const h = (b - a) / n;
-                    let sum = this.exprEvalRpn(arg1, a) + this.exprEvalRpn(arg1, b);
+                    let sum = this.exprEvalRpn(exprBase, a) + this.exprEvalRpn(exprBase, b);
                     for (let i = 1; i < n; i++) {
                         const x = a + i * h;
                         if ((i % 2) === 0)
-                            sum += 2 * this.exprEvalRpn(arg1, Math.trunc(x));
+                            sum += 2 * this.exprEvalRpn(exprBase, Math.trunc(x));
                         else
-                            sum += 4 * this.exprEvalRpn(arg1, Math.trunc(x));
+                            sum += 4 * this.exprEvalRpn(exprBase, Math.trunc(x));
                     }
                     result = Math.trunc((sum * h) / 3);
                 }
                 break;
             case 254:
-                this.output += `[RPN @${arg1}]`;
+                this.output += `[RPN @${arg2}]`;
                 this.setStatus(0);
                 break;
             default:

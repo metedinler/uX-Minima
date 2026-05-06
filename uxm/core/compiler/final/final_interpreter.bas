@@ -314,14 +314,41 @@ Sub CallRuntimeMacro(ByVal id As Long, ByVal depth As Long)
 End Sub
 
 Sub RuntimeMeta(ByVal id As Long)
-    Dim a As ULongInt
-    Dim b As ULongInt
-    Dim c As ULongInt
+    Dim p4 As ULongInt
+    Dim p3 As ULongInt
+    Dim p2 As ULongInt
+    Dim p1 As ULongInt
+    Dim p0 As ULongInt
     Dim i As Long
+    Dim j As Long
+    Dim k As Long
+    Dim ok As Long
+    Dim idx As Long
+    Dim n As Long
+    Dim rows As Long
+    Dim cols As Long
+    Dim rowsB As Long
+    Dim colsB As Long
+    Dim r As LongInt
+    Dim v As LongInt
+    Dim av As LongInt
+    Dim bv As LongInt
+    Dim sum As LongInt
+    Dim x As LongInt
+    Dim h As LongInt
+    Dim a0 As LongInt
+    Dim b0 As LongInt
+    Dim f1 As LongInt
+    Dim f2 As LongInt
+    Dim sign As LongInt
+    Dim pow10 As LongInt
+    Dim s As String
 
-    a=ReadAddr(ADDR_T_REL,-2,0)
-    b=ReadAddr(ADDR_T_REL,-1,0)
-    c=ReadAddr(ADDR_T,0,0)
+    p4=ReadAddr(ADDR_T_REL,-4,0)
+    p3=ReadAddr(ADDR_T_REL,-3,0)
+    p2=ReadAddr(ADDR_T_REL,-2,0)
+    p1=ReadAddr(ADDR_T_REL,-1,0)
+    p0=ReadAddr(ADDR_T,0,0)
 
     Select Case id
     Case 0
@@ -330,35 +357,35 @@ Sub RuntimeMeta(ByVal id As Long)
         outputText+=Chr(10)
         SetStatus STATUS_OK
     Case 20
-        WriteAddr ADDR_T_REL,1,0,(a+b) And CellMask()
-        SetLogicFlags (a+b)
+        WriteAddr ADDR_T_REL,1,0,(p2+p1) And CellMask()
+        SetLogicFlags (p2+p1)
         SetStatus STATUS_OK
     Case 21
-        WriteAddr ADDR_T_REL,1,0,(a-b) And CellMask()
-        SetLogicFlags (a-b)
+        WriteAddr ADDR_T_REL,1,0,(p2-p1) And CellMask()
+        SetLogicFlags (p2-p1)
         SetStatus STATUS_OK
     Case 22
-        WriteAddr ADDR_T_REL,1,0,(a*b) And CellMask()
-        SetLogicFlags (a*b)
+        WriteAddr ADDR_T_REL,1,0,(p2*p1) And CellMask()
+        SetLogicFlags (p2*p1)
         SetStatus STATUS_OK
     Case 23
-        If b=0 Then
+        If p1=0 Then
             WriteAddr ADDR_T_REL,1,0,0
             SetStatus STATUS_DIV_ZERO
         Else
-            WriteAddr ADDR_T_REL,1,0,(a\b) And CellMask()
+            WriteAddr ADDR_T_REL,1,0,(p2\p1) And CellMask()
             SetStatus STATUS_OK
         End If
     Case 24
-        If b=0 Then
+        If p1=0 Then
             WriteAddr ADDR_T_REL,1,0,0
             SetStatus STATUS_DIV_ZERO
         Else
-            WriteAddr ADDR_T_REL,1,0,(a Mod b) And CellMask()
+            WriteAddr ADDR_T_REL,1,0,(p2 Mod p1) And CellMask()
             SetStatus STATUS_OK
         End If
     Case 60
-        outputText+=LTrim(Str(b))
+        outputText+=LTrim(Str(p1))
         SetStatus STATUS_OK
     Case 61
         outputText+=LTrim(Str(ReadAddr(ADDR_T_REL,1,0)))
@@ -367,10 +394,10 @@ Sub RuntimeMeta(ByVal id As Long)
         outputText+=" "
         SetStatus STATUS_OK
     Case 80
-        If b>=tapeCells Then
+        If p1>=tapeCells Then
             SetStatus STATUS_PTR_BOUNDS
         Else
-            tapePtr=b
+            tapePtr=p1
             flags Or=FLAG_PCHG
             SetStatus STATUS_OK
         End If
@@ -384,51 +411,761 @@ Sub RuntimeMeta(ByVal id As Long)
         WriteAddr ADDR_T_REL,1,0,stackCells
         SetStatus STATUS_OK
     Case 90
-        FifoPush b
+        FifoPush p1
     Case 91
         WriteAddr ADDR_T_REL,1,0,FifoPop()
         SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 92
+        WriteAddr ADDR_T_REL,1,0,FifoPeek()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
     Case 93
         WriteAddr ADDR_T_REL,1,0,fifoCount
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 94
+        fifoHead=0
+        fifoTail=0
+        fifoCount=0
         SetStatus STATUS_OK
     Case 95
-        If b>=dataCells Then
+        If p1>=dataCells Then
             SetStatus STATUS_DATA_BOUNDS
         Else
-            WriteAddr ADDR_T_REL,1,0,dataMem(b)
+            WriteAddr ADDR_T_REL,1,0,dataMem(p1)
             SetStatus STATUS_OK
         End If
     Case 96
-        If a>=dataCells Then
+        If p2>=dataCells Then
             SetStatus STATUS_DATA_BOUNDS
         Else
-            dataMem(a)=b And CellMask()
+            dataMem(p2)=p1 And CellMask()
             SetStatus STATUS_OK
         End If
-    Case 98
-        For i=0 To c-1
-            If a+i<dataCells And b+i<dataCells Then
-                dataMem(b+i)=dataMem(a+i)
+    Case 97
+        If p1>=dataCells Then
+            SetStatus STATUS_DATA_BOUNDS
+            WriteAddr ADDR_T_REL,1,0,0
+        Else
+            If dataMem(p1)>=48 And dataMem(p1)<=57 Then
+                WriteAddr ADDR_T_REL,1,0,dataMem(p1)-48
+                SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+                SetStatus STATUS_OK
+            Else
+                WriteAddr ADDR_T_REL,1,0,0
+                SetStatus STATUS_UNDERFLOW
             End If
-        Next
-        SetStatus STATUS_OK
+        End If
+    Case 98
+        DataBlockCopy p2,p1,p0
     Case 99
-        For i=0 To b-1
-            If a+i<dataCells Then dataMem(a+i)=0
-        Next
+        DataBlockClear p2,p1
+    Case 100
+        SortTape p2,p1,1
+    Case 101
+        SortTape p2,p1,0
+    Case 102
+        SortData p2,p1,1
+    Case 103
+        SortData p2,p1,0
+    Case 104
+        WriteAddr ADDR_T_REL,1,0,LinearSearchTape(p2,p1,p0)
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
         SetStatus STATUS_OK
+    Case 105
+        WriteAddr ADDR_T_REL,1,0,LinearSearchData(p2,p1,p0)
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 106
+        TapeBlockCopy p2,p1,p0
+    Case 107
+        TapeBlockClear p2,p1
     Case 120
         flags And=Not FLAG_SGN
         SetStatus STATUS_OK
     Case 121
         flags Or=FLAG_SGN
         SetStatus STATUS_OK
+    Case 122
+        If (flags And FLAG_SGN)<>0 Then
+            WriteAddr ADDR_T_REL,1,0,1
+        Else
+            WriteAddr ADDR_T_REL,1,0,0
+        End If
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 123
+        flags And=Not FLAG_END
+        SetStatus STATUS_OK
+    Case 124
+        flags Or=FLAG_END
+        SetStatus STATUS_OK
+    Case 125
+        If (flags And FLAG_END)<>0 Then
+            WriteAddr ADDR_T_REL,1,0,1
+        Else
+            WriteAddr ADDR_T_REL,1,0,0
+        End If
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
     Case 126
         WriteAddr ADDR_T_REL,1,0,flags
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
         SetStatus STATUS_OK
+
+    Case 160
+        MatrixInit p4,p3,p2,p1,p0
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 161
+        If MatIsValidI(p4)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            n=dataMem(p4+10)
+            For i=0 To n-1
+                dataMem(p4+16+i)=0
+            Next
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 162
+        idx=MatCellIndexI(p4,p3,p2,ok)
+        If ok=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            dataMem(idx)=p1 And CellMask()
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 163
+        idx=MatCellIndexI(p4,p3,p2,ok)
+        If ok=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+            WriteAddr ADDR_T_REL,1,0,0
+        Else
+            WriteAddr ADDR_T_REL,1,0,dataMem(idx)
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 164
+        If MatIsValidI(p4)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            n=dataMem(p4+10)
+            For i=0 To n-1
+                dataMem(p4+16+i)=p3 And CellMask()
+            Next
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 165
+        If MatIsValidI(p4)=0 Or MatIsValidI(p3)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            rows=MatRowsI(p3)
+            cols=MatColsI(p3)
+            MatrixInit p4,rows,cols,dataMem(p3+3),dataMem(p3+7)
+            If statusByte=STATUS_OK Then
+                n=dataMem(p3+10)
+                For i=0 To n-1
+                    dataMem(p4+16+i)=dataMem(p3+16+i)
+                Next
+            End If
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 166
+        If MatIsValidI(p3)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            rows=MatRowsI(p3)
+            cols=MatColsI(p3)
+            For i=0 To rows-1
+                s="["
+                For j=0 To cols-1
+                    idx=MatCellIndexI(p3,i,j,ok)
+                    If j>0 Then s+=" "
+                    s+=LTrim(Str(SignedCellI(dataMem(idx))))
+                Next
+                s+="]"
+                outputText+=s+Chr(10)
+            Next
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 167,168
+        If MatIsValidI(p4)=0 Or MatIsValidI(p3)=0 Or MatIsValidI(p2)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            n=dataMem(p3+10)
+            If dataMem(p2+10)<>n Or dataMem(p4+10)<>n Then
+                SetStatus STATUS_DATA_BOUNDS
+            Else
+                For i=0 To n-1
+                    av=SignedCellI(dataMem(p3+16+i))
+                    bv=SignedCellI(dataMem(p2+16+i))
+                    If id=167 Then
+                        dataMem(p4+16+i)=(av+bv) And CellMask()
+                    Else
+                        dataMem(p4+16+i)=(av-bv) And CellMask()
+                    End If
+                Next
+                SetStatus STATUS_OK
+            End If
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 169
+        If MatIsValidI(p4)=0 Or MatIsValidI(p3)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            n=dataMem(p3+10)
+            If dataMem(p4+10)<>n Then
+                SetStatus STATUS_DATA_BOUNDS
+            Else
+                For i=0 To n-1
+                    av=SignedCellI(dataMem(p3+16+i))
+                    If dataMem(p3+3)=2 Then
+                        dataMem(p4+16+i)=MatFixedMulI(av,SignedCellI(p2),dataMem(p3+7)) And CellMask()
+                    Else
+                        dataMem(p4+16+i)=(av*SignedCellI(p2)) And CellMask()
+                    End If
+                Next
+                SetStatus STATUS_OK
+            End If
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 170
+        If MatIsValidI(p4)=0 Or MatIsValidI(p3)=0 Or MatIsValidI(p2)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            rows=MatRowsI(p3)
+            cols=MatColsI(p3)
+            rowsB=MatRowsI(p2)
+            colsB=MatColsI(p2)
+            If cols<>rowsB Or MatRowsI(p4)<>rows Or MatColsI(p4)<>colsB Then
+                SetStatus STATUS_DATA_BOUNDS
+            Else
+                For i=0 To rows-1
+                    For j=0 To colsB-1
+                        sum=0
+                        For k=0 To cols-1
+                            sum+=SignedCellI(MatGetI(p3,i,k))*SignedCellI(MatGetI(p2,k,j))
+                        Next
+                        MatSetI p4,i,j,sum
+                    Next
+                Next
+                SetStatus STATUS_OK
+            End If
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 171
+        If MatIsValidI(p4)=0 Or MatIsValidI(p3)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            rows=MatRowsI(p3)
+            cols=MatColsI(p3)
+            If MatRowsI(p4)<>cols Or MatColsI(p4)<>rows Then
+                SetStatus STATUS_DATA_BOUNDS
+            Else
+                For i=0 To rows-1
+                    For j=0 To cols-1
+                        MatSetI p4,j,i,MatGetI(p3,i,j)
+                    Next
+                Next
+                SetStatus STATUS_OK
+            End If
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 172
+        MatrixInit p4,p3,p3,p2,p1
+        If statusByte=STATUS_OK Then
+            For i=0 To p3-1
+                If p2=2 Then
+                    MatSetI p4,i,i,Pow10I(p1)
+                Else
+                    MatSetI p4,i,i,1
+                End If
+            Next
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 173
+        If MatIsValidI(p3)=0 Or MatRowsI(p3)<>MatColsI(p3) Then
+            SetStatus STATUS_DATA_BOUNDS
+            WriteAddr ADDR_T_REL,1,0,0
+        Else
+            sum=0
+            For i=0 To MatRowsI(p3)-1
+                sum+=SignedCellI(MatGetI(p3,i,i))
+            Next
+            WriteAddr ADDR_T_REL,1,0,sum And CellMask()
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 174
+        If MatIsValidI(p3)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            WriteAddr ADDR_T_REL,1,0,MatRowsI(p3)
+            WriteAddr ADDR_T_REL,2,0,MatColsI(p3)
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 175
+        If MatIsValidI(p3)=0 Or MatRowsI(p3)<>2 Or MatColsI(p3)<>2 Then
+            SetStatus STATUS_DATA_BOUNDS
+            WriteAddr ADDR_T_REL,1,0,0
+        Else
+            av=SignedCellI(MatGetI(p3,0,0))
+            bv=SignedCellI(MatGetI(p3,0,1))
+            x=SignedCellI(MatGetI(p3,1,0))
+            h=SignedCellI(MatGetI(p3,1,1))
+            If dataMem(p3+3)=2 Then
+                sum=MatFixedMulI(av,h,dataMem(p3+7))-MatFixedMulI(bv,x,dataMem(p3+7))
+            Else
+                sum=av*h-bv*x
+            End If
+            WriteAddr ADDR_T_REL,1,0,sum And CellMask()
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 176
+        If MatIsValidI(p3)=0 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            n=dataMem(p3+10)
+            s=""
+            For i=0 To n-1
+                If i>0 Then s+=","
+                s+=LTrim(Str(SignedCellI(dataMem(p3+16+i))))
+            Next
+            outputText+=s+Chr(10)
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+
+    Case 200
+        FPWriteScaled p2,0
+        If p2+1<dataCells Then dataMem(p2+1)=16
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 201
+        FPWriteScaled p2,0
+        If p2+1<dataCells Then dataMem(p2+1)=32
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 202
+        FPWriteScaled p2,0
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 203
+        FPWriteScaled p2,FPReadScaled(p1)
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 204
+        FPWriteScaled p2,FPReadScaled(p2)
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 205
+        WriteAddr ADDR_T_REL,1,0,(Cast(ULongInt, CLngInt(FPReadScaled(p1)\FPScaleConst())) And CellMask())
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 206
+        If FPReadScaled(p1)=0 Then
+            WriteAddr ADDR_T_REL,1,0,1
+        Else
+            WriteAddr ADDR_T_REL,1,0,0
+        End If
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 207
+        If FPReadScaled(p1)=0 Then
+            WriteAddr ADDR_T_REL,1,0,0
+        ElseIf FPReadScaled(p1)<0 Then
+            WriteAddr ADDR_T_REL,1,0,CellMask()
+        Else
+            WriteAddr ADDR_T_REL,1,0,1
+        End If
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 208
+        WriteAddr ADDR_T_REL,1,0,(Cast(ULongInt, Abs(CLngInt(FPReadScaled(p1)\FPScaleConst()))) And CellMask())
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 209
+        outputText+="FP RAW base="+LTrim(Str(p1))+" v="+LTrim(Str(FPReadScaled(p1)))
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 210
+        FPWriteScaled p2,FPReadScaled(p1)+FPReadScaled(p0)
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 211
+        FPWriteScaled p2,FPReadScaled(p1)-FPReadScaled(p0)
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 212
+        FPWriteScaled p2,(FPReadScaled(p1)*FPReadScaled(p0))\FPScaleConst()
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 213
+        If FPReadScaled(p0)=0 Then
+            SetStatus STATUS_DIV_ZERO
+            WriteAddr ADDR_T_REL,1,0,STATUS_DIV_ZERO
+        Else
+            FPWriteScaled p2,(FPReadScaled(p1)*FPScaleConst())\FPReadScaled(p0)
+            SetStatus STATUS_OK
+            WriteAddr ADDR_T_REL,1,0,0
+        End If
+    Case 214
+        If FPReadScaled(p1)=FPReadScaled(p0) Then
+            WriteAddr ADDR_T_REL,1,0,0
+        ElseIf FPReadScaled(p1)>FPReadScaled(p0) Then
+            WriteAddr ADDR_T_REL,1,0,1
+        Else
+            WriteAddr ADDR_T_REL,1,0,CellMask()
+        End If
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 215
+        FPWriteScaled p2,Abs(FPReadScaled(p1))
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 216
+        FPWriteScaled p2,-FPReadScaled(p1)
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 217
+        FPWriteScaled p2,FPReadScaled(p2)
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 218
+        FPWriteScaled p2,FPReadScaled(p2)
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 219
+        FPWriteScaled p2,(FPReadScaled(p2)\FPScaleConst())*FPScaleConst()
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 220
+        FPWriteScaled p2,SignedCellI(p1)*FPScaleConst()
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 221
+        FPWriteScaled p2,CLngInt(Val(ReadDataString(p1))*FPScaleConst())
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 222
+        WriteDataString p1,LTrim(Str(FPReadScaled(p2)/FPScaleConst()))
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 223
+        outputText+=LTrim(Str(FPReadScaled(p1)/FPScaleConst()))
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+    Case 224
+        sign=SignedCellI(p1)
+        pow10=1
+        If sign>=0 Then
+            For i=1 To sign
+                pow10*=10
+            Next
+            FPWriteScaled p2,FPReadScaled(p2)*pow10
+        Else
+            For i=1 To -sign
+                pow10*=10
+            Next
+            If pow10<>0 Then FPWriteScaled p2,FPReadScaled(p2)\pow10
+        End If
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,0
+
+    Case 230,231,232,233,234
+        SetStatus STATUS_INVALID_META
+        WriteAddr ADDR_T_REL,1,0,STATUS_INVALID_META
+
+    Case 240
+        If p1<0 Or p1+4>=dataCells Or dataMem(p1)<>80 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            n=dataMem(p1+2)
+            dataMem(p2+0)=80
+            dataMem(p2+1)=1
+            dataMem(p2+3)=dataMem(p1+3)
+            If n<=0 Then
+                dataMem(p2+2)=0
+                dataMem(p2+4)=0
+            Else
+                dataMem(p2+2)=n-1
+                For i=1 To n
+                    dataMem(p2+3+i)=(SignedCellI(dataMem(p1+4+i))*i) And CellMask()
+                Next
+            End If
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 241
+        If p1<0 Or p1+4>=dataCells Or dataMem(p1)<>80 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            n=dataMem(p1+2)
+            dataMem(p2+0)=80
+            dataMem(p2+1)=1
+            dataMem(p2+2)=n+1
+            dataMem(p2+3)=dataMem(p1+3)
+            dataMem(p2+4)=p0 And CellMask()
+            For i=0 To n
+                dataMem(p2+5+i)=(SignedCellI(dataMem(p1+4+i))\(i+1)) And CellMask()
+            Next
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 242
+        If p2<0 Or p2+4>=dataCells Or dataMem(p2)<>80 Then
+            SetStatus STATUS_DATA_BOUNDS
+            WriteAddr ADDR_T_REL,1,0,0
+        Else
+            n=dataMem(p2+2)
+            sum=0
+            For i=n To 0 Step -1
+                sum=sum*SignedCellI(p1)+SignedCellI(dataMem(p2+4+i))
+            Next
+            WriteAddr ADDR_T_REL,1,0,sum And CellMask()
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 243
+        If p1<0 Or p1+4>=dataCells Or dataMem(p1)<>80 Then
+            SetStatus STATUS_DATA_BOUNDS
+        Else
+            n=dataMem(p1+2)
+            s=""
+            For i=0 To n
+                If i=0 Then
+                    s+=LTrim(Str(SignedCellI(dataMem(p1+4+i))))
+                Else
+                    s+=" + "+LTrim(Str(SignedCellI(dataMem(p1+4+i))))+"x"
+                    If i>1 Then s+="^"+LTrim(Str(i))
+                End If
+            Next
+            outputText+=s
+            SetStatus STATUS_OK
+        End If
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 244
+        For i=0 To p1-1
+            If p2+i>=0 And p2+i<dataCells Then dataMem(p2+i)=0
+        Next
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+    Case 250
+        WriteAddr ADDR_T_REL,1,0,ExprEvalRpn(p2,SignedCellI(p1)) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 251
+        h=SignedCellI(p0)
+        If h=0 Then h=1
+        f1=ExprEvalRpn(p2,SignedCellI(p1)+h)
+        f2=ExprEvalRpn(p2,SignedCellI(p1)-h)
+        WriteAddr ADDR_T_REL,1,0,((f1-f2)\(2*h)) And CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+        SetStatus STATUS_OK
+    Case 252
+        a0=SignedCellI(p3)
+        b0=SignedCellI(p2)
+        n=SignedCellI(p1)
+        If n<=0 Then
+            SetStatus STATUS_DIV_ZERO
+            WriteAddr ADDR_T_REL,1,0,0
+        Else
+            h=(b0-a0)\n
+            If h=0 Then h=1
+            sum=(ExprEvalRpn(p4,a0)+ExprEvalRpn(p4,b0))\2
+            For i=1 To n-1
+                x=a0+i*h
+                sum+=ExprEvalRpn(p4,x)
+            Next
+            WriteAddr ADDR_T_REL,1,0,(sum*h) And CellMask()
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 253
+        a0=SignedCellI(p3)
+        b0=SignedCellI(p2)
+        n=SignedCellI(p1)
+        If n<=0 Or (n Mod 2)<>0 Then
+            SetStatus STATUS_INVALID_META
+            WriteAddr ADDR_T_REL,1,0,0
+        Else
+            h=(b0-a0)\n
+            If h=0 Then h=1
+            sum=ExprEvalRpn(p4,a0)+ExprEvalRpn(p4,b0)
+            For i=1 To n-1
+                x=a0+i*h
+                If (i Mod 2)=0 Then
+                    sum+=2*ExprEvalRpn(p4,x)
+                Else
+                    sum+=4*ExprEvalRpn(p4,x)
+                End If
+            Next
+            WriteAddr ADDR_T_REL,1,0,((sum*h)\3) And CellMask()
+            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
+            SetStatus STATUS_OK
+        End If
+    Case 254
+        ExprPrintRpnI p1
+        SetStatus STATUS_OK
+        WriteAddr ADDR_T_REL,1,0,statusByte
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
     Case Else
         SetStatus STATUS_INVALID_META
     End Select
+End Sub
+
+Function SignedCellI(ByVal v As ULongInt) As LongInt
+    v=v And CellMask()
+    If cellBits=8 And (v And &H80)<>0 Then Return v-256
+    If cellBits=16 And (v And &H8000)<>0 Then Return v-65536
+    If cellBits=32 And (v And &H80000000)<>0 Then Return CLngInt(v)-4294967296
+    Return CLngInt(v)
+End Function
+
+Function Pow10I(ByVal n As Long) As LongInt
+    Dim i As Long
+    Dim p As LongInt
+    p=1
+    If n<=0 Then Return 1
+    For i=1 To n
+        p*=10
+    Next
+    Return p
+End Function
+
+Function MatIsValidI(ByVal baseAddr As Long) As Long
+    If baseAddr<0 Or baseAddr+15>=dataCells Then Return 0
+    If dataMem(baseAddr+0)<>77 Then Return 0
+    If dataMem(baseAddr+1)<>1 Then Return 0
+    If dataMem(baseAddr+2)<>2 Then Return 0
+    Return -1
+End Function
+
+Function MatRowsI(ByVal baseAddr As Long) As Long
+    Return dataMem(baseAddr+5)
+End Function
+
+Function MatColsI(ByVal baseAddr As Long) As Long
+    Return dataMem(baseAddr+6)
+End Function
+
+Function MatCellIndexI(ByVal baseAddr As Long, ByVal r As Long, ByVal c As Long, ByRef ok As Long) As Long
+    Dim rows As Long
+    Dim cols As Long
+    Dim idx As Long
+    ok=0
+    If MatIsValidI(baseAddr)=0 Then Return 0
+    rows=MatRowsI(baseAddr)
+    cols=MatColsI(baseAddr)
+    If r<0 Or c<0 Or r>=rows Or c>=cols Then Return 0
+    idx=baseAddr+dataMem(baseAddr+9)+r*dataMem(baseAddr+12)+c*dataMem(baseAddr+13)
+    If idx<0 Or idx>=dataCells Then Return 0
+    ok=-1
+    Return idx
+End Function
+
+Function MatGetI(ByVal baseAddr As Long, ByVal r As Long, ByVal c As Long) As ULongInt
+    Dim idx As Long
+    Dim ok As Long
+    idx=MatCellIndexI(baseAddr,r,c,ok)
+    If ok=0 Then Return 0
+    Return dataMem(idx)
+End Function
+
+Sub MatSetI(ByVal baseAddr As Long, ByVal r As Long, ByVal c As Long, ByVal value As LongInt)
+    Dim idx As Long
+    Dim ok As Long
+    idx=MatCellIndexI(baseAddr,r,c,ok)
+    If ok=0 Then
+        SetStatus STATUS_DATA_BOUNDS
+        Exit Sub
+    End If
+    dataMem(idx)=value And CellMask()
+End Sub
+
+Function MatFixedMulI(ByVal a As LongInt, ByVal b As LongInt, ByVal scale As Long) As LongInt
+    Dim d As LongInt
+    d=Pow10I(scale)
+    If d=0 Then d=1
+    Return (a*b)\d
+End Function
+
+Sub ExprPrintRpnI(ByVal exprBase As Long)
+    Dim tokenCount As Long
+    Dim ip As Long
+    Dim tok As LongInt
+    If exprBase<0 Or exprBase+4>=dataCells Or dataMem(exprBase)<>69 Then
+        SetStatus STATUS_DATA_BOUNDS
+        Exit Sub
+    End If
+    tokenCount=dataMem(exprBase+2)
+    ip=exprBase+4
+    Do
+        tok=SignedCellI(dataMem(ip))
+        ip+=1
+        Select Case tok
+        Case 1
+            outputText+="CONST("+LTrim(Str(SignedCellI(dataMem(ip))))+") "
+            ip+=1
+        Case 2
+            outputText+="X "
+        Case 10
+            outputText+="ADD "
+        Case 11
+            outputText+="SUB "
+        Case 12
+            outputText+="MUL "
+        Case 13
+            outputText+="DIV "
+        Case 14
+            outputText+="POW "
+        Case 20
+            outputText+="SIN "
+        Case 21
+            outputText+="COS "
+        Case 22
+            outputText+="TAN "
+        Case 23
+            outputText+="EXP "
+        Case 24
+            outputText+="LOG "
+        Case 25
+            outputText+="SQRT "
+        Case 30
+            outputText+="NEG "
+        Case 31
+            outputText+="ABS "
+        Case 99
+            outputText+="END"
+            Exit Do
+        Case Else
+            outputText+="? "
+        End Select
+        If ip>=exprBase+4+tokenCount+16 Then Exit Do
+    Loop
 End Sub
 
 Sub FifoPush(ByVal v As ULongInt)

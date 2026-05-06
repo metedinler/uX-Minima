@@ -30,6 +30,14 @@ if errorlevel 1 goto fail
 echo [1/4] UXM -> ASM: %SRC%
 uxm.exe "%SRC%" "%ASM%"
 if errorlevel 1 goto fail
+if not exist "%ASM%" (
+if exist "%ASM_AR%" (
+copy /y "%ASM_AR%" "%ASM%" >nul
+) else (
+echo HATA: ASM cikisi bulunamadi: %ASM%
+goto fail
+)
+)
 if "%ARGEPARSE_COMPAT%"=="1" copy /y "%ASM%" "%ASM_AR%" >nul
 echo [2/4] ASM -> OBJ
 %NASM% -f win64 "%ASM%" -o "%OBJ%"

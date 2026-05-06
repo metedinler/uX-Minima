@@ -4,7 +4,7 @@ set "SCRIPT_DIR=%~dp0"
 pushd "%SCRIPT_DIR%" >nul
 call build_all.bat
 if errorlevel 1 goto fail
-for %%D in (tests tests_matrix math_extensions\tests_math tests_fp) do (
+for %%D in (tests tests_matrix math_extensions\tests_math tests_fp uxm\tests\native uxm\tests\matrix uxm\tests\fp uxm\tests\math) do (
 	if exist "%%D" (
 		for %%F in (%%D\*.uxm) do (
 			echo.

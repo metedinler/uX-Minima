@@ -284,6 +284,16 @@ Declare Function ResolveIndex(ByVal ak As Long, ByVal av As Long, ByVal av2 As L
 Declare Function CellMask() As ULongInt
 Declare Function ScaleFactor() As LongInt
 Declare Function ToSignedCell(ByVal v As ULongInt) As LongInt
+Declare Function SignedCellI(ByVal v As ULongInt) As LongInt
+Declare Function Pow10I(ByVal n As Long) As LongInt
+Declare Function MatIsValidI(ByVal baseAddr As Long) As Long
+Declare Function MatRowsI(ByVal baseAddr As Long) As Long
+Declare Function MatColsI(ByVal baseAddr As Long) As Long
+Declare Function MatCellIndexI(ByVal baseAddr As Long, ByVal r As Long, ByVal c As Long, ByRef ok As Long) As Long
+Declare Function MatGetI(ByVal baseAddr As Long, ByVal r As Long, ByVal c As Long) As ULongInt
+Declare Sub MatSetI(ByVal baseAddr As Long, ByVal r As Long, ByVal c As Long, ByVal value As LongInt)
+Declare Function MatFixedMulI(ByVal a As LongInt, ByVal b As LongInt, ByVal scale As Long) As LongInt
+Declare Sub ExprPrintRpnI(ByVal exprBase As Long)
 Declare Function CellSize() As Long
 Declare Function MemSizePrefix() As String
 Declare Function Reg8(ByVal r As String) As String
