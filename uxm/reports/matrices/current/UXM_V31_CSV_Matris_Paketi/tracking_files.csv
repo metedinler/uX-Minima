@@ -20,3 +20,16 @@ uxm/core/runtime/runtime_status_flags.bas,YENI,V3 moduler runtime status/flag ka
 uxm/core/runtime/runtime_io.bas,YENI,V3 moduler runtime io/fifo katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
 uxm/core/runtime/runtime_meta_dispatch.bas,YENI,V3 moduler runtime meta dispatch katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
 uxm/core/runtime/runtime_host.bas,YENI,V3 moduler runtime host omurgasi,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/final/final_cli.bas,YENI,V3 moduler final compiler CLI katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/final/final_parser.bas,YENI,V3 moduler final compiler parser katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/final/final_math_bridge.bas,YENI,V3 moduler final compiler math bridge katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/final/final_trace_json.bas,YENI,V3 moduler final compiler trace/json katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/final/final_interpreter.bas,YENI,V3 moduler final compiler interpreter katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/final/final_asm_emit.bas,YENI,V3 moduler final compiler asm emit katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/final/final_main.bas,YENI,V3 moduler final compiler ana akis katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/ide/vscode/uxminima-vscode/src/interpreter/core.ts,YENI,VSCode interpreter core modulu,Her kod parcasi tasima sonrasi npm compile ile guncelle
+uxm/ide/vscode/uxminima-vscode/src/interpreter/parser.ts,YENI,VSCode interpreter parser yardimci modulu,Her kod parcasi tasima sonrasi npm compile ile guncelle
+uxm/ide/vscode/uxminima-vscode/src/interpreter/memory.ts,YENI,VSCode interpreter bellek yardimci modulu,Her kod parcasi tasima sonrasi npm compile ile guncelle
+uxm/ide/vscode/uxminima-vscode/src/interpreter/trace.ts,YENI,VSCode interpreter trace yardimci modulu,Her kod parcasi tasima sonrasi npm compile ile guncelle
+uxm/ide/vscode/uxminima-vscode/src/interpreter/metaRuntime.ts,YENI,VSCode interpreter meta runtime yardimci modulu,Her kod parcasi tasima sonrasi npm compile ile guncelle
+uxm/ide/vscode/uxminima-vscode/src/uxmInterpreter.ts,VAR,VSCode interpreter wrapper re-export gecis noktasi,Her kod parcasi tasima sonrasi npm compile ile guncelle
