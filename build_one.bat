@@ -1,5 +1,7 @@
 @echo off
 setlocal
+set "SCRIPT_DIR=%~dp0"
+pushd "%SCRIPT_DIR%" >nul
 set FBC64=C:\Users\mete\Downloads\BasicOyunSource\uXBasic_repo\tools\FreeBASIC-1.10.1-win64\fbc.exe
 if exist "%FBC64%" (
 set FBC=%FBC64%
@@ -8,7 +10,7 @@ set FBC=fbc
 )
 set NASM=nasm
 if "%~1"=="" goto usage
-set SRC=%~1
+set "SRC=%~f1"
 set MODE=%~2
 set ARGEPARSE_COMPAT=1
 if /I "%MODE%"=="R" set ARGEPARSE_COMPAT=0
@@ -21,8 +23,9 @@ set OBJ_AR=build\program.obj
 set EXE_AR=build\program.exe
 if not exist build mkdir build
 if not exist uxm.exe (
-echo Derleyici bulunamadi. Once build_all.bat calistir.
-goto fail
+echo Derleyici bulunamadi. build_all.bat calistiriliyor...
+call build_all.bat
+if errorlevel 1 goto fail
 )
 echo [1/4] UXM -> ASM: %SRC%
 uxm.exe "%SRC%" "%ASM%"
@@ -33,11 +36,12 @@ echo [2/4] ASM -> OBJ
 if errorlevel 1 goto fail
 if "%ARGEPARSE_COMPAT%"=="1" copy /y "%OBJ%" "%OBJ_AR%" >nul
 echo [3/4] Runtime + OBJ -> EXE
-%FBC% -x "%EXE%" uxm31_runtime_fb_full.bas "%OBJ%"
+%FBC% -x "%EXE%" "uxm\core\runtime\uxm31_runtime_fb_full.bas" "%OBJ%"
 if errorlevel 1 goto fail
 if "%ARGEPARSE_COMPAT%"=="1" copy /y "%EXE%" "%EXE_AR%" >nul
 echo [4/4] Calistiriliyor...
 "%EXE%"
+if errorlevel 1 goto fail
 if "%ARGEPARSE_COMPAT%"=="1" (
 echo [ARGE] program alias aktif: program.asm/program.obj/program.exe
 ) else (
@@ -52,5 +56,8 @@ echo     R = sadece gercek adlar; ARGE program.* alias dosyalari uretilmez.
 goto end
 :fail
 echo HATA: build_one.bat basarisiz oldu.
+popd >nul
+endlocal & exit /b 1
 :end
-endlocal
+popd >nul
+endlocal & exit /b 0

@@ -183,7 +183,8 @@ Dim Shared optEvent(1 To MAX_OPT) As TOpt
 Dim Shared optCount As Long
 Dim Shared watchList(1 To MAX_WATCH) As TWatch
 Dim Shared watchCount As Long
-Dim Shared needLabel(1 To MAX_INSTR) As Long
+Dim Shared needLabel() As Long
+Dim Shared needLabelReady As Long
 Dim Shared cellBits As Long
 Dim Shared tapeKB As Long, stackKB As Long, dataKB As Long
 Dim Shared tapeBytes As Long, stackBytes As Long, dataBytes As Long

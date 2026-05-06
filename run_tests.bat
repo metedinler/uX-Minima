@@ -1,5 +1,7 @@
 @echo off
 setlocal
+set "SCRIPT_DIR=%~dp0"
+pushd "%SCRIPT_DIR%" >nul
 call build_all.bat
 if errorlevel 1 goto fail
 for %%D in (tests tests_matrix math_extensions\tests_math tests_fp) do (
@@ -19,5 +21,8 @@ echo Tum testler bitti.
 goto end
 :fail
 echo Test zinciri hata ile durdu.
+popd >nul
+endlocal & exit /b 1
 :end
-endlocal
+popd >nul
+endlocal & exit /b 0

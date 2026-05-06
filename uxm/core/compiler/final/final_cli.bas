@@ -1,5 +1,7 @@
 ' Auto-split by V3 modularization
 Sub InitDefaults()
+    ReDim needLabel(1 To MAX_INSTR)
+    needLabelReady=-1
     inputFile="":asmFile="build\program.asm":uirFile="build\program.uir.json":diagFile="build\program.diag.json":traceFile="build\program.trace.ndjson":optFile="build\program.opt.json"
     ideInFile="":ideOutFile=""
     runMode="compile"
