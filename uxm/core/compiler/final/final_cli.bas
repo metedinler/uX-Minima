@@ -9,7 +9,7 @@ Sub InitDefaults()
     cellBits=8:tapeKB=32:stackKB=8:dataKB=24
     workMode=MODE_NORMAL:boundsOn=1:defaultSigned=0:defaultEndian=0
     pragmaSeedEnabled=0:pragmaSeedValue=0
-    flags=FLAG_BND:statusByte=0:ptr=0:sp=0:fifoHead=0:fifoTail=0:fifoCount=0
+    flags=FLAG_BND:statusByte=0:tapePtr=0:stackPtr=0:fifoHead=0:fifoTail=0:fifoCount=0
     outputText="":stepCounter=0:traceOpen=0
 End Sub
 

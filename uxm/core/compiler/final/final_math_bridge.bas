@@ -60,7 +60,7 @@ Sub MatrixInit(ByVal baseAddr As Long, ByVal rows As Long, ByVal cols As Long, B
     If baseAddr<0 Or rows<=0 Or cols<=0 Then SetStatus STATUS_DATA_BOUNDS:Exit Sub
     total=rows*cols
     If baseAddr+16+total-1>=dataCells Then SetStatus STATUS_DATA_BOUNDS:Exit Sub
-    flg=0:If typ=1 Then flg=1 ElseIf typ=2 Then flg=2
+    flg=0:If typ=1 Then flg=1 Else : If typ=2 Then flg=2
     dataMem(baseAddr+0)=77:dataMem(baseAddr+1)=1:dataMem(baseAddr+2)=2:dataMem(baseAddr+3)=typ
     dataMem(baseAddr+4)=flg:dataMem(baseAddr+5)=rows:dataMem(baseAddr+6)=cols:dataMem(baseAddr+7)=scale
     dataMem(baseAddr+8)=1:dataMem(baseAddr+9)=16:dataMem(baseAddr+10)=total:dataMem(baseAddr+11)=16+total
@@ -171,4 +171,5 @@ Function ExprEvalRpn(ByVal exprBase As Long, ByVal x As LongInt) As LongInt
     If spx<=0 Then Return 0
     Return st(spx-1)
 End Function
+
 

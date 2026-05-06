@@ -1,4 +1,3 @@
-Option Explicit
 #Lang "fb"
 ' UX-MINIMA x64 V3.1 FINAL COMPILER / TOOL
 ' Tek merkez: parse + diagnostics + UIR JSON + optimizer + interpreter + step trace + IDE protocol + ASM emitter
@@ -172,7 +171,7 @@ Dim Shared noOptimize As Long
 Dim Shared maxSteps As ULongInt
 Dim Shared hadError As Long
 Dim Shared errMsg As String
-Dim Shared instr(1 To MAX_INSTR) As TInstr
+Dim Shared progInstr(1 To MAX_INSTR) As TInstr
 Dim Shared instrCount As Long
 Dim Shared strDef(1 To MAX_STRINGS) As TStringDef
 Dim Shared strCount As Long
@@ -196,8 +195,8 @@ Dim Shared defaultSigned As Long
 Dim Shared defaultEndian As Long
 Dim Shared flags As ULongInt
 Dim Shared statusByte As ULongInt
-Dim Shared ptr As Long
-Dim Shared sp As Long
+Dim Shared tapePtr As Long
+Dim Shared stackPtr As Long
 Dim Shared fifoHead As Long, fifoTail As Long, fifoCount As Long
 Dim Shared tape(0 To 65535) As ULongInt
 Dim Shared dataMem(0 To 65535) As ULongInt
@@ -210,9 +209,6 @@ Dim Shared outFF As Integer
 Dim Shared asmLabelCounter As Long
 Dim Shared pragmaSeedEnabled As Long
 Dim Shared pragmaSeedValue As Long
-
-#Include Once "../extensions/arge_parse_math_additions.bas"
-#Include Once "../extensions/arge_parse_matrix_additions.bas"
 
 Declare Sub Main()
 Declare Sub InitDefaults()
@@ -324,6 +320,8 @@ Declare Sub WriteDataString(ByVal startCell As Long, ByVal s As String)
 Declare Function ExprEvalRpn(ByVal exprBase As Long, ByVal x As LongInt) As LongInt
 
 
+#Include Once "../extensions/arge_parse_math_additions.bas"
+#Include Once "../extensions/arge_parse_matrix_additions.bas"
 #Include Once "final_cli.bas"
 #Include Once "final_parser.bas"
 #Include Once "final_math_bridge.bas"

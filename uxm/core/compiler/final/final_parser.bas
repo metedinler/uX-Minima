@@ -4,7 +4,7 @@ Sub FirstPassDefs()
     p=1
     Do While p<=Len(src) And hadError=0
         c=Mid(src,p,1)
-        If c="#" Then SkipLine src,p ElseIf c="s" Or c="S" Then ParseStringDef src,p ElseIf c="m" Or c="M" Then ParseMacroDef src,p Else p+=1
+        If c="#" Then SkipLine src,p Else : If c="s" Or c="S" Then ParseStringDef src,p Else : If c="m" Or c="M" Then ParseMacroDef src,p Else p+=1
     Loop
 End Sub
 
@@ -14,7 +14,7 @@ Sub ParseProgram(ByRef code As String, ByVal depth As Long)
     If depth>64 Then SyntaxError "macro expansion derinliği 64'u aştı",1:Exit Sub
     p=1
     Do While p<=Len(code) And hadError=0
-        If IsSpaceC(Mid(code,p,1)) Then p+=1 ElseIf Mid(code,p,1)="#" Then SkipLine code,p ElseIf Mid(code,p,1)="s" Or Mid(code,p,1)="S" Then ParseStringDef code,p ElseIf Mid(code,p,1)="m" Or Mid(code,p,1)="M" Then ParseMacroDef code,p Else ParseOne code,p,depth
+        If IsSpaceC(Mid(code,p,1)) Then p+=1 Else : If Mid(code,p,1)="#" Then SkipLine code,p Else : If Mid(code,p,1)="s" Or Mid(code,p,1)="S" Then ParseStringDef code,p Else : If Mid(code,p,1)="m" Or Mid(code,p,1)="M" Then ParseMacroDef code,p Else ParseOne code,p,depth
     Loop
 End Sub
 
@@ -555,4 +555,5 @@ Function ParseKB(ByVal s As String, ByVal def As Long) As Long
     End If
     Return n
 End Function
+
 

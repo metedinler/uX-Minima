@@ -32,44 +32,44 @@ Sub EmitStringInitializers()
 End Sub
 
 Sub EmitInstr(ByVal i As Long)
-    Select Case instr(i).op
-    Case OP_RIGHT:If instr(i).amount=1 Then EmitLine "    inc rbx" Else EmitLine "    add rbx, "+LTrim(Str(instr(i).amount))
-    Case OP_LEFT:If instr(i).amount=1 Then EmitLine "    dec rbx" Else EmitLine "    sub rbx, "+LTrim(Str(instr(i).amount))
-    Case OP_INC:EmitAddrLoad instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitLine "    add rax, "+LTrim(Str(instr(i).amount)):EmitAddrStore instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
-    Case OP_DEC:EmitAddrLoad instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitLine "    sub rax, "+LTrim(Str(instr(i).amount)):EmitAddrStore instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
-    Case OP_SET:EmitLine "    mov rax, "+LTrim(Str(instr(i).amount)):EmitAddrStore instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
-    Case OP_CLEAR:EmitLine "    xor rax, rax":EmitAddrStore instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
-    Case OP_PUTC:EmitAddrLoad instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitLine "    mov ecx, eax":EmitLine "    call ux_putc"
-    Case OP_GETC:EmitLine "    call ux_getc":EmitAddrStore instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
-    Case OP_PUSH:EmitLine "    cmp r14, STACK_CELLS":EmitLine "    jae __ux_err_stack_over":EmitAddrLoad instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":If cellBits=8 Then EmitLine "    mov byte [r13+r14], al" ElseIf cellBits=16 Then EmitLine "    mov word [r13+r14*2], ax" Else EmitLine "    mov dword [r13+r14*4], eax":EmitLine "    inc r14"
-    Case OP_POP:EmitLine "    cmp r14,0":EmitLine "    je __ux_err_stack_under":EmitLine "    dec r14":If cellBits=8 Then EmitLine "    movzx rax, byte [r13+r14]" ElseIf cellBits=16 Then EmitLine "    movzx rax, word [r13+r14*2]" Else EmitLine "    mov eax, dword [r13+r14*4]":EmitAddrStore instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
-    Case OP_META:EmitMetaCall instr(i).metaId,instr(i).metaDyn
-    Case OP_PRINT_STRING:Dim idx As Long=FindString(instr(i).amount):EmitLine "    mov ecx, "+LTrim(Str(strDef(idx).startCell)):EmitLine "    mov edx, CELL_BITS":EmitLine "    call ux_print_data_string"
+    Select Case progInstr(i).op
+    Case OP_RIGHT:If progInstr(i).amount=1 Then EmitLine "    inc rbx" Else EmitLine "    add rbx, "+LTrim(Str(progInstr(i).amount))
+    Case OP_LEFT:If progInstr(i).amount=1 Then EmitLine "    dec rbx" Else EmitLine "    sub rbx, "+LTrim(Str(progInstr(i).amount))
+    Case OP_INC:EmitAddrLoad progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitLine "    add rax, "+LTrim(Str(progInstr(i).amount)):EmitAddrStore progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
+    Case OP_DEC:EmitAddrLoad progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitLine "    sub rax, "+LTrim(Str(progInstr(i).amount)):EmitAddrStore progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
+    Case OP_SET:EmitLine "    mov rax, "+LTrim(Str(progInstr(i).amount)):EmitAddrStore progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
+    Case OP_CLEAR:EmitLine "    xor rax, rax":EmitAddrStore progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
+    Case OP_PUTC:EmitAddrLoad progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitLine "    mov ecx, eax":EmitLine "    call ux_putc"
+    Case OP_GETC:EmitLine "    call ux_getc":EmitAddrStore progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
+    Case OP_PUSH:EmitLine "    cmp r14, STACK_CELLS":EmitLine "    jae __ux_err_stack_over":EmitAddrLoad progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":If cellBits=8 Then EmitLine "    mov byte [r13+r14], al" Else : If cellBits=16 Then EmitLine "    mov word [r13+r14*2], ax" Else EmitLine "    mov dword [r13+r14*4], eax":EmitLine "    inc r14"
+    Case OP_POP:EmitLine "    cmp r14,0":EmitLine "    je __ux_err_stack_under":EmitLine "    dec r14":If cellBits=8 Then EmitLine "    movzx rax, byte [r13+r14]" Else : If cellBits=16 Then EmitLine "    movzx rax, word [r13+r14*2]" Else EmitLine "    mov eax, dword [r13+r14*4]":EmitAddrStore progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax":EmitSetFlagsFromRAX()
+    Case OP_META:EmitMetaCall progInstr(i).metaId,progInstr(i).metaDyn
+    Case OP_PRINT_STRING:Dim idx As Long=FindString(progInstr(i).amount):EmitLine "    mov ecx, "+LTrim(Str(strDef(idx).startCell)):EmitLine "    mov edx, CELL_BITS":EmitLine "    call ux_print_data_string"
     Case OP_LOOP_BEG:EmitLine "__ux_loop_beg_"+LTrim(Str(i))+":":EmitAddrLoad ADDR_T,0,0,"rax":EmitLine "    cmp rax,0":EmitLine "    je __ux_loop_end_"+LTrim(Str(i))
-    Case OP_LOOP_END:EmitLine "    jmp __ux_loop_beg_"+LTrim(Str(instr(i).mate)):EmitLine "__ux_loop_end_"+LTrim(Str(instr(i).mate))+":"
+    Case OP_LOOP_END:EmitLine "    jmp __ux_loop_beg_"+LTrim(Str(progInstr(i).mate)):EmitLine "__ux_loop_end_"+LTrim(Str(progInstr(i).mate))+":"
     Case OP_BRANCH:EmitBranch i
-    Case OP_STATUS:EmitLine "    movzx rax, byte [ux_status]":EmitAddrStore instr(i).addrKind,instr(i).addrVal,instr(i).addrVal2,"rax"
+    Case OP_STATUS:EmitLine "    movzx rax, byte [ux_status]":EmitAddrStore progInstr(i).addrKind,progInstr(i).addrVal,progInstr(i).addrVal2,"rax"
     Case Else:EmitLine "    nop"
     End Select
 End Sub
 
 Sub EmitAddrLoad(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal regName As String)
-    EmitAddrPtr ak,av,av2,"r11":If cellBits=8 Then EmitLine "    movzx "+regName+", byte [r11]" ElseIf cellBits=16 Then EmitLine "    movzx "+regName+", word [r11]" Else EmitLine "    mov eax, dword [r11]"
+    EmitAddrPtr ak,av,av2,"r11":If cellBits=8 Then EmitLine "    movzx "+regName+", byte [r11]" Else : If cellBits=16 Then EmitLine "    movzx "+regName+", word [r11]" Else EmitLine "    mov eax, dword [r11]"
 End Sub
 
 Sub EmitAddrStore(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal regName As String)
-    EmitAddrPtr ak,av,av2,"r11":If cellBits=8 Then EmitLine "    mov byte [r11], "+Reg8(regName) ElseIf cellBits=16 Then EmitLine "    mov word [r11], "+Reg16(regName) Else EmitLine "    mov dword [r11], "+Reg32(regName)
+    EmitAddrPtr ak,av,av2,"r11":If cellBits=8 Then EmitLine "    mov byte [r11], "+Reg8(regName) Else : If cellBits=16 Then EmitLine "    mov word [r11], "+Reg16(regName) Else EmitLine "    mov dword [r11], "+Reg32(regName)
 End Sub
 
 Sub EmitAddrPtr(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal outReg As String)
     Select Case ak
-    Case ADDR_T:If cellBits=8 Then EmitLine "    lea "+outReg+", [r12+rbx]" ElseIf cellBits=16 Then EmitLine "    lea "+outReg+", [r12+rbx*2]" Else EmitLine "    lea "+outReg+", [r12+rbx*4]"
-    Case ADDR_T_REL:EmitLine "    mov r10, rbx":If av>=0 Then EmitLine "    add r10, "+LTrim(Str(av)) Else EmitLine "    sub r10, "+LTrim(Str(Abs(av))):If cellBits=8 Then EmitLine "    lea "+outReg+", [r12+r10]" ElseIf cellBits=16 Then EmitLine "    lea "+outReg+", [r12+r10*2]" Else EmitLine "    lea "+outReg+", [r12+r10*4]"
+    Case ADDR_T:If cellBits=8 Then EmitLine "    lea "+outReg+", [r12+rbx]" Else : If cellBits=16 Then EmitLine "    lea "+outReg+", [r12+rbx*2]" Else EmitLine "    lea "+outReg+", [r12+rbx*4]"
+    Case ADDR_T_REL:EmitLine "    mov r10, rbx":If av>=0 Then EmitLine "    add r10, "+LTrim(Str(av)) Else EmitLine "    sub r10, "+LTrim(Str(Abs(av))):If cellBits=8 Then EmitLine "    lea "+outReg+", [r12+r10]" Else : If cellBits=16 Then EmitLine "    lea "+outReg+", [r12+r10*2]" Else EmitLine "    lea "+outReg+", [r12+r10*4]"
     Case ADDR_T_ABS:EmitLine "    lea "+outReg+", [r12+"+LTrim(Str(av*CellSize()))+"]"
     Case ADDR_D_ABS:EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+"+LTrim(Str(av*CellSize()))+"]"
     Case ADDR_S_ABS:EmitLine "    lea "+outReg+", [r13+"+LTrim(Str(av*CellSize()))+"]"
-    Case ADDR_D_AT_T_REL:EmitAddrLoad ADDR_T,0,0,"rax":If av2>=0 Then EmitLine "    add rax, "+LTrim(Str(av2)) Else EmitLine "    sub rax, "+LTrim(Str(Abs(av2))):If cellBits=8 Then EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax]" ElseIf cellBits=16 Then EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax*2]" Else EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax*4]"
-    Case ADDR_D_AT_TBASE_REL:EmitAddrLoad ADDR_T_REL,av,0,"rax":If av2>=0 Then EmitLine "    add rax, "+LTrim(Str(av2)) Else EmitLine "    sub rax, "+LTrim(Str(Abs(av2))):If cellBits=8 Then EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax]" ElseIf cellBits=16 Then EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax*2]" Else EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax*4]"
+    Case ADDR_D_AT_T_REL:EmitAddrLoad ADDR_T,0,0,"rax":If av2>=0 Then EmitLine "    add rax, "+LTrim(Str(av2)) Else EmitLine "    sub rax, "+LTrim(Str(Abs(av2))):If cellBits=8 Then EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax]" Else : If cellBits=16 Then EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax*2]" Else EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax*4]"
+    Case ADDR_D_AT_TBASE_REL:EmitAddrLoad ADDR_T_REL,av,0,"rax":If av2>=0 Then EmitLine "    add rax, "+LTrim(Str(av2)) Else EmitLine "    sub rax, "+LTrim(Str(Abs(av2))):If cellBits=8 Then EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax]" Else : If cellBits=16 Then EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax*2]" Else EmitLine "    lea "+outReg+", [r12+DATA_OFFSET+rax*4]"
     Case Else:EmitLine "    lea "+outReg+", [r12+rbx]"
     End Select
 End Sub
@@ -105,8 +105,8 @@ Sub EmitMetaCall(ByVal id As Long, ByVal dyn As Long)
 End Sub
 
 Sub EmitBranch(ByVal i As Long)
-    Dim t As Long:t=instr(i).brTarget:EmitLine "    ; branch -> "+Str(t)
-    Select Case instr(i).brCond
+    Dim t As Long:t=progInstr(i).brTarget:EmitLine "    ; branch -> "+Str(t)
+    Select Case progInstr(i).brCond
     Case BR_ALWAYS:EmitLine "    jmp __ux_ip_"+LTrim(Str(t))
     Case BR_CUR_NZ:EmitAddrLoad ADDR_T,0,0,"rax":EmitLine "    cmp rax,0":EmitLine "    jne __ux_ip_"+LTrim(Str(t))
     Case BR_CUR_Z:EmitAddrLoad ADDR_T,0,0,"rax":EmitLine "    cmp rax,0":EmitLine "    je __ux_ip_"+LTrim(Str(t))
@@ -127,16 +127,51 @@ Sub EmitFooter()
 End Sub
 
 
-Function CellSize() As Long:If cellBits=8 Then Return 1 ElseIf cellBits=16 Then Return 2 Else Return 4:End Function
+Function CellSize() As Long
+    If cellBits=8 Then
+        Return 1
+    ElseIf cellBits=16 Then
+        Return 2
+    Else
+        Return 4
+    End If
+End Function
 
-Function MemSizePrefix() As String:If cellBits=8 Then Return "byte" ElseIf cellBits=16 Then Return "word" Else Return "dword":End Function
+Function MemSizePrefix() As String
+    If cellBits=8 Then
+        Return "byte"
+    ElseIf cellBits=16 Then
+        Return "word"
+    Else
+        Return "dword"
+    End If
+End Function
 
-Function Reg8(ByVal r As String) As String:If LCase(r)="rax" Then Return "al" Else Return "al":End Function
+Function Reg8(ByVal r As String) As String
+    If LCase(r)="rax" Then
+        Return "al"
+    End If
+    Return "al"
+End Function
 
-Function Reg16(ByVal r As String) As String:If LCase(r)="rax" Then Return "ax" Else Return "ax":End Function
+Function Reg16(ByVal r As String) As String
+    If LCase(r)="rax" Then
+        Return "ax"
+    End If
+    Return "ax"
+End Function
 
-Function Reg32(ByVal r As String) As String:If LCase(r)="rax" Then Return "eax" Else Return "eax":End Function
+Function Reg32(ByVal r As String) As String
+    If LCase(r)="rax" Then
+        Return "eax"
+    End If
+    Return "eax"
+End Function
 
-Function NewAsmId() As Long:asmLabelCounter+=1:Return asmLabelCounter:End Function
+Function NewAsmId() As Long
+    asmLabelCounter+=1
+    Return asmLabelCounter
+End Function
+
 
 
