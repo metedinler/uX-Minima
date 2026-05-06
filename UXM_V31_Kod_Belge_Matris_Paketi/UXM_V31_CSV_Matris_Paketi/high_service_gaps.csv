@@ -1,63 +1,63 @@
-Group,Service,Description,Native,Final_ARGE,Full_Tool,VSCode_Internal,All_4_Hats
-Matrix_160_176,@160,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@161,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@162,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@163,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@164,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@165,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@166,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@167,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@168,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@169,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@170,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@171,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@172,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@173,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@174,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@175,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-Matrix_160_176,@176,UX-MAT V1 matrix services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@200,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@201,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@202,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@203,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@204,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@205,UX-FP decimal/fp services,YOK,YOK,YOK,YOK,AÇIK
-FP_200_224,@206,UX-FP decimal/fp services,YOK,YOK,YOK,YOK,AÇIK
-FP_200_224,@207,UX-FP decimal/fp services,YOK,YOK,YOK,YOK,AÇIK
-FP_200_224,@208,UX-FP decimal/fp services,YOK,YOK,YOK,YOK,AÇIK
-FP_200_224,@209,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@210,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@211,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@212,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@213,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@214,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@215,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@216,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@217,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@218,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@219,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@220,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@221,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@222,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@223,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-FP_200_224,@224,UX-FP decimal/fp services,VAR,YOK,YOK,YOK,KISMEN
-Reserved_FP_230_234,@230,FP reserved/invalid,VAR,YOK,YOK,YOK,KISMEN
-Reserved_FP_230_234,@231,FP reserved/invalid,YOK,YOK,YOK,YOK,AÇIK
-Reserved_FP_230_234,@232,FP reserved/invalid,YOK,YOK,YOK,YOK,AÇIK
-Reserved_FP_230_234,@233,FP reserved/invalid,YOK,YOK,YOK,YOK,AÇIK
-Reserved_FP_230_234,@234,FP reserved/invalid,YOK,YOK,YOK,YOK,AÇIK
-Math_Derivative_Integral_240_254,@240,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@241,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@242,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@243,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@244,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@245,polinom/türev/integral/math services,YOK,YOK,YOK,YOK,AÇIK
-Math_Derivative_Integral_240_254,@246,polinom/türev/integral/math services,YOK,YOK,YOK,YOK,AÇIK
-Math_Derivative_Integral_240_254,@247,polinom/türev/integral/math services,YOK,YOK,YOK,YOK,AÇIK
-Math_Derivative_Integral_240_254,@248,polinom/türev/integral/math services,YOK,YOK,YOK,YOK,AÇIK
-Math_Derivative_Integral_240_254,@249,polinom/türev/integral/math services,YOK,YOK,YOK,YOK,AÇIK
-Math_Derivative_Integral_240_254,@250,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@251,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@252,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@253,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
-Math_Derivative_Integral_240_254,@254,polinom/türev/integral/math services,VAR,YOK,YOK,YOK,KISMEN
+"Group","Service","Description","Native","Final_ARGE","Full_Tool","VSCode_Internal","All_4_Hats"
+"Matrix_160_176","@160","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@161","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@162","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@163","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@164","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@165","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@166","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@167","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@168","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@169","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@170","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@171","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@172","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@173","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@174","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@175","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"Matrix_160_176","@176","UX-MAT V1 matrix services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@200","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@201","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@202","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@203","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@204","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@205","UX-FP decimal/fp services","YOK","YOK","YOK","YOK","AÇIK"
+"FP_200_224","@206","UX-FP decimal/fp services","YOK","YOK","YOK","YOK","AÇIK"
+"FP_200_224","@207","UX-FP decimal/fp services","YOK","YOK","YOK","YOK","AÇIK"
+"FP_200_224","@208","UX-FP decimal/fp services","YOK","YOK","YOK","YOK","AÇIK"
+"FP_200_224","@209","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@210","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@211","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@212","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@213","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@214","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@215","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@216","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@217","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@218","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@219","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@220","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@221","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@222","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@223","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"FP_200_224","@224","UX-FP decimal/fp services","VAR","VAR","YOK","VAR","KISMEN"
+"Reserved_FP_230_234","@230","FP reserved/invalid","VAR","VAR","YOK","VAR","KISMEN"
+"Reserved_FP_230_234","@231","FP reserved/invalid","YOK","VAR","YOK","VAR","KISMEN"
+"Reserved_FP_230_234","@232","FP reserved/invalid","YOK","VAR","YOK","VAR","KISMEN"
+"Reserved_FP_230_234","@233","FP reserved/invalid","YOK","VAR","YOK","VAR","KISMEN"
+"Reserved_FP_230_234","@234","FP reserved/invalid","YOK","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@240","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@241","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@242","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@243","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@244","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@245","polinom/türev/integral/math services","YOK","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@246","polinom/türev/integral/math services","YOK","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@247","polinom/türev/integral/math services","YOK","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@248","polinom/türev/integral/math services","YOK","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@249","polinom/türev/integral/math services","YOK","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@250","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@251","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@252","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@253","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"
+"Math_Derivative_Integral_240_254","@254","polinom/türev/integral/math services","VAR","VAR","YOK","VAR","KISMEN"

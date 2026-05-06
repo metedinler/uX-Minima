@@ -856,6 +856,14 @@ export class UxmInterpreter {
         break;
       case 202: this.fpWriteScaled(arg1, 0); this.setStatus(0); break;
       case 203: this.fpWriteScaled(arg1, this.fpReadScaled(arg2)); this.setStatus(0); break;
+      case 204:
+        if (arg1 + 2 >= this.data.length) this.setStatus(16);
+        else { this.data[arg1 + 2] = this.fpReadScaled(arg1) & this.mask(); this.setStatus(0); }
+        break;
+      case 209:
+        this.output += `FP RAW base=${arg1} v=${this.fpReadScaled(arg1)}`;
+        this.setStatus(0);
+        break;
       case 210: this.fpWriteScaled(arg1, this.fpReadScaled(arg2) + this.fpReadScaled(arg0)); this.setStatus(0); break;
       case 211: this.fpWriteScaled(arg1, this.fpReadScaled(arg2) - this.fpReadScaled(arg0)); this.setStatus(0); break;
       case 212: this.fpWriteScaled(arg1, Math.trunc((this.fpReadScaled(arg2) * this.fpReadScaled(arg0)) / this.fpScaleConst())); this.setStatus(0); break;
@@ -868,6 +876,11 @@ export class UxmInterpreter {
         else if (this.fpReadScaled(arg2) > this.fpReadScaled(arg0)) result = 1;
         else result = this.mask();
         break;
+      case 215: this.fpWriteScaled(arg1, Math.abs(this.fpReadScaled(arg2))); this.setStatus(0); break;
+      case 216: this.fpWriteScaled(arg1, -this.fpReadScaled(arg2)); this.setStatus(0); break;
+      case 217: this.fpWriteScaled(arg1, this.fpReadScaled(arg1)); this.setStatus(0); break;
+      case 218: this.fpWriteScaled(arg1, this.fpReadScaled(arg1)); this.setStatus(0); break;
+      case 219: this.fpWriteScaled(arg1, Math.trunc(this.fpReadScaled(arg1) / this.fpScaleConst()) * this.fpScaleConst()); this.setStatus(0); break;
       case 220: this.fpWriteScaled(arg1, this.toSignedCell(arg2) * this.fpScaleConst()); this.setStatus(0); break;
       case 221: this.fpWriteScaled(arg1, Math.trunc(Number(this.readDataString(arg2)) * this.fpScaleConst())); this.setStatus(0); break;
       case 222: this.writeDataString(arg2, String(this.fpReadScaled(arg1) / this.fpScaleConst())); this.setStatus(0); break;
@@ -920,6 +933,26 @@ export class UxmInterpreter {
       case 244:
         for (let i = 0; i < arg2; i++) if (arg1 + i < this.data.length) this.data[arg1 + i] = 0;
         this.setStatus(0);
+        break;
+      case 245:
+        if ((this.data[arg1] ?? 0) !== 80) this.setStatus(16);
+        else result = this.data[arg1 + 2] ?? 0;
+        break;
+      case 246:
+        if ((this.data[arg1] ?? 0) !== 80) this.setStatus(16);
+        else result = this.data[arg1 + 3] ?? 0;
+        break;
+      case 247:
+        if ((this.data[arg1] ?? 0) !== 80) this.setStatus(16);
+        else { this.output += `POLY@${arg1} deg=${this.data[arg1 + 2] ?? 0}`; this.setStatus(0); }
+        break;
+      case 248:
+        if ((this.data[arg1] ?? 0) !== 69) this.setStatus(16);
+        else result = this.data[arg1 + 2] ?? 0;
+        break;
+      case 249:
+        if ((this.data[arg1] ?? 0) !== 69) this.setStatus(16);
+        else { this.output += `EXPR@${arg1} tok=${this.data[arg1 + 2] ?? 0}`; this.setStatus(0); }
         break;
       case 250:
         result = this.exprEvalRpn(arg1, this.toSignedCell(arg2));

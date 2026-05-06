@@ -943,6 +943,11 @@ Sub RuntimeMeta(ByVal id As Long)
         FPWriteScaled CLng(a),0:SetStatus STATUS_OK
     Case 203
         FPWriteScaled CLng(a),FPReadScaled(CLng(b)):SetStatus STATUS_OK
+    Case 204
+        If CLng(a)+2>=dataCells Then SetStatus STATUS_DATA_BOUNDS Else
+            dataMem(CLng(a)+2)=FPReadScaled(CLng(a)) And CellMask():SetStatus STATUS_OK
+    Case 209
+        outputText+="FP RAW base="+LTrim(Str(a))+" v="+LTrim(Str(FPReadScaled(CLng(a)))):SetStatus STATUS_OK
     Case 210
         FPWriteScaled CLng(a),FPReadScaled(CLng(b))+FPReadScaled(CLng(c)):SetStatus STATUS_OK
     Case 211
@@ -954,6 +959,16 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 214
         If FPReadScaled(CLng(b))=FPReadScaled(CLng(c)) Then WriteAddr ADDR_T_REL,1,0,0 ElseIf FPReadScaled(CLng(b))>FPReadScaled(CLng(c)) Then WriteAddr ADDR_T_REL,1,0,1 Else WriteAddr ADDR_T_REL,1,0,CellMask()
         SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 215
+        FPWriteScaled CLng(a),Abs(FPReadScaled(CLng(b))):SetStatus STATUS_OK
+    Case 216
+        FPWriteScaled CLng(a),-FPReadScaled(CLng(b)):SetStatus STATUS_OK
+    Case 217
+        FPWriteScaled CLng(a),FPReadScaled(CLng(a)):SetStatus STATUS_OK
+    Case 218
+        FPWriteScaled CLng(a),FPReadScaled(CLng(a)):SetStatus STATUS_OK
+    Case 219
+        FPWriteScaled CLng(a),(FPReadScaled(CLng(a))\FPScaleConst())*FPScaleConst():SetStatus STATUS_OK
     Case 220
         FPWriteScaled CLng(a),ToSignedCell(b)*FPScaleConst():SetStatus STATUS_OK
     Case 221
@@ -997,6 +1012,19 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 244
         Dim i244 As Long
         For i244=0 To CLng(b)-1:dataMem(CLng(a)+i244)=0:Next:SetStatus STATUS_OK
+    Case 245
+        If dataMem(CLng(a))<>80 Then SetStatus STATUS_DATA_BOUNDS Else
+            WriteAddr ADDR_T_REL,1,0,dataMem(CLng(a)+2):SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 246
+        If dataMem(CLng(a))<>80 Then SetStatus STATUS_DATA_BOUNDS Else
+            WriteAddr ADDR_T_REL,1,0,dataMem(CLng(a)+3):SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 247
+        If dataMem(CLng(a))<>80 Then SetStatus STATUS_DATA_BOUNDS Else outputText+="POLY@"+LTrim(Str(a))+" deg="+LTrim(Str(dataMem(CLng(a)+2))):SetStatus STATUS_OK
+    Case 248
+        If dataMem(CLng(a))<>69 Then SetStatus STATUS_DATA_BOUNDS Else
+            WriteAddr ADDR_T_REL,1,0,dataMem(CLng(a)+2):SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 249
+        If dataMem(CLng(a))<>69 Then SetStatus STATUS_DATA_BOUNDS Else outputText+="EXPR@"+LTrim(Str(a))+" tok="+LTrim(Str(dataMem(CLng(a)+2))):SetStatus STATUS_OK
     Case 250
         WriteAddr ADDR_T_REL,1,0,ExprEvalRpn(CLng(a),ToSignedCell(b)) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 251
@@ -1024,177 +1052,6 @@ Sub RuntimeMeta(ByVal id As Long)
         WriteAddr ADDR_T_REL,1,0,CLngInt(sum253*h253/3.0) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
     Case 254
         outputText+="[RPN @"+LTrim(Str(a))+"]":SetStatus STATUS_OK
-        Else
-            WriteAddr ADDR_T_REL,1,0,0
-        End If
-        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-    Case 20:WriteAddr ADDR_T_REL,1,0,(a+b) And CellMask():SetLogicFlags (a+b):SetStatus STATUS_OK
-    Case 21:WriteAddr ADDR_T_REL,1,0,(a-b) And CellMask():SetLogicFlags (a-b):SetStatus STATUS_OK
-    Case 22:WriteAddr ADDR_T_REL,1,0,(a*b) And CellMask():SetLogicFlags (a*b):SetStatus STATUS_OK
-    Case 23:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a\b) And CellMask():SetStatus STATUS_OK
-    Case 24:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a Mod b) And CellMask():SetStatus STATUS_OK
-    Case 25:If a<b Then r=a Else r=b:WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
-    Case 26:If a>b Then r=a Else r=b:WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
-    Case 27:If (flags And FLAG_SGN)<>0 Then
-                If cellBits=8 Then msb=&H80 ElseIf cellBits=16 Then msb=&H8000 Else msb=&H80000000
-                If (b And msb)<>0 Then r=((Not b)+1) And CellMask() Else r=b
-            Else
-                r=b
-            End If:WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
-    Case 28:r=((Not b)+1) And CellMask():WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
-    Case 29:If a=b Then r=0 ElseIf a>b Then r=1 Else r=CellMask():WriteAddr ADDR_T_REL,1,0,r And CellMask():SetStatus STATUS_OK
-    Case 30:If b<a Then r=a Else r=(a+CULngInt(Int(Rnd*(b-a+1)))) And CellMask():WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
-    Case 31:Randomize CInt(b):SetStatus STATUS_OK
-    Case 32:WriteAddr ADDR_T_REL,1,0,CLngInt(Rnd*ScaleFactor()) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 33:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a\b) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 34:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else
-                Dim sf34 As LongInt
-                Dim sb34 As LongInt
-                Dim base34 As ULongInt
-                If cellBits=8 Then base34=256 ElseIf cellBits=16 Then base34=65536 Else base34=4294967296
-                If (a And IIf(cellBits=8,&H80, IIf(cellBits=16,&H8000,&H80000000)))<>0 Then sf34=CLngInt(a) - CLngInt(base34) Else sf34=CLngInt(a)
-                If (b And IIf(cellBits=8,&H80, IIf(cellBits=16,&H8000,&H80000000)))<>0 Then sb34=CLngInt(b) - CLngInt(base34) Else sb34=CLngInt(b)
-                If sb34=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else
-                    Dim sr34 As LongInt: sr34=sf34\sb34
-                    If sr34<0 Then r=(CLngInt(base34)+sr34) And CellMask() Else r=sr34
-                    WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
-                End If
-    Case 35:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else WriteAddr ADDR_T_REL,1,0,(a Mod b) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 36:If b=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else
-                Dim sf36 As LongInt
-                Dim sb36 As LongInt
-                Dim base36 As ULongInt
-                If cellBits=8 Then base36=256 ElseIf cellBits=16 Then base36=65536 Else base36=4294967296
-                If (a And IIf(cellBits=8,&H80, IIf(cellBits=16,&H8000,&H80000000)))<>0 Then sf36=CLngInt(a) - CLngInt(base36) Else sf36=CLngInt(a)
-                If (b And IIf(cellBits=8,&H80, IIf(cellBits=16,&H8000,&H80000000)))<>0 Then sb36=CLngInt(b) - CLngInt(base36) Else sb36=CLngInt(b)
-                If sb36=0 Then WriteAddr ADDR_T_REL,1,0,0:SetStatus STATUS_DIV_ZERO Else
-                    Dim sm36 As LongInt: sm36=sf36 Mod sb36
-                    If sm36<0 Then r=(CLngInt(base36)+sm36) And CellMask() Else r=sm36
-                    WriteAddr ADDR_T_REL,1,0,r And CellMask():SetLogicFlags r:SetStatus STATUS_OK
-                End If
-    Case 40:Dim sf40 As LongInt:If cellBits=8 Then sf40=100 ElseIf cellBits=16 Then sf40=1000 Else sf40=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Sin(CDbl(b)*3.14159265358979/180.0)*sf40) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 41:Dim sf41 As LongInt:If cellBits=8 Then sf41=100 ElseIf cellBits=16 Then sf41=1000 Else sf41=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Cos(CDbl(b)*3.14159265358979/180.0)*sf41) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 42:Dim sf42 As LongInt:If cellBits=8 Then sf42=100 ElseIf cellBits=16 Then sf42=1000 Else sf42=10000:WriteAddr ADDR_T_REL,1,0,CULngInt(Tan(CDbl(b)*3.14159265358979/180.0)*sf42) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 43:WriteAddr ADDR_T_REL,1,0,CULngInt(Sqr(CDbl(a)*CDbl(a)+CDbl(b)*CDbl(b))) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 44:Dim sf44 As LongInt:If cellBits=8 Then sf44=100 ElseIf cellBits=16 Then sf44=1000 Else sf44=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Asin(CDbl(b)/sf44)*180.0/3.14159265358979) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 45:Dim sf45 As LongInt:If cellBits=8 Then sf45=100 ElseIf cellBits=16 Then sf45=1000 Else sf45=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Acos(CDbl(b)/sf45)*180.0/3.14159265358979) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 46:WriteAddr ADDR_T_REL,1,0,CLngInt(Sqr(CDbl(b))) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 47:Dim sf47 As LongInt:If cellBits=8 Then sf47=100 ElseIf cellBits=16 Then sf47=1000 Else sf47=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Sinh(CDbl(b)*3.14159265358979/180.0)*sf47) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 48:Dim sf48 As LongInt:If cellBits=8 Then sf48=100 ElseIf cellBits=16 Then sf48=1000 Else sf48=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Cosh(CDbl(b)*3.14159265358979/180.0)*sf48) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 49:Dim sf49 As LongInt:If cellBits=8 Then sf49=100 ElseIf cellBits=16 Then sf49=1000 Else sf49=10000:WriteAddr ADDR_T_REL,1,0,CLngInt(Tanh(CDbl(b)*3.14159265358979/180.0)*sf49) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 52
-        Dim x52 As Double
-        x52=CDbl(ToSignedCell(b))/CDbl(ScaleFactor())
-        WriteAddr ADDR_T_REL,1,0,CLngInt(Log(x52+Sqr(x52*x52+1.0))*ScaleFactor()) And CellMask()
-        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-        SetStatus STATUS_OK
-    Case 53
-        Dim x53 As Double
-        x53=CDbl(b)/CDbl(ScaleFactor())
-        If x53<1.0 Then
-            WriteAddr ADDR_T_REL,1,0,0
-            SetStatus STATUS_UNDERFLOW
-        Else
-            WriteAddr ADDR_T_REL,1,0,CLngInt(Log(x53+Sqr(x53*x53-1.0))*ScaleFactor()) And CellMask()
-            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-            SetStatus STATUS_OK
-        End If
-    Case 54
-        Dim x54 As Double
-        x54=CDbl(ToSignedCell(b))/CDbl(ScaleFactor())
-        If Abs(x54)>=1.0 Then
-            WriteAddr ADDR_T_REL,1,0,0
-            SetStatus STATUS_OVERFLOW
-        Else
-            WriteAddr ADDR_T_REL,1,0,CLngInt(0.5*Log((1.0+x54)/(1.0-x54))*ScaleFactor()) And CellMask()
-            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-            SetStatus STATUS_OK
-        End If
-    Case 55
-        If b=0 Then
-            WriteAddr ADDR_T_REL,1,0,0
-            SetStatus STATUS_UNDERFLOW
-        Else
-            WriteAddr ADDR_T_REL,1,0,CLngInt(Log(CDbl(b))*ScaleFactor()) And CellMask()
-            SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-            SetStatus STATUS_OK
-        End If
-    Case 56
-        WriteAddr ADDR_T_REL,1,0,CLngInt(Exp(CDbl(ToSignedCell(b))/CDbl(ScaleFactor()))*ScaleFactor()) And CellMask()
-        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-        SetStatus STATUS_OK
-    Case 57
-        WriteAddr ADDR_T_REL,1,0,CLngInt(CDbl(a)^CDbl(b)) And CellMask()
-        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-        SetStatus STATUS_OK
-    Case 58
-        WriteAddr ADDR_T_REL,1,0,CLngInt(CDbl(b)*PI_D/180.0*ScaleFactor()) And CellMask()
-        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-        SetStatus STATUS_OK
-    Case 59
-        WriteAddr ADDR_T_REL,1,0,CLngInt((CDbl(b)/CDbl(ScaleFactor()))*180.0/PI_D) And CellMask()
-        SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-        SetStatus STATUS_OK
-    Case 60:outputText+=LTrim(Str(b)):SetStatus STATUS_OK
-    Case 61:outputText+=LTrim(Str(ReadAddr(ADDR_T_REL,1,0))):SetStatus STATUS_OK
-    Case 62
-        If sp<=0 Then
-            SetStatus STATUS_STACK_UNDERFLOW
-        Else
-            sp-=1
-            outputText+=LTrim(Str(stackMem(sp) And CellMask()))
-        End If
-    Case 63
-        WriteAddr ADDR_T_REL,1,0,0
-        SetLogicFlags 0
-        SetStatus STATUS_EOF
-    Case 64:outputText+=" ":SetStatus STATUS_OK
-    Case 67:outputText+=Hex(b And CellMask()):SetStatus STATUS_OK
-    Case 68:outputText+=Bin(b And CellMask()):SetStatus STATUS_OK
-    Case 69:outputText+=Chr((b And &HFF)):SetStatus STATUS_OK
-    Case 80:If b>=tapeCells Then SetStatus STATUS_PTR_BOUNDS Else ptr=b:flags Or=FLAG_PCHG:SetStatus STATUS_OK
-    Case 81:If CLngInt(ptr)+CLngInt(b)>=CLngInt(tapeCells) Then SetStatus STATUS_PTR_BOUNDS Else ptr=ptr+CLngInt(b):flags Or=FLAG_PCHG:SetStatus STATUS_OK
-    Case 82:WriteAddr ADDR_T_REL,1,0,ptr:SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 83:If ptr<tapeCells Then WriteAddr ADDR_T_REL,1,0,1 Else WriteAddr ADDR_T_REL,1,0,0:SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 84:WriteAddr ADDR_T_REL,1,0,tapeCells:SetStatus STATUS_OK
-    Case 85:WriteAddr ADDR_T_REL,1,0,dataCells:SetStatus STATUS_OK
-    Case 86:WriteAddr ADDR_T_REL,1,0,stackCells:SetStatus STATUS_OK
-    Case 87:WriteAddr ADDR_T_REL,1,0,cellBits:SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 88:WriteAddr ADDR_T_REL,1,0,CellSize():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 89:outputText+="LAYOUT tape="+Str(tapeCells)+" stack="+Str(stackCells)+" data="+Str(dataCells):SetStatus STATUS_OK
-    Case 90:FifoPush b
-    Case 91:WriteAddr ADDR_T_REL,1,0,FifoPop():SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-    Case 92:WriteAddr ADDR_T_REL,1,0,FifoPeek():SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-    Case 93:WriteAddr ADDR_T_REL,1,0,fifoCount:SetStatus STATUS_OK
-    Case 94:fifoHead=0:fifoTail=0:fifoCount=0:SetStatus STATUS_OK
-    Case 95:If b>=dataCells Then SetStatus STATUS_DATA_BOUNDS Else WriteAddr ADDR_T_REL,1,0,dataMem(b):SetStatus STATUS_OK
-    Case 96:If a>=dataCells Then SetStatus STATUS_DATA_BOUNDS Else dataMem(a)=b And CellMask():SetStatus STATUS_OK
-    Case 97
-        If b>=dataCells Then
-            SetStatus STATUS_DATA_BOUNDS
-        Else
-            If dataMem(b)>=48 And dataMem(b)<=57 Then
-                WriteAddr ADDR_T_REL,1,0,dataMem(b)-48
-                SetLogicFlags ReadAddr(ADDR_T_REL,1,0)
-                SetStatus STATUS_OK
-            Else
-                WriteAddr ADDR_T_REL,1,0,0
-                SetStatus STATUS_UNDERFLOW
-            End If
-        End If
-    Case 98:Dim i As Long:For i=0 To c-1:If a+i<dataCells And b+i<dataCells Then dataMem(b+i)=dataMem(a+i):Next:SetStatus STATUS_OK
-    Case 99:For i As Long=0 To b-1:If a+i<dataCells Then dataMem(a+i)=0:Next:SetStatus STATUS_OK
-    Case 100:SortTape CLng(a),CLng(b),1
-    Case 101:SortTape CLng(a),CLng(b),0
-    Case 102:SortData CLng(a),CLng(b),1
-    Case 103:SortData CLng(a),CLng(b),0
-    Case 104:WriteAddr ADDR_T_REL,1,0,LinearSearchTape(CLng(a),CLng(b),c):SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 105:WriteAddr ADDR_T_REL,1,0,LinearSearchData(CLng(a),CLng(b),c):SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
-    Case 106:TapeBlockCopy CLng(a),CLng(b),CLng(c)
-    Case 107:TapeBlockClear CLng(a),CLng(b)
-    Case 120:flags And=Not FLAG_SGN:SetStatus STATUS_OK
-    Case 121:flags Or=FLAG_SGN:SetStatus STATUS_OK
-    Case 126:WriteAddr ADDR_T_REL,1,0,flags:SetStatus STATUS_OK
     Case Else:SetStatus STATUS_INVALID_META
     End Select
 End Sub

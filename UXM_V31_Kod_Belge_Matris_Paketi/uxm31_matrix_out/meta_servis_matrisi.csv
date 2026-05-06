@@ -1,397 +1,397 @@
-﻿Kategori,ID,Ad,Belge Durumu,Kod Genel,Runtime Host,Final Interpreter,Full Tool,VSCode Runtime,VSCode Help,Test Kanıtı,Not
-Meta Servis,0,OK/no-op,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,1,CLS,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test16_data_digit.uxm; tests/test17_endian_word_split.uxm; tests/test25_data_sort_ascending.uxm,
-Meta Servis,2,"LOCATE 1,1",VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test05_meta_add.uxm; tests/test09_div_mod.uxm; tests/test12_signed_mode.uxm; tests/test13_status_div_zero.uxm; tests/test30_word_mode_add.uxm,
-Meta Servis,3,RANDOM BYTE,VAR,VAR,VAR,YOK,VAR,VAR,VAR,,
-Meta Servis,4,TIMER,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm; tests/test11_hypotenuse.uxm,
-Meta Servis,5,NEWLINE,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test08_newline.uxm; tests/test09_div_mod.uxm; tests/test21_fifo_count_peek.uxm,
-Meta Servis,6,PRINT META INFO,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm; tests/test44_meta_version_info.uxm,
-Meta Servis,7,VERSION MAJOR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test44_meta_version_info.uxm,
-Meta Servis,8,VERSION MINOR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test18_pointer_service.uxm; tests/test32_wild_layout_change.uxm; tests/test44_meta_version_info.uxm,
-Meta Servis,9,STATUS READ,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test20_fifo_char_order.uxm; tests/test21_fifo_count_peek.uxm; tests/test22_data_write_read_char.uxm; tests/test23_data_digit_ascii_to_number.uxm; tests/test24_data_block_copy_print.uxm,
-Meta Servis,10,STATUS CLEAR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test25_data_sort_ascending.uxm; tests/test26_tape_sort_descending_chars.uxm; tests/test27_tape_linear_search.uxm,
-Meta Servis,11,STATUS SET,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,12,STATUS PRINT,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test29_nested_macro_call.uxm; tests/test31_safe_mode_wild_denied.uxm; tests/test32_wild_layout_change.uxm,
-Meta Servis,13,ERR FLAG SET,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,Sprint 1 tamamlandi: 4 hatta parite saglandi
-Meta Servis,14,ERR FLAG RESET,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,Sprint 1 tamamlandi: 4 hatta parite saglandi
-Meta Servis,15,ERR FLAG READ,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,Sprint 1 tamamlandi: 4 hatta parite saglandi
-Meta Servis,16,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,tests_matrix/test_matrix01_init_set_print.uxm; tests_matrix/test_matrix02_add_2x2.uxm; tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm,
-Meta Servis,17,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm,
-Meta Servis,18,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,tests/test16_data_digit.uxm,
-Meta Servis,19,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,20,ADD,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test05_meta_add.uxm; tests/test12_signed_mode.uxm; tests/test30_word_mode_add.uxm; tests/test40_4bit_cpu_alu_model.uxm; tests/test41_4_neuron_nn_model.uxm,
-Meta Servis,21,SUB,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp06_add_dec_string.uxm,
-Meta Servis,22,MUL,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm,
-Meta Servis,23,DIV,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test09_div_mod.uxm; tests/test13_status_div_zero.uxm,
-Meta Servis,24,MOD,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test09_div_mod.uxm; math_extensions/tests_math/test_math01_poly_deriv_arge.uxm; math_extensions/tests_math/test_math02_poly_integral_arge.uxm; math_extensions/tests_math/test_math03_poly_eval_arge.uxm,
-Meta Servis,25,MIN,VAR,KISMEN,VAR,VAR,VAR,VAR,VAR,math_extensions/tests_math/test_math04_expr_rpn_eval.uxm; math_extensions/tests_math/test_math05_num_deriv.uxm; math_extensions/tests_math/test_math06_integral_trap.uxm; math_extensions/tests_math/test_math07_integral_simpson.uxm,
-Meta Servis,26,MAX,VAR,KISMEN,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,27,ABS,VAR,KISMEN,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,28,NEG,VAR,KISMEN,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,29,CMP,VAR,KISMEN,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,30,RND_RANGE,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,31,RND_SEED,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,32,RND_FLOAT01,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,33,DIV_UNSIGNED,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,34,DIV_SIGNED,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,35,MOD_UNSIGNED,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,36,MOD_SIGNED,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,37,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,38,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,39,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,40,SIN,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm,
-Meta Servis,41,COS,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,42,TAN,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,43,HYPOT,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test11_hypotenuse.uxm,
-Meta Servis,44,ASIN,VAR,VAR,VAR,VAR,VAR,VAR,tests/test44_asin.uxm,
-Meta Servis,45,ACOS,VAR,VAR,VAR,VAR,VAR,VAR,tests/test45_acos.uxm,
-Meta Servis,46,SQRT,VAR,VAR,VAR,VAR,VAR,VAR,tests/test46_sqrt.uxm,
-Meta Servis,47,SINH,VAR,VAR,VAR,VAR,VAR,VAR,tests/test47_sinh.uxm,
-Meta Servis,48,COSH,VAR,VAR,VAR,VAR,VAR,VAR,tests/test48_cosh.uxm,
-Meta Servis,49,TANH,VAR,VAR,VAR,VAR,VAR,VAR,tests/test49_tanh.uxm,
-Meta Servis,50,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,51,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,52,ASINH,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,53,ACOSH,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,54,ATANH,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,55,LOG,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,56,EXP,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,57,POW,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,58,DEG_TO_RAD,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,59,RAD_TO_DEG,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,60,PRINT ARG2,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,61,PRINT RESULT,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm,
-Meta Servis,62,PRINT STACK POP,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test51_meta_print_stack_pop.uxm,
-Meta Servis,63,READ DECIMAL,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,stdin bagimli okuma: host satir girdisi, interpreter EOF fallback
-Meta Servis,64,PRINT SPACE,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,65,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,66,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,67,PRINT HEX,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test52_meta_print_hex.uxm,
-Meta Servis,68,PRINT BIN,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test53_meta_print_bin.uxm,
-Meta Servis,69,PRINT CHAR/RAW,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test54_meta_print_char_raw.uxm,
-Meta Servis,70,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,71,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,72,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,73,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,74,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,75,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,76,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,77,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,78,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,79,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,80,SET POINTER,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test18_pointer_service.uxm,
-Meta Servis,81,ADD POINTER,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test45_pointer_meta_extended.uxm,
-Meta Servis,82,GET POINTER,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test45_pointer_meta_extended.uxm,
-Meta Servis,83,POINTER VALID,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test45_pointer_meta_extended.uxm,
-Meta Servis,84,TAPE CELLS,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test32_wild_layout_change.uxm,
-Meta Servis,85,DATA CELLS,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test45_pointer_meta_extended.uxm,
-Meta Servis,86,STACK CELLS,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test45_pointer_meta_extended.uxm,
-Meta Servis,87,CELL BITS,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test45_pointer_meta_extended.uxm,
-Meta Servis,88,CELL BYTES,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test45_pointer_meta_extended.uxm,
-Meta Servis,89,PRINT LAYOUT,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,90,FIFO PUSH,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test20_fifo_char_order.uxm; tests/test21_fifo_count_peek.uxm,
-Meta Servis,91,FIFO POP,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test20_fifo_char_order.uxm,
-Meta Servis,92,FIFO PEEK,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test21_fifo_count_peek.uxm,
-Meta Servis,93,FIFO COUNT,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test21_fifo_count_peek.uxm,
-Meta Servis,94,FIFO CLEAR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test46_fifo_clear.uxm,
-Meta Servis,95,DATA READ,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test22_data_write_read_char.uxm; tests/test24_data_block_copy_print.uxm; tests/test25_data_sort_ascending.uxm; tests/test34_data_block_clear.uxm,
-Meta Servis,96,DATA WRITE,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test22_data_write_read_char.uxm; tests/test25_data_sort_ascending.uxm,
-Meta Servis,97,DATA DIGIT,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test23_data_digit_ascii_to_number.uxm,
-Meta Servis,98,DATA BLOCK COPY,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test24_data_block_copy_print.uxm,
-Meta Servis,99,DATA BLOCK CLEAR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test34_data_block_clear.uxm,
-Meta Servis,100,TAPE SORT ASC,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test47_tape_sort_ascending.uxm,
-Meta Servis,101,TAPE SORT DESC,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test26_tape_sort_descending_chars.uxm,
-Meta Servis,102,DATA SORT ASC,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test25_data_sort_ascending.uxm,
-Meta Servis,103,DATA SORT DESC,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test48_data_sort_descending.uxm,
-Meta Servis,104,TAPE SEARCH,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test27_tape_linear_search.uxm,
-Meta Servis,105,DATA SEARCH,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test49_data_linear_search.uxm,
-Meta Servis,106,TAPE BLOCK COPY,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test50_tape_block_copy_clear.uxm,
-Meta Servis,107,TAPE BLOCK CLEAR,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test50_tape_block_copy_clear.uxm,
-Meta Servis,108,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,109,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,110,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,111,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,112,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,113,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,114,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,115,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,116,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,117,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,118,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,119,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,120,UNSIGNED MODE,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,121,SIGNED MODE,VAR,VAR,VAR,VAR,VAR,VAR,VAR,tests/test12_signed_mode.uxm,
-Meta Servis,122,SIGNED QUERY,VAR,VAR,VAR,YOK,VAR,VAR,VAR,,
-Meta Servis,123,LITTLE ENDIAN,VAR,VAR,VAR,YOK,VAR,VAR,VAR,,
-Meta Servis,124,BIG ENDIAN,VAR,VAR,VAR,YOK,VAR,VAR,VAR,,
-Meta Servis,125,ENDIAN QUERY,VAR,VAR,VAR,YOK,VAR,VAR,VAR,,
-Meta Servis,126,FLAGS QUERY,VAR,VAR,VAR,VAR,VAR,VAR,VAR,,
-Meta Servis,127,WILD LAYOUT CHANGE,VAR,VAR,VAR,YOK,VAR,VAR,VAR,tests/test31_safe_mode_wild_denied.uxm; tests/test32_wild_layout_change.uxm,
-Meta Servis,128,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,tests/test07_macro.uxm; tests/test29_nested_macro_call.uxm,
-Meta Servis,129,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,tests/test29_nested_macro_call.uxm,
-Meta Servis,130,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,131,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,132,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,133,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,134,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,135,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,136,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,137,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,138,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,139,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,140,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,141,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,142,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,143,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,144,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,145,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,146,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,147,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,148,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,149,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,150,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,151,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,152,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,153,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,tests/test17_endian_word_split.uxm,
-Meta Servis,154,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,155,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,156,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,157,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,158,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,159,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,160,MAT_INIT,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests_matrix/test_matrix01_init_set_print.uxm,
-Meta Servis,161,MAT_CLEAR,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,162,MAT_SET,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests_matrix/test_matrix01_init_set_print.uxm,
-Meta Servis,163,MAT_GET,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,164,MAT_FILL,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,165,MAT_COPY,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,166,MAT_PRINT,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests_matrix/test_matrix01_init_set_print.uxm; tests_matrix/test_matrix02_add_2x2.uxm; tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm,
-Meta Servis,167,MAT_ADD,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests_matrix/test_matrix02_add_2x2.uxm,
-Meta Servis,168,MAT_SUB,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,169,MAT_SCALAR_MUL,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,170,MAT_MUL,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests_matrix/test_matrix03_mul_2x2.uxm,
-Meta Servis,171,MAT_TRANSPOSE_COPY,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,172,MAT_IDENTITY,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests_matrix/test_matrix04_identity_trace_det2.uxm,
-Meta Servis,173,MAT_TRACE,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests_matrix/test_matrix04_identity_trace_det2.uxm,
-Meta Servis,174,MAT_SHAPE,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,175,MAT_DET2,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm,
-Meta Servis,176,MAT_PRINT_RAW,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,177,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,178,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,179,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,180,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,181,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,182,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,183,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,184,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,185,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,tests/test16_data_digit.uxm,
-Meta Servis,186,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,187,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,188,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,189,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,190,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,191,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,192,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,193,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,194,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,195,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,196,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,197,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,198,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,199,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,200,FP_INIT16,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm,
-Meta Servis,201,FP_INIT32,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,202,FP_ZERO,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,203,FP_COPY,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,204,FP_NORMALIZE,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,205,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,206,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,207,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,208,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,209,FP_DEBUG_PRINT,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,210,FP_ADD,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp06_add_dec_string.uxm,
-Meta Servis,211,FP_SUB,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests_fp/test_fp02_sub_int.uxm,
-Meta Servis,212,FP_MUL,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests_fp/test_fp03_mul_int.uxm,
-Meta Servis,213,FP_DIV,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests_fp/test_fp04_div_int.uxm,
-Meta Servis,214,FP_COMPARE,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,215,FP_ABS,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,216,FP_NEG,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,217,FP_ROUND16,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,218,FP_ROUND32,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,219,FP_TRUNC,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,220,FP_FROM_INT,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm,
-Meta Servis,221,FP_FROM_DEC_STRING,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests_fp/test_fp05_from_string.uxm; tests_fp/test_fp06_add_dec_string.uxm,
-Meta Servis,222,FP_TO_DEC_STRING,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,223,FP_PRINT_DEC,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm,
-Meta Servis,224,FP_SCALE10,VAR,KISMEN,VAR,YOK,YOK,YOK,VAR,,
-Meta Servis,225,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,226,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,227,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,228,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,229,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,230,FP_RESERVED/BRIDGE,RESERVED/PLAN,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,231,FP_RESERVED/BRIDGE,RESERVED/PLAN,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,232,FP_RESERVED/BRIDGE,RESERVED/PLAN,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,233,FP_RESERVED/BRIDGE,RESERVED/PLAN,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,234,FP_RESERVED/BRIDGE,RESERVED/PLAN,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,235,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,236,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,237,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,238,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,239,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,240,POLY_DERIV,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,math_extensions/tests_math/test_math01_poly_deriv_arge.uxm,
-Meta Servis,241,POLY_INTEGRAL,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,math_extensions/tests_math/test_math02_poly_integral_arge.uxm,
-Meta Servis,242,POLY_EVAL,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,math_extensions/tests_math/test_math03_poly_eval_arge.uxm,
-Meta Servis,243,POLY_PRINT,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,math_extensions/tests_math/test_math01_poly_deriv_arge.uxm; math_extensions/tests_math/test_math02_poly_integral_arge.uxm,
-Meta Servis,244,POLY_CLEAR,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,245,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,246,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,247,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,248,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,249,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,250,EXPR_EVAL,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,
-Meta Servis,251,NUM_DERIV,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,math_extensions/tests_math/test_math05_num_deriv.uxm,
-Meta Servis,252,NUM_INTEGRAL_TRAP,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,math_extensions/tests_math/test_math06_integral_trap.uxm,
-Meta Servis,253,NUM_INTEGRAL_SIMPSON,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,math_extensions/tests_math/test_math07_integral_simpson.uxm,
-Meta Servis,254,EXPR_PRINT_RPN,VAR,KISMEN,VAR,YOK,YOK,YOK,YOK,,
-Meta Servis,255,Reserved/User/Planned,RESERVED/PLAN,RESERVED,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,260,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,261,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,262,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,263,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,264,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,265,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,266,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,267,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,268,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,269,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,270,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,271,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,272,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,273,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,274,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,275,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,276,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,277,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,278,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,279,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,280,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,281,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,282,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,283,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,284,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,285,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,286,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,287,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,288,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,289,UX-STAT reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,290,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,291,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,292,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,293,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,294,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,295,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,296,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,297,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,298,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,299,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,300,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,301,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,302,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,303,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,304,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,305,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,306,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,307,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,308,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,309,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,310,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,311,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,312,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,313,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,314,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,315,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,316,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,317,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,318,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,319,UX-GA reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,320,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,321,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,322,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,323,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,324,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,325,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,326,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,327,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,328,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,329,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,330,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,331,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,332,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,333,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,334,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,335,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,336,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,337,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,338,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,339,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,340,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,341,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,342,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,343,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,344,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,345,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,346,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,347,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,348,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,349,UX-ML reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,350,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,351,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,352,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,353,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,354,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,355,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,356,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,357,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,358,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,359,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,360,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,361,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,362,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,363,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,364,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,365,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,366,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,367,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,368,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,369,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,370,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,371,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,372,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,373,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,374,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,375,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,376,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,377,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,378,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,379,UX-BIO reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,380,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,381,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,382,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,383,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,384,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,385,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,386,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,387,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,388,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,389,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,390,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,391,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,392,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,393,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,394,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,395,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,396,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,397,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,398,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
-Meta Servis,399,UX-SIM reserved,PLAN/AYRILMIŞ,PLAN,YOK,YOK,YOK,YOK,YOK,,
+"Kategori","ID","Ad","Belge Durumu","Kod Genel","Runtime Host","Final Interpreter","Full Tool","VSCode Runtime","VSCode Help","Test Kanıtı","Not"
+"Meta Servis","0","OK/no-op","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","1","CLS","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test16_data_digit.uxm; tests/test17_endian_word_split.uxm; tests/test25_data_sort_ascending.uxm",""
+"Meta Servis","2","LOCATE 1,1","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test05_meta_add.uxm; tests/test09_div_mod.uxm; tests/test12_signed_mode.uxm; tests/test13_status_div_zero.uxm; tests/test30_word_mode_add.uxm",""
+"Meta Servis","3","RANDOM BYTE","VAR","VAR","VAR","YOK","VAR","VAR","VAR","",""
+"Meta Servis","4","TIMER","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm; tests/test11_hypotenuse.uxm",""
+"Meta Servis","5","NEWLINE","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test08_newline.uxm; tests/test09_div_mod.uxm; tests/test21_fifo_count_peek.uxm",""
+"Meta Servis","6","PRINT META INFO","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm; tests/test44_meta_version_info.uxm",""
+"Meta Servis","7","VERSION MAJOR","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test44_meta_version_info.uxm",""
+"Meta Servis","8","VERSION MINOR","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test18_pointer_service.uxm; tests/test32_wild_layout_change.uxm; tests/test44_meta_version_info.uxm",""
+"Meta Servis","9","STATUS READ","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test20_fifo_char_order.uxm; tests/test21_fifo_count_peek.uxm; tests/test22_data_write_read_char.uxm; tests/test23_data_digit_ascii_to_number.uxm; tests/test24_data_block_copy_print.uxm",""
+"Meta Servis","10","STATUS CLEAR","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test25_data_sort_ascending.uxm; tests/test26_tape_sort_descending_chars.uxm; tests/test27_tape_linear_search.uxm",""
+"Meta Servis","11","STATUS SET","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","12","STATUS PRINT","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test29_nested_macro_call.uxm; tests/test31_safe_mode_wild_denied.uxm; tests/test32_wild_layout_change.uxm",""
+"Meta Servis","13","ERR FLAG SET","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm","Sprint 1 tamamlandi: 4 hatta parite saglandi"
+"Meta Servis","14","ERR FLAG RESET","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm","Sprint 1 tamamlandi: 4 hatta parite saglandi"
+"Meta Servis","15","ERR FLAG READ","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm","Sprint 1 tamamlandi: 4 hatta parite saglandi"
+"Meta Servis","16","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","tests_matrix/test_matrix01_init_set_print.uxm; tests_matrix/test_matrix02_add_2x2.uxm; tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm",""
+"Meta Servis","17","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm",""
+"Meta Servis","18","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","tests/test16_data_digit.uxm",""
+"Meta Servis","19","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","20","ADD","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test05_meta_add.uxm; tests/test12_signed_mode.uxm; tests/test30_word_mode_add.uxm; tests/test40_4bit_cpu_alu_model.uxm; tests/test41_4_neuron_nn_model.uxm",""
+"Meta Servis","21","SUB","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp06_add_dec_string.uxm",""
+"Meta Servis","22","MUL","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm",""
+"Meta Servis","23","DIV","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test09_div_mod.uxm; tests/test13_status_div_zero.uxm",""
+"Meta Servis","24","MOD","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test09_div_mod.uxm; math_extensions/tests_math/test_math01_poly_deriv_arge.uxm; math_extensions/tests_math/test_math02_poly_integral_arge.uxm; math_extensions/tests_math/test_math03_poly_eval_arge.uxm",""
+"Meta Servis","25","MIN","VAR","KISMEN","VAR","VAR","VAR","VAR","VAR","math_extensions/tests_math/test_math04_expr_rpn_eval.uxm; math_extensions/tests_math/test_math05_num_deriv.uxm; math_extensions/tests_math/test_math06_integral_trap.uxm; math_extensions/tests_math/test_math07_integral_simpson.uxm",""
+"Meta Servis","26","MAX","VAR","KISMEN","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","27","ABS","VAR","KISMEN","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","28","NEG","VAR","KISMEN","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","29","CMP","VAR","KISMEN","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","30","RND_RANGE","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","31","RND_SEED","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","32","RND_FLOAT01","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","33","DIV_UNSIGNED","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","34","DIV_SIGNED","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","35","MOD_UNSIGNED","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","36","MOD_SIGNED","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","37","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","38","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","39","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","40","SIN","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm",""
+"Meta Servis","41","COS","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","42","TAN","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","43","HYPOT","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test11_hypotenuse.uxm",""
+"Meta Servis","44","ASIN","VAR","VAR","VAR","VAR","VAR","VAR","tests/test44_asin.uxm","",
+"Meta Servis","45","ACOS","VAR","VAR","VAR","VAR","VAR","VAR","tests/test45_acos.uxm","",
+"Meta Servis","46","SQRT","VAR","VAR","VAR","VAR","VAR","VAR","tests/test46_sqrt.uxm","",
+"Meta Servis","47","SINH","VAR","VAR","VAR","VAR","VAR","VAR","tests/test47_sinh.uxm","",
+"Meta Servis","48","COSH","VAR","VAR","VAR","VAR","VAR","VAR","tests/test48_cosh.uxm","",
+"Meta Servis","49","TANH","VAR","VAR","VAR","VAR","VAR","VAR","tests/test49_tanh.uxm","",
+"Meta Servis","50","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","51","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","52","ASINH","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","53","ACOSH","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","54","ATANH","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","55","LOG","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","56","EXP","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","57","POW","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","58","DEG_TO_RAD","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","59","RAD_TO_DEG","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","60","PRINT ARG2","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","61","PRINT RESULT","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm",""
+"Meta Servis","62","PRINT STACK POP","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test51_meta_print_stack_pop.uxm",""
+"Meta Servis","63","READ DECIMAL","VAR","VAR","VAR","VAR","VAR","VAR","VAR","","stdin bagimli okuma: host satir girdisi"
+"Meta Servis","64","PRINT SPACE","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","65","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","66","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","67","PRINT HEX","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test52_meta_print_hex.uxm",""
+"Meta Servis","68","PRINT BIN","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test53_meta_print_bin.uxm",""
+"Meta Servis","69","PRINT CHAR/RAW","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test54_meta_print_char_raw.uxm",""
+"Meta Servis","70","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","71","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","72","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","73","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","74","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","75","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","76","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","77","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","78","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","79","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","80","SET POINTER","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test18_pointer_service.uxm",""
+"Meta Servis","81","ADD POINTER","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test45_pointer_meta_extended.uxm",""
+"Meta Servis","82","GET POINTER","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test45_pointer_meta_extended.uxm",""
+"Meta Servis","83","POINTER VALID","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test45_pointer_meta_extended.uxm",""
+"Meta Servis","84","TAPE CELLS","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test32_wild_layout_change.uxm",""
+"Meta Servis","85","DATA CELLS","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test45_pointer_meta_extended.uxm",""
+"Meta Servis","86","STACK CELLS","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test45_pointer_meta_extended.uxm",""
+"Meta Servis","87","CELL BITS","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test45_pointer_meta_extended.uxm",""
+"Meta Servis","88","CELL BYTES","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test45_pointer_meta_extended.uxm",""
+"Meta Servis","89","PRINT LAYOUT","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","90","FIFO PUSH","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test20_fifo_char_order.uxm; tests/test21_fifo_count_peek.uxm",""
+"Meta Servis","91","FIFO POP","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test20_fifo_char_order.uxm",""
+"Meta Servis","92","FIFO PEEK","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test21_fifo_count_peek.uxm",""
+"Meta Servis","93","FIFO COUNT","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test21_fifo_count_peek.uxm",""
+"Meta Servis","94","FIFO CLEAR","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test46_fifo_clear.uxm",""
+"Meta Servis","95","DATA READ","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test22_data_write_read_char.uxm; tests/test24_data_block_copy_print.uxm; tests/test25_data_sort_ascending.uxm; tests/test34_data_block_clear.uxm",""
+"Meta Servis","96","DATA WRITE","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test22_data_write_read_char.uxm; tests/test25_data_sort_ascending.uxm",""
+"Meta Servis","97","DATA DIGIT","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test23_data_digit_ascii_to_number.uxm",""
+"Meta Servis","98","DATA BLOCK COPY","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test24_data_block_copy_print.uxm",""
+"Meta Servis","99","DATA BLOCK CLEAR","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test34_data_block_clear.uxm",""
+"Meta Servis","100","TAPE SORT ASC","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test47_tape_sort_ascending.uxm",""
+"Meta Servis","101","TAPE SORT DESC","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test26_tape_sort_descending_chars.uxm",""
+"Meta Servis","102","DATA SORT ASC","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test25_data_sort_ascending.uxm",""
+"Meta Servis","103","DATA SORT DESC","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test48_data_sort_descending.uxm",""
+"Meta Servis","104","TAPE SEARCH","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test27_tape_linear_search.uxm",""
+"Meta Servis","105","DATA SEARCH","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test49_data_linear_search.uxm",""
+"Meta Servis","106","TAPE BLOCK COPY","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test50_tape_block_copy_clear.uxm",""
+"Meta Servis","107","TAPE BLOCK CLEAR","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test50_tape_block_copy_clear.uxm",""
+"Meta Servis","108","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","109","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","110","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","111","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","112","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","113","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","114","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","115","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","116","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","117","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","118","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","119","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","120","UNSIGNED MODE","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","121","SIGNED MODE","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test12_signed_mode.uxm",""
+"Meta Servis","122","SIGNED QUERY","VAR","VAR","VAR","YOK","VAR","VAR","VAR","",""
+"Meta Servis","123","LITTLE ENDIAN","VAR","VAR","VAR","YOK","VAR","VAR","VAR","",""
+"Meta Servis","124","BIG ENDIAN","VAR","VAR","VAR","YOK","VAR","VAR","VAR","",""
+"Meta Servis","125","ENDIAN QUERY","VAR","VAR","VAR","YOK","VAR","VAR","VAR","",""
+"Meta Servis","126","FLAGS QUERY","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
+"Meta Servis","127","WILD LAYOUT CHANGE","VAR","VAR","VAR","YOK","VAR","VAR","VAR","tests/test31_safe_mode_wild_denied.uxm; tests/test32_wild_layout_change.uxm",""
+"Meta Servis","128","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","tests/test07_macro.uxm; tests/test29_nested_macro_call.uxm",""
+"Meta Servis","129","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","tests/test29_nested_macro_call.uxm",""
+"Meta Servis","130","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","131","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","132","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","133","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","134","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","135","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","136","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","137","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","138","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","139","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","140","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","141","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","142","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","143","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","144","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","145","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","146","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","147","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","148","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","149","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","150","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","151","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","152","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","153","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","tests/test17_endian_word_split.uxm",""
+"Meta Servis","154","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","155","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","156","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","157","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","158","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","159","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","160","MAT_INIT","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_matrix/test_matrix01_init_set_print.uxm",""
+"Meta Servis","161","MAT_CLEAR","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","162","MAT_SET","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_matrix/test_matrix01_init_set_print.uxm",""
+"Meta Servis","163","MAT_GET","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","164","MAT_FILL","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","165","MAT_COPY","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","166","MAT_PRINT","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_matrix/test_matrix01_init_set_print.uxm; tests_matrix/test_matrix02_add_2x2.uxm; tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm",""
+"Meta Servis","167","MAT_ADD","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_matrix/test_matrix02_add_2x2.uxm",""
+"Meta Servis","168","MAT_SUB","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","169","MAT_SCALAR_MUL","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","170","MAT_MUL","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_matrix/test_matrix03_mul_2x2.uxm",""
+"Meta Servis","171","MAT_TRANSPOSE_COPY","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","172","MAT_IDENTITY","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_matrix/test_matrix04_identity_trace_det2.uxm",""
+"Meta Servis","173","MAT_TRACE","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_matrix/test_matrix04_identity_trace_det2.uxm",""
+"Meta Servis","174","MAT_SHAPE","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","175","MAT_DET2","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm",""
+"Meta Servis","176","MAT_PRINT_RAW","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","177","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","178","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","179","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","180","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","181","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","182","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","183","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","184","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","185","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","tests/test16_data_digit.uxm",""
+"Meta Servis","186","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","187","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","188","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","189","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","190","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","191","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","192","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","193","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","194","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","195","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","196","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","197","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","198","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","199","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","200","FP_INIT16","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm",""
+"Meta Servis","201","FP_INIT32","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","202","FP_ZERO","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","203","FP_COPY","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","204","FP_NORMALIZE","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","205","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","206","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","207","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","208","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","209","FP_DEBUG_PRINT","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","210","FP_ADD","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp06_add_dec_string.uxm",""
+"Meta Servis","211","FP_SUB","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp02_sub_int.uxm",""
+"Meta Servis","212","FP_MUL","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp03_mul_int.uxm",""
+"Meta Servis","213","FP_DIV","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp04_div_int.uxm",""
+"Meta Servis","214","FP_COMPARE","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","215","FP_ABS","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","216","FP_NEG","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","217","FP_ROUND16","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","218","FP_ROUND32","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","219","FP_TRUNC","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","220","FP_FROM_INT","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm",""
+"Meta Servis","221","FP_FROM_DEC_STRING","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp05_from_string.uxm; tests_fp/test_fp06_add_dec_string.uxm",""
+"Meta Servis","222","FP_TO_DEC_STRING","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","223","FP_PRINT_DEC","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm",""
+"Meta Servis","224","FP_SCALE10","VAR","KISMEN","VAR","VAR","YOK","VAR","VAR","",""
+"Meta Servis","225","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","226","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","227","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","228","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","229","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","230","FP_RESERVED/BRIDGE","RESERVED/PLAN","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","231","FP_RESERVED/BRIDGE","RESERVED/PLAN","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","232","FP_RESERVED/BRIDGE","RESERVED/PLAN","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","233","FP_RESERVED/BRIDGE","RESERVED/PLAN","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","234","FP_RESERVED/BRIDGE","RESERVED/PLAN","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","235","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","236","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","237","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","238","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","239","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","240","POLY_DERIV","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","math_extensions/tests_math/test_math01_poly_deriv_arge.uxm",""
+"Meta Servis","241","POLY_INTEGRAL","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","math_extensions/tests_math/test_math02_poly_integral_arge.uxm",""
+"Meta Servis","242","POLY_EVAL","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","math_extensions/tests_math/test_math03_poly_eval_arge.uxm",""
+"Meta Servis","243","POLY_PRINT","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","math_extensions/tests_math/test_math01_poly_deriv_arge.uxm; math_extensions/tests_math/test_math02_poly_integral_arge.uxm",""
+"Meta Servis","244","POLY_CLEAR","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","245","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","VAR","YOK","VAR","YOK","",""
+"Meta Servis","246","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","VAR","YOK","VAR","YOK","",""
+"Meta Servis","247","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","VAR","YOK","VAR","YOK","",""
+"Meta Servis","248","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","VAR","YOK","VAR","YOK","",""
+"Meta Servis","249","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","VAR","YOK","VAR","YOK","",""
+"Meta Servis","250","EXPR_EVAL","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","math_extensions/tests_math/test_math04_expr_rpn_eval.uxm",""
+"Meta Servis","251","NUM_DERIV","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","math_extensions/tests_math/test_math05_num_deriv.uxm",""
+"Meta Servis","252","NUM_INTEGRAL_TRAP","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","math_extensions/tests_math/test_math06_integral_trap.uxm",""
+"Meta Servis","253","NUM_INTEGRAL_SIMPSON","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","math_extensions/tests_math/test_math07_integral_simpson.uxm",""
+"Meta Servis","254","EXPR_PRINT_RPN","VAR","KISMEN","VAR","VAR","YOK","VAR","YOK","",""
+"Meta Servis","255","Reserved/User/Planned","RESERVED/PLAN","RESERVED","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","260","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","261","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","262","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","263","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","264","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","265","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","266","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","267","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","268","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","269","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","270","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","271","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","272","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","273","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","274","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","275","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","276","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","277","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","278","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","279","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","280","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","281","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","282","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","283","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","284","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","285","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","286","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","287","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","288","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","289","UX-STAT reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","290","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","291","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","292","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","293","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","294","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","295","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","296","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","297","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","298","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","299","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","300","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","301","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","302","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","303","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","304","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","305","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","306","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","307","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","308","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","309","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","310","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","311","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","312","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","313","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","314","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","315","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","316","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","317","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","318","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","319","UX-GA reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","320","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","321","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","322","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","323","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","324","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","325","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","326","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","327","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","328","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","329","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","330","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","331","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","332","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","333","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","334","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","335","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","336","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","337","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","338","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","339","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","340","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","341","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","342","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","343","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","344","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","345","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","346","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","347","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","348","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","349","UX-ML reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","350","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","351","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","352","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","353","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","354","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","355","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","356","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","357","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","358","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","359","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","360","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","361","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","362","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","363","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","364","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","365","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","366","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","367","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","368","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","369","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","370","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","371","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","372","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","373","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","374","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","375","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","376","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","377","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","378","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","379","UX-BIO reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","380","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","381","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","382","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","383","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","384","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","385","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","386","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","387","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","388","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","389","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","390","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","391","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","392","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","393","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","394","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","395","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","396","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","397","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","398","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+"Meta Servis","399","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
