@@ -702,6 +702,261 @@ export class UxmInterpreter {
       case 125: result = (this.flags & 0x20) ? 1 : 0; break;
       case 126: result = this.flags; break;
       case 127: this.changeLayout(arg1, arg2, arg0); break;
+      case 160:
+        if (!this.matInit(arg1, arg2, arg0, 0, 0)) this.setStatus(16); else this.setStatus(0);
+        break;
+      case 161:
+        if (!this.matValid(arg1)) this.setStatus(16); else {
+          const n = this.data[arg1 + 10] | 0;
+          for (let i = 0; i < n; i++) this.data[arg1 + 16 + i] = 0;
+          this.setStatus(0);
+        }
+        break;
+      case 162: {
+        const idx = this.matCellIndex(arg1, arg2, arg0);
+        if (idx < 0) this.setStatus(16); else { this.data[idx] = this.readTape(this.ptr - 3) & this.mask(); this.setStatus(0); }
+      } break;
+      case 163: {
+        const idx = this.matCellIndex(arg1, arg2, arg0);
+        if (idx < 0) this.setStatus(16); else result = this.data[idx] ?? 0;
+      } break;
+      case 164:
+        if (!this.matValid(arg1)) this.setStatus(16); else {
+          const n = this.data[arg1 + 10] | 0;
+          const v = this.readTape(this.ptr - 3) & this.mask();
+          for (let i = 0; i < n; i++) this.data[arg1 + 16 + i] = v;
+          this.setStatus(0);
+        }
+        break;
+      case 165:
+        if (!this.matValid(arg1) || !this.matValid(arg2)) this.setStatus(16); else {
+          const n = this.data[arg2 + 10] | 0;
+          if ((this.data[arg1 + 10] | 0) !== n) this.setStatus(16); else {
+            for (let i = 0; i < n; i++) this.data[arg1 + 16 + i] = this.data[arg2 + 16 + i] ?? 0;
+            this.setStatus(0);
+          }
+        }
+        break;
+      case 166:
+        if (!this.matValid(arg1)) this.setStatus(16); else {
+          const rows = this.data[arg1 + 5] | 0;
+          const cols = this.data[arg1 + 6] | 0;
+          for (let r = 0; r < rows; r++) {
+            let line = "[";
+            for (let c = 0; c < cols; c++) {
+              const idx = this.matCellIndex(arg1, r, c);
+              if (c > 0) line += " ";
+              line += String(this.toSignedCell(this.data[idx] ?? 0));
+            }
+            this.output += line + "]\n";
+          }
+          this.setStatus(0);
+        }
+        break;
+      case 167:
+      case 168:
+        if (!this.matValid(arg1) || !this.matValid(arg2) || !this.matValid(arg0)) this.setStatus(16); else {
+          const n = this.data[arg1 + 10] | 0;
+          if ((this.data[arg2 + 10] | 0) !== n || (this.data[arg0 + 10] | 0) !== n) this.setStatus(16); else {
+            for (let i = 0; i < n; i++) {
+              const lv = this.toSignedCell(this.data[arg2 + 16 + i] ?? 0);
+              const rv = this.toSignedCell(this.data[arg0 + 16 + i] ?? 0);
+              this.data[arg1 + 16 + i] = (id === 167 ? lv + rv : lv - rv) & this.mask();
+            }
+            this.setStatus(0);
+          }
+        }
+        break;
+      case 169:
+        if (!this.matValid(arg1) || !this.matValid(arg2)) this.setStatus(16); else {
+          const n = this.data[arg1 + 10] | 0;
+          if ((this.data[arg2 + 10] | 0) !== n) this.setStatus(16); else {
+            const s = this.toSignedCell(arg0);
+            for (let i = 0; i < n; i++) this.data[arg1 + 16 + i] = (this.toSignedCell(this.data[arg2 + 16 + i] ?? 0) * s) & this.mask();
+            this.setStatus(0);
+          }
+        }
+        break;
+      case 170:
+        if (!this.matValid(arg1) || !this.matValid(arg2) || !this.matValid(arg0)) this.setStatus(16); else {
+          const ar = this.data[arg2 + 5] | 0; const ac = this.data[arg2 + 6] | 0;
+          const br = this.data[arg0 + 5] | 0; const bc = this.data[arg0 + 6] | 0;
+          if (ac !== br || (this.data[arg1 + 5] | 0) !== ar || (this.data[arg1 + 6] | 0) !== bc) this.setStatus(16); else {
+            for (let r = 0; r < ar; r++) for (let c = 0; c < bc; c++) {
+              let acc = 0;
+              for (let k = 0; k < ac; k++) {
+                const ia = this.matCellIndex(arg2, r, k), ib = this.matCellIndex(arg0, k, c);
+                acc += this.toSignedCell(this.data[ia] ?? 0) * this.toSignedCell(this.data[ib] ?? 0);
+              }
+              const io = this.matCellIndex(arg1, r, c);
+              this.data[io] = acc & this.mask();
+            }
+            this.setStatus(0);
+          }
+        }
+        break;
+      case 171:
+        if (!this.matValid(arg1) || !this.matValid(arg2)) this.setStatus(16); else {
+          const rs = this.data[arg2 + 5] | 0; const cs = this.data[arg2 + 6] | 0;
+          if ((this.data[arg1 + 5] | 0) !== cs || (this.data[arg1 + 6] | 0) !== rs) this.setStatus(16); else {
+            for (let r = 0; r < rs; r++) for (let c = 0; c < cs; c++) {
+              const s = this.matCellIndex(arg2, r, c), d = this.matCellIndex(arg1, c, r);
+              this.data[d] = this.data[s] ?? 0;
+            }
+            this.setStatus(0);
+          }
+        }
+        break;
+      case 172:
+        if (!this.matInit(arg1, arg2, arg2, 0, 0)) this.setStatus(16); else {
+          for (let i = 0; i < arg2; i++) {
+            const idx = this.matCellIndex(arg1, i, i);
+            if (idx >= 0) this.data[idx] = 1;
+          }
+          this.setStatus(0);
+        }
+        break;
+      case 173:
+        if (!this.matValid(arg1) || (this.data[arg1 + 5] | 0) !== (this.data[arg1 + 6] | 0)) this.setStatus(16); else {
+          const n = this.data[arg1 + 5] | 0;
+          let tr = 0;
+          for (let i = 0; i < n; i++) {
+            const idx = this.matCellIndex(arg1, i, i);
+            tr += this.toSignedCell(this.data[idx] ?? 0);
+          }
+          result = tr;
+        }
+        break;
+      case 174:
+        if (!this.matValid(arg1) || (this.data[arg1 + 5] | 0) !== 2 || (this.data[arg1 + 6] | 0) !== 2) this.setStatus(16); else {
+          const m00 = this.toSignedCell(this.data[this.matCellIndex(arg1, 0, 0)] ?? 0);
+          const m01 = this.toSignedCell(this.data[this.matCellIndex(arg1, 0, 1)] ?? 0);
+          const m10 = this.toSignedCell(this.data[this.matCellIndex(arg1, 1, 0)] ?? 0);
+          const m11 = this.toSignedCell(this.data[this.matCellIndex(arg1, 1, 1)] ?? 0);
+          result = m00 * m11 - m01 * m10;
+        }
+        break;
+      case 175:
+        if (!this.matValid(arg1)) this.setStatus(16); else { this.output += `${this.data[arg1 + 5] | 0}x${this.data[arg1 + 6] | 0}`; this.setStatus(0); }
+        break;
+      case 176:
+        if (!this.matValid(arg1)) this.setStatus(16); else {
+          const n = this.data[arg1 + 10] | 0;
+          let s = "";
+          for (let i = 0; i < n; i++) { if (i) s += " "; s += String(this.toSignedCell(this.data[arg1 + 16 + i] ?? 0)); }
+          this.output += s;
+          this.setStatus(0);
+        }
+        break;
+      case 200:
+      case 201:
+        this.fpWriteScaled(arg1, 0);
+        if (arg1 + 1 < this.data.length) this.data[arg1 + 1] = id === 201 ? 32 : 16;
+        this.setStatus(0);
+        break;
+      case 202: this.fpWriteScaled(arg1, 0); this.setStatus(0); break;
+      case 203: this.fpWriteScaled(arg1, this.fpReadScaled(arg2)); this.setStatus(0); break;
+      case 210: this.fpWriteScaled(arg1, this.fpReadScaled(arg2) + this.fpReadScaled(arg0)); this.setStatus(0); break;
+      case 211: this.fpWriteScaled(arg1, this.fpReadScaled(arg2) - this.fpReadScaled(arg0)); this.setStatus(0); break;
+      case 212: this.fpWriteScaled(arg1, Math.trunc((this.fpReadScaled(arg2) * this.fpReadScaled(arg0)) / this.fpScaleConst())); this.setStatus(0); break;
+      case 213:
+        if (this.fpReadScaled(arg0) === 0) { this.setStatus(15); }
+        else { this.fpWriteScaled(arg1, Math.trunc((this.fpReadScaled(arg2) * this.fpScaleConst()) / this.fpReadScaled(arg0))); this.setStatus(0); }
+        break;
+      case 214:
+        if (this.fpReadScaled(arg2) === this.fpReadScaled(arg0)) result = 0;
+        else if (this.fpReadScaled(arg2) > this.fpReadScaled(arg0)) result = 1;
+        else result = this.mask();
+        break;
+      case 220: this.fpWriteScaled(arg1, this.toSignedCell(arg2) * this.fpScaleConst()); this.setStatus(0); break;
+      case 221: this.fpWriteScaled(arg1, Math.trunc(Number(this.readDataString(arg2)) * this.fpScaleConst())); this.setStatus(0); break;
+      case 222: this.writeDataString(arg2, String(this.fpReadScaled(arg1) / this.fpScaleConst())); this.setStatus(0); break;
+      case 223: this.output += String(this.fpReadScaled(arg2) / this.fpScaleConst()); this.setStatus(0); break;
+      case 224: this.fpWriteScaled(arg1, this.fpReadScaled(arg1) * Math.trunc(Math.pow(10, arg2))); this.setStatus(0); break;
+      case 230:
+      case 231:
+      case 232:
+      case 233:
+      case 234:
+        this.setStatus(5);
+        break;
+      case 240: {
+        if ((this.data[arg2] ?? 0) !== 80) { this.setStatus(16); break; }
+        const deg = this.data[arg2 + 2] | 0;
+        this.data[arg1 + 0] = 80; this.data[arg1 + 1] = 1; this.data[arg1 + 3] = this.data[arg2 + 3] ?? 0;
+        if (deg <= 0) { this.data[arg1 + 2] = 0; this.data[arg1 + 4] = 0; this.setStatus(0); break; }
+        this.data[arg1 + 2] = deg - 1;
+        for (let i = 1; i <= deg; i++) this.data[arg1 + 3 + i] = (this.toSignedCell(this.data[arg2 + 4 + i] ?? 0) * i) & this.mask();
+        this.setStatus(0);
+      } break;
+      case 241: {
+        if ((this.data[arg2] ?? 0) !== 80) { this.setStatus(16); break; }
+        const deg = this.data[arg2 + 2] | 0;
+        this.data[arg1 + 0] = 80; this.data[arg1 + 1] = 1; this.data[arg1 + 2] = deg + 1; this.data[arg1 + 3] = this.data[arg2 + 3] ?? 0;
+        this.data[arg1 + 4] = arg0 & this.mask();
+        for (let i = 0; i <= deg; i++) this.data[arg1 + 5 + i] = Math.trunc(this.toSignedCell(this.data[arg2 + 4 + i] ?? 0) / (i + 1)) & this.mask();
+        this.setStatus(0);
+      } break;
+      case 242: {
+        if ((this.data[arg1] ?? 0) !== 80) { this.setStatus(16); break; }
+        const deg = this.data[arg1 + 2] | 0;
+        let acc = 0;
+        for (let i = deg; i >= 0; i--) acc = acc * this.toSignedCell(arg2) + this.toSignedCell(this.data[arg1 + 4 + i] ?? 0);
+        result = acc;
+      } break;
+      case 243: {
+        if ((this.data[arg1] ?? 0) !== 80) { this.setStatus(16); break; }
+        const deg = this.data[arg1 + 2] | 0;
+        let out = "";
+        for (let i = 0; i <= deg; i++) {
+          if (i > 0) out += " + ";
+          out += String(this.toSignedCell(this.data[arg1 + 4 + i] ?? 0));
+          if (i > 0) out += "x";
+          if (i > 1) out += `^${i}`;
+        }
+        this.output += out;
+        this.setStatus(0);
+      } break;
+      case 244:
+        for (let i = 0; i < arg2; i++) if (arg1 + i < this.data.length) this.data[arg1 + i] = 0;
+        this.setStatus(0);
+        break;
+      case 250:
+        result = this.exprEvalRpn(arg1, this.toSignedCell(arg2));
+        break;
+      case 251: {
+        let h = this.toSignedCell(arg0);
+        if (h === 0) h = 1;
+        const f1 = this.exprEvalRpn(arg1, this.toSignedCell(arg2) + h);
+        const f2 = this.exprEvalRpn(arg1, this.toSignedCell(arg2) - h);
+        result = Math.trunc((f1 - f2) / (2 * h));
+      } break;
+      case 252: {
+        const a = this.toSignedCell(arg2); const b = this.toSignedCell(arg0); const n = 16;
+        const h = (b - a) / n;
+        let sum = 0;
+        for (let i = 0; i <= n; i++) {
+          const x = a + i * h;
+          if (i === 0 || i === n) sum += this.exprEvalRpn(arg1, Math.trunc(x));
+          else sum += 2 * this.exprEvalRpn(arg1, Math.trunc(x));
+        }
+        result = Math.trunc((sum * h) / 2);
+      } break;
+      case 253: {
+        const a = this.toSignedCell(arg2); const b = this.toSignedCell(arg0); const n = 16;
+        const h = (b - a) / n;
+        let sum = this.exprEvalRpn(arg1, a) + this.exprEvalRpn(arg1, b);
+        for (let i = 1; i < n; i++) {
+          const x = a + i * h;
+          if ((i % 2) === 0) sum += 2 * this.exprEvalRpn(arg1, Math.trunc(x));
+          else sum += 4 * this.exprEvalRpn(arg1, Math.trunc(x));
+        }
+        result = Math.trunc((sum * h) / 3);
+      } break;
+      case 254:
+        this.output += `[RPN @${arg1}]`;
+        this.setStatus(0);
+        break;
       default: this.markUnsupportedMeta(id, "meta servis tanimli degil veya internal yorumlayicida henuz uygulanmadi"); break;
     }
     if (result !== undefined) {
@@ -736,6 +991,103 @@ export class UxmInterpreter {
     if (this.cellBits === 16 && (masked & 0x8000)) return masked - 0x10000;
     if (this.cellBits === 32 && (masked & 0x80000000)) return masked - 0x100000000;
     return masked;
+  }
+
+  private matValid(base: number): boolean {
+    return base >= 0 && base + 15 < this.data.length && this.data[base + 0] === 77 && this.data[base + 1] === 1 && this.data[base + 2] === 2;
+  }
+
+  private matCellIndex(base: number, r: number, c: number): number {
+    if (!this.matValid(base)) return -1;
+    const rows = this.data[base + 5] | 0;
+    const cols = this.data[base + 6] | 0;
+    if (r < 0 || c < 0 || r >= rows || c >= cols) return -1;
+    const idx = base + (this.data[base + 9] | 0) + r * (this.data[base + 12] | 0) + c * (this.data[base + 13] | 0);
+    if (idx < 0 || idx >= this.data.length) return -1;
+    return idx;
+  }
+
+  private matInit(base: number, rows: number, cols: number, typ: number, scale: number): boolean {
+    if (base < 0 || rows <= 0 || cols <= 0) return false;
+    const total = rows * cols;
+    if (base + 16 + total - 1 >= this.data.length) return false;
+    const flags = typ === 1 ? 1 : typ === 2 ? 2 : 0;
+    this.data[base + 0] = 77;
+    this.data[base + 1] = 1;
+    this.data[base + 2] = 2;
+    this.data[base + 3] = typ;
+    this.data[base + 4] = flags;
+    this.data[base + 5] = rows;
+    this.data[base + 6] = cols;
+    this.data[base + 7] = scale;
+    this.data[base + 8] = 1;
+    this.data[base + 9] = 16;
+    this.data[base + 10] = total;
+    this.data[base + 11] = 16 + total;
+    this.data[base + 12] = cols;
+    this.data[base + 13] = 1;
+    this.data[base + 14] = 0;
+    this.data[base + 15] = 0;
+    for (let i = 0; i < total; i++) this.data[base + 16 + i] = 0;
+    return true;
+  }
+
+  private fpScaleConst(): number { return 1_000_000; }
+  private fpReadScaled(base: number): number { return this.toSignedCell(this.data[base] ?? 0); }
+  private fpWriteScaled(base: number, v: number): void { if (base >= 0 && base < this.data.length) this.data[base] = v & this.mask(); }
+
+  private readDataString(start: number): string {
+    let s = "";
+    for (let i = start; i < this.data.length; i++) {
+      const ch = (this.data[i] ?? 0) & 0xff;
+      if (ch === 0) break;
+      s += String.fromCharCode(ch);
+    }
+    return s;
+  }
+
+  private writeDataString(start: number, s: string): void {
+    for (let i = 0; i < s.length && start + i < this.data.length; i++) this.data[start + i] = s.charCodeAt(i) & this.mask();
+    if (start + s.length < this.data.length) this.data[start + s.length] = 0;
+  }
+
+  private exprEvalRpn(exprBase: number, x: number): number {
+    if (exprBase < 0 || exprBase + 4 >= this.data.length) return 0;
+    if ((this.data[exprBase] ?? 0) !== 69) return 0;
+    const count = this.data[exprBase + 2] | 0;
+    let ip = exprBase + 4;
+    const st: number[] = [];
+    while (ip < exprBase + 4 + count && ip < this.data.length) {
+      const tok = this.toSignedCell(this.data[ip++] ?? 0);
+      if (tok === 1) { st.push(this.toSignedCell(this.data[ip++] ?? 0)); continue; }
+      if (tok === 2) { st.push(x); continue; }
+      if (tok === 10 || tok === 11 || tok === 12 || tok === 13 || tok === 14) {
+        if (st.length < 2) return 0;
+        const b = st.pop()!;
+        const a = st.pop()!;
+        if (tok === 10) st.push(a + b);
+        else if (tok === 11) st.push(a - b);
+        else if (tok === 12) st.push(a * b);
+        else if (tok === 13) st.push(b === 0 ? 0 : Math.trunc(a / b));
+        else st.push(Math.trunc(Math.pow(a, b)));
+        continue;
+      }
+      if (tok === 20 || tok === 21 || tok === 22 || tok === 23 || tok === 24 || tok === 25 || tok === 30 || tok === 31) {
+        if (st.length < 1) return 0;
+        const a = st.pop()!;
+        if (tok === 20) st.push(Math.trunc(Math.sin(a)));
+        else if (tok === 21) st.push(Math.trunc(Math.cos(a)));
+        else if (tok === 22) st.push(Math.trunc(Math.tan(a)));
+        else if (tok === 23) st.push(Math.trunc(Math.exp(a)));
+        else if (tok === 24) st.push(a <= 0 ? 0 : Math.trunc(Math.log(a)));
+        else if (tok === 25) st.push(a < 0 ? 0 : Math.trunc(Math.sqrt(a)));
+        else if (tok === 30) st.push(-a);
+        else st.push(Math.abs(a));
+        continue;
+      }
+      if (tok === 99) break;
+    }
+    return st.length ? st[st.length - 1] : 0;
   }
 
   private changeLayout(tapeKB: number, stackKB: number, dataKB: number): void {

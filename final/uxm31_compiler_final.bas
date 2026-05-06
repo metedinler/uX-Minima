@@ -313,6 +313,15 @@ Declare Function AddrText(ByVal ak As Long, ByVal av As Long, ByVal av2 As Long)
 Declare Function LineOfPos(ByVal pos As Long) As Long
 Declare Function ColOfPos(ByVal pos As Long) As Long
 Declare Function NewAsmId() As Long
+Declare Function MatrixCellIndex(ByVal baseAddr As Long, ByVal r As Long, ByVal c As Long, ByRef ok As Long) As Long
+Declare Sub MatrixInit(ByVal baseAddr As Long, ByVal rows As Long, ByVal cols As Long, ByVal typ As Long, ByVal scale As Long)
+Declare Function MatIsValid(ByVal baseAddr As Long) As Long
+Declare Function FPScaleConst() As LongInt
+Declare Function FPReadScaled(ByVal baseAddr As Long) As LongInt
+Declare Sub FPWriteScaled(ByVal baseAddr As Long, ByVal v As LongInt)
+Declare Function ReadDataString(ByVal startCell As Long) As String
+Declare Sub WriteDataString(ByVal startCell As Long, ByVal s As String)
+Declare Function ExprEvalRpn(ByVal exprBase As Long, ByVal x As LongInt) As LongInt
 
 Main()
 End
@@ -804,6 +813,217 @@ Sub RuntimeMeta(ByVal id As Long)
     Case 15
         If (flags And FLAG_ERR)<>0 Then
             WriteAddr ADDR_T_REL,1,0,1
+    Case 160
+        MatrixInit CLng(a),CLng(b),CLng(c),0,0
+    Case 161
+        Dim i161 As Long
+        If MatIsValid(CLng(a))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            For i161=0 To dataMem(CLng(a)+10)-1:dataMem(CLng(a)+16+i161)=0:Next:SetStatus STATUS_OK
+    Case 162
+        Dim idx162 As Long, ok162 As Long
+        idx162=MatrixCellIndex(CLng(a),CLng(b),CLng(c),ok162)
+        If ok162=0 Then SetStatus STATUS_DATA_BOUNDS Else dataMem(idx162)=ReadAddr(ADDR_T_REL,-3,0) And CellMask():SetStatus STATUS_OK
+    Case 163
+        Dim idx163 As Long, ok163 As Long
+        idx163=MatrixCellIndex(CLng(a),CLng(b),CLng(c),ok163)
+        If ok163=0 Then SetStatus STATUS_DATA_BOUNDS Else WriteAddr ADDR_T_REL,1,0,dataMem(idx163):SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 164
+        Dim i164 As Long, v164 As ULongInt
+        If MatIsValid(CLng(a))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            v164=ReadAddr(ADDR_T_REL,-3,0)
+            For i164=0 To dataMem(CLng(a)+10)-1:dataMem(CLng(a)+16+i164)=v164 And CellMask():Next:SetStatus STATUS_OK
+    Case 165
+        Dim i165 As Long, n165 As Long
+        If MatIsValid(CLng(a))=0 Or MatIsValid(CLng(b))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            n165=dataMem(CLng(b)+10)
+            If dataMem(CLng(a)+10)<>n165 Then SetStatus STATUS_DATA_BOUNDS Else
+                For i165=0 To n165-1:dataMem(CLng(a)+16+i165)=dataMem(CLng(b)+16+i165):Next:SetStatus STATUS_OK
+    Case 166
+        Dim rr166 As Long, cc166 As Long, r166 As Long, c166 As Long, idx166 As Long, ok166 As Long
+        If MatIsValid(CLng(a))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            rr166=dataMem(CLng(a)+5):cc166=dataMem(CLng(a)+6)
+            For r166=0 To rr166-1
+                outputText+="["
+                For c166=0 To cc166-1
+                    idx166=MatrixCellIndex(CLng(a),r166,c166,ok166)
+                    If c166>0 Then outputText+=" "
+                    outputText+=LTrim(Str(ToSignedCell(dataMem(idx166))))
+                Next
+                outputText+="]"+Chr(10)
+            Next
+            SetStatus STATUS_OK
+    Case 167
+        Dim i167 As Long, n167 As Long
+        If MatIsValid(CLng(a))=0 Or MatIsValid(CLng(b))=0 Or MatIsValid(CLng(c))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            n167=dataMem(CLng(a)+10)
+            If dataMem(CLng(b)+10)<>n167 Or dataMem(CLng(c)+10)<>n167 Then SetStatus STATUS_DATA_BOUNDS Else
+                For i167=0 To n167-1:dataMem(CLng(a)+16+i167)=(ToSignedCell(dataMem(CLng(b)+16+i167))+ToSignedCell(dataMem(CLng(c)+16+i167))) And CellMask():Next:SetStatus STATUS_OK
+    Case 168
+        Dim i168 As Long, n168 As Long
+        If MatIsValid(CLng(a))=0 Or MatIsValid(CLng(b))=0 Or MatIsValid(CLng(c))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            n168=dataMem(CLng(a)+10)
+            If dataMem(CLng(b)+10)<>n168 Or dataMem(CLng(c)+10)<>n168 Then SetStatus STATUS_DATA_BOUNDS Else
+                For i168=0 To n168-1:dataMem(CLng(a)+16+i168)=(ToSignedCell(dataMem(CLng(b)+16+i168))-ToSignedCell(dataMem(CLng(c)+16+i168))) And CellMask():Next:SetStatus STATUS_OK
+    Case 169
+        Dim i169 As Long, n169 As Long, s169 As LongInt
+        If MatIsValid(CLng(a))=0 Or MatIsValid(CLng(b))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            n169=dataMem(CLng(a)+10)
+            If dataMem(CLng(b)+10)<>n169 Then SetStatus STATUS_DATA_BOUNDS Else
+                s169=ToSignedCell(c)
+                For i169=0 To n169-1:dataMem(CLng(a)+16+i169)=(ToSignedCell(dataMem(CLng(b)+16+i169))*s169) And CellMask():Next:SetStatus STATUS_OK
+    Case 170
+        Dim ar170 As Long, ac170 As Long, br170 As Long, bc170 As Long, r170 As Long, c170 As Long, k170 As Long
+        Dim acc170 As LongInt, ia170 As Long, ib170 As Long, io170 As Long, oka170 As Long, okb170 As Long, oko170 As Long
+        If MatIsValid(CLng(a))=0 Or MatIsValid(CLng(b))=0 Or MatIsValid(CLng(c))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            ar170=dataMem(CLng(b)+5):ac170=dataMem(CLng(b)+6):br170=dataMem(CLng(c)+5):bc170=dataMem(CLng(c)+6)
+            If ac170<>br170 Or dataMem(CLng(a)+5)<>ar170 Or dataMem(CLng(a)+6)<>bc170 Then SetStatus STATUS_DATA_BOUNDS Else
+                For r170=0 To ar170-1
+                    For c170=0 To bc170-1
+                        acc170=0
+                        For k170=0 To ac170-1
+                            ia170=MatrixCellIndex(CLng(b),r170,k170,oka170)
+                            ib170=MatrixCellIndex(CLng(c),k170,c170,okb170)
+                            acc170+=ToSignedCell(dataMem(ia170))*ToSignedCell(dataMem(ib170))
+                        Next
+                        io170=MatrixCellIndex(CLng(a),r170,c170,oko170)
+                        dataMem(io170)=acc170 And CellMask()
+                    Next
+                Next
+                SetStatus STATUS_OK
+    Case 171
+        Dim rs171 As Long, cs171 As Long, r171 As Long, c171 As Long, is171 As Long, id171 As Long, oks171 As Long, okd171 As Long
+        If MatIsValid(CLng(a))=0 Or MatIsValid(CLng(b))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            rs171=dataMem(CLng(b)+5):cs171=dataMem(CLng(b)+6)
+            If dataMem(CLng(a)+5)<>cs171 Or dataMem(CLng(a)+6)<>rs171 Then SetStatus STATUS_DATA_BOUNDS Else
+                For r171=0 To rs171-1
+                    For c171=0 To cs171-1
+                        is171=MatrixCellIndex(CLng(b),r171,c171,oks171):id171=MatrixCellIndex(CLng(a),c171,r171,okd171):dataMem(id171)=dataMem(is171)
+                    Next
+                Next
+                SetStatus STATUS_OK
+    Case 172
+        Dim n172 As Long, i172 As Long, idx172 As Long, ok172 As Long
+        n172=CLng(b)
+        MatrixInit CLng(a),n172,n172,0,0
+        If statusByte=0 Then
+            For i172=0 To n172-1
+                idx172=MatrixCellIndex(CLng(a),i172,i172,ok172):If ok172<>0 Then dataMem(idx172)=1
+            Next
+        End If
+    Case 173
+        Dim n173 As Long, i173 As Long, idx173 As Long, ok173 As Long, tr173 As LongInt
+        If MatIsValid(CLng(a))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            If dataMem(CLng(a)+5)<>dataMem(CLng(a)+6) Then SetStatus STATUS_DATA_BOUNDS Else
+                n173=dataMem(CLng(a)+5):tr173=0
+                For i173=0 To n173-1:idx173=MatrixCellIndex(CLng(a),i173,i173,ok173):tr173+=ToSignedCell(dataMem(idx173)):Next
+                WriteAddr ADDR_T_REL,1,0,tr173 And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 174
+        Dim m00 As LongInt,m01 As LongInt,m10 As LongInt,m11 As LongInt,ok174 As Long
+        If MatIsValid(CLng(a))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            If dataMem(CLng(a)+5)<>2 Or dataMem(CLng(a)+6)<>2 Then SetStatus STATUS_DATA_BOUNDS Else
+                m00=ToSignedCell(dataMem(MatrixCellIndex(CLng(a),0,0,ok174)))
+                m01=ToSignedCell(dataMem(MatrixCellIndex(CLng(a),0,1,ok174)))
+                m10=ToSignedCell(dataMem(MatrixCellIndex(CLng(a),1,0,ok174)))
+                m11=ToSignedCell(dataMem(MatrixCellIndex(CLng(a),1,1,ok174)))
+                WriteAddr ADDR_T_REL,1,0,(m00*m11-m01*m10) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 175
+        If MatIsValid(CLng(a))=0 Then SetStatus STATUS_DATA_BOUNDS Else outputText+=Str(dataMem(CLng(a)+5))+"x"+Str(dataMem(CLng(a)+6)):SetStatus STATUS_OK
+    Case 176
+        Dim i176 As Long, n176 As Long
+        If MatIsValid(CLng(a))=0 Then SetStatus STATUS_DATA_BOUNDS Else
+            n176=dataMem(CLng(a)+10)
+            For i176=0 To n176-1
+                If i176>0 Then outputText+=" "
+                outputText+=LTrim(Str(ToSignedCell(dataMem(CLng(a)+16+i176))))
+            Next
+            SetStatus STATUS_OK
+    Case 200,201
+        FPWriteScaled CLng(a),0:dataMem(CLng(a)+1)=IIf(id=201,32,16):SetStatus STATUS_OK
+    Case 202
+        FPWriteScaled CLng(a),0:SetStatus STATUS_OK
+    Case 203
+        FPWriteScaled CLng(a),FPReadScaled(CLng(b)):SetStatus STATUS_OK
+    Case 210
+        FPWriteScaled CLng(a),FPReadScaled(CLng(b))+FPReadScaled(CLng(c)):SetStatus STATUS_OK
+    Case 211
+        FPWriteScaled CLng(a),FPReadScaled(CLng(b))-FPReadScaled(CLng(c)):SetStatus STATUS_OK
+    Case 212
+        FPWriteScaled CLng(a),(FPReadScaled(CLng(b))*FPReadScaled(CLng(c)))\FPScaleConst():SetStatus STATUS_OK
+    Case 213
+        If FPReadScaled(CLng(c))=0 Then SetStatus STATUS_DIV_ZERO Else FPWriteScaled CLng(a),(FPReadScaled(CLng(b))*FPScaleConst())\FPReadScaled(CLng(c)):SetStatus STATUS_OK
+    Case 214
+        If FPReadScaled(CLng(b))=FPReadScaled(CLng(c)) Then WriteAddr ADDR_T_REL,1,0,0 ElseIf FPReadScaled(CLng(b))>FPReadScaled(CLng(c)) Then WriteAddr ADDR_T_REL,1,0,1 Else WriteAddr ADDR_T_REL,1,0,CellMask()
+        SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 220
+        FPWriteScaled CLng(a),ToSignedCell(b)*FPScaleConst():SetStatus STATUS_OK
+    Case 221
+        FPWriteScaled CLng(a),CLngInt(Val(ReadDataString(CLng(b)))*FPScaleConst()):SetStatus STATUS_OK
+    Case 222
+        WriteDataString CLng(b),Str(CDbl(FPReadScaled(CLng(a)))/CDbl(FPScaleConst())):SetStatus STATUS_OK
+    Case 223
+        outputText+=Str(CDbl(FPReadScaled(CLng(b)))/CDbl(FPScaleConst())):SetStatus STATUS_OK
+    Case 224
+        FPWriteScaled CLng(a),FPReadScaled(CLng(a))*CLngInt(10^CLng(b)):SetStatus STATUS_OK
+    Case 230,231,232,233,234
+        SetStatus STATUS_INVALID_META
+    Case 240
+        Dim deg240 As Long, i240 As Long
+        If dataMem(CLng(b))<>80 Then SetStatus STATUS_DATA_BOUNDS Else
+            deg240=dataMem(CLng(b)+2):dataMem(CLng(a)+0)=80:dataMem(CLng(a)+1)=1:dataMem(CLng(a)+3)=dataMem(CLng(b)+3)
+            If deg240<=0 Then dataMem(CLng(a)+2)=0:dataMem(CLng(a)+4)=0 Else dataMem(CLng(a)+2)=deg240-1:For i240=1 To deg240:dataMem(CLng(a)+3+i240)=(ToSignedCell(dataMem(CLng(b)+4+i240))*i240) And CellMask():Next
+            SetStatus STATUS_OK
+    Case 241
+        Dim deg241 As Long, i241 As Long
+        If dataMem(CLng(b))<>80 Then SetStatus STATUS_DATA_BOUNDS Else
+            deg241=dataMem(CLng(b)+2):dataMem(CLng(a)+0)=80:dataMem(CLng(a)+1)=1:dataMem(CLng(a)+2)=deg241+1:dataMem(CLng(a)+3)=dataMem(CLng(b)+3):dataMem(CLng(a)+4)=c And CellMask()
+            For i241=0 To deg241:dataMem(CLng(a)+5+i241)=(ToSignedCell(dataMem(CLng(b)+4+i241))\(i241+1)) And CellMask():Next:SetStatus STATUS_OK
+    Case 242
+        Dim deg242 As Long, i242 As Long, acc242 As LongInt
+        If dataMem(CLng(a))<>80 Then SetStatus STATUS_DATA_BOUNDS Else
+            deg242=dataMem(CLng(a)+2):acc242=0
+            For i242=deg242 To 0 Step -1:acc242=acc242*ToSignedCell(b)+ToSignedCell(dataMem(CLng(a)+4+i242)):Next
+            WriteAddr ADDR_T_REL,1,0,acc242 And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 243
+        Dim deg243 As Long, i243 As Long
+        If dataMem(CLng(a))<>80 Then SetStatus STATUS_DATA_BOUNDS Else
+            deg243=dataMem(CLng(a)+2)
+            For i243=0 To deg243
+                If i243>0 Then outputText+=" + "
+                outputText+=LTrim(Str(ToSignedCell(dataMem(CLng(a)+4+i243))))
+                If i243>0 Then outputText+="x"
+                If i243>1 Then outputText+="^"+LTrim(Str(i243))
+            Next
+            SetStatus STATUS_OK
+    Case 244
+        Dim i244 As Long
+        For i244=0 To CLng(b)-1:dataMem(CLng(a)+i244)=0:Next:SetStatus STATUS_OK
+    Case 250
+        WriteAddr ADDR_T_REL,1,0,ExprEvalRpn(CLng(a),ToSignedCell(b)) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 251
+        Dim h251 As LongInt, f1251 As LongInt, f2251 As LongInt
+        h251=ToSignedCell(c):If h251=0 Then h251=1
+        f1251=ExprEvalRpn(CLng(a),ToSignedCell(b)+h251):f2251=ExprEvalRpn(CLng(a),ToSignedCell(b)-h251)
+        WriteAddr ADDR_T_REL,1,0,((f1251-f2251)\(2*h251)) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 252
+        Dim aa252 As LongInt, bb252 As LongInt, n252 As Long, h252 As Double, x252 As Double, sum252 As Double, i252 As Long
+        aa252=ToSignedCell(b):bb252=ToSignedCell(c):n252=16:If n252<=0 Then n252=1
+        h252=(bb252-aa252)/n252:sum252=0
+        For i252=0 To n252
+            x252=aa252+i252*h252
+            If i252=0 Or i252=n252 Then sum252+=ExprEvalRpn(CLng(a),CLngInt(x252)) Else sum252+=2*ExprEvalRpn(CLng(a),CLngInt(x252))
+        Next
+        WriteAddr ADDR_T_REL,1,0,CLngInt(sum252*h252/2.0) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 253
+        Dim aa253 As LongInt, bb253 As LongInt, n253 As Long, h253 As Double, x253 As Double, sum253 As Double, i253 As Long
+        aa253=ToSignedCell(b):bb253=ToSignedCell(c):n253=16:If (n253 Mod 2)=1 Then n253+=1
+        h253=(bb253-aa253)/n253:sum253=ExprEvalRpn(CLng(a),aa253)+ExprEvalRpn(CLng(a),bb253)
+        For i253=1 To n253-1
+            x253=aa253+i253*h253
+            If (i253 Mod 2)=0 Then sum253+=2*ExprEvalRpn(CLng(a),CLngInt(x253)) Else sum253+=4*ExprEvalRpn(CLng(a),CLngInt(x253))
+        Next
+        WriteAddr ADDR_T_REL,1,0,CLngInt(sum253*h253/3.0) And CellMask():SetLogicFlags ReadAddr(ADDR_T_REL,1,0):SetStatus STATUS_OK
+    Case 254
+        outputText+="[RPN @"+LTrim(Str(a))+"]":SetStatus STATUS_OK
         Else
             WriteAddr ADDR_T_REL,1,0,0
         End If
@@ -1385,3 +1605,135 @@ End Function
 Function LineOfPos(ByVal pos As Long) As Long:Dim l As Long=1:For i As Long=1 To pos-1:If Mid(src,i,1)=Chr(10) Then l+=1:Next:Return l:End Function
 Function ColOfPos(ByVal pos As Long) As Long:Dim c As Long=1:For i As Long=pos-1 To 1 Step -1:If Mid(src,i,1)=Chr(10) Then Exit For Else c+=1:Next:Return c:End Function
 Function NewAsmId() As Long:asmLabelCounter+=1:Return asmLabelCounter:End Function
+
+Function MatIsValid(ByVal baseAddr As Long) As Long
+    If baseAddr<0 Or baseAddr+15>=dataCells Then Return 0
+    If dataMem(baseAddr+0)<>77 Then Return 0
+    If dataMem(baseAddr+1)<>1 Then Return 0
+    If dataMem(baseAddr+2)<>2 Then Return 0
+    Return -1
+End Function
+
+Function MatrixCellIndex(ByVal baseAddr As Long, ByVal r As Long, ByVal c As Long, ByRef ok As Long) As Long
+    Dim rows As Long, cols As Long, idx As Long
+    ok=0
+    If MatIsValid(baseAddr)=0 Then Return 0
+    rows=CLng(dataMem(baseAddr+5))
+    cols=CLng(dataMem(baseAddr+6))
+    If r<0 Or c<0 Or r>=rows Or c>=cols Then Return 0
+    idx=baseAddr+CLng(dataMem(baseAddr+9))+r*CLng(dataMem(baseAddr+12))+c*CLng(dataMem(baseAddr+13))
+    If idx<0 Or idx>=dataCells Then Return 0
+    ok=-1
+    Return idx
+End Function
+
+Sub MatrixInit(ByVal baseAddr As Long, ByVal rows As Long, ByVal cols As Long, ByVal typ As Long, ByVal scale As Long)
+    Dim total As Long, i As Long, flg As Long
+    If baseAddr<0 Or rows<=0 Or cols<=0 Then SetStatus STATUS_DATA_BOUNDS:Exit Sub
+    total=rows*cols
+    If baseAddr+16+total-1>=dataCells Then SetStatus STATUS_DATA_BOUNDS:Exit Sub
+    flg=0:If typ=1 Then flg=1 ElseIf typ=2 Then flg=2
+    dataMem(baseAddr+0)=77:dataMem(baseAddr+1)=1:dataMem(baseAddr+2)=2:dataMem(baseAddr+3)=typ
+    dataMem(baseAddr+4)=flg:dataMem(baseAddr+5)=rows:dataMem(baseAddr+6)=cols:dataMem(baseAddr+7)=scale
+    dataMem(baseAddr+8)=1:dataMem(baseAddr+9)=16:dataMem(baseAddr+10)=total:dataMem(baseAddr+11)=16+total
+    dataMem(baseAddr+12)=cols:dataMem(baseAddr+13)=1:dataMem(baseAddr+14)=0:dataMem(baseAddr+15)=0
+    For i=0 To total-1:dataMem(baseAddr+16+i)=0:Next
+    SetStatus STATUS_OK
+End Sub
+
+Function FPScaleConst() As LongInt
+    Return 1000000
+End Function
+
+Function FPReadScaled(ByVal baseAddr As Long) As LongInt
+    If baseAddr<0 Or baseAddr>=dataCells Then Return 0
+    Return ToSignedCell(dataMem(baseAddr))
+End Function
+
+Sub FPWriteScaled(ByVal baseAddr As Long, ByVal v As LongInt)
+    If baseAddr<0 Or baseAddr>=dataCells Then Exit Sub
+    dataMem(baseAddr)=v And CellMask()
+End Sub
+
+Function ReadDataString(ByVal startCell As Long) As String
+    Dim s As String, i As Long, ch As ULongInt
+    s=""
+    If startCell<0 Then Return s
+    For i=startCell To dataCells-1
+        ch=dataMem(i) And &HFF
+        If ch=0 Then Exit For
+        s+=Chr(ch)
+    Next
+    Return s
+End Function
+
+Sub WriteDataString(ByVal startCell As Long, ByVal s As String)
+    Dim i As Long
+    If startCell<0 Or startCell>=dataCells Then Exit Sub
+    For i=1 To Len(s)
+        If startCell+i-1>=dataCells Then Exit For
+        dataMem(startCell+i-1)=Asc(Mid(s,i,1)) And CellMask()
+    Next
+    If startCell+Len(s)<dataCells Then dataMem(startCell+Len(s))=0
+End Sub
+
+Function ExprEvalRpn(ByVal exprBase As Long, ByVal x As LongInt) As LongInt
+    Dim tokenCount As Long, ip As Long, tok As LongInt, st(0 To 255) As LongInt, spx As Long
+    Dim a As LongInt, b As LongInt
+    If exprBase<0 Or exprBase+4>=dataCells Then Return 0
+    If dataMem(exprBase)<>69 Then Return 0
+    tokenCount=CLng(dataMem(exprBase+2))
+    ip=exprBase+4:spx=0
+    Do While ip<exprBase+4+tokenCount And ip<dataCells
+        tok=ToSignedCell(dataMem(ip)):ip+=1
+        Select Case tok
+        Case 1
+            st(spx)=ToSignedCell(dataMem(ip)):spx+=1:ip+=1
+        Case 2
+            st(spx)=x:spx+=1
+        Case 10
+            If spx<2 Then Return 0
+            b=st(spx-1):a=st(spx-2):spx-=2:st(spx)=a+b:spx+=1
+        Case 11
+            If spx<2 Then Return 0
+            b=st(spx-1):a=st(spx-2):spx-=2:st(spx)=a-b:spx+=1
+        Case 12
+            If spx<2 Then Return 0
+            b=st(spx-1):a=st(spx-2):spx-=2:st(spx)=a*b:spx+=1
+        Case 13
+            If spx<2 Then Return 0
+            b=st(spx-1):a=st(spx-2):spx-=2:If b=0 Then st(spx)=0 Else st(spx)=a\b:spx+=1
+        Case 14
+            If spx<2 Then Return 0
+            b=st(spx-1):a=st(spx-2):spx-=2:st(spx)=CLngInt((CDbl(a)^CDbl(b))):spx+=1
+        Case 20
+            If spx<1 Then Return 0
+            a=st(spx-1):st(spx-1)=CLngInt(Sin(a))
+        Case 21
+            If spx<1 Then Return 0
+            a=st(spx-1):st(spx-1)=CLngInt(Cos(a))
+        Case 22
+            If spx<1 Then Return 0
+            a=st(spx-1):st(spx-1)=CLngInt(Tan(a))
+        Case 23
+            If spx<1 Then Return 0
+            a=st(spx-1):st(spx-1)=CLngInt(Exp(a))
+        Case 24
+            If spx<1 Then Return 0
+            a=st(spx-1):If a<=0 Then st(spx-1)=0 Else st(spx-1)=CLngInt(Log(a))
+        Case 25
+            If spx<1 Then Return 0
+            a=st(spx-1):If a<0 Then st(spx-1)=0 Else st(spx-1)=CLngInt(Sqr(a))
+        Case 30
+            If spx<1 Then Return 0
+            st(spx-1)=-st(spx-1)
+        Case 31
+            If spx<1 Then Return 0
+            If st(spx-1)<0 Then st(spx-1)=-st(spx-1)
+        Case 99
+            Exit Do
+        End Select
+    Loop
+    If spx<=0 Then Return 0
+    Return st(spx-1)
+End Function
