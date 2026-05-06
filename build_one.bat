@@ -9,10 +9,16 @@ set FBC=fbc
 set NASM=nasm
 if "%~1"=="" goto usage
 set SRC=%~1
+set MODE=%~2
+set ARGEPARSE_COMPAT=1
+if /I "%MODE%"=="R" set ARGEPARSE_COMPAT=0
 set NAME=%~n1
 set ASM=build\%NAME%.asm
 set OBJ=build\%NAME%.o
 set EXE=build\%NAME%.exe
+set ASM_AR=build\program.asm
+set OBJ_AR=build\program.obj
+set EXE_AR=build\program.exe
 if not exist build mkdir build
 if not exist uxm.exe (
 echo Derleyici bulunamadi. Once build_all.bat calistir.
@@ -21,18 +27,28 @@ goto fail
 echo [1/4] UXM -> ASM: %SRC%
 uxm.exe "%SRC%" "%ASM%"
 if errorlevel 1 goto fail
+if "%ARGEPARSE_COMPAT%"=="1" copy /y "%ASM%" "%ASM_AR%" >nul
 echo [2/4] ASM -> OBJ
 %NASM% -f win64 "%ASM%" -o "%OBJ%"
 if errorlevel 1 goto fail
+if "%ARGEPARSE_COMPAT%"=="1" copy /y "%OBJ%" "%OBJ_AR%" >nul
 echo [3/4] Runtime + OBJ -> EXE
 %FBC% -x "%EXE%" uxm31_runtime_fb_full.bas "%OBJ%"
 if errorlevel 1 goto fail
+if "%ARGEPARSE_COMPAT%"=="1" copy /y "%EXE%" "%EXE_AR%" >nul
 echo [4/4] Calistiriliyor...
 "%EXE%"
+if "%ARGEPARSE_COMPAT%"=="1" (
+echo [ARGE] program alias aktif: program.asm/program.obj/program.exe
+) else (
+echo [ARGE] R modu: sadece gercek adli artefaktlar uretildi.
+)
 goto end
 :usage
 echo Kullanim:
 echo   build_one.bat tests\test01_print_A.uxm
+echo   build_one.bat tests\test01_print_A.uxm R
+echo     R = sadece gercek adlar; ARGE program.* alias dosyalari uretilmez.
 goto end
 :fail
 echo HATA: build_one.bat basarisiz oldu.
