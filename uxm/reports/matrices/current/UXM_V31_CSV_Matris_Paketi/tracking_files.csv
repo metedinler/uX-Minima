@@ -8,3 +8,15 @@ KODDA_OLUP_BELGEDE_OLMAYANLAR_RAPORU.md,VAR,ters gap raporu,Her sprint sonunda v
 UXM_V31_Kod_Belge_Matris_Paketi/SPRINT_1_E_ERR_STANDARTLASMA_PLANI.md,VAR,Sprint1 plan/rapor ayrılmalı,Her sprint sonunda ve kod değişikliği sonrası güncelle
 UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/meta_servis_matrisi.csv,VAR,servis matrisi; CSV formatı düzeltilmeli,Her sprint sonunda ve kod değişikliği sonrası güncelle
 UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/test_matrisi.csv,VAR,test matrisi; tests_matrix eklenmeli,Her sprint sonunda ve kod değişikliği sonrası güncelle
+uxm/core/compiler/native/native_main.bas,YENI,V3 moduler derleyici ana giris dosyasi,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/native/native_cli.bas,YENI,V3 moduler derleyici CLI ve pragma islemleri,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/native/native_lexer_parser.bas,YENI,V3 moduler lexer/parser katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/native/native_addressing.bas,YENI,V3 moduler adresleme parser katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/native/native_meta_parse.bas,YENI,V3 moduler meta parse katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/native/native_validation.bas,YENI,V3 moduler dogrulama ve tanim gecisi katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/compiler/native/native_asm_emit.bas,YENI,V3 moduler asm emit katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/runtime/runtime_memory.bas,YENI,V3 moduler runtime bellek katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/runtime/runtime_status_flags.bas,YENI,V3 moduler runtime status/flag katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/runtime/runtime_io.bas,YENI,V3 moduler runtime io/fifo katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/runtime/runtime_meta_dispatch.bas,YENI,V3 moduler runtime meta dispatch katmani,Her kod parcasi tasima sonrasi build/test ile guncelle
+uxm/core/runtime/runtime_host.bas,YENI,V3 moduler runtime host omurgasi,Her kod parcasi tasima sonrasi build/test ile guncelle
