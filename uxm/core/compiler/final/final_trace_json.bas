@@ -1,4 +1,9 @@
 ' Auto-split by V3 modularization
+Dim Shared validateLoopStack() As Long
+Dim Shared validateLoopStackReady As Long
+Dim Shared optimizeScratch() As TInstr
+Dim Shared optimizeScratchReady As Long
+
 Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal txt As String, ByVal atPos As Long)
     instrCount += 1
     If instrCount > MAX_INSTR Then
@@ -86,16 +91,20 @@ Sub AddOpt(ByVal msg As String, ByVal beforeIp As Long, ByVal afterIp As Long)
 End Sub
 
 Sub ValidateProgram()
-    Dim st(1 To 65536) As Long
     Dim spx As Long
     Dim i As Long
     Dim j As Long
+
+    If validateLoopStackReady = 0 Then
+        ReDim validateLoopStack(1 To 65536)
+        validateLoopStackReady = -1
+    End If
 
     spx = 0
     For i = 1 To instrCount
         If progInstr(i).op = OP_LOOP_BEG Then
             spx += 1
-            st(spx) = i
+            validateLoopStack(spx) = i
         End If
 
         If progInstr(i).op = OP_LOOP_END Then
@@ -103,7 +112,7 @@ Sub ValidateProgram()
                 SyntaxError "fazla ]", progInstr(i).pos
                 Exit Sub
             End If
-            j = st(spx)
+            j = validateLoopStack(spx)
             spx -= 1
             progInstr(i).mate = j
             progInstr(j).mate = i
@@ -111,7 +120,7 @@ Sub ValidateProgram()
     Next
 
     If spx <> 0 Then
-        SyntaxError "kapanmamış [", progInstr(st(spx)).pos
+        SyntaxError "kapanmamış [", progInstr(validateLoopStack(spx)).pos
         Exit Sub
     End If
 
@@ -132,7 +141,11 @@ Sub OptimizeProgram()
     Dim n As Long
     Dim i As Long
     Dim delta As LongInt
-    Dim newI(1 To MAX_INSTR) As TInstr
+
+    If optimizeScratchReady = 0 Then
+        ReDim optimizeScratch(1 To MAX_INSTR)
+        optimizeScratchReady = -1
+    End If
 
     i = 1
     n = 0
@@ -140,11 +153,11 @@ Sub OptimizeProgram()
         If i < instrCount Then
             If progInstr(i).op = OP_CLEAR And (progInstr(i + 1).op = OP_INC Or progInstr(i + 1).op = OP_DEC) And progInstr(i).addrKind = progInstr(i + 1).addrKind And progInstr(i).addrVal = progInstr(i + 1).addrVal And progInstr(i).addrVal2 = progInstr(i + 1).addrVal2 Then
                 n += 1
-                newI(n) = progInstr(i + 1)
-                newI(n).op = OP_SET
-                newI(n).text = "optimized_set"
+                optimizeScratch(n) = progInstr(i + 1)
+                optimizeScratch(n).op = OP_SET
+                optimizeScratch(n).text = "optimized_set"
                 If progInstr(i + 1).op = OP_DEC Then
-                    newI(n).amount = (CellMask() - progInstr(i + 1).amount + 1) And CellMask()
+                    optimizeScratch(n).amount = (CellMask() - progInstr(i + 1).amount + 1) And CellMask()
                 End If
                 AddOpt "CLEAR + INC/DEC -> SET", i, n
                 i += 2
@@ -170,15 +183,15 @@ Sub OptimizeProgram()
                 End If
 
                 n += 1
-                newI(n) = progInstr(i)
+                optimizeScratch(n) = progInstr(i)
                 If delta > 0 Then
-                    newI(n).op = OP_INC
-                    newI(n).amount = delta
+                    optimizeScratch(n).op = OP_INC
+                    optimizeScratch(n).amount = delta
                 Else
-                    newI(n).op = OP_DEC
-                    newI(n).amount = Abs(delta)
+                    optimizeScratch(n).op = OP_DEC
+                    optimizeScratch(n).amount = Abs(delta)
                 End If
-                newI(n).text = "optimized_arith_merge"
+                optimizeScratch(n).text = "optimized_arith_merge"
                 AddOpt "INC/DEC merge", i, n
                 i += 2
                 Continue Do
@@ -186,13 +199,13 @@ Sub OptimizeProgram()
         End If
 
         n += 1
-        newI(n) = progInstr(i)
+        optimizeScratch(n) = progInstr(i)
         i += 1
     Loop
 
     instrCount = n
     For i = 1 To instrCount
-        progInstr(i) = newI(i)
+        progInstr(i) = optimizeScratch(i)
     Next
 End Sub
 
