@@ -42,7 +42,7 @@ export class UxmToolchain {
       fullTool: this.resolveTool(cfg.get<string>("fullToolPath", "uxm31_full_tool.exe"), root),
       compiler: this.resolveTool(cfg.get<string>("compilerPath", "uxm31_compiler_full.exe"), root),
       finalCompiler: this.resolveTool(cfg.get<string>("finalCompilerPath", "uxm31_compiler_final.exe"), root),
-      finalCompilerSource: this.resolveTool(cfg.get<string>("finalCompilerSourcePath", "uxm31_compiler_final.bas"), root),
+      finalCompilerSource: this.resolveTool(cfg.get<string>("finalCompilerSourcePath", "final/uxm31_compiler_final.bas"), root),
       runtime: this.resolveTool(cfg.get<string>("runtimePath", "uxm31_runtime_fb_full.bas"), root),
       nasm: cfg.get<string>("nasmPath", "nasm"),
       fbc: cfg.get<string>("fbcPath", "fbc"),

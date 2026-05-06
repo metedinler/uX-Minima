@@ -135,7 +135,7 @@ Tamamlananlar:
 
 Devam Edenler:
 
-1. Klasor duzeni icin `git mv` tabanli uygulama (madde 5) - uygulama sirasi manifestte PENDING
+1. Faz 5 release notu uretim otomasyonu (teknik paketleme adimi)
 
 Tamamlanan yeni maddeler:
 
@@ -149,3 +149,4 @@ Tamamlanan yeni maddeler:
   - `uxm31_matrix_out/duplicate_authority_selection.csv`
   - `uxm31_matrix_out/gitmv_esitleme_manifest.csv`
   - Ayni dosyalar `UXM_V31_CSV_Matris_Paketi` altina senkronlandi
+4. `gitmv_esitleme_manifest.csv` icindeki tum PENDING satirlar uygulandi; durumlar `DONE` olarak isaretlendi.

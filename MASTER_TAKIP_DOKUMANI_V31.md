@@ -219,7 +219,7 @@ Tamamlandi:
 
 Kalan:
 
-1. `gitmv_esitleme_manifest.csv` PENDING adimlarinin uygulanmasi.
+1. Faz 5 kapsaminda release notu uretim adiminin otomasyonu.
 
 Tamamlanan ek maddeler (2026-05-06 devam):
 
@@ -227,3 +227,4 @@ Tamamlanan ek maddeler (2026-05-06 devam):
 2. tests_matrix ana test zincirine entegre edildi (`run_tests.bat`).
 3. Parity ciktilari hem `uxm31_matrix_out` hem CSV paketinde eszamanli tutuldu.
 4. Duplicate NO satirlari icin otorite secimi ve git-mv esitleme manifestleri uretildi.
+5. `gitmv_esitleme_manifest.csv` PENDING adimlari fiilen `git mv` ile uygulandi ve `DONE` durumuna cekildi.

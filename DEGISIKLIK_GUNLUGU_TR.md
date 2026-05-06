@@ -25,6 +25,6 @@
 
 ## Sonraki Operasyon Adimi
 
-1. gitmv_esitleme_manifest.csv icindeki PENDING adimlarini sira ile uygula.
-2. 4-hat parity aciklarini 50-120 odakli satir bazli takip et.
-3. tests_matrix icin CI/runner performans raporu ekle.
+1. 4-hat parity aciklarini 50-120 odakli satir bazli takip et.
+2. tests_matrix icin CI/runner performans raporu ekle.
+3. Faz 5 release notu uretim adimini betiklestir.

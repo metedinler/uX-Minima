@@ -170,7 +170,7 @@
         },
         "uxminima.finalCompilerSourcePath": {
           "type": "string",
-          "default": "uxm31_compiler_final.bas",
+          "default": "final/uxm31_compiler_final.bas",
           "description": "Path to final ARGE compiler FreeBASIC source."
         },
         "uxminima.autoBuildFinalCompiler": {
