@@ -1,0 +1,186 @@
+ID,Name,RuntimeHost,FinalInterpreter,FullTool,VSCodeRuntime,VarCount,Parity,TestEvidence,ReviewConfidence,CriticalNote
+0,OK/no-op,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+1,CLS,VAR,VAR,VAR,VAR,4/4,FULL,tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test16_data_digit.uxm; tests/test17_endian_word_split.uxm; tests/test25_data_sort_ascending.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+2,"LOCATE 1,1",VAR,VAR,VAR,VAR,4/4,FULL,tests/test05_meta_add.uxm; tests/test09_div_mod.uxm; tests/test12_signed_mode.uxm; tests/test13_status_div_zero.uxm; tests/test30_word_mode_add.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+3,RANDOM BYTE,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+4,TIMER,VAR,VAR,VAR,VAR,4/4,FULL,tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm; tests/test11_hypotenuse.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+5,NEWLINE,VAR,VAR,VAR,VAR,4/4,FULL,tests/test08_newline.uxm; tests/test09_div_mod.uxm; tests/test21_fifo_count_peek.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+6,PRINT META INFO,VAR,VAR,VAR,VAR,4/4,FULL,tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm; tests/test44_meta_version_info.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+7,VERSION MAJOR,VAR,VAR,VAR,VAR,4/4,FULL,tests/test44_meta_version_info.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+8,VERSION MINOR,VAR,VAR,VAR,VAR,4/4,FULL,tests/test18_pointer_service.uxm; tests/test32_wild_layout_change.uxm; tests/test44_meta_version_info.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+9,STATUS READ,VAR,VAR,VAR,VAR,4/4,FULL,tests/test20_fifo_char_order.uxm; tests/test21_fifo_count_peek.uxm; tests/test22_data_write_read_char.uxm; tests/test23_data_digit_ascii_to_number.uxm; tests/test24_data_block_copy_print.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+10,STATUS CLEAR,VAR,VAR,VAR,VAR,4/4,FULL,tests/test25_data_sort_ascending.uxm; tests/test26_tape_sort_descending_chars.uxm; tests/test27_tape_linear_search.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+11,STATUS SET,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+12,STATUS PRINT,VAR,VAR,VAR,VAR,4/4,FULL,tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test29_nested_macro_call.uxm; tests/test31_safe_mode_wild_denied.uxm; tests/test32_wild_layout_change.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+13,ERR FLAG SET,VAR,VAR,VAR,VAR,4/4,FULL,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+14,ERR FLAG RESET,VAR,VAR,VAR,VAR,4/4,FULL,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+15,ERR FLAG READ,VAR,VAR,VAR,VAR,4/4,FULL,tests/test42_error_flag_set_reset.uxm; tests/test43_error_macro_helpers.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+16,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,tests_matrix/test_matrix01_init_set_print.uxm; tests_matrix/test_matrix02_add_2x2.uxm; tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm,NET_YOK,Matris satiri YOK diyor.
+17,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm,NET_YOK,Matris satiri YOK diyor.
+18,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,tests/test16_data_digit.uxm,NET_YOK,Matris satiri YOK diyor.
+19,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+20,ADD,VAR,VAR,VAR,VAR,4/4,FULL,tests/test05_meta_add.uxm; tests/test12_signed_mode.uxm; tests/test30_word_mode_add.uxm; tests/test40_4bit_cpu_alu_model.uxm; tests/test41_4_neuron_nn_model.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+21,SUB,VAR,VAR,VAR,VAR,4/4,FULL,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp06_add_dec_string.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+22,MUL,VAR,VAR,VAR,VAR,4/4,FULL,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+23,DIV,VAR,VAR,VAR,VAR,4/4,FULL,tests/test09_div_mod.uxm; tests/test13_status_div_zero.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+24,MOD,VAR,VAR,VAR,VAR,4/4,FULL,tests/test09_div_mod.uxm; math_extensions/tests_math/test_math01_poly_deriv_arge.uxm; math_extensions/tests_math/test_math02_poly_integral_arge.uxm; math_extensions/tests_math/test_math03_poly_eval_arge.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+25,MIN,VAR,VAR,VAR,VAR,4/4,FULL,math_extensions/tests_math/test_math04_expr_rpn_eval.uxm; math_extensions/tests_math/test_math05_num_deriv.uxm; math_extensions/tests_math/test_math06_integral_trap.uxm; math_extensions/tests_math/test_math07_integral_simpson.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+26,MAX,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+27,ABS,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+28,NEG,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+29,CMP,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+30,RND_RANGE,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+31,RND_SEED,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+32,RND_FLOAT01,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+33,DIV_UNSIGNED,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+34,DIV_SIGNED,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+35,MOD_UNSIGNED,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+36,MOD_SIGNED,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+37,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+38,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+39,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+40,SIN,VAR,VAR,VAR,VAR,4/4,FULL,tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+41,COS,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+42,TAN,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+43,HYPOT,VAR,VAR,VAR,VAR,4/4,FULL,tests/test11_hypotenuse.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+44,ASIN,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+45,ACOS,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+46,SQRT,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+47,SINH,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+48,COSH,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+49,TANH,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+50,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+51,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+52,ASINH,VAR,VAR,YOK,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+53,ACOSH,VAR,VAR,YOK,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+54,ATANH,VAR,VAR,YOK,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+55,LOG,VAR,VAR,YOK,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+56,EXP,VAR,VAR,YOK,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+57,POW,VAR,VAR,YOK,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+58,DEG_TO_RAD,VAR,VAR,YOK,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+59,RAD_TO_DEG,VAR,VAR,YOK,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+60,PRINT ARG2,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+61,PRINT RESULT,VAR,VAR,VAR,VAR,4/4,FULL,tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+62,PRINT STACK POP,VAR,VAR,VAR,VAR,4/4,FULL,tests/test51_meta_print_stack_pop.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+63,READ DECIMAL,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+64,PRINT SPACE,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+65,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+66,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+67,PRINT HEX,VAR,VAR,VAR,VAR,4/4,FULL,tests/test52_meta_print_hex.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+68,PRINT BIN,VAR,VAR,VAR,VAR,4/4,FULL,tests/test53_meta_print_bin.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+69,PRINT CHAR/RAW,VAR,VAR,VAR,VAR,4/4,FULL,tests/test54_meta_print_char_raw.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+70,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+71,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+72,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+73,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+74,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+75,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+76,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+77,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+78,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+79,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+80,SET POINTER,VAR,VAR,VAR,VAR,4/4,FULL,tests/test18_pointer_service.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+81,ADD POINTER,VAR,VAR,VAR,VAR,4/4,FULL,tests/test45_pointer_meta_extended.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+82,GET POINTER,VAR,VAR,VAR,VAR,4/4,FULL,tests/test45_pointer_meta_extended.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+83,POINTER VALID,VAR,VAR,VAR,VAR,4/4,FULL,tests/test45_pointer_meta_extended.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+84,TAPE CELLS,VAR,VAR,VAR,VAR,4/4,FULL,tests/test32_wild_layout_change.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+85,DATA CELLS,VAR,VAR,VAR,VAR,4/4,FULL,tests/test45_pointer_meta_extended.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+86,STACK CELLS,VAR,VAR,VAR,VAR,4/4,FULL,tests/test45_pointer_meta_extended.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+87,CELL BITS,VAR,VAR,VAR,VAR,4/4,FULL,tests/test45_pointer_meta_extended.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+88,CELL BYTES,VAR,VAR,VAR,VAR,4/4,FULL,tests/test45_pointer_meta_extended.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+89,PRINT LAYOUT,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+90,FIFO PUSH,VAR,VAR,VAR,VAR,4/4,FULL,tests/test20_fifo_char_order.uxm; tests/test21_fifo_count_peek.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+91,FIFO POP,VAR,VAR,VAR,VAR,4/4,FULL,tests/test20_fifo_char_order.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+92,FIFO PEEK,VAR,VAR,VAR,VAR,4/4,FULL,tests/test21_fifo_count_peek.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+93,FIFO COUNT,VAR,VAR,VAR,VAR,4/4,FULL,tests/test21_fifo_count_peek.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+94,FIFO CLEAR,VAR,VAR,VAR,VAR,4/4,FULL,tests/test46_fifo_clear.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+95,DATA READ,VAR,VAR,VAR,VAR,4/4,FULL,tests/test22_data_write_read_char.uxm; tests/test24_data_block_copy_print.uxm; tests/test25_data_sort_ascending.uxm; tests/test34_data_block_clear.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+96,DATA WRITE,VAR,VAR,VAR,VAR,4/4,FULL,tests/test22_data_write_read_char.uxm; tests/test25_data_sort_ascending.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+97,DATA DIGIT,VAR,VAR,VAR,VAR,4/4,FULL,tests/test23_data_digit_ascii_to_number.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+98,DATA BLOCK COPY,VAR,VAR,VAR,VAR,4/4,FULL,tests/test24_data_block_copy_print.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+99,DATA BLOCK CLEAR,VAR,VAR,VAR,VAR,4/4,FULL,tests/test34_data_block_clear.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+100,TAPE SORT ASC,VAR,VAR,VAR,VAR,4/4,FULL,tests/test47_tape_sort_ascending.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+101,TAPE SORT DESC,VAR,VAR,VAR,VAR,4/4,FULL,tests/test26_tape_sort_descending_chars.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+102,DATA SORT ASC,VAR,VAR,VAR,VAR,4/4,FULL,tests/test25_data_sort_ascending.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+103,DATA SORT DESC,VAR,VAR,VAR,VAR,4/4,FULL,tests/test48_data_sort_descending.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+104,TAPE SEARCH,VAR,VAR,VAR,VAR,4/4,FULL,tests/test27_tape_linear_search.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+105,DATA SEARCH,VAR,VAR,VAR,VAR,4/4,FULL,tests/test49_data_linear_search.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+106,TAPE BLOCK COPY,VAR,VAR,VAR,VAR,4/4,FULL,tests/test50_tape_block_copy_clear.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+107,TAPE BLOCK CLEAR,VAR,VAR,VAR,VAR,4/4,FULL,tests/test50_tape_block_copy_clear.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+108,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+109,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+110,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+111,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+112,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+113,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+114,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+115,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+116,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+117,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+118,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+119,Reserved/User/Planned,YOK,YOK,YOK,YOK,0/4,NONE,,NET_YOK,Matris satiri YOK diyor.
+120,UNSIGNED MODE,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+121,SIGNED MODE,VAR,VAR,VAR,VAR,4/4,FULL,tests/test12_signed_mode.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+122,SIGNED QUERY,VAR,YOK,VAR,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+123,LITTLE ENDIAN,VAR,YOK,VAR,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+124,BIG ENDIAN,VAR,YOK,VAR,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+125,ENDIAN QUERY,VAR,YOK,VAR,VAR,3/4,PARTIAL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+126,FLAGS QUERY,VAR,VAR,VAR,VAR,4/4,FULL,,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+127,WILD LAYOUT CHANGE,VAR,YOK,VAR,VAR,3/4,PARTIAL,tests/test31_safe_mode_wild_denied.uxm; tests/test32_wild_layout_change.uxm,ORTA,Mevcut matristen alindi; derleme/test tekrar kosulmadigi icin VAR tek basina kabul degil.
+160,MAT_INIT,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_matrix/test_matrix01_init_set_print.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+161,MAT_CLEAR,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+162,MAT_SET,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_matrix/test_matrix01_init_set_print.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+163,MAT_GET,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+164,MAT_FILL,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+165,MAT_COPY,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+166,MAT_PRINT,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_matrix/test_matrix01_init_set_print.uxm; tests_matrix/test_matrix02_add_2x2.uxm; tests_matrix/test_matrix03_mul_2x2.uxm; tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+167,MAT_ADD,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_matrix/test_matrix02_add_2x2.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+168,MAT_SUB,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+169,MAT_SCALAR_MUL,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+170,MAT_MUL,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_matrix/test_matrix03_mul_2x2.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+171,MAT_TRANSPOSE_COPY,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+172,MAT_IDENTITY,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_matrix/test_matrix04_identity_trace_det2.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+173,MAT_TRACE,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_matrix/test_matrix04_identity_trace_det2.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+174,MAT_SHAPE,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+175,MAT_DET2,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_matrix/test_matrix04_identity_trace_det2.uxm; tests_matrix/_tmp_det_debug.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+176,MAT_PRINT_RAW,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+200,FP_INIT16,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+201,FP_INIT32,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+202,FP_ZERO,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+203,FP_COPY,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+204,FP_NORMALIZE,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+205,FP_TO_INT_RESULT,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp07_int_zero_sign_abs.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+206,FP_IS_ZERO,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp07_int_zero_sign_abs.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+207,FP_SIGNUM,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp07_int_zero_sign_abs.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+208,FP_ABS_INT_RESULT,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp07_int_zero_sign_abs.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+209,FP_DEBUG_PRINT,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+210,FP_ADD,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp06_add_dec_string.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+211,FP_SUB,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp02_sub_int.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+212,FP_MUL,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp03_mul_int.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+213,FP_DIV,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp04_div_int.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+214,FP_COMPARE,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+215,FP_ABS,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+216,FP_NEG,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+217,FP_ROUND16,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+218,FP_ROUND32,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+219,FP_TRUNC,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+220,FP_FROM_INT,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+221,FP_FROM_DEC_STRING,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp05_from_string.uxm; tests_fp/test_fp06_add_dec_string.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+222,FP_TO_DEC_STRING,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+223,FP_PRINT_DEC,VAR,VAR,VAR,VAR,3/4,PARTIAL,tests_fp/test_fp01_add_int.uxm; tests_fp/test_fp02_sub_int.uxm; tests_fp/test_fp03_mul_int.uxm; tests_fp/test_fp04_div_int.uxm; tests_fp/test_fp05_from_string.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+224,FP_SCALE10,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+240,POLY_DERIV,VAR,VAR,VAR,VAR,3/4,PARTIAL,math_extensions/tests_math/test_math01_poly_deriv_arge.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+241,POLY_INTEGRAL,VAR,VAR,VAR,VAR,3/4,PARTIAL,math_extensions/tests_math/test_math02_poly_integral_arge.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+242,POLY_EVAL,VAR,VAR,VAR,VAR,3/4,PARTIAL,math_extensions/tests_math/test_math03_poly_eval_arge.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+243,POLY_PRINT,VAR,VAR,VAR,VAR,3/4,PARTIAL,math_extensions/tests_math/test_math01_poly_deriv_arge.uxm; math_extensions/tests_math/test_math02_poly_integral_arge.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+244,POLY_CLEAR,VAR,VAR,VAR,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+245,Reserved/User/Planned,YOK,VAR,YOK,VAR,2/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+246,Reserved/User/Planned,YOK,VAR,YOK,VAR,2/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+247,Reserved/User/Planned,YOK,VAR,YOK,VAR,2/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+248,Reserved/User/Planned,YOK,VAR,YOK,VAR,2/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+249,Reserved/User/Planned,YOK,VAR,YOK,VAR,2/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+250,EXPR_EVAL,VAR,VAR,YOK,VAR,3/4,PARTIAL,math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+251,NUM_DERIV,VAR,VAR,YOK,VAR,3/4,PARTIAL,math_extensions/tests_math/test_math05_num_deriv.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+252,NUM_INTEGRAL_TRAP,VAR,VAR,YOK,VAR,3/4,PARTIAL,math_extensions/tests_math/test_math06_integral_trap.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+253,NUM_INTEGRAL_SIMPSON,VAR,VAR,YOK,VAR,3/4,PARTIAL,math_extensions/tests_math/test_math07_integral_simpson.uxm,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.
+254,EXPR_PRINT_RPN,VAR,VAR,YOK,VAR,3/4,PARTIAL,,DUSUK_OR_KISMEN,Extension servisleri kodda var; ancak full tool/final temiz derlenebilirlik ve 4 hat conformance kaniti yok.

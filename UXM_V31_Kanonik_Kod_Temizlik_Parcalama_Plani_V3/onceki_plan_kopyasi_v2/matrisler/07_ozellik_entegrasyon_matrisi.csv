@@ -1,0 +1,12 @@
+Feature,RealStatus,CodeTruth,RequiredWork,Acceptance
+Core meta 1-120,KISMEN_VAR,Core tests ve build artefaktlari var; ancak 50-120 parcali ve EXPECT eksikleri var.,tests/core altinda her servis icin EXPECT zorunlu; reports/matrices/service_reality.csv yeniden uretilecek.,Her servis PASS/FAIL/UNSUPPORTED/RESERVED/BROKEN_SOURCE
+D@T / D@(T+n) adresleme,VAR_AMA_PARITE_KILIDI_YOK,Kod ve belge izleri mevcut; hatlar arasi esdegerlik kilitli degil.,"Native, final, full interpreter ve VSCode syntax/test paritesi.",Ayni input icin 4 hat ayni JSON raporu verir veya bilincli UNSUPPORTED yazar.
+@!N host force meta,VAR_AMA_ESITLIK_YOK,Plan ve kod izleri var. Full Tool ve VSCode ic yorumlayici esit mi belirsiz.,Full tool + final + native + VSCode command grammar kontrol.,test_core/@!N PASS veya UNSUPPORTED.
+@# dynamic meta,VAR_TESTLI_AMA_PARITE_YOK,test06_dynamic_meta_mul ve kod izleri var.,4 hat conformance testine ekle.,report service_reality @# PASS.
+UX-FP decimal FP 200-224,KISMEN_ENTEGRE,"runtime_fp_services.bas ve tests_fp var. IEEE degil, decimal/string FP.","runtime_full routing, native build, full interpreter, final compiler ve VSCode meta help ayni tabloya baglanacak.",tests/fp tamamı EXPECT ile PASS; IEEE diye etiketlenmeyecek.
+IEEE-754 F32/F64/F80,YOK,Gercek veri tipi/register/codegen yok.,Su sprintte eklenmeyecek; RESERVED veya PLAN yazilacak.,Matrislerde UX-FP ile karistirilmaz.
+UX-MAT 160-176,KISMEN_ENTEGRE,runtime_matrix_services.bas ve tests_matrix var.,test matrix yeni runnera bagla; final/full/vscode karar satiri koy.,matrix smoke PASS; eksikler UNSUPPORTED/FAIL.
+UX-MATH 240-254 polinom turev/integral,KISMEN_ENTEGRE,runtime_math_services.bas ve math_extensions/tests_math var.,"Bu servisler tak-cikar degil, runtime_full ortak servis olarak kalici entegre edilecek.",poly deriv/integral/eval testleri PASS.
+"Sayisal turev, Trapez, Simpson",KISMEN_ENTEGRE,runtime_math_services.bas içinde isim ve test izleri mevcut.,"Sabit test inputlarıyla EXPECT kilidi, JSON rapor.",tests/math numeric_deriv/trap/simpson PASS.
+4 bit CPU benzetimi,TEST_VAR,test40_4bit_cpu_alu_model var ve build artefakti var.,Klasor tests/core veya tests/experimental altinda siniflandir.,Deneysel ise EXPERIMENTAL tag; compiler feature sayilmaz.
+4 noronlu ML modeli,TEST_VAR,test41_4_neuron_nn_model var ve build artefakti var.,tests/experimental altina al; ana compiler paritesiyle karistirma.,Matrislerde deneysel test olarak isaretlenir.

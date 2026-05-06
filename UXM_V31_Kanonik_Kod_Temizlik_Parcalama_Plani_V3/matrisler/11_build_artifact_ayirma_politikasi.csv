@@ -1,0 +1,8 @@
+﻿Artifact,Yeni_Klasor,Kural
+ASM current,uxm/build/asm/current,Her build temiz current üretir; önceki dosya archive/YYYYMMDD_HHMMSS altına taşınır.
+ASM archive,uxm/build/asm/archive,"Önceki asm çıktıları silinmez, timestamp ile saklanır."
+OBJ current,uxm/build/obj/current,program.obj alias yerine gerçek test adı ve manifest kullanılacak.
+OBJ archive,uxm/build/obj/archive,Eski obj/o dosyaları aktif klasörde kalmaz.
+EXE current,uxm/build/exe/current,Ana compiler tek isim: uxm.exe; alias: uxm31_compiler.exe sadece kopya; test exeleri test adıyla.
+JSON report,uxm/reports/json,Final/IDE/runner çıktıları .json/.ndjson olarak burada tutulur.
+Log,uxm/build/logs,Build/test logları buraya; kök klasöre log yazmak yasak.

@@ -1,0 +1,112 @@
+Label,File,Line,Text
+Full tool markdown karisik,uxm31_full_tool_fb.bas,1,"Tamam Mete abi. Bu sefer **iskelet değil**, V3.1’e eksik kalan büyük parçaları gerçekten çalıştıran **tam bir FreeBASIC araç/motor dosyası** veriyorum. Bu dosya şunları gerçek olarak yapar:"
+Full tool markdown karisik,uxm31_full_tool_fb.bas,3,```text
+Full tool markdown karisik,uxm31_full_tool_fb.bas,12,```
+Full tool markdown karisik,uxm31_full_tool_fb.bas,14,"Bu dosya, önce verdiğim native x64 compiler/runtime hattının yanına eklenen **tam interpreter + trace + IDE + optimizer motorudur**. Native ASM üretici dosyanın tamamını da bir sonraki “devam”da bu sisteme göre güncelleyeceğim."
+Full tool markdown karisik,uxm31_full_tool_fb.bas,16,# Dosya: `uxm31_full_tool_fb.bas`
+Full tool markdown karisik,uxm31_full_tool_fb.bas,18,```freebasic
+Full tool markdown karisik,uxm31_full_tool_fb.bas,1994,```
+Full tool markdown karisik,uxm31_full_tool_fb.bas,1998,```bat
+Full tool markdown karisik,uxm31_full_tool_fb.bas,2003,```
+Full tool markdown karisik,uxm31_full_tool_fb.bas,2007,```json
+Full tool markdown karisik,uxm31_full_tool_fb.bas,2009,```
+Full tool markdown karisik,uxm31_full_tool_fb.bas,2013,```bat
+Full tool markdown karisik,uxm31_full_tool_fb.bas,2015,```
+Full tool markdown karisik,uxm31_full_tool_fb.bas,2019,**devam** yazarsan bir sonraki mesajda bunu native x64 hattına bağlayan güncellenmiş `uxm31_compiler_fb.bas` ve `uxm31_runtime_fb.bas` dosyalarını tam vererek devam edeceğim.
+Full tool include FP/MAT/MATH,uxm31_full_tool_fb.bas,331,"#Include Once ""runtime/runtime_fp_services.bas"""
+Full tool include FP/MAT/MATH,uxm31_full_tool_fb.bas,332,"#Include Once ""math_extensions/runtime/runtime_matrix_services.bas"""
+Full tool include FP/MAT/MATH,uxm31_full_tool_fb.bas,333,"#Include Once ""math_extensions/runtime/runtime_math_services.bas"""
+Full tool include FP/MAT/MATH,uxm31_full_tool_fb.bas,1446,MetaMatrix id
+Full tool include FP/MAT/MATH,uxm31_full_tool_fb.bas,1466,MetaFloatingPoint id
+Full tool include FP/MAT/MATH,uxm31_full_tool_fb.bas,1476,MetaMathExtra id
+Full tool include FP/MAT/MATH,uxm31_full_tool_fb.bas,1517,MetaMatrix id+144
+Runtime full routing,uxm31_runtime_fb_full.bas,766,ElseIf metaId>=160 And metaId<=199 Then
+Runtime full routing,uxm31_runtime_fb_full.bas,768,ElseIf metaId>=200 And metaId<=239 Then
+Runtime full routing,uxm31_runtime_fb_full.bas,770,ElseIf metaId>=240 And metaId<=254 Then
+Runtime full routing,uxm31_runtime_fb_full.bas,1403,"#Include Once ""runtime/runtime_fp_services.bas"""
+Runtime full routing,uxm31_runtime_fb_full.bas,1404,"#Include Once ""math_extensions/runtime/runtime_matrix_services.bas"""
+Runtime full routing,uxm31_runtime_fb_full.bas,1405,"#Include Once ""math_extensions/runtime/runtime_math_services.bas"""
+FP runtime,runtime/runtime_fp_services.bas,6,"Declare Sub FPFromDecString(ByVal baseAddr As LongInt, ByVal dataStart As LongInt)"
+FP runtime,runtime/runtime_fp_services.bas,8,Declare Sub FPPrintDecimal(ByVal baseAddr As LongInt)
+FP runtime,runtime/runtime_fp_services.bas,28,Sub MetaFloatingPoint(ByVal metaId As ULongInt)
+FP runtime,runtime/runtime_fp_services.bas,48,Case 200
+FP runtime,runtime/runtime_fp_services.bas,88,Case 210
+FP runtime,runtime/runtime_fp_services.bas,170,Case 213
+FP runtime,runtime/runtime_fp_services.bas,229,"FPFromDecString rBase,aBase"
+FP runtime,runtime/runtime_fp_services.bas,235,FPPrintDecimal aBase
+FP runtime,runtime/runtime_fp_services.bas,422,"Sub FPFromDecString(ByVal baseAddr As LongInt, ByVal dataStart As LongInt)"
+FP runtime,runtime/runtime_fp_services.bas,459,Sub FPPrintDecimal(ByVal baseAddr As LongInt)
+Math runtime,math_extensions/runtime/runtime_math_services.bas,4,'     MetaMathExtra metaId
+Math runtime,math_extensions/runtime/runtime_math_services.bas,8,"Declare Sub PolyDerivative(ByVal dstBase As LongInt, ByVal srcBase As LongInt)"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,9,"Declare Sub PolyIntegral(ByVal dstBase As LongInt, ByVal srcBase As LongInt, ByVal constantC As LongInt)"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,17,"Declare Function NumDeriv(ByVal exprBase As LongInt, ByVal x As LongInt, ByVal h As LongInt) As LongInt"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,18,"Declare Function NumIntegralTrap(ByVal exprBase As LongInt, ByVal a As LongInt, ByVal b As LongInt, ByVal n As LongInt) As LongInt"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,19,"Declare Function NumIntegralSimpson(ByVal exprBase As LongInt, ByVal a As LongInt, ByVal b As LongInt, ByVal n As LongInt) As LongInt"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,20,Sub MetaMathExtra(ByVal metaId As ULongInt)
+Math runtime,math_extensions/runtime/runtime_math_services.bas,40,"PolyDerivative dstBase,srcBase"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,43,"PolyIntegral dstBase,srcBase,param"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,66,"Sub PolyDerivative(ByVal dstBase As LongInt, ByVal srcBase As LongInt)"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,94,"Sub PolyIntegral(ByVal dstBase As LongInt, ByVal srcBase As LongInt, ByVal constantC As LongInt)"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,180,"r=NumDeriv(exprBase,x,h)"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,188,"r=NumIntegralTrap(exprBase,a,b,n)"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,196,"r=NumIntegralSimpson(exprBase,a,b,n)"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,291,"Function NumDeriv(ByVal exprBase As LongInt, ByVal x As LongInt, ByVal h As LongInt) As LongInt"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,297,NumDeriv=(fp-fm)\(2*h)
+Math runtime,math_extensions/runtime/runtime_math_services.bas,300,"Function NumIntegralTrap(ByVal exprBase As LongInt, ByVal a As LongInt, ByVal b As LongInt, ByVal n As LongInt) As LongInt"
+Math runtime,math_extensions/runtime/runtime_math_services.bas,316,"Function NumIntegralSimpson(ByVal exprBase As LongInt, ByVal a As LongInt, ByVal b As LongInt, ByVal n As LongInt) As LongInt"
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,29,Declare Function MatDet2(ByVal baseAddr As LongInt) As LongInt
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,470,Function MatDet2(ByVal baseAddr As LongInt) As LongInt
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,488,"MatDet2=MatFixedMul(a,d,MatScale(baseAddr))-MatFixedMul(b,c,MatScale(baseAddr))"
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,490,MatDet2=a*d-b*c
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,507,Sub MetaMatrix(ByVal metaId As ULongInt)
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,522,Case 160
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,552,Case 170
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,568,Case 175
+Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,569,r=MatDet2(a)
+Final compile risk,final/uxm31_compiler_final.bas,1,Option Explicit
+Final compile risk,final/uxm31_compiler_final.bas,2,"#Lang ""fb"""
+Final compile risk,final/uxm31_compiler_final.bas,175,Dim Shared instr(1 To MAX_INSTR) As TInstr
+Final compile risk,final/uxm31_compiler_final.bas,176,Dim Shared instrCount As Long
+Final compile risk,final/uxm31_compiler_final.bas,199,Dim Shared ptr As Long
+Final compile risk,final/uxm31_compiler_final.bas,267,Declare Sub EmitBranch(ByVal i As Long)
+Final compile risk,final/uxm31_compiler_final.bas,1368,Sub EmitBranch(ByVal i As Long)
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,7,fullTool: string;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,9,finalCompiler: string;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,10,finalCompilerSource: string;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,11,runtime: string;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,15,autoBuildFinalCompiler: boolean;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,42,"fullTool: this.resolveTool(cfg.get<string>(""fullToolPath"", ""uxm31_full_tool.exe""), root),"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,44,"finalCompiler: this.resolveTool(cfg.get<string>(""finalCompilerPath"", ""uxm31_compiler_final.exe""), root),"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,45,"finalCompilerSource: this.resolveTool(cfg.get<string>(""finalCompilerSourcePath"", ""final/uxm31_compiler_final.bas""), root),"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,46,"runtime: this.resolveTool(cfg.get<string>(""runtimePath"", ""uxm31_runtime_fb_full.bas""), root),"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,50,"autoBuildFinalCompiler: cfg.get<boolean>(""autoBuildFinalCompiler"", true),"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,77,async buildFinalCompiler(): Promise<string> {
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,79,if (!fs.existsSync(paths.finalCompilerSource)) {
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,80,throw new Error(`Final compiler source bulunamadı: ${paths.finalCompilerSource}`);
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,82,"await this.run(paths.fbc, [paths.finalCompilerSource, ""-x"", paths.finalCompiler], ""Build Final ARGE Compiler"");"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,83,return paths.finalCompiler;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,86,async ensureFinalCompiler(): Promise<string> {
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,88,if (!paths.autoBuildFinalCompiler) {
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,89,return paths.finalCompiler;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,91,const exeExists = fs.existsSync(paths.finalCompiler);
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,92,const srcExists = fs.existsSync(paths.finalCompilerSource);
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,94,throw new Error(`Final compiler source bulunamadı: ${paths.finalCompilerSource}`);
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,98,const srcMtime = fs.statSync(paths.finalCompilerSource).mtimeMs;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,99,const exeMtime = fs.statSync(paths.finalCompiler).mtimeMs;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,103,await this.buildFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,105,return paths.finalCompiler;
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,110,const compiler = await this.ensureFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,117,const compiler = await this.ensureFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,125,const compiler = await this.ensureFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,132,const compiler = await this.ensureFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,139,const compiler = await this.ensureFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,146,const compiler = await this.ensureFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,153,const compiler = await this.ensureFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,160,const compiler = await this.ensureFinalCompiler();
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,170,"await this.run(paths.fullTool, [""run"", art.source, art.trace], ""Legacy Run Trace"");"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,177,"await this.run(paths.fullTool, [""uir"", art.source, art.uir], ""Legacy Export UIR"");"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,184,"await this.run(paths.fullTool, [""opt"", art.source, art.opt], ""Legacy Export OPT"");"
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,188,async buildNative(sourceFile: string): Promise<BuildArtifacts> {
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,191,if (!fs.existsSync(paths.runtime)) {
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,192,throw new Error(`Runtime bulunamadı: ${paths.runtime}. Native EXE için uxm31_runtime_fb_full.bas dosyasını tools/ içine koy veya uxminima.runtimePath ayarını düzelt.`);
+Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,195,"await this.run(paths.fbc, [paths.runtime, art.obj, ""-x"", art.exe], ""Runtime + OBJ -> EXE"");"

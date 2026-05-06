@@ -1,0 +1,131 @@
+﻿Dosya,Uzanti,Boyut,Satir,SHA16,Baslangic,Saglik,Risk_Notu,D_AT_T_adresleme,FP_200_239,MATRIX_160_199,MATH_240_254,ASM_EMIT,JSON_TRACE,VSCODE,RUNTIME_INCLUDE
+.vscode/settings.json,.json,287,7,315ec1c9b7a292a0,"{   ""uxminima.compilerPath"": ""uxm.exe"",",OK_GIBI,,0,0,0,0,2,0,0,0
+build/_datt_force_test.uxm,.uxm,45,4,921ed25f0570fdef,#mode normal m210={0+k1},OK_GIBI,,1,0,0,0,0,0,0,0
+build/compare_expected_only.ps1,.ps1,2202,58,3e1b71d19b0827dc,$fbc = 'C:\Users\mete\Downloads\BasicOyunSource\uXBasic_repo\tools\FreeBASIC-1.10.1-win64\fbc.exe' $nasm = 'nasm',OK_GIBI,,0,0,0,0,8,0,0,0
+build/compare_tests.ps1,.ps1,1695,34,63cfe67a4c0abbc2,$fbc = 'C:\Users\mete\Downloads\BasicOyunSource\uXBasic_repo\tools\FreeBASIC-1.10.1-win64\fbc.exe' $nasm = 'nasm',OK_GIBI,,0,0,0,0,8,0,0,0
+build/test_expect_report.json,.json,3829,206,06357d1014df235e,[   {,OK_GIBI,,0,0,0,0,0,1,0,0
+build/test_expect_report_only_marked.json,.json,1866,98,8f39e739478c6066,[   {,OK_GIBI,,0,0,0,0,0,1,0,0
+build_all.bat,.bat,679,26,237f18ee4ef5aeff,@echo off setlocal,OK_GIBI,,0,0,0,0,2,0,0,0
+build_final_compiler.bat,.bat,261,11,b267c042a054274a,@echo off setlocal,OK_GIBI,,0,0,0,0,0,0,0,0
+build_one.bat,.bat,1592,56,00aaeb9fb2d47ddb,@echo off setlocal,OK_GIBI,,0,0,0,0,14,0,0,0
+final/build_final.bat,.bat,386,10,0c22761ee03bbb02,@echo off setlocal,OK_GIBI,,0,0,0,0,2,9,0,0
+final/examples/dynamic_data_address.uxm,.uxm,70,6,c60bea966d2ad0e2,# EXPECT_OUTPUT: X # D@ adresleme testi,OK_GIBI,,2,0,0,0,0,0,0,0
+final/examples/final_probe.uxm,.uxm,134,9,a4e4e008e9780a44,# EXPECT_OUTPUT: AB #arge version,OK_GIBI,,0,0,0,0,0,1,0,0
+final/uxm31_compiler_final.bas,.bas,93753,1608,2b7e0014bc1c717d,"Option Explicit #Lang ""fb""",OK_GIBI,,14,25,17,15,270,234,0,16
+ide/uxminima-vscode/.vscode/launch.json,.json,310,13,09aa91d6c28bb262,"{   ""version"": ""0.2.0"",",OK_GIBI,,0,0,0,0,0,0,0,0
+ide/uxminima-vscode/.vscode/tasks.json,.json,282,17,e87a999791290eb8,"{   ""version"": ""2.0.0"",",OK_GIBI,,0,0,0,0,0,0,0,0
+ide/uxminima-vscode/examples/data_sort.uxm,.uxm,206,24,d04d7a166523f9a3,# TEST: data sort ascending # EXPECT_OUTPUT: ABC,OK_GIBI,,0,0,0,0,0,0,0,0
+ide/uxminima-vscode/examples/dynamic_data_address.uxm,.uxm,70,6,c60bea966d2ad0e2,# EXPECT_OUTPUT: X # D@ adresleme testi,OK_GIBI,,2,0,0,0,0,0,0,0
+ide/uxminima-vscode/examples/fifo_watch.uxm,.uxm,101,11,ac5895b1e8a53a9d,# TEST: FIFO memory watch # EXPECT_OUTPUT: AB,OK_GIBI,,0,0,0,0,0,0,0,0
+ide/uxminima-vscode/examples/final_probe.uxm,.uxm,134,9,a4e4e008e9780a44,# EXPECT_OUTPUT: AB #arge version,OK_GIBI,,0,0,0,0,0,1,0,0
+ide/uxminima-vscode/language-configuration.json,.json,408,21,486a09d433c298c4,"{   ""comments"": {",OK_GIBI,,0,0,0,0,0,0,0,0
+ide/uxminima-vscode/package-lock.json,.json,1871,59,ac46b9c99bc5efaa,"{   ""name"": ""uxminima-vscode"",",OK_GIBI,,0,0,0,0,0,1,7,0
+ide/uxminima-vscode/package.json,.json,7200,245,4144fa260f4116ea,"{   ""name"": ""uxminima-vscode"",",OK_GIBI,,0,0,0,0,6,34,3,17
+ide/uxminima-vscode/src/diagnostics.ts,.ts,5189,119,f30ec208b0fd0a65,"import * as vscode from ""vscode""; ",OK_GIBI,,1,0,0,0,0,36,36,1
+ide/uxminima-vscode/src/extension.ts,.ts,10778,237,98d83464ea77505b,"import * as vscode from ""vscode""; import * as fs from ""fs"";",OK_GIBI,,0,0,0,0,5,61,81,12
+ide/uxminima-vscode/src/metaServices.ts,.ts,12222,124,5404ab0a63eefd5f,export interface MetaServiceInfo {   id: number;,OK_GIBI,,0,0,0,0,0,0,0,3
+ide/uxminima-vscode/src/toolchain.ts,.ts,9885,234,8ad9f517ee4446f2,"import * as vscode from ""vscode""; import * as path from ""path"";",OK_GIBI,,0,0,0,0,19,88,7,13
+ide/uxminima-vscode/src/traceReader.ts,.ts,1782,78,3b8b00d87c426b05,"import * as fs from ""fs""; ",OK_GIBI,,0,0,0,0,0,11,0,6
+ide/uxminima-vscode/src/uxmInterpreter.ts,.ts,57901,1235,dd30989ebe9aa660,"import { TraceEvent, CellEntry, ascii } from ""./traceReader""; import { META_SERVICES } from ""./metaServices"";",OK_GIBI,,11,30,17,15,0,27,1,2
+ide/uxminima-vscode/src/views/memoryView.ts,.ts,7177,134,afafc72ccaf8ae0a,"import * as vscode from ""vscode""; import { TraceEvent, TraceFile, ascii } from ""../traceReader"";",OK_GIBI,,0,0,0,0,0,26,34,1
+ide/uxminima-vscode/syntaxes/uxm.tmLanguage.json,.json,2687,90,8781eaec3f8196b4,"{   ""$schema"": ""https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json"",",OK_GIBI,,1,0,0,0,0,0,0,0
+ide/uxminima-vscode/tools/build_final_compiler.bat,.bat,386,10,0c22761ee03bbb02,@echo off setlocal,OK_GIBI,,0,0,0,0,2,9,0,0
+ide/uxminima-vscode/tsconfig.json,.json,291,14,b4f56765edd5b848,"{   ""compilerOptions"": {",OK_GIBI,,0,0,0,0,0,1,1,0
+legacy/duplicates/compiler/uxm31_compiler_fb.bas,.bas,55396,1502,12fdb08ed8a67567,"#Lang ""fb"" Const UXM_VERSION As String=""3.1""",OK_GIBI,,0,0,0,0,347,0,0,2
+legacy/duplicates/ide/uxminima-vscode/tools/uxm31_compiler_final.bas,.bas,64466,1066,919d7db9ba573fb9,"Option Explicit #Lang ""fb""",OK_GIBI,,14,0,0,0,239,234,0,14
+legacy/duplicates/runtime/uxm31_runtime_fb_full.bas,.bas,33072,1245,9cc65650035d2286,"#Lang ""fb"" Extern ""C""",OK_GIBI,,0,0,0,0,0,0,0,7
+legacy/duplicates/tools/uxm31_full_tool_fb.bas,.bas,57331,1552,a85db05fb864bf58,"Tamam Mete abi. Bu sefer **iskelet değil**, V3.1’e eksik kalan büyük parçaları gerçekten çalıştıran **tam bir FreeBASIC araç/motor dosyası** veriyorum. Bu dosya şunları gerçek olar",KIRIK_KAYNAK,markdown/sohbet/fence belirtisi; kod bloğu çiti içeriyor,0,0,0,0,1,125,0,8
+lib/ux_fp_v1.uxm,.uxm,319,22,2b3e320554ef6eda,# UX-FP V1 macro header m200={@!200},OK_GIBI,,0,0,0,0,0,0,0,0
+lib/ux_mat_v1.uxm,.uxm,485,32,99e2a326b1eb8c4a,# UX-MAT V1 macro header # Matrix/array host-forced meta calls,OK_GIBI,,0,0,0,0,0,0,0,0
+lib/ux_math_v1.uxm,.uxm,253,13,fbf5cc7889feb3f2,# UX-MATH V1 macro header # Polynomial and RPN expression calculation layer,OK_GIBI,,0,0,0,0,0,1,0,0
+math_extensions/compiler/arge_parse_math_additions.bas,.bas,4900,155,6191ed710656f38a,' Add these declarations to uxm31_compiler_final.bas Declare Sub ParseArgeMathLine(ByVal lineText As String),OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/compiler/arge_parse_matrix_additions.bas,.bas,6106,190,75d2c8a842593c82,' UX-MAT V1 compiler ARGE additions Declare Sub ParseArgeMatrixLine(ByVal lineText As String),OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/lib/ux_mat_v1.uxm,.uxm,485,32,99e2a326b1eb8c4a,# UX-MAT V1 macro header # Matrix/array host-forced meta calls,OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/lib/ux_math_v1.uxm,.uxm,253,13,fbf5cc7889feb3f2,# UX-MATH V1 macro header # Polynomial and RPN expression calculation layer,OK_GIBI,,0,0,0,0,0,1,0,0
+math_extensions/runtime/runtime_math_services.bas,.bas,11900,371,d75944005fa77a9d,' UX-MATH V1 runtime services for uxm31_runtime_fb_full.bas ' Add routing inside ux_meta_call_ex:,OK_GIBI,,0,0,0,23,0,0,0,1
+math_extensions/runtime/runtime_matrix_services.bas,.bas,17553,579,a2c8f4dff017a94a,' UX-MAT V1 runtime services for uxm31_runtime_fb_full.bas ' Meta range: 160..199,OK_GIBI,,0,0,18,0,0,3,0,0
+math_extensions/tests_math/test_math01_poly_deriv_arge.uxm,.uxm,135,9,dea08874ec14488c,# TEST: #poly ile polinom türev # EXPECT_OUTPUT: 4 + 12x + 24x^2,OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/tests_math/test_math02_poly_integral_arge.uxm,.uxm,154,10,f2b514b3e46619bb,# TEST: #poly ile polinom integral # EXPECT_OUTPUT: 0 + 2x + 2x^2 + 2x^3 + 2x^4,OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/tests_math/test_math03_poly_eval_arge.uxm,.uxm,143,9,7f1d2b2783e0bd7c,"# TEST: #poly ile polinom eval # f(x)=8x^3+6x^2+4x+2, x=2, result=98",OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,.uxm,178,9,2f2f641449ba046a,"# TEST: #expr-rpn ile expression eval # expression: x^2 + 3*x + 2, x=2, result=12",OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/tests_math/test_math05_num_deriv.uxm,.uxm,153,10,191a99caffef4021,"# TEST: sayısal türev # expression: x^2, x=5, h=1, derivative=10",OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/tests_math/test_math06_integral_trap.uxm,.uxm,192,11,f9df1f263fc56989,"# TEST: trapez integral # expression: x, integral 0..10, n=10, result=50",OK_GIBI,,0,0,0,0,0,0,0,0
+math_extensions/tests_math/test_math07_integral_simpson.uxm,.uxm,197,11,7adae488baf29e1c,"# TEST: Simpson integral # expression: x^2, integral 0..6, n=6, result=72",OK_GIBI,,0,0,0,0,0,0,0,0
+run_final_probe.bat,.bat,382,6,72dc0a3dbd4073ef,@echo off setlocal,OK_GIBI,,0,0,0,0,2,9,0,0
+run_release_notes.bat,.bat,344,11,8ff89f833290e200,@echo off setlocal,OK_GIBI,,0,0,0,0,0,0,0,0
+run_tests.bat,.bat,490,23,61894dbf62660ffc,@echo off setlocal,OK_GIBI,,0,0,0,0,0,0,0,0
+runtime/runtime_fp_services.bas,.bas,21566,745,c03154be2e82f8ec,"' UX-FP V1 runtime services for uxm31_runtime_fb_full.bas Declare Sub FPInit(ByVal baseAddr As LongInt, ByVal prec As LongInt)",OK_GIBI,,0,27,0,0,0,0,0,0
+tests/test01_print_A.uxm,.uxm,47,6,8e5b1a5c2c88946f,>> 0(T-1)+k30,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test02_string.uxm,.uxm,108,6,35a4f845d0b2663b,"s1=0,{Merhaba UX-MINIMA V3.1\n} p1",OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test03_addressing.uxm,.uxm,72,7,74ae3e189b6c5cce,0(T:10)+k65 .(T:10),OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test04_stack_lifo.uxm,.uxm,54,7,5f2c135ab7df3486,0+k65$ 0+k66$,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test05_meta_add.uxm,.uxm,61,7,4fc7a1b8cb8e5aaa,>> 0(T-2)+k10,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test06_dynamic_meta_mul.uxm,.uxm,66,8,0637aeddbd372b7f,>> 0(T-2)+k6,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test07_macro.uxm,.uxm,25,4,ae154bef232971d6,m128={0+k65.} @128,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test08_newline.uxm,.uxm,53,7,bf0965724f39097d,0+k65. @5,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test09_div_mod.uxm,.uxm,117,12,dadc655607240d67,>> 0(T-2)+k20,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test10_sin_scaled.uxm,.uxm,49,6,6a772e05b736b229,>> 0(T-1)+k30,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test11_hypotenuse.uxm,.uxm,56,7,80f1ac18404fab89,>> 0(T-2)+k3,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test12_signed_mode.uxm,.uxm,64,8,ff2c9373ae0bb816,>> @121,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test13_status_div_zero.uxm,.uxm,121,10,207d72a375d4147c,>> 0(T-2)+k20,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test14_branch_current_zero.uxm,.uxm,45,6,0d0730bdf5b887bb,0 :0+3,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test15_branch_nonzero.uxm,.uxm,49,6,b96e692ead3445fb,0+k1 :+3,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test16_data_digit.uxm,.uxm,58,6,7ab68c52f8ac6e8e,"# EXPECT_OUTPUT: 5 s1=0,{12345}",OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test17_endian_word_split.uxm,.uxm,28,4,9fb03fd5ebaee6a0,>> 0(T-1)+k65,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test18_pointer_service.uxm,.uxm,47,5,70f6f00d784892cb,# EXPECT_OUTPUT: A >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test20_fifo_char_order.uxm,.uxm,126,11,26ea03af0362bb95,# TEST: FIFO push/pop karakter sırası # EXPECT_OUTPUT: AB,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test21_fifo_count_peek.uxm,.uxm,119,14,b090c6718346bb08,# TEST: FIFO count ve peek # EXPECT_OUTPUT:,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test22_data_write_read_char.uxm,.uxm,110,9,3f6e8f60168da608,# TEST: data alanına yaz ve oku # EXPECT_OUTPUT: X,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test23_data_digit_ascii_to_number.uxm,.uxm,114,7,731f5fdd07a273eb,# TEST: data alanındaki ASCII rakamı sayıya çevir # EXPECT_OUTPUT: 8,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test24_data_block_copy_print.uxm,.uxm,232,23,70f8237e4104e14b,# TEST: data block copy # EXPECT_OUTPUT: HELLO,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test25_data_sort_ascending.uxm,.uxm,230,24,4b75724a159236e5,# TEST: data sort ascending # EXPECT_OUTPUT: ABC,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test26_tape_sort_descending_chars.uxm,.uxm,151,12,de7fc3596b91b3fc,# TEST: tape sort descending # EXPECT_OUTPUT: 321,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test27_tape_linear_search.uxm,.uxm,131,11,113d9ad2fa48d0d0,# TEST: tape linear search # EXPECT_OUTPUT: 2,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test28_dynamic_meta_fifo.uxm,.uxm,110,9,5f1a11e0183f5c73,# TEST: @# ile dinamik meta çağrı # EXPECT_OUTPUT: A,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test29_nested_macro_call.uxm,.uxm,97,5,c4e2e765ffcdb07a,# TEST: nested macro call # EXPECT_OUTPUT: HI!,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test30_word_mode_add.uxm,.uxm,106,8,71839325455d7e33,# TEST: word cell mode toplama # EXPECT_OUTPUT: 700,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test31_safe_mode_wild_denied.uxm,.uxm,148,10,f700bd1d2c36d355,# TEST: safe mode içinde wild layout change reddedilmeli # EXPECT_OUTPUT: 23,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test32_wild_layout_change.uxm,.uxm,125,10,231278a172abf1f8,# TEST: wild mode memory layout change # EXPECT_OUTPUT: 0,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test33_bitwise_and_stack.uxm,.uxm,100,9,42c3f71ffe7e6e67,# TEST: stack üzerinden AND işlemi # EXPECT_OUTPUT: 8,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test34_data_block_clear.uxm,.uxm,159,16,117b3b216bb12f97,# TEST: data block clear # EXPECT_OUTPUT: AC,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test35_optimizer_visible_result.uxm,.uxm,91,7,a35f706a7d747269,# TEST: optimizer clear/inc-dec merge/cancel # EXPECT_OUTPUT: B,OK_GIBI,,0,0,0,0,0,1,0,0
+tests/test40_4bit_cpu_alu_model.uxm,.uxm,1128,105,5f02bfa629043fa7,# TEST: Basit 4-bit CPU / ALU modeli # MODEL:,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test41_4_neuron_nn_model.uxm,.uxm,1227,108,62638c4017e43b9b,# TEST: 4 noronlu basit sinir agi modeli # MODEL:,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test42_error_flag_set_reset.uxm,.uxm,129,10,e7a6ab7c15ef314b,rem TEST: ERR flag set/reset/read temel davranisi rem EXPECT_OUTPUT: 10,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test43_error_macro_helpers.uxm,.uxm,198,17,44f46ee474400b94,"rem TEST: ERR macro yardimcilari (m130,m131,m132) rem EXPECT_OUTPUT: 100",OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test44_asin.uxm,.uxm,47,5,761fbf3b48a8e303,# EXPECT_OUTPUT: 30 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test44_meta_version_info.uxm,.uxm,100,7,91d344a2a1158c72,# TEST: META version/info cekirdek servisleri # EXPECT_OUTPUT: [UXM META]78,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test45_acos.uxm,.uxm,47,5,7a833092f25dcf80,# EXPECT_OUTPUT: 60 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test45_pointer_meta_extended.uxm,.uxm,116,13,f9164ccb626eac2b,# TEST: POINTER META (81/82/83/87/88) # EXPECT_OUTPUT: 3181,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test46_fifo_clear.uxm,.uxm,132,17,bb536cd199f23f44,# TEST: FIFO clear # EXPECT_OUTPUT:,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test46_sqrt.uxm,.uxm,46,5,1a461459c11b24e1,# EXPECT_OUTPUT: 5 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test47_sinh.uxm,.uxm,47,5,4fb09ec0b96a8c62,# EXPECT_OUTPUT: 55 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test47_tape_sort_ascending.uxm,.uxm,150,12,675684e90f8a124d,# TEST: tape sort ascending # EXPECT_OUTPUT: ABC,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test48_cosh.uxm,.uxm,48,5,6488c161bc314078,# EXPECT_OUTPUT: 114 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test48_data_sort_descending.uxm,.uxm,231,24,56ee07378b850021,# TEST: data sort descending # EXPECT_OUTPUT: CBA,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test49_data_linear_search.uxm,.uxm,104,9,b008a58f23d3f8d9,# TEST: data linear search # EXPECT_OUTPUT: 1,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test49_tanh.uxm,.uxm,47,5,ad7cc4dab644a5df,# EXPECT_OUTPUT: 48 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test50_tape_block_copy_clear.uxm,.uxm,253,25,b11e5f12e7ff2483,# TEST: tape block copy + clear # EXPECT_OUTPUT:,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test51_meta_print_stack_pop.uxm,.uxm,91,6,bb605e52bd3baffb,# TEST: META 62 stack pop decimal print # EXPECT_OUTPUT: 42,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test52_meta_print_hex.uxm,.uxm,70,5,45c02b6439856ac0,# TEST: META 67 hex print # EXPECT_OUTPUT: FF,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test53_meta_print_bin.uxm,.uxm,69,5,cd986c2d15241f73,# TEST: META 68 bin print # EXPECT_OUTPUT: 101,OK_GIBI,,0,0,0,0,0,0,0,0
+tests/test54_meta_print_char_raw.uxm,.uxm,73,5,d493d4bbbd672435,# TEST: META 69 char/raw print # EXPECT_OUTPUT: A,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_fp/test_fp01_add_int.uxm,.uxm,223,20,4ff48c654e23609a,# EXPECT_OUTPUT: 46.0000000000000000 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_fp/test_fp02_sub_int.uxm,.uxm,224,20,d438ddc46b5d62c6,# EXPECT_OUTPUT: 25.0000000000000000 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_fp/test_fp03_mul_int.uxm,.uxm,224,20,2896c4924c1090a8,# EXPECT_OUTPUT: 408.0000000000000000 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_fp/test_fp04_div_int.uxm,.uxm,221,20,915cc37e0d20fad9,# EXPECT_OUTPUT: 3.3333333333333333 >>,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_fp/test_fp05_from_string.uxm,.uxm,121,10,7d5d0525726bda28,"# EXPECT_OUTPUT: 12.3400000000000000 s1=0,{12.34}",OK_GIBI,,0,0,0,0,0,0,0,0
+tests_fp/test_fp06_add_dec_string.uxm,.uxm,246,22,c2eee589d7f4ce94,"# EXPECT_OUTPUT: 17.9400000000000000 s1=0,{12.34}",OK_GIBI,,0,0,0,0,0,0,0,0
+tests_fp/test_fp07_int_zero_sign_abs.uxm,.uxm,399,39,0211b86702d1eed9,# EXPECT_OUTPUT: 210 # EXPECT_OUTPUT: 0,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_matrix/_tmp_det_debug.uxm,.uxm,144,9,e17f820639642cff,# EXPECT_OUTPUT: -2 #compare signed,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_matrix/test_matrix01_init_set_print.uxm,.uxm,468,46,eae0ab88c233a40d,# TEST: UX-MAT init/set/print # EXPECT_OUTPUT:,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_matrix/test_matrix02_add_2x2.uxm,.uxm,246,18,50b27b5964ebb905,# TEST: UX-MAT add # EXPECT_OUTPUT:,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_matrix/test_matrix03_mul_2x2.uxm,.uxm,218,17,451f57a0bb248384,# TEST: UX-MAT mul # EXPECT_OUTPUT:,OK_GIBI,,0,0,0,0,0,0,0,0
+tests_matrix/test_matrix04_identity_trace_det2.uxm,.uxm,390,30,6bb04975dc57bc0e,# TEST: UX-MAT identity/trace/det2 #compare signed,OK_GIBI,,0,0,0,0,0,2,0,0
+tools/generate_release_notes.ps1,.ps1,4239,152,8e75226da37b978e,"param(     [string]$MasterDoc = ""MASTER_TAKIP_DOKUMANI_V31.md"",",OK_GIBI,,0,0,0,0,0,0,0,0
+uxm31_compiler_fb.bas,.bas,64345,1693,ba815bbe7895cad3,"#Lang ""fb"" Const UXM_VERSION As String=""3.1""",OK_GIBI,,12,0,0,0,384,8,0,4
+uxm31_compiler_fb.clean.bas,.bas,56208,1524,81cb2c678f4a1496,"#Lang ""fb"" Const UXM_VERSION As String=""3.1""",OK_GIBI,,0,0,0,0,347,0,0,2
+uxm31_full_tool_fb.bas,.bas,75586,2020,0613aeef0646b454,"Tamam Mete abi. Bu sefer **iskelet değil**, V3.1’e eksik kalan büyük parçaları gerçekten çalıştıran **tam bir FreeBASIC araç/motor dosyası** veriyorum. Bu dosya şunları gerçek olar",KIRIK_KAYNAK,markdown/sohbet/fence belirtisi; kod bloğu çiti içeriyor,0,1,2,1,1,126,0,11
+uxm31_full_tool_fb_2.bas,.bas,59936,1655,9897a9e5f9b45a5a,# Dosya: `uxm31_compiler_fb_full.bas` ,KIRIK_KAYNAK,markdown/sohbet/fence belirtisi; kod bloğu çiti içeriyor,0,0,0,0,350,65,0,8
+uxm31_runtime_fb.bas,.bas,29675,1167,0ac51e95cd7fe1ef,"#Lang ""fb"" Extern ""C""",OK_GIBI,,0,0,3,0,0,0,0,7
+uxm31_runtime_fb_full.bas,.bas,37803,1427,a885731152819537,"#Lang ""fb"" Extern ""C""",OK_GIBI,,0,3,3,3,0,0,0,10

@@ -1,0 +1,10 @@
+Source,Command,Meaning,CopilotAction
+Bu mesaj,Once klasor sistemi kurulsun.,Kod yazmadan once calisma agaci temizlenecek ve uxm/ tek kaynak agaci olacak.,02_yeni_klasor_sistemi.csv ve git mv scripti uygulanacak.
+Bu mesaj,Tum .md ve bilgi dosyalari legacy klasorune kaldirilsin.,Eski belgeler aktif karar kaynagi olmaktan cikacak.,03_legacy_tasima_manifesti.csv bire bir uygulanacak.
+Bu mesaj,Tek gerceklik kod.,Matris ve plan kod/testten uretilecek.,"source health, build, test, JSON rapor zorunlu."
+Bu mesaj,Kod icinde bir klasorde iki plan olsun; eski ve yeni.,Aktif dokuman sayisi kontrol edilecek.,uxm/plans/00_eski_plan_ozeti.md ve 01_yeni_kod_gercekligi_plani.md disinda md yok.
+Bu mesaj,"Copilot plan disinda oneri sunmasin, Turkce yazsin.",Cevap ve islem gunlugu kontrol altina alinacak.,11_copilot_calisma_kurallari.csv ve COPILOT_TEK_EMIR_V2.md.
+Bu mesaj,Her dosyaya ayri commit ve push.,Degisiklik takibi granuler olacak.,03_COMMIT_PER_FILE_PUSH.ps1.
+Bu mesaj,Testler ayri klasorde ama ana klasor altinda.,"tests/core, tests/fp, tests/matrix, tests/math, tests/ide, tests/final.",08_test_klasor_ve_expect_matrisi.csv.
+Bu mesaj,"ASM, OBJ, EXE ciktisi ayrilsin.",Build kaynakla karismayacak.,09_build_artifact_ayirma_politikasi.csv.
+Bu mesaj,"VSCode IDE, interpreter, JSON rapor, ASM/OBJ/EXE veren compiler hedefi.",En az hamlede 4 hat ayaga kalkacak.,12_minimum_hamle_plani.csv.

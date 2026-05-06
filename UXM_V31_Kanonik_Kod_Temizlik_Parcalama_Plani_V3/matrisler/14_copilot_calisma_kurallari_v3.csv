@@ -1,0 +1,10 @@
+﻿Kural,Uygulama
+Plan dışına çıkma,Copilot sadece COPILOT_TEK_EMIR_V3 ve plans/current içindeki iki planı uygular; yeni öneri yok.
+Türkçe düşün/yaz,"Tüm commit mesajları, raporlar ve açıklamalar Türkçe olacak; İngilizce teknik terim gerekiyorsa yanında Türkçe açıklama."
+Kod yaz denince kod yaz,Kod görevi verilirse md üretimi yasak; sadece gerekli matris satırı güncellenir.
+Cevap ver,Kullanıcı soru sorarsa önce soruya cevap; sonra gerekiyorsa işlem.
+Belge cehennemi yok,Yeni belge sadece iki aktif plan veya matris güncellemesi; eski bilgi dosyaları legacy.
+Silmek yasak,git mv; untracked ise Move-Item; hiçbir dosya Remove-Item ile yok edilmeyecek.
+Kanonik dosya dışı kaynak yok,Benzer isimli dosyalardan sadece kanonik olan işlenir; diğerleri karantina/legacy.
+Matris sürekli güncellenecek,"Her kod değişikliğinde feature, four_hat, test, source_health ve commit matrisi güncellenir."
+Az okuma çok terminal,"Önce rg, git grep, Select-String, hash ve dosya envanteri; sonra nokta okuma."

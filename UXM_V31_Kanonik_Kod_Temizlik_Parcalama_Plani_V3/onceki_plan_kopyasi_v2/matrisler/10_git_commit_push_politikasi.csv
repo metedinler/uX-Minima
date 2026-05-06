@@ -1,0 +1,7 @@
+Action,Command,Why
+Branch ac,git switch -c cleanup/uxm-code-reality-v31,Kirli ana dalda deney yapma.
+Her dosya tasima,"git mv -- ""FROM"" ""TO"" && git add -A -- ""FROM"" ""TO"" && git commit -m ""tasima: FROM"" && git push",Her dosya ayri commit ve push emri.
+Her kod dosyasi degisikligi,"git add ""FILE"" && git commit -m ""kod: FILE"" && git push",Ne degisti izlenir.
+Her matris yeniden uretimi,"git add uxm/reports/matrices/*.csv && git commit -m ""matris: kod gercekligi guncelle"" && git push",Matrisler kod/test sonucuna bagli izlenir.
+Hata olursa,git status --short && git diff -- FILE > reports/hata_diff_FILE.patch,Copilot gizli degisiklik yapamaz.
+Silme yasagi,Remove-Item kullanma; del kullanma; sadece git mv veya Move-Item + git add -A,Geri donus korunur.

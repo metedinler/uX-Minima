@@ -1,0 +1,15 @@
+{
+  "date": "2026-05-06",
+  "root_scanned": "/mnt/data/calisilan_v3/calisilan/uxm31_FULL_FINAL_REAL",
+  "total_files": 714,
+  "bas_files": 16,
+  "source_files_no_node_modules": 130,
+  "mdtxt_files_no_node_modules": 110,
+  "csv_files": 39,
+  "uxm_files": 86,
+  "canonical_native_compiler": "uxm31_compiler_fb.bas",
+  "canonical_runtime": "uxm31_runtime_fb_full.bas",
+  "final_compiler_status": "BROKEN_BUILD_LOG_EXISTS",
+  "full_tool_status": "CORRUPT_MARKDOWN_SOURCE",
+  "v2_validity": "PARTIAL_VALID; V3 supersedes for canonical selection and matrix integration"
+}

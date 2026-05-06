@@ -1,0 +1,7 @@
+Artifact,Path,Rule,GitPolicy
+ASM current,uxm/build/asm/current/,"Her buildte temizlenir, son buildin asm dosyalari burada kalir.",Normalde izlenmez; gerekiyorsa release commitinde ayrilir.
+ASM archive,uxm/build/asm/archive/,Eski asm ciktisi buraya git mv ile tasinir.,"Kanitsa izlenebilir, aksi halde legacy."
+OBJ current,uxm/build/obj/current/,Her buildte temizlenir.,Genelde gitignore.
+EXE current,uxm/build/exe/current/,"Tek isim: uxm.exe, uxm_full_tool.exe, uxm_final.exe.",Kaynak repo icin zorunlu degil; release icin ayri.
+JSON reports,uxm/reports/json/,Compiler/interpreter/test raporlari burada.,Kisa raporlar izlenebilir.
+Matrices,uxm/reports/matrices/,Sadece kod/test sonucundan yeniden uretilir.,Izleme icin commitlenir.

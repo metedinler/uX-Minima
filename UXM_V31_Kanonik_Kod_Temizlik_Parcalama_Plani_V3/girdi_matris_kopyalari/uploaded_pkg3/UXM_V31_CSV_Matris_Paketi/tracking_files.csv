@@ -1,0 +1,10 @@
+File,Exists,Purpose,Update_Rule
+MASTER_TAKIP_DOKUMANI_V31.md,VAR,ana ilerleme/takip,Her sprint sonunda ve kod değişikliği sonrası güncelle
+GERCEKLIK_KILIDI.md,YENİ,yeni: koddan üretilmiş 4 hat gerçeklik kilidi,Her sprint sonunda ve kod değişikliği sonrası güncelle
+DEGISIKLIK_GUNLUGU_TR.md,YENİ,yeni: her işlemden önce/sonra Türkçe kayıt,Her sprint sonunda ve kod değişikliği sonrası güncelle
+BELGE_KOD_OK_MATRISI.md,VAR,belge-kod OK matrisi; koddan yeniden doğrulanmalı,Her sprint sonunda ve kod değişikliği sonrası güncelle
+BELGEDE_OLUP_KODDA_OLMAYANLAR_RAPORU.md,VAR,gap raporu,Her sprint sonunda ve kod değişikliği sonrası güncelle
+KODDA_OLUP_BELGEDE_OLMAYANLAR_RAPORU.md,VAR,ters gap raporu,Her sprint sonunda ve kod değişikliği sonrası güncelle
+UXM_V31_Kod_Belge_Matris_Paketi/SPRINT_1_E_ERR_STANDARTLASMA_PLANI.md,VAR,Sprint1 plan/rapor ayrılmalı,Her sprint sonunda ve kod değişikliği sonrası güncelle
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/meta_servis_matrisi.csv,VAR,servis matrisi; CSV formatı düzeltilmeli,Her sprint sonunda ve kod değişikliği sonrası güncelle
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/test_matrisi.csv,VAR,test matrisi; tests_matrix eklenmeli,Her sprint sonunda ve kod değişikliği sonrası güncelle

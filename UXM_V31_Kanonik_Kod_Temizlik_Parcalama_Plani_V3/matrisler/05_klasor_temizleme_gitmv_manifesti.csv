@@ -1,0 +1,25 @@
+﻿Oncelik,Kaynak,Hedef,Komut_Tipi,Not,Silme_Yasak
+1,uxm31_compiler_fb.bas,uxm/core/compiler/native/uxm31_compiler_fb.bas,git mv / Move-Item fallback,Kanonik native compiler. İlk taşınacak kaynak.,EVET
+1,uxm31_runtime_fb_full.bas,uxm/core/runtime/uxm31_runtime_fb_full.bas,git mv / Move-Item fallback,Kanonik full runtime host.,EVET
+1,runtime/runtime_fp_services.bas,uxm/core/runtime/services/runtime_fp_services.bas,git mv / Move-Item fallback,FP runtime servisi.,EVET
+1,math_extensions/runtime/runtime_matrix_services.bas,uxm/core/runtime/services/runtime_matrix_services.bas,git mv / Move-Item fallback,Matrix runtime servisi.,EVET
+1,math_extensions/runtime/runtime_math_services.bas,uxm/core/runtime/services/runtime_math_services.bas,git mv / Move-Item fallback,Math/türev/integral runtime servisi.,EVET
+2,final/uxm31_compiler_final.bas,uxm/core/compiler/final/uxm31_compiler_final.bas,git mv / Move-Item fallback,Final compiler/interpreter onarım hedefi.,EVET
+2,math_extensions/compiler/arge_parse_math_additions.bas,uxm/core/compiler/extensions/arge_parse_math_additions.bas,git mv / Move-Item fallback,Math parser eki.,EVET
+2,math_extensions/compiler/arge_parse_matrix_additions.bas,uxm/core/compiler/extensions/arge_parse_matrix_additions.bas,git mv / Move-Item fallback,Matrix parser eki.,EVET
+2,ide/uxminima-vscode/*,uxm/ide/vscode/,git mv / Move-Item fallback,VSCode eklentisi; node_modules hariç tutulacak.,EVET
+2,ide/uxminima-vscode/node_modules,uxm/legacy/node_modules_snapshot/ide_node_modules,git mv / Move-Item fallback,Kaynak değil; aktif IDE ağacından uzaklaştır.,EVET
+2,tests/*.uxm,uxm/tests/native/,git mv / Move-Item fallback,Native testler.,EVET
+2,tests_fp/*.uxm,uxm/tests/fp/,git mv / Move-Item fallback,FP testleri.,EVET
+2,tests_matrix/*.uxm,uxm/tests/matrix/,git mv / Move-Item fallback,Matrix testleri.,EVET
+2,math_extensions/tests_math/*.uxm,uxm/tests/math/,git mv / Move-Item fallback,Türev/integral/math testleri.,EVET
+2,final/examples/*.uxm,uxm/tests/final/,git mv / Move-Item fallback,Final compiler örnekleri.,EVET
+2,ide/uxminima-vscode/examples/*.uxm,uxm/tests/ide/,git mv / Move-Item fallback,IDE örnekleri.,EVET
+1,UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out,uxm/reports/matrices/current/uxm31_matrix_out,git mv / Move-Item fallback,"Kullanıcının ana izleme matris klasörü; legacy değil, aktif rapor.",EVET
+1,UXM_V31_Kod_Belge_Matris_Paketi/UXM_V31_CSV_Matris_Paketi,uxm/reports/matrices/current/UXM_V31_CSV_Matris_Paketi,git mv / Move-Item fallback,İkinci izleme matris klasörü; aktif rapor.,EVET
+1,"*.md, *.txt, BELGE_KOPYALARI, UX-FP V1/*.md",uxm/legacy/docs_old/,git mv / Move-Item fallback,Aktif gerçeklik değil; sadece eski bilgi arşivi.,EVET
+1,uxm31_compiler_fb.clean.bas,uxm/legacy/duplicates/compiler/uxm31_compiler_fb.clean.bas,git mv / Move-Item fallback,Eski/temiz snapshot; kanonik değil.,EVET
+1,legacy/duplicates/*,uxm/legacy/duplicates/imported/,git mv / Move-Item fallback,Önceki kopyalar aktif çalışma dışı.,EVET
+1,uxm31_runtime_fb.bas,uxm/legacy/duplicates/runtime/uxm31_runtime_fb.bas,git mv / Move-Item fallback,Küçük runtime fallback; aktif link hattında full runtime kullanılacak.,EVET
+1,uxm31_full_tool_fb.bas; uxm31_full_tool_fb_2.bas,uxm/legacy/corrupt_sources/full_tool/,git mv / Move-Item fallback,Markdown/sohbet karışmış kırık kaynak; aktif hat dışı.,EVET
+2,build/*,uxm/legacy/build_old/imported_YYYYMMDD/,git mv / Move-Item fallback,Eski artefaktlar aktif build/current altında kalmayacak.,EVET

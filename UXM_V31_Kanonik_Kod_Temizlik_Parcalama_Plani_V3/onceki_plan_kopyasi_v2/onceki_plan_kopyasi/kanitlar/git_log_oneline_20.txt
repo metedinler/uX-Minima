@@ -1,0 +1,20 @@
+debbdef Runtime: add MetaFlagsEndian (150..156) routing and implementation to support endian/flags metas (153)
+ed3a2d4 FullTool: add MetaFlagsEndian (120..159) and UX-MATH dispatch
+251b682 Matris: promote UX-MATH (240..244) FullTool -> VAR; add UX-MATH dispatch in FullTool
+8a2c86e Matris: promote FullTool -> VAR for tested matrix & FP metas (160..176,200..224)
+cfbf990 FullTool: add final-runtime compatibility wrappers and dispatch for matrix/FP metas
+572ea20 Matris iki klasor senkronu: high_service_gaps aynalandi
+cd798f3 FP @205-@208 servislerini kodla ekle ve gap matrisini guncelle
+4a70a2f Pragma #seed/#arge destegi ekle ve test-matris tutarsizliklarini kapat
+6686a9e Meta servis bosluklarini kodla kapat ve matris kanitlarini guncelle
+6556e23 Matrix/FP/Math meta araliklarini final ve internal runtime'a ekle
+7b64a4b Pragma parity: #seed, poly/expr-rpn ve matrix init destekleri
+9fa27c3 Full Tool: meta 52-59 matematik servislerini uygula
+bf2891d Revert "Matris CSV dosyalarinda YOK durumlarini OK yap"
+3f42568 Matris CSV dosyalarinda YOK durumlarini OK yap
+703bd09 Meta 52-59 servislerini final/internal hatta ekle
+c590143 build_one: R anahtari ile gercek ad/ARGE alias modunu ayir
+9f98577 Faz 5: masterdan otomatik release notu uretim betigi eklendi
+7528b29 Plan uygulama: IDE final yolunu duzelt ve takip durumunu senkronla
+83eb74f gitmv manifest durumlari DONE olarak islendi
+920f15c gitmv manifest PENDING adimlari uygulandi ve tamamlandi

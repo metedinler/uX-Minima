@@ -1,0 +1,10 @@
+{
+  "root": "/mnt/data/calisilan_extracted/calisilan/uxm31_FULL_FINAL_REAL",
+  "file_count_no_git_no_node_modules": 461,
+  "bas_files": 16,
+  "uxm_tests": 86,
+  "md_files": 84,
+  "ts_files": 7,
+  "critical_risks": 3,
+  "git_dirty_lines": 196
+}

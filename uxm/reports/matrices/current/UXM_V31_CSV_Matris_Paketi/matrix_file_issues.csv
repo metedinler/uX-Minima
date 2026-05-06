@@ -1,0 +1,8 @@
+CSV,Lines,Header_Columns,Distinct_Column_Counts,Non_Header_Mismatch_Count,Assessment
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/adresleme_matrisi.csv,18,11,"[(11, 18)]",0,Biçim tutarlı görünüyor
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/dosya_haritasi.csv,411,5,"[(5, 411)]",0,Biçim tutarlı görünüyor
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/extension_matrisi.csv,9,6,"[(6, 9)]",0,Biçim tutarlı görünüyor
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/komut_matrisi.csv,39,13,"[(13, 39)]",0,Biçim tutarlı görünüyor
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/meta_servis_matrisi.csv,397,12,"[(12, 390), (11, 6), (13, 1)]",7,Kontrol et
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/pragma_matrisi.csv,17,10,"[(10, 17)]",0,Biçim tutarlı görünüyor
+UXM_V31_Kod_Belge_Matris_Paketi/uxm31_matrix_out/test_matrisi.csv,57,6,"[(6, 57)]",0,Biçim tutarlı görünüyor

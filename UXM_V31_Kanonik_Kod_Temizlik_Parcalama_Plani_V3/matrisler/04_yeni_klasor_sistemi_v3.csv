@@ -1,0 +1,30 @@
+﻿Hedef_Klasor,Amac,Icerik,Kural
+uxm/core/compiler/native,Native x64 UXM->ASM compiler,uxm31_compiler_fb.bas,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/core/compiler/final,Final interpreter/compiler onarım hattı,uxm31_compiler_final.bas,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/core/compiler/extensions,Final compiler parser ekleri,"arge_parse_math_additions.bas, arge_parse_matrix_additions.bas",Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/core/runtime,Runtime host,uxm31_runtime_fb_full.bas,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/core/runtime/services,Runtime meta servis modülleri,"runtime_fp_services.bas, runtime_matrix_services.bas, runtime_math_services.bas",Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/ide/vscode,VSCode eklentisi,"package.json, src/*.ts, syntaxes, snippets",Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/tests/native,Ana native testler,tests/*.uxm,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/tests/fp,FP testleri,tests_fp/*.uxm,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/tests/matrix,Matrix testleri,tests_matrix/*.uxm,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/tests/math,Türev/integral/math testleri,math_extensions/tests_math/*.uxm,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/tests/final,Final compiler örnek/testleri,final/examples/*.uxm,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/tests/ide,IDE örnekleri,ide/uxminima-vscode/examples/*.uxm,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/build/asm/current,Son build ASM çıktıları,*.asm,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/build/asm/archive,Önceki ASM çıktıları,timestampli klasör,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/build/obj/current,Son OBJ çıktıları,*.obj/*.o,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/build/obj/archive,Önceki OBJ çıktıları,timestampli klasör,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/build/exe/current,Son EXE çıktıları,"uxm.exe, uxm31_compiler.exe, program.exe",Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/build/logs,Build/test logları,"*.log, *.txt",Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/reports/json,JSON/NDJSON raporları,"trace, diag, uir, opt",Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/reports/matrices/current/uxm31_matrix_out,Kullanıcının izlediği ana matris seti,meta_servis_matrisi.csv vb.,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/reports/matrices/current/UXM_V31_CSV_Matris_Paketi,Kullanıcının izlediği ikinci CSV matris seti,"dashboard.csv, feature_checks.csv vb.",Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/reports/matrices/archive,Eski matris snapshotları,timestampli klasör,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/docs/plans/current,Aktif iki plan,"00_ESKI_PLAN_OZETI.md, 01_YENI_PLAN_KOD_GERCEKLIGI.md",Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/docs/architecture,Kod gerçekliğinden üretilen mimari doküman,KANONIK_UXM_MIMARISI.md,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/legacy/docs_old,Eski .md/.txt/bilgi dosyaları,tüm eski bilgi belgeleri,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/legacy/duplicates,Benzer isimli eski kod kopyaları,legacy/duplicates/*,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/legacy/corrupt_sources,Markdown/sohbet karışmış kaynaklar,uxm31_full_tool_fb*.bas,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/legacy/node_modules_snapshot,IDE node_modules snapshot,node_modules,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.
+uxm/legacy/build_old,Eski build artefaktları,eski build/*,Aktif olmayan hiçbir dosya uxm/core veya uxm/ide altında kalmayacak.

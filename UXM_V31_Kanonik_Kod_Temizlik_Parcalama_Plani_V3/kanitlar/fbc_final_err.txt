@@ -1,0 +1,12 @@
+final\uxm31_compiler_final.bas(1) error 146: Only valid in -lang deprecated or fblite or qb, found 'Option' in 'Option Explicit'
+final\uxm31_compiler_final.bas(174) error 4: Duplicated definition, found 'instr' in 'Dim Shared instr(1 To MAX_INSTR) As TInstr'
+final\uxm31_compiler_final.bas(198) error 4: Duplicated definition, found 'ptr' in 'Dim Shared ptr As Long'
+final\uxm31_compiler_final.bas(199) warning 47(1): Use of reserved global or backend symbol, sp
+final\uxm31_compiler_final.bas(340) error 3: Expected End-of-Line, found 'ptr' in 'flags=FLAG_BND:statusByte=0:ptr=0:sp=0:fifoHead=0:fifoTail=0:fifoCount=0'
+final\uxm31_compiler_final.bas(497) error 3: Expected End-of-Line, found 'ElseIf' in 'If c="#" Then SkipLine src,p ElseIf c="s" Or c="S" Then ParseStringDef src,p ElseIf c="m" Or c="M" Then ParseMacroDef src,p Else p+=1'
+final\uxm31_compiler_final.bas(506) error 3: Expected End-of-Line, found 'ElseIf' in 'If IsSpaceC(Mid(code,p,1)) Then p+=1 ElseIf Mid(code,p,1)="#" Then SkipLine code,p ElseIf Mid(code,p,1)="s" Or Mid(code,p,1)="S" Then ParseStringDef code,p ElseIf Mid(code,p,1)="m" Or Mid(code,p,1)="M" Then ParseMacroDef code,p Else ParseOne code,p,depth'
+final\uxm31_compiler_final.bas(591) error 4: Duplicated definition, dir in 'Dim st As Long,cond As Long,dir As Long,dist As Long,ok As Long,c As String'
+final\uxm31_compiler_final.bas(639) error 317: Function result assignment outside of the function, found '=' in 'dir=1'
+final\uxm31_compiler_final.bas(641) error 317: Function result assignment outside of the function, found '=' in 'dir=-1'
+final\uxm31_compiler_final.bas(657) error 4: Duplicated definition, at parameter 7 (pos) of ADDINSTR() in 'Sub AddInstr(ByVal op As Long, ByVal amount As Long, ByVal ak As Long, ByVal av As Long, ByVal av2 As Long, ByVal txt As String, ByVal pos As Long)'
+final\uxm31_compiler_final.bas(657) error 133: Too many errors, exiting

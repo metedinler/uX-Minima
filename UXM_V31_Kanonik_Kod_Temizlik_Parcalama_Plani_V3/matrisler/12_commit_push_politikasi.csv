@@ -1,0 +1,7 @@
+﻿Asama,Commit_Pattern,Dosya_Kapsami,Push
+Temizlik hazırlığı,chore(layout): create uxm canonical tree,Sadece klasör scaffold ve plan dokümanları,EVET
+Her git mv,chore(move): <old> -> <new>,Tek dosya veya tek klasör taşıma,EVET
+Kanonik compiler taşıma,refactor(native): move canonical compiler source,uxm31_compiler_fb.bas,EVET
+Runtime servis taşıma,refactor(runtime): move full runtime and services,runtime host + bir servis dosyası; mümkünse tek dosya commit,EVET
+Kod onarımı,fix(final): repair FreeBASIC syntax errors step N,Bir kaynak dosyasında sınırlı patch,EVET
+Matris güncelleme,docs(matrix): update code reality matrix for <feature>,Sadece ilgili csv/md raporlar,EVET

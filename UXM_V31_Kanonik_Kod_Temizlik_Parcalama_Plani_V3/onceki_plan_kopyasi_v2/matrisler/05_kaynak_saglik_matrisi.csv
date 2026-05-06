@@ -1,0 +1,17 @@
+File,FirstLine,Bytes,Lines,MarkdownFence,ProseChatText,OptionBeforeLang,ReservedNameRisk,Assessment,TargetAfterMove
+final/uxm31_compiler_final.bas,Option Explicit,93753,1608,False,False,True,instr;ptr;sp,COMPILE_RISK,uxm/core/final_arge/uxm31_compiler_final.bas
+legacy/duplicates/compiler/uxm31_compiler_fb.bas,"#Lang ""fb""",55396,1502,False,False,False,,OK,uxm/core/native_x64/src/uxm31_compiler_fb.bas
+legacy/duplicates/ide/uxminima-vscode/tools/uxm31_compiler_final.bas,Option Explicit,64466,1066,False,False,True,instr;ptr;dir;sp,COMPILE_RISK,uxm/ide/vscode/uxm31_compiler_final.bas
+legacy/duplicates/runtime/uxm31_runtime_fb_full.bas,"#Lang ""fb""",33072,1245,False,False,False,,OK,uxm/core/runtime/uxm31_runtime_fb_full.bas
+legacy/duplicates/tools/uxm31_full_tool_fb.bas,"Tamam Mete abi. Bu sefer **iskelet değil**, V3.1’e eksik kalan büyük parçaları gerçekten çalıştıran **tam bir FreeBASIC araç/motor dosyası** veriyorum. Bu dosya",57331,1552,True,True,False,instr;ptr;dir;sp,BROKEN_SOURCE_MARKDOWN_PROSE,uxm/core/full_tool_interpreter/src/uxm31_full_tool_fb.bas
+math_extensions/compiler/arge_parse_math_additions.bas,' Add these declarations to uxm31_compiler_final.bas,4900,155,False,False,False,,OK,uxm/legacy/other_old/math_extensions/compiler/arge_parse_math_additions.bas
+math_extensions/compiler/arge_parse_matrix_additions.bas,' UX-MAT V1 compiler ARGE additions,6106,190,False,False,False,,OK,uxm/legacy/other_old/math_extensions/compiler/arge_parse_matrix_additions.bas
+math_extensions/runtime/runtime_math_services.bas,' UX-MATH V1 runtime services for uxm31_runtime_fb_full.bas,11900,371,False,False,False,sp,COMPILE_RISK,uxm/core/runtime/math_extensions/runtime_math_services.bas
+math_extensions/runtime/runtime_matrix_services.bas,' UX-MAT V1 runtime services for uxm31_runtime_fb_full.bas,17553,579,False,False,False,,OK,uxm/core/runtime/math_extensions/runtime_matrix_services.bas
+runtime/runtime_fp_services.bas,' UX-FP V1 runtime services for uxm31_runtime_fb_full.bas,21566,745,False,False,False,,OK,uxm/core/runtime/runtime/runtime_fp_services.bas
+uxm31_compiler_fb.bas,"#Lang ""fb""",64345,1693,False,False,False,,OK,uxm/core/native_x64/src/uxm31_compiler_fb.bas
+uxm31_compiler_fb.clean.bas,"#Lang ""fb""",56208,1524,False,False,False,,OK,uxm/core/native_x64/src/uxm31_compiler_fb.clean.bas
+uxm31_full_tool_fb.bas,"Tamam Mete abi. Bu sefer **iskelet değil**, V3.1’e eksik kalan büyük parçaları gerçekten çalıştıran **tam bir FreeBASIC araç/motor dosyası** veriyorum. Bu dosya",75586,2020,True,True,False,instr;ptr;dir;sp,BROKEN_SOURCE_MARKDOWN_PROSE,uxm/core/full_tool_interpreter/src/uxm31_full_tool_fb.bas
+uxm31_full_tool_fb_2.bas,# Dosya: `uxm31_compiler_fb_full.bas`,59936,1655,True,False,False,instr;dir,BROKEN_SOURCE_MARKDOWN_PROSE,uxm/core/full_tool_interpreter/src/uxm31_full_tool_fb_2.bas
+uxm31_runtime_fb.bas,"#Lang ""fb""",29675,1167,False,False,False,,OK,uxm/core/runtime/uxm31_runtime_fb.bas
+uxm31_runtime_fb_full.bas,"#Lang ""fb""",37803,1427,False,False,False,,OK,uxm/core/runtime/uxm31_runtime_fb_full.bas

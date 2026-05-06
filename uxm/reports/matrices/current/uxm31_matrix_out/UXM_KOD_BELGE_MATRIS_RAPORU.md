@@ -1,0 +1,134 @@
+# UX-MINIMA V3.1 Kod-Belge Karşılaştırma ve İzleme Matrisi
+Bu rapor otomatik kod taraması + verilen tasarım/kılavuz/servis belgeleri karşılaştırmasıyla hazırlanmıştır. Durumlar: VAR, YOK, KISMEN, PLAN, RESERVED.
+## 1. Ana Bulgular
+- Kod gerçekliğinde dört yürütüm/derleme hattı vardır: Native compiler, Final/ARGE compiler, Full Tool ve VS Code iç yorumlayıcı.
+- Native hat `uxm31_compiler_fb.bas` + `uxm31_runtime_fb_full.bas` ile ASM/OBJ/EXE hattıdır.
+- Final hat `final/uxm31_compiler_final.bas` ile interpret/step/trace/UIR/diag/opt/ASM işlerini birlikte taşır.
+- FP, Matrix ve Math servisleri runtime dosyalarında gerçek kod karşılığı bulmuştur; STAT/GA/ML/BIO/SIM alanları ise servis haritasında ayrılmış ama runtime’da henüz genel servis olarak yoktur.
+- Eski `@128..@255 kullanıcı alanı` fikri, son servis haritasında `@128..@159 kullanıcı`, `@160+ bilimsel kütüphane` olarak daraltılmıştır.
+
+## 2. Kısa Durum Sayıları
+- Komutlar: VAR=38
+- Meta Servisler: VAR=46, KISMEN=95, RESERVED=111, YOK=4, PLAN=140
+- Adresleme: VAR=17
+- Pragmalar: VAR=14, YOK=2
+- Testler: VAR=43, YOK=11
+
+## 3. Kritik Eksik/Kısmi Noktalar
+- @1 CLS: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @2 LOCATE 1,1: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @4 TIMER: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @6 PRINT META INFO: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @7 VERSION MAJOR: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @8 VERSION MINOR: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @11 STATUS SET: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @12 STATUS PRINT: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=VAR, VSCode=YOK
+- @25 MIN: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @26 MAX: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @27 ABS: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @28 NEG: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @29 CMP: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @30 RND_RANGE: Kod Genel=YOK; Runtime=YOK, Final=YOK, FullTool=YOK, VSCode=YOK
+- @31 RND_SEED: Kod Genel=YOK; Runtime=YOK, Final=YOK, FullTool=YOK, VSCode=YOK
+- @32 RND_FLOAT01: Kod Genel=YOK; Runtime=YOK, Final=YOK, FullTool=YOK, VSCode=YOK
+- @33 DIV_UNSIGNED: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @34 DIV_SIGNED: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @35 MOD_UNSIGNED: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @36 MOD_SIGNED: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @44 ASIN: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @45 ACOS: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @46 SQRT: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @47 SINH: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @48 COSH: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @49 TANH: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @52 ASINH: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @53 ACOSH: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @54 ATANH: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @55 LOG: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @56 EXP: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @57 POW: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @58 DEG_TO_RAD: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @59 RAD_TO_DEG: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @62 PRINT STACK POP: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @63 READ DECIMAL: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @67 PRINT HEX: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @68 PRINT BIN: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @69 PRINT CHAR/RAW: Kod Genel=YOK; Runtime=YOK, Final=YOK, FullTool=YOK, VSCode=YOK
+- @81 ADD POINTER: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @83 POINTER VALID: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @87 CELL BITS: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @88 CELL BYTES: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @105 DATA SEARCH: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=VAR
+- @106 TAPE BLOCK COPY: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=VAR
+- @107 TAPE BLOCK CLEAR: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=VAR
+- @160 MAT_INIT: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @161 MAT_CLEAR: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @162 MAT_SET: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @163 MAT_GET: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @164 MAT_FILL: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @165 MAT_COPY: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @166 MAT_PRINT: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @167 MAT_ADD: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @168 MAT_SUB: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @169 MAT_SCALAR_MUL: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @170 MAT_MUL: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @171 MAT_TRANSPOSE_COPY: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @172 MAT_IDENTITY: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @173 MAT_TRACE: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @174 MAT_SHAPE: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @175 MAT_DET2: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @176 MAT_PRINT_RAW: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @200 FP_INIT16: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @201 FP_INIT32: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @202 FP_ZERO: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @203 FP_COPY: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @204 FP_NORMALIZE: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @209 FP_DEBUG_PRINT: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @210 FP_ADD: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @211 FP_SUB: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @212 FP_MUL: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @213 FP_DIV: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @214 FP_COMPARE: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @215 FP_ABS: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @216 FP_NEG: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @217 FP_ROUND16: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @218 FP_ROUND32: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @219 FP_TRUNC: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @220 FP_FROM_INT: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @221 FP_FROM_DEC_STRING: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @222 FP_TO_DEC_STRING: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @223 FP_PRINT_DEC: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @224 FP_SCALE10: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @240 POLY_DERIV: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @241 POLY_INTEGRAL: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @242 POLY_EVAL: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @243 POLY_PRINT: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @244 POLY_CLEAR: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @250 EXPR_EVAL: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @251 NUM_DERIV: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @252 NUM_INTEGRAL_TRAP: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @253 NUM_INTEGRAL_SIMPSON: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+- @254 EXPR_PRINT_RPN: Kod Genel=KISMEN; Runtime=VAR, Final=YOK, FullTool=YOK, VSCode=YOK
+
+## 3.1 Sprint 1 Baslangic Karari: e ve ERR bayragi
+- `e` komutu resmi status sorgu komutudur: aktif hucreye status byte yazar.
+- Core servis seti Sprint 1 standardinda su sekilde kilitlendi:
+	- `@13` ERR FLAG SET
+	- `@14` ERR FLAG RESET
+	- `@15` ERR FLAG READ
+- `FLAGS.R` (runtime error present) ve `status` degeri tutarli kalmalidir:
+	- `status == 0 => FLAGS.R = 0`
+	- `status != 0 => FLAGS.R = 1`
+- Dort hat icin zorunlu kural:
+	- Desteklenen servisler ayni semantik verir.
+	- Desteklenmeyen servisler acikca "bilincli desteklenmiyor" olarak isaretlenir.
+	- Gizli fark birakilmaz.
+
+## 4. Dosya Çıktıları
+- `komut_matrisi.csv`
+- `adresleme_matrisi.csv`
+- `pragma_matrisi.csv`
+- `meta_servis_matrisi.csv`
+- `extension_matrisi.csv`
+- `test_matrisi.csv`
+- `dosya_haritasi.csv`

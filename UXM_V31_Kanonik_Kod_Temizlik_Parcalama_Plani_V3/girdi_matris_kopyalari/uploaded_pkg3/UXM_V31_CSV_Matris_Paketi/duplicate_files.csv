@@ -1,0 +1,27 @@
+BaseName,Copy_Count,Unique_Hash_Count,Paths,Assessment
+buffer.buffer.d.ts,2,2,ide/uxminima-vscode/node_modules/@types/node/buffer.buffer.d.ts | ide/uxminima-vscode/node_modules/@types/node/ts5.6/buffer.buffer.d.ts,AYNI AD FARKLI İÇERİK
+build_final_compiler.bat,2,2,build_final_compiler.bat | ide/uxminima-vscode/tools/build_final_compiler.bat,AYNI AD FARKLI İÇERİK
+diagnosticmessages.generated.json,13,13,ide/uxminima-vscode/node_modules/typescript/lib/cs/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/de/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/es/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/fr/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/it/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/ja/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/ko/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/pl/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/pt-br/diagnosticMessages.generated.json | ide/uxminima-vscode/node_modules/typescript/lib/ru/diagnosticMessages.generated.json,AYNI AD FARKLI İÇERİK
+dynamic_data_address.uxm,2,1,ide/uxminima-vscode/examples/dynamic_data_address.uxm | final/examples/dynamic_data_address.uxm,BİREBİR KOPYA
+events.d.ts,2,2,ide/uxminima-vscode/node_modules/@types/node/events.d.ts | ide/uxminima-vscode/node_modules/@types/node/web-globals/events.d.ts,AYNI AD FARKLI İÇERİK
+fetch.d.ts,2,2,ide/uxminima-vscode/node_modules/undici-types/fetch.d.ts | ide/uxminima-vscode/node_modules/@types/node/web-globals/fetch.d.ts,AYNI AD FARKLI İÇERİK
+final_probe.uxm,2,1,ide/uxminima-vscode/examples/final_probe.uxm | final/examples/final_probe.uxm,BİREBİR KOPYA
+gercek_durum.md,2,1,gercek_durum.md | BELGE_KOPYALARI/gercek_durum.md,BİREBİR KOPYA
+globals.typedarray.d.ts,2,2,ide/uxminima-vscode/node_modules/@types/node/globals.typedarray.d.ts | ide/uxminima-vscode/node_modules/@types/node/ts5.6/globals.typedarray.d.ts,AYNI AD FARKLI İÇERİK
+index.d.ts,5,5,ide/uxminima-vscode/node_modules/undici-types/index.d.ts | ide/uxminima-vscode/node_modules/@types/node/index.d.ts | ide/uxminima-vscode/node_modules/@types/vscode/index.d.ts | ide/uxminima-vscode/node_modules/@types/node/compatibility/index.d.ts | ide/uxminima-vscode/node_modules/@types/node/ts5.6/index.d.ts,AYNI AD FARKLI İÇERİK
+package.json,5,5,ide/uxminima-vscode/package.json | ide/uxminima-vscode/node_modules/typescript/package.json | ide/uxminima-vscode/node_modules/undici-types/package.json | ide/uxminima-vscode/node_modules/@types/node/package.json | ide/uxminima-vscode/node_modules/@types/vscode/package.json,AYNI AD FARKLI İÇERİK
+promises.d.ts,5,5,ide/uxminima-vscode/node_modules/@types/node/dns/promises.d.ts | ide/uxminima-vscode/node_modules/@types/node/fs/promises.d.ts | ide/uxminima-vscode/node_modules/@types/node/readline/promises.d.ts | ide/uxminima-vscode/node_modules/@types/node/stream/promises.d.ts | ide/uxminima-vscode/node_modules/@types/node/timers/promises.d.ts,AYNI AD FARKLI İÇERİK
+readme.md,35,35,README.md | BELGE_KOPYALARI/README.md | build/README.md | compiler/README.md | final/README.md | ide/README.md | lib/README.md | math_extensions/README.md | runtime/README.md | tests/README.md,AYNI AD FARKLI İÇERİK
+util.d.ts,2,2,ide/uxminima-vscode/node_modules/undici-types/util.d.ts | ide/uxminima-vscode/node_modules/@types/node/util.d.ts,AYNI AD FARKLI İÇERİK
+ux_mat_v1.uxm,2,1,lib/ux_mat_v1.uxm | math_extensions/lib/ux_mat_v1.uxm,BİREBİR KOPYA
+ux_math_v1.uxm,2,1,lib/ux_math_v1.uxm | math_extensions/lib/ux_math_v1.uxm,BİREBİR KOPYA
+ux_minima_full v31.md,2,2,ux_minima_full v31.md | BELGE_KOPYALARI/ux_minima_full v31.md,AYNI AD FARKLI İÇERİK
+ux_minima_ide_vscode.md,2,2,ux_minima_IDE_vscode.md | BELGE_KOPYALARI/ux_minima_IDE_vscode.md,AYNI AD FARKLI İÇERİK
+ux_minima_kullanim klavuzu.md,2,2,uX_Minima_Kullanim Klavuzu.md | BELGE_KOPYALARI/uX_Minima_Kullanim Klavuzu.md,AYNI AD FARKLI İÇERİK
+ux_minimax_ide_tasarimi_dusuncesi.md,2,2,ux_minimax_ide_tasarimi_dusuncesi.md | BELGE_KOPYALARI/ux_minimax_ide_tasarimi_dusuncesi.md,AYNI AD FARKLI İÇERİK
+uxm31_compiler_fb.bas,2,2,uxm31_compiler_fb.bas | compiler/uxm31_compiler_fb.bas,AYNI AD FARKLI İÇERİK
+uxm31_compiler_final.bas,2,2,final/uxm31_compiler_final.bas | ide/uxminima-vscode/tools/uxm31_compiler_final.bas,AYNI AD FARKLI İÇERİK
+uxm31_final_arge_compiler.md,2,1,final/UXM31_FINAL_ARGE_COMPILER.md | ide/uxminima-vscode/docs/UXM31_FINAL_ARGE_COMPILER.md,BİREBİR KOPYA
+uxm31_full_tool_fb.bas,2,2,uxm31_full_tool_fb.bas | tools/uxm31_full_tool_fb.bas,AYNI AD FARKLI İÇERİK
+uxm31_runtime_fb_full.bas,2,2,uxm31_runtime_fb_full.bas | runtime/uxm31_runtime_fb_full.bas,AYNI AD FARKLI İÇERİK
+yeni tasarim eksiklikler.md,2,2,yeni tasarim eksiklikler.md | uxm_V3.1_Full_Final/yeni tasarim eksiklikler.md,AYNI AD FARKLI İÇERİK

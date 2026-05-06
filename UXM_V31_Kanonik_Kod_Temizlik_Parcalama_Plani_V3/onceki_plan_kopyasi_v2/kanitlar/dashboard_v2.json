@@ -1,0 +1,12 @@
+{
+  "root_exists": true,
+  "root": "/mnt/data/calisilan_extracted/calisilan/uxm31_FULL_FINAL_REAL",
+  "files_scanned_no_git_no_node_modules": 461,
+  "md_txt_to_legacy": 55,
+  "old_matrices_to_legacy": 41,
+  "active_moves": 347,
+  "uxm_tests_found": 86,
+  "bas_files": 16,
+  "broken_bas_sources": 3,
+  "critical_decision": "Yeni calisma agaci uxm/ altinda kurulacak; eski md/txt/csv/xlsx bilgi kaynaklari legacy olacak; tek otorite kod+test+iki plan belgesi."
+}

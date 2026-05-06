@@ -1,0 +1,18 @@
+Current_Path,Exists,Target_Path,Command,Note,Rule
+uxm31_compiler_fb.bas,VAR,src/native/compiler/uxm31_compiler_fb.bas,"git mv ""uxm31_compiler_fb.bas"" ""src/native/compiler/uxm31_compiler_fb.bas""",Ana native compiler otorite,Dosya silme yok; Copy-Item -Force yok.
+uxm31_runtime_fb_full.bas,VAR,src/native/runtime/uxm31_runtime_fb_full.bas,"git mv ""uxm31_runtime_fb_full.bas"" ""src/native/runtime/uxm31_runtime_fb_full.bas""",Ana native runtime otorite,Dosya silme yok; Copy-Item -Force yok.
+uxm31_runtime_fb.bas,VAR,src/native/runtime/uxm31_runtime_fb.bas,"git mv ""uxm31_runtime_fb.bas"" ""src/native/runtime/uxm31_runtime_fb.bas""",Native runtime varyant,Dosya silme yok; Copy-Item -Force yok.
+final/uxm31_compiler_final.bas,VAR,src/final/uxm31_compiler_final.bas,"git mv ""final/uxm31_compiler_final.bas"" ""src/final/uxm31_compiler_final.bas""",Final/ARGE compiler,Dosya silme yok; Copy-Item -Force yok.
+uxm31_full_tool_fb.bas,VAR,src/tools/full_tool/uxm31_full_tool_fb.bas,"git mv ""uxm31_full_tool_fb.bas"" ""src/tools/full_tool/uxm31_full_tool_fb.bas""",Full Tool otorite,Dosya silme yok; Copy-Item -Force yok.
+uxm31_full_tool_fb_2.bas,VAR,legacy/current_root/uxm31_full_tool_fb_2.bas,"git mv ""uxm31_full_tool_fb_2.bas"" ""legacy/current_root/uxm31_full_tool_fb_2.bas""",Muhtemel eski/alternatif kopya,Dosya silme yok; Copy-Item -Force yok.
+tools/uxm31_full_tool_fb.bas,VAR,legacy/tools/uxm31_full_tool_fb.bas,"git mv ""tools/uxm31_full_tool_fb.bas"" ""legacy/tools/uxm31_full_tool_fb.bas""",Aynı adlı alternatif kopya; hash karşılaştırılmalı,Dosya silme yok; Copy-Item -Force yok.
+compiler/uxm31_compiler_fb.bas,VAR,legacy/compiler/uxm31_compiler_fb.bas,"git mv ""compiler/uxm31_compiler_fb.bas"" ""legacy/compiler/uxm31_compiler_fb.bas""",Aynı adlı alternatif kopya; hash karşılaştırılmalı,Dosya silme yok; Copy-Item -Force yok.
+runtime/uxm31_runtime_fb_full.bas,VAR,legacy/runtime/uxm31_runtime_fb_full.bas,"git mv ""runtime/uxm31_runtime_fb_full.bas"" ""legacy/runtime/uxm31_runtime_fb_full.bas""",Aynı adlı alternatif kopya; hash karşılaştırılmalı,Dosya silme yok; Copy-Item -Force yok.
+runtime/runtime_fp_services.bas,VAR,src/runtime_services/fp/runtime_fp_services.bas,"git mv ""runtime/runtime_fp_services.bas"" ""src/runtime_services/fp/runtime_fp_services.bas""",FP servis modülü,Dosya silme yok; Copy-Item -Force yok.
+math_extensions/runtime/runtime_matrix_services.bas,VAR,src/runtime_services/matrix/runtime_matrix_services.bas,"git mv ""math_extensions/runtime/runtime_matrix_services.bas"" ""src/runtime_services/matrix/runtime_matrix_services.bas""",Matrix servis modülü,Dosya silme yok; Copy-Item -Force yok.
+math_extensions/runtime/runtime_math_services.bas,VAR,src/runtime_services/math/runtime_math_services.bas,"git mv ""math_extensions/runtime/runtime_math_services.bas"" ""src/runtime_services/math/runtime_math_services.bas""",Math/türev/integral servis modülü,Dosya silme yok; Copy-Item -Force yok.
+ide/uxminima-vscode,VAR,src/ide/vscode,"git mv ""ide/uxminima-vscode"" ""src/ide/vscode""",VS Code eklentisi,Dosya silme yok; Copy-Item -Force yok.
+tests,VAR,tests/core,"git mv ""tests"" ""tests/core""",Ana testler,Dosya silme yok; Copy-Item -Force yok.
+tests_fp,VAR,tests/fp,"git mv ""tests_fp"" ""tests/fp""",FP testleri,Dosya silme yok; Copy-Item -Force yok.
+tests_matrix,VAR,tests/matrix,"git mv ""tests_matrix"" ""tests/matrix""",Matrix testleri,Dosya silme yok; Copy-Item -Force yok.
+math_extensions/tests_math,VAR,tests/math,"git mv ""math_extensions/tests_math"" ""tests/math""",Math testleri,Dosya silme yok; Copy-Item -Force yok.

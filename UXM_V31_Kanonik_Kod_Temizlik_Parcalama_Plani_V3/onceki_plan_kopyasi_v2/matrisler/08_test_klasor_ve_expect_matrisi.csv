@@ -1,0 +1,87 @@
+From,To,ExpectCount,ExpectPreview,ExistingAsmArtifact,ExistingObjArtifact,ExistingLogArtifact,Acceptance
+build/_datt_force_test.uxm,uxm/tests/core/_datt_force_test.uxm,0,,True,False,False,EXPECT_ZORUNLU
+final/examples/dynamic_data_address.uxm,uxm/tests/core/dynamic_data_address.uxm,1,OUTPUT=X,False,False,False,RUN_COMPARE_REQUIRED
+final/examples/final_probe.uxm,uxm/tests/core/final_probe.uxm,1,OUTPUT=AB,False,False,False,RUN_COMPARE_REQUIRED
+ide/uxminima-vscode/examples/data_sort.uxm,uxm/tests/core/data_sort.uxm,1,OUTPUT=ABC,False,False,False,RUN_COMPARE_REQUIRED
+ide/uxminima-vscode/examples/dynamic_data_address.uxm,uxm/tests/core/dynamic_data_address.uxm,1,OUTPUT=X,False,False,False,RUN_COMPARE_REQUIRED
+ide/uxminima-vscode/examples/fifo_watch.uxm,uxm/tests/core/fifo_watch.uxm,1,OUTPUT=AB,False,False,False,RUN_COMPARE_REQUIRED
+ide/uxminima-vscode/examples/final_probe.uxm,uxm/tests/core/final_probe.uxm,1,OUTPUT=AB,False,False,False,RUN_COMPARE_REQUIRED
+lib/ux_fp_v1.uxm,uxm/tests/core/ux_fp_v1.uxm,0,,False,False,False,EXPECT_ZORUNLU
+lib/ux_mat_v1.uxm,uxm/tests/core/ux_mat_v1.uxm,0,,False,False,False,EXPECT_ZORUNLU
+lib/ux_math_v1.uxm,uxm/tests/core/ux_math_v1.uxm,0,,False,False,False,EXPECT_ZORUNLU
+math_extensions/lib/ux_mat_v1.uxm,uxm/tests/core/ux_mat_v1.uxm,0,,False,False,False,EXPECT_ZORUNLU
+math_extensions/lib/ux_math_v1.uxm,uxm/tests/core/ux_math_v1.uxm,0,,False,False,False,EXPECT_ZORUNLU
+math_extensions/tests_math/test_math01_poly_deriv_arge.uxm,uxm/tests/math/test_math01_poly_deriv_arge.uxm,1,OUTPUT=4 + 12x + 24x^2,True,True,False,RUN_COMPARE_REQUIRED
+math_extensions/tests_math/test_math02_poly_integral_arge.uxm,uxm/tests/math/test_math02_poly_integral_arge.uxm,1,OUTPUT=0 + 2x + 2x^2 + 2x^3 + 2x^4,True,True,False,RUN_COMPARE_REQUIRED
+math_extensions/tests_math/test_math03_poly_eval_arge.uxm,uxm/tests/math/test_math03_poly_eval_arge.uxm,1,OUTPUT=98,True,True,False,RUN_COMPARE_REQUIRED
+math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,uxm/tests/math/test_math04_expr_rpn_eval.uxm,1,OUTPUT=12,True,True,False,RUN_COMPARE_REQUIRED
+math_extensions/tests_math/test_math05_num_deriv.uxm,uxm/tests/math/test_math05_num_deriv.uxm,1,OUTPUT=10,True,True,False,RUN_COMPARE_REQUIRED
+math_extensions/tests_math/test_math06_integral_trap.uxm,uxm/tests/math/test_math06_integral_trap.uxm,1,OUTPUT=50,True,True,False,RUN_COMPARE_REQUIRED
+math_extensions/tests_math/test_math07_integral_simpson.uxm,uxm/tests/math/test_math07_integral_simpson.uxm,1,OUTPUT=72,True,True,False,RUN_COMPARE_REQUIRED
+tests/test01_print_A.uxm,uxm/tests/core/test01_print_A.uxm,1,OUTPUT=50,True,True,False,RUN_COMPARE_REQUIRED
+tests/test02_string.uxm,uxm/tests/core/test02_string.uxm,0,,True,True,False,EXPECT_ZORUNLU
+tests/test03_addressing.uxm,uxm/tests/core/test03_addressing.uxm,0,,True,True,False,EXPECT_ZORUNLU
+tests/test04_stack_lifo.uxm,uxm/tests/core/test04_stack_lifo.uxm,0,,True,True,False,EXPECT_ZORUNLU
+tests/test05_meta_add.uxm,uxm/tests/core/test05_meta_add.uxm,1,OUTPUT=30,True,True,False,RUN_COMPARE_REQUIRED
+tests/test06_dynamic_meta_mul.uxm,uxm/tests/core/test06_dynamic_meta_mul.uxm,1,OUTPUT=42,True,True,False,RUN_COMPARE_REQUIRED
+tests/test07_macro.uxm,uxm/tests/core/test07_macro.uxm,0,,True,True,False,EXPECT_ZORUNLU
+tests/test08_newline.uxm,uxm/tests/core/test08_newline.uxm,0,,True,True,False,EXPECT_ZORUNLU
+tests/test09_div_mod.uxm,uxm/tests/core/test09_div_mod.uxm,2,OUTPUT=3 | OUTPUT=2,True,True,False,RUN_COMPARE_REQUIRED
+tests/test10_sin_scaled.uxm,uxm/tests/core/test10_sin_scaled.uxm,1,OUTPUT=50,True,True,False,RUN_COMPARE_REQUIRED
+tests/test11_hypotenuse.uxm,uxm/tests/core/test11_hypotenuse.uxm,1,OUTPUT=5,True,True,False,RUN_COMPARE_REQUIRED
+tests/test12_signed_mode.uxm,uxm/tests/core/test12_signed_mode.uxm,1,OUTPUT=0,True,True,False,RUN_COMPARE_REQUIRED
+tests/test13_status_div_zero.uxm,uxm/tests/core/test13_status_div_zero.uxm,1,OUTPUT=15,True,True,False,RUN_COMPARE_REQUIRED
+tests/test14_branch_current_zero.uxm,uxm/tests/core/test14_branch_current_zero.uxm,1,OUTPUT=8,True,True,False,RUN_COMPARE_REQUIRED
+tests/test15_branch_nonzero.uxm,uxm/tests/core/test15_branch_nonzero.uxm,1,OUTPUT=8,True,True,False,RUN_COMPARE_REQUIRED
+tests/test16_data_digit.uxm,uxm/tests/core/test16_data_digit.uxm,1,OUTPUT=5,True,True,False,RUN_COMPARE_REQUIRED
+tests/test17_endian_word_split.uxm,uxm/tests/core/test17_endian_word_split.uxm,0,,True,True,False,EXPECT_ZORUNLU
+tests/test18_pointer_service.uxm,uxm/tests/core/test18_pointer_service.uxm,1,OUTPUT=A,True,True,False,RUN_COMPARE_REQUIRED
+tests/test20_fifo_char_order.uxm,uxm/tests/core/test20_fifo_char_order.uxm,1,OUTPUT=AB,True,True,False,RUN_COMPARE_REQUIRED
+tests/test21_fifo_count_peek.uxm,uxm/tests/core/test21_fifo_count_peek.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED
+tests/test22_data_write_read_char.uxm,uxm/tests/core/test22_data_write_read_char.uxm,1,OUTPUT=X,True,True,False,RUN_COMPARE_REQUIRED
+tests/test23_data_digit_ascii_to_number.uxm,uxm/tests/core/test23_data_digit_ascii_to_number.uxm,1,OUTPUT=8,True,True,False,RUN_COMPARE_REQUIRED
+tests/test24_data_block_copy_print.uxm,uxm/tests/core/test24_data_block_copy_print.uxm,1,OUTPUT=HELLO,True,True,False,RUN_COMPARE_REQUIRED
+tests/test25_data_sort_ascending.uxm,uxm/tests/core/test25_data_sort_ascending.uxm,1,OUTPUT=ABC,True,True,False,RUN_COMPARE_REQUIRED
+tests/test26_tape_sort_descending_chars.uxm,uxm/tests/core/test26_tape_sort_descending_chars.uxm,1,OUTPUT=321,True,True,False,RUN_COMPARE_REQUIRED
+tests/test27_tape_linear_search.uxm,uxm/tests/core/test27_tape_linear_search.uxm,1,OUTPUT=2,True,True,False,RUN_COMPARE_REQUIRED
+tests/test28_dynamic_meta_fifo.uxm,uxm/tests/core/test28_dynamic_meta_fifo.uxm,1,OUTPUT=A,True,True,False,RUN_COMPARE_REQUIRED
+tests/test29_nested_macro_call.uxm,uxm/tests/core/test29_nested_macro_call.uxm,1,OUTPUT=HI!,True,True,False,RUN_COMPARE_REQUIRED
+tests/test30_word_mode_add.uxm,uxm/tests/core/test30_word_mode_add.uxm,1,OUTPUT=700,True,True,False,RUN_COMPARE_REQUIRED
+tests/test31_safe_mode_wild_denied.uxm,uxm/tests/core/test31_safe_mode_wild_denied.uxm,1,OUTPUT=23,True,True,False,RUN_COMPARE_REQUIRED
+tests/test32_wild_layout_change.uxm,uxm/tests/core/test32_wild_layout_change.uxm,1,OUTPUT=0,True,True,False,RUN_COMPARE_REQUIRED
+tests/test33_bitwise_and_stack.uxm,uxm/tests/core/test33_bitwise_and_stack.uxm,1,OUTPUT=8,True,True,False,RUN_COMPARE_REQUIRED
+tests/test34_data_block_clear.uxm,uxm/tests/core/test34_data_block_clear.uxm,1,OUTPUT=AC,True,True,False,RUN_COMPARE_REQUIRED
+tests/test35_optimizer_visible_result.uxm,uxm/tests/core/test35_optimizer_visible_result.uxm,1,OUTPUT=B,True,True,False,RUN_COMPARE_REQUIRED
+tests/test40_4bit_cpu_alu_model.uxm,uxm/tests/experimental/test40_4bit_cpu_alu_model.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED
+tests/test41_4_neuron_nn_model.uxm,uxm/tests/experimental/test41_4_neuron_nn_model.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED
+tests/test42_error_flag_set_reset.uxm,uxm/tests/core/test42_error_flag_set_reset.uxm,2,OUTPUT=10 | OUTPUT=10,True,True,False,RUN_COMPARE_REQUIRED
+tests/test43_error_macro_helpers.uxm,uxm/tests/core/test43_error_macro_helpers.uxm,2,OUTPUT=100 | OUTPUT=100,True,True,False,RUN_COMPARE_REQUIRED
+tests/test44_asin.uxm,uxm/tests/core/test44_asin.uxm,1,OUTPUT=30,True,True,False,RUN_COMPARE_REQUIRED
+tests/test44_meta_version_info.uxm,uxm/tests/core/test44_meta_version_info.uxm,1,OUTPUT=[UXM META]78,True,True,False,RUN_COMPARE_REQUIRED
+tests/test45_acos.uxm,uxm/tests/core/test45_acos.uxm,1,OUTPUT=60,True,True,False,RUN_COMPARE_REQUIRED
+tests/test45_pointer_meta_extended.uxm,uxm/tests/core/test45_pointer_meta_extended.uxm,1,OUTPUT=3181,True,True,False,RUN_COMPARE_REQUIRED
+tests/test46_fifo_clear.uxm,uxm/tests/core/test46_fifo_clear.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED
+tests/test46_sqrt.uxm,uxm/tests/core/test46_sqrt.uxm,1,OUTPUT=5,True,True,False,RUN_COMPARE_REQUIRED
+tests/test47_sinh.uxm,uxm/tests/core/test47_sinh.uxm,1,OUTPUT=55,True,True,False,RUN_COMPARE_REQUIRED
+tests/test47_tape_sort_ascending.uxm,uxm/tests/core/test47_tape_sort_ascending.uxm,1,OUTPUT=ABC,True,True,False,RUN_COMPARE_REQUIRED
+tests/test48_cosh.uxm,uxm/tests/core/test48_cosh.uxm,1,OUTPUT=114,True,True,False,RUN_COMPARE_REQUIRED
+tests/test48_data_sort_descending.uxm,uxm/tests/core/test48_data_sort_descending.uxm,1,OUTPUT=CBA,True,True,False,RUN_COMPARE_REQUIRED
+tests/test49_data_linear_search.uxm,uxm/tests/core/test49_data_linear_search.uxm,1,OUTPUT=1,True,True,False,RUN_COMPARE_REQUIRED
+tests/test49_tanh.uxm,uxm/tests/core/test49_tanh.uxm,1,OUTPUT=48,True,True,False,RUN_COMPARE_REQUIRED
+tests/test50_tape_block_copy_clear.uxm,uxm/tests/core/test50_tape_block_copy_clear.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED
+tests/test51_meta_print_stack_pop.uxm,uxm/tests/core/test51_meta_print_stack_pop.uxm,1,OUTPUT=42,True,True,True,RUN_COMPARE_REQUIRED
+tests/test52_meta_print_hex.uxm,uxm/tests/core/test52_meta_print_hex.uxm,1,OUTPUT=FF,True,True,True,RUN_COMPARE_REQUIRED
+tests/test53_meta_print_bin.uxm,uxm/tests/core/test53_meta_print_bin.uxm,1,OUTPUT=101,True,True,True,RUN_COMPARE_REQUIRED
+tests/test54_meta_print_char_raw.uxm,uxm/tests/core/test54_meta_print_char_raw.uxm,1,OUTPUT=A,True,True,True,RUN_COMPARE_REQUIRED
+tests_fp/test_fp01_add_int.uxm,uxm/tests/fp/test_fp01_add_int.uxm,1,OUTPUT=46.0000000000000000,True,True,False,RUN_COMPARE_REQUIRED
+tests_fp/test_fp02_sub_int.uxm,uxm/tests/fp/test_fp02_sub_int.uxm,1,OUTPUT=25.0000000000000000,True,True,False,RUN_COMPARE_REQUIRED
+tests_fp/test_fp03_mul_int.uxm,uxm/tests/fp/test_fp03_mul_int.uxm,1,OUTPUT=408.0000000000000000,True,True,False,RUN_COMPARE_REQUIRED
+tests_fp/test_fp04_div_int.uxm,uxm/tests/fp/test_fp04_div_int.uxm,1,OUTPUT=3.3333333333333333,True,True,False,RUN_COMPARE_REQUIRED
+tests_fp/test_fp05_from_string.uxm,uxm/tests/fp/test_fp05_from_string.uxm,1,OUTPUT=12.3400000000000000,True,True,False,RUN_COMPARE_REQUIRED
+tests_fp/test_fp06_add_dec_string.uxm,uxm/tests/fp/test_fp06_add_dec_string.uxm,1,OUTPUT=17.9400000000000000,True,True,False,RUN_COMPARE_REQUIRED
+tests_fp/test_fp07_int_zero_sign_abs.uxm,uxm/tests/fp/test_fp07_int_zero_sign_abs.uxm,5,OUTPUT=210 | OUTPUT=0 | OUTPUT=1,True,True,False,RUN_COMPARE_REQUIRED
+tests_matrix/_tmp_det_debug.uxm,uxm/tests/matrix/_tmp_det_debug.uxm,1,OUTPUT=-2,True,True,False,RUN_COMPARE_REQUIRED
+tests_matrix/test_matrix01_init_set_print.uxm,uxm/tests/matrix/test_matrix01_init_set_print.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED
+tests_matrix/test_matrix02_add_2x2.uxm,uxm/tests/matrix/test_matrix02_add_2x2.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED
+tests_matrix/test_matrix03_mul_2x2.uxm,uxm/tests/matrix/test_matrix03_mul_2x2.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED
+tests_matrix/test_matrix04_identity_trace_det2.uxm,uxm/tests/matrix/test_matrix04_identity_trace_det2.uxm,1,OUTPUT=,True,True,False,RUN_COMPARE_REQUIRED

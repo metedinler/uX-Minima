@@ -1,0 +1,22 @@
+Root,Purpose,Rule
+uxm/,Tek yeni calisma ortami. Artik kaynak otoritesi burasi.,Eski daginik kok dosyalar buraya git mv ile tasinir. Silme yok.
+uxm/core/native_x64/src/,UXM -> NASM ASM -> OBJ -> EXE native compiler kaynagi.,HAT1 otorite; ana exe buradan build edilir.
+uxm/core/runtime/,"Runtime, runtime_full, FP, matrix, math servisleri.",Dort hatta ortak servis davranisi buradan izlenir.
+uxm/core/full_tool_interpreter/src/,"Interpreter, trace, UIR, optimizer, JSON raporlayici full tool.",Markdown/prose temizlenmeden build kabul edilmez.
+uxm/core/final_arge/,Final/ARGE compiler ve final probe hatti.,Derlenmeden VSCode final komutlari PASS yazilmaz.
+uxm/ide/vscode/,VS Code eklentisi.,Toolchain sadece uxm/ altindaki exe yollarini kullanacak.
+uxm/tests/core/,01-120 core ve meta testleri.,EXPECT olmayan test PASS sayilmaz.
+uxm/tests/fp/,UX-FP 200-224 decimal FP testleri.,IEEE float ile karistirilmaz.
+uxm/tests/matrix/,UX-MAT 160-176 matrix testleri.,Her servis icin en az smoke test.
+uxm/tests/math/,UX-MATH 240-254 turev/integral/polinom/RPN testleri.,Polinom ve sayisal yollar ayri testlenir.
+uxm/tests/ide/,VSCode komut ve JSON rapor testleri.,"Eklenti komutu exe yoksa FAIL vermeli, sessiz gecmemeli."
+uxm/build/asm/current/,Son build ASM ciktisi.,Her buildte temizlenip yeniden uretilir.
+uxm/build/asm/archive/,Eski ASM ciktisi.,"Kaynak degil, sadece kanit/arsiv."
+uxm/build/obj/current/,Son build object dosyalari.,Source ile karismayacak.
+uxm/build/exe/current/,Tek isimli son exe: uxm.exe ve yardimci tool exe.,Her hattin exe adi sabit ve reports/json ile izlenir.
+uxm/reports/matrices/,Koddan yeniden uretilen yeni matrisler.,Eski matrisler buraya kopyalanmaz; kod/test sonucundan uretilir.
+uxm/reports/json/,Interpreter/compiler/test JSON raporlari.,VSCode bu raporlari okuyacak.
+uxm/plans/,Sadece iki aktif belge: eski plan ozeti ve yeni kod gercekligi plani.,Baska md yok. Diger tum md/txt legacy.
+uxm/legacy/docs_old/,Eski .md/.txt/bilgi dosyalari.,Onemsenmez; sadece geri donus icin saklanir.
+uxm/legacy/raw_chat_extracts/,Kod dosyasindan ayiklanan sohbet/markdown kirleri.,Silinmez; aktif kod sayilmaz.
+uxm/legacy/matrices_old/,Eski csv/xlsx matrisler.,Yeni kararlar bunlardan degil kod/testten uretilir.

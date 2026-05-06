@@ -1,0 +1,87 @@
+TestFile,Group,MetaIDs,ExpectCount,Expect,AsmArtifact,ObjArtifact,LogArtifact,Assessment
+build/_datt_force_test.uxm,tests,,0,,VAR,YOK,YOK,EXPECT_YOK
+final/examples/dynamic_data_address.uxm,tests,,1,OUTPUT=X,YOK,YOK,YOK,TEST_KANITI_VAR
+final/examples/final_probe.uxm,tests,,1,OUTPUT=AB,YOK,YOK,YOK,TEST_KANITI_VAR
+ide/uxminima-vscode/examples/data_sort.uxm,tests,,1,OUTPUT=ABC,YOK,YOK,YOK,TEST_KANITI_VAR
+ide/uxminima-vscode/examples/dynamic_data_address.uxm,tests,,1,OUTPUT=X,YOK,YOK,YOK,TEST_KANITI_VAR
+ide/uxminima-vscode/examples/fifo_watch.uxm,tests,,1,OUTPUT=AB,YOK,YOK,YOK,TEST_KANITI_VAR
+ide/uxminima-vscode/examples/final_probe.uxm,tests,,1,OUTPUT=AB,YOK,YOK,YOK,TEST_KANITI_VAR
+lib/ux_fp_v1.uxm,tests,,0,,YOK,YOK,YOK,EXPECT_YOK
+lib/ux_mat_v1.uxm,tests,,0,,YOK,YOK,YOK,EXPECT_YOK
+lib/ux_math_v1.uxm,tests,,0,,YOK,YOK,YOK,EXPECT_YOK
+math_extensions/lib/ux_mat_v1.uxm,tests,,0,,YOK,YOK,YOK,EXPECT_YOK
+math_extensions/lib/ux_math_v1.uxm,tests,,0,,YOK,YOK,YOK,EXPECT_YOK
+math_extensions/tests_math/test_math01_poly_deriv_arge.uxm,tests_math,,1,OUTPUT=4 + 12x + 24x^2,VAR,VAR,YOK,TEST_KANITI_VAR
+math_extensions/tests_math/test_math02_poly_integral_arge.uxm,tests_math,,1,OUTPUT=0 + 2x + 2x^2 + 2x^3 + 2x^4,VAR,VAR,YOK,TEST_KANITI_VAR
+math_extensions/tests_math/test_math03_poly_eval_arge.uxm,tests_math,,1,OUTPUT=98,VAR,VAR,YOK,TEST_KANITI_VAR
+math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,tests_math,,1,OUTPUT=12,VAR,VAR,YOK,TEST_KANITI_VAR
+math_extensions/tests_math/test_math05_num_deriv.uxm,tests_math,,1,OUTPUT=10,VAR,VAR,YOK,TEST_KANITI_VAR
+math_extensions/tests_math/test_math06_integral_trap.uxm,tests_math,,1,OUTPUT=50,VAR,VAR,YOK,TEST_KANITI_VAR
+math_extensions/tests_math/test_math07_integral_simpson.uxm,tests_math,,1,OUTPUT=72,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test01_print_A.uxm,tests,,1,OUTPUT=50,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test02_string.uxm,tests,,0,,VAR,VAR,YOK,EXPECT_YOK
+tests/test03_addressing.uxm,tests,,0,,VAR,VAR,YOK,EXPECT_YOK
+tests/test04_stack_lifo.uxm,tests,,0,,VAR,VAR,YOK,EXPECT_YOK
+tests/test05_meta_add.uxm,tests,,1,OUTPUT=30,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test06_dynamic_meta_mul.uxm,tests,,1,OUTPUT=42,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test07_macro.uxm,tests,,0,,VAR,VAR,YOK,EXPECT_YOK
+tests/test08_newline.uxm,tests,,0,,VAR,VAR,YOK,EXPECT_YOK
+tests/test09_div_mod.uxm,tests,,2,OUTPUT=3 | OUTPUT=2,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test10_sin_scaled.uxm,tests,,1,OUTPUT=50,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test11_hypotenuse.uxm,tests,,1,OUTPUT=5,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test12_signed_mode.uxm,tests,,1,OUTPUT=0,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test13_status_div_zero.uxm,tests,,1,OUTPUT=15,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test14_branch_current_zero.uxm,tests,,1,OUTPUT=8,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test15_branch_nonzero.uxm,tests,,1,OUTPUT=8,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test16_data_digit.uxm,tests,,1,OUTPUT=5,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test17_endian_word_split.uxm,tests,,0,,VAR,VAR,YOK,EXPECT_YOK
+tests/test18_pointer_service.uxm,tests,,1,OUTPUT=A,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test20_fifo_char_order.uxm,tests,,1,OUTPUT=AB,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test21_fifo_count_peek.uxm,tests,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test22_data_write_read_char.uxm,tests,,1,OUTPUT=X,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test23_data_digit_ascii_to_number.uxm,tests,,1,OUTPUT=8,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test24_data_block_copy_print.uxm,tests,,1,OUTPUT=HELLO,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test25_data_sort_ascending.uxm,tests,,1,OUTPUT=ABC,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test26_tape_sort_descending_chars.uxm,tests,,1,OUTPUT=321,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test27_tape_linear_search.uxm,tests,,1,OUTPUT=2,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test28_dynamic_meta_fifo.uxm,tests,,1,OUTPUT=A,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test29_nested_macro_call.uxm,tests,,1,OUTPUT=HI!,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test30_word_mode_add.uxm,tests,,1,OUTPUT=700,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test31_safe_mode_wild_denied.uxm,tests,,1,OUTPUT=23,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test32_wild_layout_change.uxm,tests,,1,OUTPUT=0,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test33_bitwise_and_stack.uxm,tests,,1,OUTPUT=8,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test34_data_block_clear.uxm,tests,,1,OUTPUT=AC,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test35_optimizer_visible_result.uxm,tests,,1,OUTPUT=B,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test40_4bit_cpu_alu_model.uxm,tests,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test41_4_neuron_nn_model.uxm,tests,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test42_error_flag_set_reset.uxm,tests,,2,OUTPUT=10 | OUTPUT=10,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test43_error_macro_helpers.uxm,tests,,2,OUTPUT=100 | OUTPUT=100,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test44_asin.uxm,tests,,1,OUTPUT=30,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test44_meta_version_info.uxm,tests,,1,OUTPUT=[UXM META]78,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test45_acos.uxm,tests,,1,OUTPUT=60,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test45_pointer_meta_extended.uxm,tests,,1,OUTPUT=3181,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test46_fifo_clear.uxm,tests,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test46_sqrt.uxm,tests,,1,OUTPUT=5,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test47_sinh.uxm,tests,,1,OUTPUT=55,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test47_tape_sort_ascending.uxm,tests,,1,OUTPUT=ABC,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test48_cosh.uxm,tests,,1,OUTPUT=114,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test48_data_sort_descending.uxm,tests,,1,OUTPUT=CBA,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test49_data_linear_search.uxm,tests,,1,OUTPUT=1,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test49_tanh.uxm,tests,,1,OUTPUT=48,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test50_tape_block_copy_clear.uxm,tests,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR
+tests/test51_meta_print_stack_pop.uxm,tests,,1,OUTPUT=42,VAR,VAR,VAR,TEST_KANITI_VAR
+tests/test52_meta_print_hex.uxm,tests,,1,OUTPUT=FF,VAR,VAR,VAR,TEST_KANITI_VAR
+tests/test53_meta_print_bin.uxm,tests,,1,OUTPUT=101,VAR,VAR,VAR,TEST_KANITI_VAR
+tests/test54_meta_print_char_raw.uxm,tests,,1,OUTPUT=A,VAR,VAR,VAR,TEST_KANITI_VAR
+tests_fp/test_fp01_add_int.uxm,tests_fp,,1,OUTPUT=46.0000000000000000,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_fp/test_fp02_sub_int.uxm,tests_fp,,1,OUTPUT=25.0000000000000000,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_fp/test_fp03_mul_int.uxm,tests_fp,,1,OUTPUT=408.0000000000000000,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_fp/test_fp04_div_int.uxm,tests_fp,,1,OUTPUT=3.3333333333333333,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_fp/test_fp05_from_string.uxm,tests_fp,,1,OUTPUT=12.3400000000000000,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_fp/test_fp06_add_dec_string.uxm,tests_fp,,1,OUTPUT=17.9400000000000000,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_fp/test_fp07_int_zero_sign_abs.uxm,tests_fp,,5,OUTPUT=210 | OUTPUT=0 | OUTPUT=1 | OUTPUT=0 | OUTPUT=210,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_matrix/_tmp_det_debug.uxm,tests_matrix,,1,OUTPUT=-2,VAR,VAR,VAR,TEST_KANITI_VAR
+tests_matrix/test_matrix01_init_set_print.uxm,tests_matrix,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_matrix/test_matrix02_add_2x2.uxm,tests_matrix,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_matrix/test_matrix03_mul_2x2.uxm,tests_matrix,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR
+tests_matrix/test_matrix04_identity_trace_det2.uxm,tests_matrix,,1,OUTPUT=,VAR,VAR,YOK,TEST_KANITI_VAR

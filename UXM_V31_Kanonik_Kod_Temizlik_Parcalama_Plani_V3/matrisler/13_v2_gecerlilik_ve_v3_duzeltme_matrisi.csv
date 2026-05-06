@@ -1,0 +1,8 @@
+﻿V2_Madde,V2_Durumu,V3_Duzeltme
+Tek uxm/ çalışma ağacı,GEÇERLİ,Ağaç daha kesinleştirildi; core/ide/tests/build/reports/legacy ayrımı eklendi.
+Eski belgeler legacy,GEÇERLİ_AMA_EKSİK,Tüm md/txt bilgi dosyaları aktif gerçeklik dışı; yalnız iki plan current altında kalacak.
+İki matris klasörü,EKSİK,uxm31_matrix_out ve UXM_V31_CSV_Matris_Paketi artık aktif izleme sistemi oldu.
+Kanonik dosya seçimi,EKSİK,03_kanonik_dosya_secim_matrisi.csv ile her rol için kanonik dosya seçildi.
+Büyük kodların parçalanması,EKSİK,06_buyuk_kod_parcalama_plani.csv eklendi.
+Full tool hattı,YANILTICI_RİSK,Full tool bas dosyaları kırık kaynak olarak karantinaya alındı; kanonik hat değil.
+Dört hat,GEÇERLİ_AMA_KESKİNLEŞTİRİLDİ,Native çalışan öncelik; final onarım; IDE path update; full tool karantina olarak ayrıldı.

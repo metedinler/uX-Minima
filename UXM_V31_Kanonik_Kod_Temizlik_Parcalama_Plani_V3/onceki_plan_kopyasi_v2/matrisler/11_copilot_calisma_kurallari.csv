@@ -1,0 +1,11 @@
+RuleID,Rule,Consequence
+C001,Plan harici oneri verme.,Cevap reddedilir; once soruya cevap verilir.
+C002,Turkce cevap ve Turkce islem gunlugu.,"Ingilizce aciklama, TODO, plan yazma yasak."
+C003,Belge uretme yerine kod/test/komut uret.,Bir turdaki belge satiri kod satirini gecemez; istisna sadece matris guncelleme.
+C004,Kod dosyasina markdown/sohbet girmez.,Dosya BROKEN_SOURCE sayilir.
+C005,Soru sorulduysa once cevap ver.,Cevaplamadan komut calistirma yok.
+C006,Hangi dosyada calisiyorsa o dosyayi git commit+push yap.,Commit yoksa is tamam degil.
+C007,Matrise VAR yazmak icin kod + test + EXPECT + build sonucu gerekir.,Aksi halde KISMEN/FAIL/BROKEN_SOURCE.
+C008,"Okuma minimum: rg, Select-String, satir araligi.",Tum dosya okuyup token yakma yasak.
+C009,Silme yok.,Tum eski belgeler legacy altina tasinir.
+C010,Her hamlede once-sonra durum raporu.,reports/step_XX_before_after.json zorunlu.
