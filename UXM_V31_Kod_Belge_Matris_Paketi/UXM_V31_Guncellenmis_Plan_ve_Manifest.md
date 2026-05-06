@@ -13,7 +13,7 @@ Bu dosya, verilen zip içindeki kod dosyaları, test klasörleri, Git geçmişi,
 - Sprint 1 `e / ERR / STATUS` tarafı büyük ölçüde kapanmış görünüyor.
 - FP, Matrix, türev, integral ve polinom tarafı native/runtime düzeyinde ilerlemiş; ancak 4 hatta standart davranış kapalı değildir.
 - Aynı adlı ama farklı içerikli kaynak dosyalar vardır; otorite kaynaklar kilitlenmeden yeni patch tehlikelidir.
-- `tests_matrix` klasörü vardır ancak ana `run_tests.bat` zincirine bağlı olmayabilir.
+- `tests_matrix` klasörü ana `run_tests.bat` zincirine bağlandı.
 - Copilot tarafından `Remove-Item`, overwrite veya silme/yeniden yazma riski doğuran işlemler görüldüğü için işlem günlüğü ve onay kuralı zorunludur.
 
 ## Kod gerçekliğine göre ana açıklar
@@ -96,8 +96,8 @@ build/
 ## Sürekli güncellenecek takip dosyaları
 
 - `MASTER_TAKIP_DOKUMANI_V31.md`
-- `GERCEKLIK_KILIDI.md` yeni oluşturulacak
-- `DEGISIKLIK_GUNLUGU_TR.md` yeni oluşturulacak
+- `GERCEKLIK_KILIDI.md`
+- `DEGISIKLIK_GUNLUGU_TR.md`
 - `BELGE_KOD_OK_MATRISI.md`
 - `BELGEDE_OLUP_KODDA_OLMAYANLAR_RAPORU.md`
 - `KODDA_OLUP_BELGEDE_OLMAYANLAR_RAPORU.md`
@@ -135,6 +135,13 @@ Tamamlananlar:
 
 Devam Edenler:
 
+1. Klasor duzeni icin `git mv` tabanli uygulama (madde 5)
+
+Tamamlanan yeni maddeler:
+
 1. 4_Hat_Parity matrisinin koddan tam yeniden uretimi (madde 2)
+  - `uxm31_matrix_out/four_hat_parity_full.csv` (ID bazli)
+  - `uxm31_matrix_out/four_hat_parity.csv` (grup bazli)
 2. `tests_matrix` ana test zinciri karar/plani (madde 4)
-3. Klasor duzeni icin `git mv` tabanli uygulama (madde 5)
+  - Karar: ana zincire dahil
+  - Uygulama: `run_tests.bat` icine `tests_matrix` eklendi
