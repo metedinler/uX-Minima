@@ -329,6 +329,7 @@ End Function
 ' Include runtime modules (matrix, floating point) to provide Meta handlers
 #Include Once "runtime/runtime_fp_services.bas"
 #Include Once "math_extensions/runtime/runtime_matrix_services.bas"
+ #Include Once "math_extensions/runtime/runtime_math_services.bas"
 Declare Function JsonEsc(ByVal s As String) As String
 Declare Function OpName(ByVal op As Long) As String
 Declare Function AddrText(ByVal ak As Long, ByVal av As Long) As String
@@ -1453,6 +1454,16 @@ Sub MetaCall(ByVal id As Long)
         ux_cell_bits = CellBits
         MetaFloatingPoint id
         Ptr = ux_ptr
+    ElseIf id>=240 And id<260 Then
+        ' UX-MATH / POLY / EXPR range
+        ux_ptr = Ptr
+        ux_tape_cells = TapeCells
+        ux_data_cells = DataCells
+        ux_stack_cells = StackCells
+        ux_sp = SP
+        ux_cell_bits = CellBits
+        MetaMathExtra id
+        Ptr = ux_ptr
     Else
         SetStatus STATUS_INVALID_META
     End If
@@ -1484,6 +1495,16 @@ Sub MetaCore(ByVal id As Long)
             Tape(Ptr+1)=0
         End If
         SetLogicFlags Tape(Ptr+1)
+    Case 16 To 18
+        ' Forward legacy low-range matrix metas (16-18) to UX-MAT (160-162)
+        ux_ptr = Ptr
+        ux_tape_cells = TapeCells
+        ux_data_cells = DataCells
+        ux_stack_cells = StackCells
+        ux_sp = SP
+        ux_cell_bits = CellBits
+        MetaMatrix id+144
+        Ptr = ux_ptr
     Case Else:SetStatus STATUS_INVALID_META
     End Select
 End Sub
