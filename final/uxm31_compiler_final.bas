@@ -208,6 +208,11 @@ Dim Shared traceFF As Integer
 Dim Shared traceOpen As Long
 Dim Shared outFF As Integer
 Dim Shared asmLabelCounter As Long
+Dim Shared pragmaSeedEnabled As Long
+Dim Shared pragmaSeedValue As Long
+
+#Include Once "../math_extensions/compiler/arge_parse_math_additions.bas"
+#Include Once "../math_extensions/compiler/arge_parse_matrix_additions.bas"
 
 Declare Sub Main()
 Declare Sub InitDefaults()
@@ -321,6 +326,7 @@ Sub Main()
     ReadFile inputFile
     If hadError Then Print errMsg: End
     ParsePragmasAndArge()
+    If pragmaSeedEnabled<>0 Then Randomize CInt(pragmaSeedValue)
     ApplyMemory()
     FirstPassDefs()
     ParseProgram src,0
@@ -349,6 +355,7 @@ Sub InitDefaults()
     maxSteps=1000000
     cellBits=8:tapeKB=32:stackKB=8:dataKB=24
     workMode=MODE_NORMAL:boundsOn=1:defaultSigned=0:defaultEndian=0
+    pragmaSeedEnabled=0:pragmaSeedValue=0
     flags=FLAG_BND:statusByte=0:ptr=0:sp=0:fifoHead=0:fifoTail=0:fifoCount=0
     outputText="":stepCounter=0:traceOpen=0
 End Sub
@@ -473,6 +480,14 @@ Sub ParsePragmasAndArge()
         ElseIf Left(low,7)="#endian" Then
             If InStr(low,"big")>0 Then defaultEndian=1
             If InStr(low,"little")>0 Then defaultEndian=0
+        ElseIf Left(low,5)="#seed" Then
+            pragmaSeedEnabled=1
+            pragmaSeedValue=Val(Mid(low,6))
+            If pragmaSeedValue=0 Then pragmaSeedValue=1
+        ElseIf Left(low,5)="#poly" Or Left(low,9)="#expr-rpn" Then
+            ParseArgeMathLine lineText
+        ElseIf Left(low,7)="#matrix" Or Left(low,14)="#matrix-signed" Or Left(low,13)="#matrix-fixed" Or Left(low,9)="#identity" Or Left(low,6)="#zeros" Or Left(low,5)="#ones" Then
+            ParseArgeMatrixLine lineText
         ElseIf Left(low,6)="#arge" Then
             If InStr(low,"version")>0 Then AddDiag "info","ARGE version: "+UXM_VERSION,st
             If InStr(low,"jsonon")>0 Then writeUIR=1:writeDiagnostics=1
@@ -686,9 +701,13 @@ End Sub
 Sub RunProgram()
     Dim i As Long,j As Long
     ptr=0:sp=0:statusByte=0:outputText="":stepCounter=0
+    If pragmaSeedEnabled<>0 Then Randomize CInt(pragmaSeedValue)
     For i=1 To strCount
         For j=1 To Len(strDef(i).txt):If strDef(i).startCell+j-1<dataCells Then dataMem(strDef(i).startCell+j-1)=Asc(Mid(strDef(i).txt,j,1)) And CellMask()
         Next:If strDef(i).startCell+Len(strDef(i).txt)<dataCells Then dataMem(strDef(i).startCell+Len(strDef(i).txt))=0
+    Next
+    For i=1 To DataInitCount
+        If DataInit(i).idx>=0 And DataInit(i).idx<dataCells Then dataMem(DataInit(i).idx)=DataInit(i).value And CellMask()
     Next
     TraceStart()
     Dim ip As Long:ip=1
@@ -1164,7 +1183,7 @@ End Sub
 
 Sub GenerateASM(ByVal fn As String)
     outFF=FreeFile:Open fn For Output As #outFF
-    EmitHeader():EmitStringInitializers()
+    EmitHeader():EmitStringInitializers():EmitDataInitializers()
     For i As Long=1 To instrCount:If needLabel(i) Then EmitLine "__ux_ip_"+LTrim(Str(i))+":"
         EmitInstr i
     Next

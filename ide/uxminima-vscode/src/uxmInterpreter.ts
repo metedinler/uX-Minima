@@ -37,6 +37,9 @@ export class UxmInterpreter {
   private output = "";
   private step = 0;
   private rngState = 0;
+  private pragmaDataInits: Array<{ idx: number; value: number }> = [];
+  private pragmaSeedEnabled = false;
+  private pragmaSeedValue = 1;
 
   run(source: string): InternalTraceResult {
     this.reset();
@@ -68,6 +71,9 @@ export class UxmInterpreter {
     this.step = 0;
     this.fifo = [];
     this.rngState = Date.now() >>> 0;
+    this.pragmaDataInits = [];
+    this.pragmaSeedEnabled = false;
+    this.pragmaSeedValue = 1;
   }
 
   private parsePragmas(source: string): void {
@@ -94,6 +100,14 @@ export class UxmInterpreter {
         if (line.includes("little")) { this.flags &= ~0x20; }
       } else if (line.startsWith("#modewild")) {
         this.flags |= 0x40;
+      } else if (line.startsWith("#seed")) {
+        const seed = Number(line.replace("#seed", "").trim());
+        if (Number.isFinite(seed)) {
+          this.pragmaSeedEnabled = true;
+          this.pragmaSeedValue = seed === 0 ? 1 : seed;
+        }
+      } else if (line.startsWith("#poly") || line.startsWith("#expr-rpn") || line.startsWith("#matrix") || line.startsWith("#identity") || line.startsWith("#zeros") || line.startsWith("#ones")) {
+        this.parseDataPragma(raw.trim());
       }
     }
   }
@@ -256,6 +270,168 @@ export class UxmInterpreter {
         this.data[s.start + i] = s.text.charCodeAt(i) & this.mask();
       }
       if (s.start + s.text.length < this.data.length) { this.data[s.start + s.text.length] = 0; }
+    }
+    for (const it of this.pragmaDataInits) {
+      if (it.idx >= 0 && it.idx < this.data.length) {
+        this.data[it.idx] = it.value & this.mask();
+      }
+    }
+    if (this.pragmaSeedEnabled) {
+      this.rngSeed(this.pragmaSeedValue);
+    }
+  }
+
+  private addDataInit(idx: number, value: number): void {
+    if (!Number.isFinite(idx) || idx < 0) { return; }
+    this.pragmaDataInits.push({ idx: Math.floor(idx), value: Math.floor(value) });
+  }
+
+  private splitCsvValues(csv: string): number[] {
+    return csv.split(",").map((x) => Number(x.trim())).filter((x) => Number.isFinite(x));
+  }
+
+  private pow10(n: number): number {
+    let p = 1;
+    for (let i = 0; i < Math.max(0, n); i++) { p *= 10; }
+    return p;
+  }
+
+  private fixedToScaled(s: string, scale: number): number {
+    const v = Number(s.trim());
+    if (!Number.isFinite(v)) { return 0; }
+    return Math.trunc(v * this.pow10(scale));
+  }
+
+  private matrixEmitHeader(base: number, rows: number, cols: number, typ: number, scale: number): void {
+    const total = rows * cols;
+    const totalCells = 16 + total;
+    let flags = 0;
+    if (typ === 1) flags |= 1;
+    if (typ === 2) flags |= 2;
+    this.addDataInit(base + 0, 77);
+    this.addDataInit(base + 1, 1);
+    this.addDataInit(base + 2, 2);
+    this.addDataInit(base + 3, typ);
+    this.addDataInit(base + 4, flags);
+    this.addDataInit(base + 5, rows);
+    this.addDataInit(base + 6, cols);
+    this.addDataInit(base + 7, scale);
+    this.addDataInit(base + 8, 1);
+    this.addDataInit(base + 9, 16);
+    this.addDataInit(base + 10, total);
+    this.addDataInit(base + 11, totalCells);
+    this.addDataInit(base + 12, cols);
+    this.addDataInit(base + 13, 1);
+    this.addDataInit(base + 14, 0);
+    this.addDataInit(base + 15, 0);
+  }
+
+  private parseDataPragma(rawLine: string): void {
+    const line = rawLine.trim();
+    const lower = line.toLowerCase();
+    const eqPos = line.indexOf("=");
+    const left = (eqPos >= 0 ? line.slice(0, eqPos) : line).trim();
+    const right = (eqPos >= 0 ? line.slice(eqPos + 1) : "").trim();
+
+    if (lower.startsWith("#poly")) {
+      const base = Number(left.replace(/^#poly/i, "").trim());
+      const vals = this.splitCsvValues(right);
+      if (!Number.isFinite(base) || vals.length === 0) { return; }
+      this.addDataInit(base + 0, 80);
+      this.addDataInit(base + 1, 1);
+      this.addDataInit(base + 2, vals.length - 1);
+      this.addDataInit(base + 3, 0);
+      vals.forEach((v, i) => this.addDataInit(base + 4 + i, v));
+      return;
+    }
+
+    if (lower.startsWith("#expr-rpn")) {
+      const base = Number(left.replace(/^#expr-rpn/i, "").trim());
+      if (!Number.isFinite(base)) { return; }
+      const tokenCode = (tok: string): number => {
+        const t = tok.toLowerCase();
+        if (t === "const") return 1;
+        if (t === "x") return 2;
+        if (t === "+" || t === "add") return 10;
+        if (t === "-" || t === "sub") return 11;
+        if (t === "*" || t === "mul") return 12;
+        if (t === "/" || t === "div") return 13;
+        if (t === "pow") return 14;
+        if (t === "sin") return 20;
+        if (t === "cos") return 21;
+        if (t === "tan") return 22;
+        if (t === "exp") return 23;
+        if (t === "log") return 24;
+        if (t === "sqrt") return 25;
+        if (t === "neg") return 30;
+        if (t === "abs") return 31;
+        if (t === "end") return 99;
+        return 1;
+      };
+      this.addDataInit(base + 0, 69);
+      this.addDataInit(base + 1, 1);
+      this.addDataInit(base + 3, 0);
+      const toks = right.split(/\s+/).filter(Boolean);
+      let outIdx = base + 4;
+      let count = 0;
+      for (const tok of toks) {
+        if (/^[0-9]+$/.test(tok)) {
+          this.addDataInit(outIdx, 1);
+          this.addDataInit(outIdx + 1, Number(tok));
+          outIdx += 2;
+          count += 2;
+        } else {
+          this.addDataInit(outIdx, tokenCode(tok));
+          outIdx += 1;
+          count += 1;
+        }
+      }
+      this.addDataInit(outIdx, 99);
+      count += 1;
+      this.addDataInit(base + 2, count);
+      return;
+    }
+
+    const parts = left.split(/\s+/).filter(Boolean);
+    const cmd = (parts[0] || "").toLowerCase();
+    if (cmd === "#matrix" || cmd === "#matrix-signed" || cmd === "#matrix-fixed") {
+      const base = Number(parts[1]);
+      const rows = Number(parts[2]);
+      const cols = Number(parts[3]);
+      if (!Number.isFinite(base) || !Number.isFinite(rows) || !Number.isFinite(cols) || rows <= 0 || cols <= 0) { return; }
+      if (cmd === "#matrix-fixed") {
+        const scale = Number(parts[4] || "0");
+        this.matrixEmitHeader(base, rows, cols, 2, scale);
+        const vals = right.split(",");
+        const need = Math.min(vals.length, rows * cols);
+        for (let i = 0; i < need; i++) this.addDataInit(base + 16 + i, this.fixedToScaled(vals[i], scale));
+      } else {
+        this.matrixEmitHeader(base, rows, cols, cmd === "#matrix-signed" ? 1 : 0, 0);
+        const vals = this.splitCsvValues(right);
+        const need = Math.min(vals.length, rows * cols);
+        for (let i = 0; i < need; i++) this.addDataInit(base + 16 + i, vals[i]);
+      }
+      return;
+    }
+
+    if (cmd === "#identity") {
+      const base = Number(parts[1]);
+      const n = Number(parts[2]);
+      if (!Number.isFinite(base) || !Number.isFinite(n) || n <= 0) { return; }
+      this.matrixEmitHeader(base, n, n, 0, 0);
+      for (let i = 0; i < n; i++) this.addDataInit(base + 16 + i * n + i, 1);
+      return;
+    }
+
+    if (cmd === "#zeros" || cmd === "#ones") {
+      const base = Number(parts[1]);
+      const rows = Number(parts[2]);
+      const cols = Number(parts[3]);
+      if (!Number.isFinite(base) || !Number.isFinite(rows) || !Number.isFinite(cols) || rows <= 0 || cols <= 0) { return; }
+      this.matrixEmitHeader(base, rows, cols, 0, 0);
+      if (cmd === "#ones") {
+        for (let i = 0; i < rows * cols; i++) this.addDataInit(base + 16 + i, 1);
+      }
     }
   }
 
