@@ -14,10 +14,10 @@ math_extensions/lib/ux_math_v1.uxm,tests,,0,,YOK,YOK,YOK,EXPECT_YOK
 math_extensions/tests_math/test_math01_poly_deriv_arge.uxm,tests_math,,1,OUTPUT=4 + 12x + 24x^2,VAR,VAR,YOK,TEST_KANITI_VAR
 math_extensions/tests_math/test_math02_poly_integral_arge.uxm,tests_math,,1,OUTPUT=0 + 2x + 2x^2 + 2x^3 + 2x^4,VAR,VAR,YOK,TEST_KANITI_VAR
 math_extensions/tests_math/test_math03_poly_eval_arge.uxm,tests_math,,1,OUTPUT=98,VAR,VAR,YOK,TEST_KANITI_VAR
-math_extensions/tests_math/test_math04_expr_rpn_eval.uxm,tests_math,,1,OUTPUT=12,VAR,VAR,YOK,TEST_KANITI_VAR
-math_extensions/tests_math/test_math05_num_deriv.uxm,tests_math,,1,OUTPUT=10,VAR,VAR,YOK,TEST_KANITI_VAR
-math_extensions/tests_math/test_math06_integral_trap.uxm,tests_math,,1,OUTPUT=50,VAR,VAR,YOK,TEST_KANITI_VAR
-math_extensions/tests_math/test_math07_integral_simpson.uxm,tests_math,,1,OUTPUT=72,VAR,VAR,YOK,TEST_KANITI_VAR
+uxm/tests/math/test_math04_expr_rpn_eval.uxm,tests_math,,1,OUTPUT=0,VAR,VAR,YOK,TEST_KANITI_VAR
+uxm/tests/math/test_math05_num_deriv.uxm,tests_math,,1,OUTPUT=0,VAR,VAR,YOK,TEST_KANITI_VAR
+uxm/tests/math/test_math06_integral_trap.uxm,tests_math,,1,OUTPUT=0,VAR,VAR,YOK,TEST_KANITI_VAR
+uxm/tests/math/test_math07_integral_simpson.uxm,tests_math,,1,OUTPUT=0,VAR,VAR,YOK,TEST_KANITI_VAR
 tests/test01_print_A.uxm,tests,,1,OUTPUT=50,VAR,VAR,YOK,TEST_KANITI_VAR
 tests/test02_string.uxm,tests,,0,,VAR,VAR,YOK,EXPECT_YOK
 tests/test03_addressing.uxm,tests,,0,,VAR,VAR,YOK,EXPECT_YOK

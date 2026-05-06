@@ -1,7 +1,7 @@
 ﻿Kaynak_Test_Klasoru,Yeni_Hedef,UXM_Sayisi,EXPECT_Sayisi,Baglanti_Kurali
-tests,uxm/tests/native,55,49,run_all_tests_v3.ps1 bu klasörü ayrı raporlayacak; EXPECT yoksa test TAM sayılmaz.
-tests_fp,uxm/tests/fp,7,7,run_all_tests_v3.ps1 bu klasörü ayrı raporlayacak; EXPECT yoksa test TAM sayılmaz.
-tests_matrix,uxm/tests/matrix,5,5,run_all_tests_v3.ps1 bu klasörü ayrı raporlayacak; EXPECT yoksa test TAM sayılmaz.
-math_extensions/tests_math,uxm/tests/math,7,7,run_all_tests_v3.ps1 bu klasörü ayrı raporlayacak; EXPECT yoksa test TAM sayılmaz.
-final/examples,uxm/tests/final,2,2,run_all_tests_v3.ps1 bu klasörü ayrı raporlayacak; EXPECT yoksa test TAM sayılmaz.
-ide/uxminima-vscode/examples,uxm/tests/ide,4,4,run_all_tests_v3.ps1 bu klasörü ayrı raporlayacak; EXPECT yoksa test TAM sayılmaz.
+tests,uxm/tests/native,55,49,run_tests.bat zincirinde hem tests hem uxm/tests/native taranır; EXPECT yoksa test TAM sayılmaz.
+tests_fp,uxm/tests/fp,7,7,run_tests.bat zincirinde tests_fp ve uxm/tests/fp taranır; EXPECT yoksa test TAM sayılmaz.
+tests_matrix,uxm/tests/matrix,5,5,run_tests.bat zincirinde tests_matrix ve uxm/tests/matrix taranır; EXPECT yoksa test TAM sayılmaz.
+math_extensions/tests_math,uxm/tests/math,7,7,run_tests.bat zincirinde math_extensions/tests_math ve uxm/tests/math taranır; EXPECT yoksa test TAM sayılmaz.
+final/examples,uxm/tests/final,2,2,Ana run_tests zincirine bağlı değil; final hat regresyonu için ayrı koşu gerektirir.
+ide/uxminima-vscode/examples,uxm/tests/ide,4,4,Ana run_tests zincirine bağlı değil; IDE örnekleri npm compile + komut testleri ile doğrulanır.

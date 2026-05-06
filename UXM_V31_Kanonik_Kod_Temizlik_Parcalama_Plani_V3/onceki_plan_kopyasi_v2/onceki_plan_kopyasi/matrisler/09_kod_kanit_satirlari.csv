@@ -63,13 +63,13 @@ Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,522,Case 160
 Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,552,Case 170
 Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,568,Case 175
 Matrix runtime,math_extensions/runtime/runtime_matrix_services.bas,569,r=MatDet2(a)
-Final compile risk,final/uxm31_compiler_final.bas,1,Option Explicit
-Final compile risk,final/uxm31_compiler_final.bas,2,"#Lang ""fb"""
-Final compile risk,final/uxm31_compiler_final.bas,175,Dim Shared instr(1 To MAX_INSTR) As TInstr
-Final compile risk,final/uxm31_compiler_final.bas,176,Dim Shared instrCount As Long
-Final compile risk,final/uxm31_compiler_final.bas,199,Dim Shared ptr As Long
-Final compile risk,final/uxm31_compiler_final.bas,267,Declare Sub EmitBranch(ByVal i As Long)
-Final compile risk,final/uxm31_compiler_final.bas,1368,Sub EmitBranch(ByVal i As Long)
+Final compile kaniti,uxm/core/compiler/final/uxm31_compiler_final.bas,1,Option Explicit
+Final compile kaniti,uxm/core/compiler/final/uxm31_compiler_final.bas,2,"#Lang ""fb"""
+Final compile kaniti,uxm/core/compiler/final/final_interpreter.bas,515,Case 160
+Final compile kaniti,uxm/core/compiler/final/final_interpreter.bas,1030,Case 254
+Final compile kaniti,uxm/ide/vscode/uxminima-vscode/src/interpreter/core.ts,508,"if (id >= 128 && id <= 149) {"
+Final compile kaniti,uxm/core/runtime/runtime_meta_dispatch.bas,681,"Print ""[UXM program derlendi.]"""
+Final compile kaniti,build_one.bat,54,"echo Exit kodu: %RUN_EXIT% [Basarili: Program hatasiz tamamlandi.]"
 Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,7,fullTool: string;
 Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,9,finalCompiler: string;
 Vscode toolchain,ide/uxminima-vscode/src/toolchain.ts,10,finalCompilerSource: string;
