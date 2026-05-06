@@ -13,5 +13,6 @@
 "Pragma/Direktif","#identity BASE SIZE","Identity initializer","VAR","VAR","VAR","YOK","VAR","uxm31_compiler_fb.bas:326",""
 "Pragma/Direktif","#zeros BASE ROWS COLS","Zeros initializer","VAR","VAR","VAR","VAR","VAR","uxm31_compiler_fb.bas:326",""
 "Pragma/Direktif","#ones BASE ROWS COLS","Ones initializer","VAR","VAR","VAR","VAR","VAR","uxm31_compiler_fb.bas:326",""
-"Pragma/Direktif","#arge json/interpreter/step/trace/watch","Final/ARGE direktifleri","VAR","YOK","VAR","YOK","VAR","uxm31_compiler_fb.bas:138",""
-"Pragma/Direktif","#seed","Deterministik random tasarımı","VAR","YOK","VAR","YOK","VAR","","Tasarımda var, kodda görünür destek yok"
+"Pragma/Direktif","#arge json/interpreter/step/trace/watch","Final/ARGE direktifleri","VAR","VAR","VAR","YOK","VAR","uxm31_compiler_fb.bas:330",""
+"Pragma/Direktif","#seed","Deterministik random tasarımı","VAR","VAR","VAR","YOK","VAR","uxm31_compiler_fb.bas:325","Native compiler pragma parser #seed desteği eklendi"
+

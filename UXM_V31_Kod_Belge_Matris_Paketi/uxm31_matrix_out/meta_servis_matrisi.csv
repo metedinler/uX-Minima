@@ -2,7 +2,7 @@
 "Meta Servis","0","OK/no-op","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
 "Meta Servis","1","CLS","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test07_macro.uxm; tests/test12_signed_mode.uxm; tests/test16_data_digit.uxm; tests/test17_endian_word_split.uxm; tests/test25_data_sort_ascending.uxm",""
 "Meta Servis","2","LOCATE 1,1","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test05_meta_add.uxm; tests/test09_div_mod.uxm; tests/test12_signed_mode.uxm; tests/test13_status_div_zero.uxm; tests/test30_word_mode_add.uxm",""
-"Meta Servis","3","RANDOM BYTE","VAR","VAR","VAR","YOK","VAR","VAR","VAR","",""
+"Meta Servis","3","RANDOM BYTE","VAR","VAR","VAR","VAR","VAR","VAR","VAR","",""
 "Meta Servis","4","TIMER","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test01_print_A.uxm; tests/test10_sin_scaled.uxm; tests/test11_hypotenuse.uxm",""
 "Meta Servis","5","NEWLINE","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test08_newline.uxm; tests/test09_div_mod.uxm; tests/test21_fifo_count_peek.uxm",""
 "Meta Servis","6","PRINT META INFO","VAR","VAR","VAR","VAR","VAR","VAR","VAR","tests/test01_print_A.uxm; tests/test05_meta_add.uxm; tests/test06_dynamic_meta_mul.uxm; tests/test09_div_mod.uxm; tests/test10_sin_scaled.uxm; tests/test44_meta_version_info.uxm",""
@@ -395,3 +395,4 @@
 "Meta Servis","397","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
 "Meta Servis","398","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
 "Meta Servis","399","UX-SIM reserved","PLAN/AYRILMIŞ","PLAN","YOK","YOK","YOK","YOK","YOK","",""
+

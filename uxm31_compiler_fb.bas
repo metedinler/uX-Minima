@@ -165,6 +165,13 @@ Dim Shared BoundsOn As Long
 Dim Shared OverflowCheck As Long
 Dim Shared DefaultSigned As Long
 Dim Shared DefaultBigEndian As Long
+Dim Shared PragmaSeedEnabled As Long
+Dim Shared PragmaSeedValue As Long
+Dim Shared PragmaArgeJson As Long
+Dim Shared PragmaArgeInterpreter As Long
+Dim Shared PragmaArgeStep As Long
+Dim Shared PragmaArgeTrace As Long
+Dim Shared PragmaArgeWatch As Long
 Dim Shared OutFF As Long
 Dim Shared EmitLabelCounter As Long
 #Include Once "math_extensions/compiler/arge_parse_math_additions.bas"
@@ -221,6 +228,13 @@ Sub InitDefaults()
     OverflowCheck=0
     DefaultSigned=0
     DefaultBigEndian=0
+    PragmaSeedEnabled=0
+    PragmaSeedValue=1
+    PragmaArgeJson=0
+    PragmaArgeInterpreter=0
+    PragmaArgeStep=0
+    PragmaArgeTrace=0
+    PragmaArgeWatch=0
     ApplyMemoryModel()
 End Sub
 Sub ApplyMemoryModel()
@@ -321,6 +335,20 @@ Sub ParsePragmas()
                 If v<>"" Then StackKB=ParseSizeKB(v,StackKB)
                 v=GetPragmaValue(low,"data")
                 If v<>"" Then DataKB=ParseSizeKB(v,DataKB)
+            ElseIf InStr(low,"#seed")=1 Then
+                v=TrimAll(Mid(lineText,6))
+                If v="" Then
+                    PragmaSeedValue=1
+                Else
+                    PragmaSeedValue=Val(v)
+                End If
+                PragmaSeedEnabled=1
+            ElseIf InStr(low,"#arge")=1 Then
+                If InStr(low,"json")>0 Then PragmaArgeJson=1
+                If InStr(low,"interpreter")>0 Then PragmaArgeInterpreter=1
+                If InStr(low,"step")>0 Then PragmaArgeStep=1
+                If InStr(low,"trace")>0 Then PragmaArgeTrace=1
+                If InStr(low,"watch")>0 Then PragmaArgeWatch=1
             ElseIf InStr(low,"#poly")=1 Or InStr(low,"#expr-rpn")=1 Then
                 ParseArgeMathLine lineText
             ElseIf InStr(low,"#matrix")=1 Or InStr(low,"#identity")=1 Or InStr(low,"#zeros")=1 Or InStr(low,"#ones")=1 Then
@@ -1128,6 +1156,13 @@ Sub EmitHeader()
     EmitLine("global ux_data_cells")
     EmitLine("global ux_stack_offset")
     EmitLine("global ux_data_offset")
+    EmitLine("global ux_pragma_seed_enabled")
+    EmitLine("global ux_pragma_seed_value")
+    EmitLine("global ux_pragma_arge_json")
+    EmitLine("global ux_pragma_arge_interpreter")
+    EmitLine("global ux_pragma_arge_step")
+    EmitLine("global ux_pragma_arge_trace")
+    EmitLine("global ux_pragma_arge_watch")
     EmitLine("extern ux_putc")
     EmitLine("extern ux_getc")
     EmitLine("extern ux_print_data_string")
@@ -1171,6 +1206,13 @@ Sub EmitHeader()
     EmitLine("ux_data_cells: resd 1")
     EmitLine("ux_stack_offset: resd 1")
     EmitLine("ux_data_offset: resd 1")
+    EmitLine("ux_pragma_seed_enabled: resd 1")
+    EmitLine("ux_pragma_seed_value: resd 1")
+    EmitLine("ux_pragma_arge_json: resd 1")
+    EmitLine("ux_pragma_arge_interpreter: resd 1")
+    EmitLine("ux_pragma_arge_step: resd 1")
+    EmitLine("ux_pragma_arge_trace: resd 1")
+    EmitLine("ux_pragma_arge_watch: resd 1")
     EmitLine("section .text")
     EmitLine("uxm_entry:")
     EmitLine("    push rbp")
@@ -1188,6 +1230,13 @@ Sub EmitHeader()
     EmitLine("    mov dword [ux_data_cells], DATA_CELLS")
     EmitLine("    mov dword [ux_stack_offset], STACK_OFFSET")
     EmitLine("    mov dword [ux_data_offset], DATA_OFFSET")
+    EmitLine("    mov dword [ux_pragma_seed_enabled], "+LTrim(Str(PragmaSeedEnabled)))
+    EmitLine("    mov dword [ux_pragma_seed_value], "+LTrim(Str(PragmaSeedValue)))
+    EmitLine("    mov dword [ux_pragma_arge_json], "+LTrim(Str(PragmaArgeJson)))
+    EmitLine("    mov dword [ux_pragma_arge_interpreter], "+LTrim(Str(PragmaArgeInterpreter)))
+    EmitLine("    mov dword [ux_pragma_arge_step], "+LTrim(Str(PragmaArgeStep)))
+    EmitLine("    mov dword [ux_pragma_arge_trace], "+LTrim(Str(PragmaArgeTrace)))
+    EmitLine("    mov dword [ux_pragma_arge_watch], "+LTrim(Str(PragmaArgeWatch)))
     EmitLine("    lea r12, [ux_mem]")
     EmitLine("    xor rbx, rbx")
     EmitLine("    lea r13, [ux_mem + STACK_OFFSET]")
